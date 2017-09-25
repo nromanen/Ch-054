@@ -1,0 +1,9 @@
+$height-logotip: 3.4rem;
+$width-logotip: 3.4rem;
+$colorBg: rgb(54, 57, 62);
+
+.imgFooter {width: 100%; height: 500px; background-size: cover;}
+.navbar-brand{
+    img{height: $height-logotip; width: $width-logotip; margin-left: 50px;}
+}
+.bgFooter{background-color: $colorBg;}

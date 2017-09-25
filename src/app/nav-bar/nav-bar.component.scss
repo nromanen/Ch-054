@@ -1,0 +1,36 @@
+$height-logotip: 3.4rem;
+$width-logotip: 3.4rem;
+$colorBg: rgb(54, 57, 62);
+$block-line: inline-block;
+$color-wh: white;
+$color-grey: rgb(83,87,93);
+$full-width:100%;
+
+@mixin bgColor($bg, $color) {
+    color: $color;
+    background: $bg;
+  }
+
+.container-fluid {
+    width: $full-width;
+    .navbar {background-color: $colorBg;}
+    .navbar-brand{
+        img{height: $height-logotip; width: $width-logotip}
+    }
+    .nav-item {
+        a{color:$color-wh;}
+        a:hover{color:$color-wh; text-shadow: 1px 1px 2px $color-wh;}
+    }
+    .input{@include bgColor($color-grey, $color-wh);
+    }
+    .button-submit{@include bgColor($color-grey, rgb(190,192,196));
+    }
+    .button-submit:hover{@include bgColor(rgb(38,41,45), $color-wh);
+    }
+     + .backg-nav{height: 600px;; width: 100%;  background-size: cover; margin-top: 77px;}  
+    // + .backg-nav{height: 37.5rem;}     
+}
+
+
+
+

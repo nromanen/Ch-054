@@ -1,0 +1,80 @@
+$width-card: 22.5rem;
+$height-card: 16.44rem;
+$hidden: hidden;
+@mixin size($height, $width) {
+	height: $height;
+	width: $width;
+  }
+@mixin transform($rotateY) {
+	transform: $rotateY;
+  }
+  @mixin position($posit, $left, $z-i, $top) {
+	position: $posit;
+	left: $left;
+	z-index: $z-i;
+	top: $top;
+  }
+%img-size{@include size(100%, 100%);}
+%style-card{border-radius: 0.625rem;
+	transition: transform 1s;
+	transform-style: preserve-3d;
+	backface-visibility: $hidden;
+	border: 0.0625rem solid;
+	overflow: $hidden;}
+
+.imgEvent{
+	@include size(300px, auto);
+	@include position(relative, 2.5rem, 1, -11.88rem);
+	 box-shadow: 0 0 7px 4px rgba(0,0,0,0.5);
+	}
+
+	 .event-title {color: #e0dfdc; position: relative; top: -90px;
+		letter-spacing: .1em; z-index: 10;
+		text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212, 0 22px 30px rgba(0, 0, 0, 0.9);
+	  }
+
+.info-card {
+  float: left;
+	margin: 10px;
+	perspective: 37.5rem;
+	&:hover  {
+		.front {@include transform(rotateY(180deg));}
+		.back {@include transform(rotateY(0));}
+	}
+}
+
+.front {
+	@include size($height-card, $width-card);
+	position: absolute;
+	z-index: 1;
+	@extend %style-card;
+	.card-image {
+		@extend %img-size;
+	}
+	+ .back{
+		@include size($height-card, $width-card);
+		@include transform(rotateY(-180deg));
+		background-color: rgba(54, 57, 62,0.97);
+		@extend %style-card;
+		.card-image {
+			@extend %img-size;
+			opacity: 0.2;
+		}
+	}
+}
+
+@media screen and (max-width: 643px) {
+	.imgEvent{
+		@include size(200px, auto);
+		 @include position(relative, 2.5rem, 1, -6.88rem);
+		}
+}
+
+@media screen and (max-width: 445px) {
+	.imgEvent{
+		@include size(100px, auto);
+		 @include position(relative, 2.5rem, 1, -6.88rem);
+		}
+		.event-title{font-size: 0.3rem;}
+}
+	
