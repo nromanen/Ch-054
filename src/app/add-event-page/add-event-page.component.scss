@@ -1,0 +1,41 @@
+@mixin marginsTitle() {
+    margin: 1em 1em;
+}
+
+.main-title {
+    @include marginsTitle();
+}
+
+.form-class {
+    .name-input-group {
+        .subscription {}
+    }
+    .event-photo-upload {
+        overflow: hidden;
+        .upload-div {
+            padding: 0;
+            margin: 0;
+            .upload-btn {
+                position: absolute;
+            }
+            .upload-input {
+                opacity: 0;
+                z-index: 100;
+                width: 100%;
+                height: 100%;
+            }
+            &:hover {
+                .upload-btn {
+                    background-color: #36393e;
+                }
+            }
+        }
+        .subscription {
+            margin-top: 1em;
+        }
+    }
+}
+
+.next-btn {
+    margin-bottom: 1em;
+}

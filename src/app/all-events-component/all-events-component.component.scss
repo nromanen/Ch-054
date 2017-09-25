@@ -15,64 +15,34 @@
     background-color: $backgroundColor
 }
 
-@mixin square() {
-    width: 196px;
-    height: 196px;
-}
-
 @mixin transition() {
     transition: opacity 1s;
-}
-
-.card-image {
-    @include size(100%, 100%);
 }
 
 .title-section {
     @include marginsTitle();
 }
 
-.card-section {
-    @include marginsTitle();
-    @include color(white);
-}
-
-.card-event {
-    @include backgroundColor(#36393e);
-    @include square();
-}
-
-.event-descr {
-    color: white;
-}
-
-.event {
-    color: white;
-    &:hover {
-        .event-image {
-            opacity: 0.2;
-        }
-    }
-}
-
-.info-card {
-    float: left;
-    margin: 10px;
-    perspective: 37.5rem;
-    @include backgroundColor(#36393e);
-}
-
-.event-image {
-    opacity: 0.5;
-    @include transition();
-}
-
 .event-row {
     margin-bottom: 2em;
-}
-
-.season {
-    font-size: 4em;
-    //bottom: ;
-    transform: rotate(90deg);
+    .event {
+        float: left;
+        margin: 10px;
+        perspective: 37.5rem;
+        color: white;
+        @include backgroundColor(#36393e);
+        .event-image {
+            opacity: 0.5;
+            @include transition();
+            @include size(100%, 100%);
+        }
+        .event-descr {
+            color: white;
+        }
+        &:hover {
+            .event-image {
+                opacity: 0.2;
+            }
+        }
+    }
 }
