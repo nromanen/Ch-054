@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SpecificEventComponent } from './specific-event/specific-event.component';
 import { FooterComponent } from './footer/footer.component';
+import { AllEventsComponentComponent } from './all-events-component/all-events-component.component';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { FooterComponent } from './footer/footer.component';
     AppComponent,
     NavBarComponent,
     SpecificEventComponent,
-    FooterComponent
+    FooterComponent,
+    AllEventsComponentComponent
   ],
   imports: [
     BrowserModule
