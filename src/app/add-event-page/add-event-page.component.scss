@@ -20,6 +20,9 @@
     .descr-input-group {
         @include marginsTitle();
     }
+    .label-date {
+        @include marginsTitle();
+    }
     .event-photo-upload {
         overflow: hidden;
         .upload-div {
@@ -44,6 +47,10 @@
         .subscription {
             @include marginsTitle();
         }
+    }
+    .button-overlay {
+        margin: 0;
+        padding: 0;
     }
 }
 

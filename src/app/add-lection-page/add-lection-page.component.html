@@ -23,14 +23,21 @@
                 <label for="descriptionTextarea">Description of lection</label>
                 <textarea class="form-control" id="descriptionTextarea" rows="3"></textarea>
             </div>
+
             <div class="form-group lection-photo-upload">
                 <div class="col-2 lection-upload-div">
-                    <button class="btn btn-secondary lection-upload-btn">Upload a file</button>
+                    <button class="btn btn-secondary lection-upload-btn btn-block">Upload a file</button>
                     <input type="file" class="form-control-file lection-upload-input" id="photoInput" aria-describedby="photoInputHelp">
                 </div>
                 <small id="photoInputHelp" class="form-text text-muted subscription">Upload photo for this event</small>
+                <!--<label class="custom-file">
+                        <input type="file" id="file" class="custom-file-input file-input">
+                        <span class="custom-file-control"></span>
+                      </label>-->
             </div>
-            <button type="submit" class="btn btn-secondary btn-lg submit-btn">Submit</button>
+            <div class="col-2 button-overlay">
+                <button type="submit" class="btn btn-secondary submit-btn btn-block">Submit</button>
+            </div>
         </form>
     </div>
 </div>
