@@ -5,6 +5,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -15,6 +17,7 @@ import { AllEventsComponentComponent } from './all-events-component/all-events-c
 import { AddEventPageComponent } from './add-event-page/add-event-page.component';
 import { AddLectionPageComponent } from './add-lection-page/add-lection-page.component';
 import { AppRoutingModule } from './app-routing-module';
+import {ConfService} from './conf-service';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -41,9 +44,11 @@ export const firebaseConfig = {
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
-  providers: [  ],
+  providers: [ConfService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

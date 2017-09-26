@@ -20,4 +20,23 @@ export class ConfService {
       });
       this.confs.subscribe();
     }
+    selectConf(conf: Conf) {
+      this.selectedConf = conf;
+    }
+    addConf(addForm: FormGroup) {
+      this.conf.confName = addForm.value.name;
+      this.conf.confDescr = addForm.value.descr;
+      this.conf.confDateFrom = addForm.value.dateFrom;
+      this.conf.confDateTo = addForm.value.dateTo;
+      this.confs.push(this.conf);
+    }
+    updateConf(key: string, editForm: FormGroup) {
+      this.conf.confName = editForm.value.name;
+      this.conf.confDescr = editForm.value.descr;
+      this.confs.update(key, this.conf);
+    }
+
+    deleteConf(key: string) {
+      this.confs.remove(key);
+    }
 }
