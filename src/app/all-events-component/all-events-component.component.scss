@@ -46,3 +46,22 @@
         }
     }
 }
+
+.season {
+    transform: rotate(90deg);
+    font-size: 4rem;
+    position: absolute;
+    top: 100vh;
+}
+
+@media screen and (max-width: 1599px) {
+    .season {
+        top: 140vh;
+    }
+}
+
+@media screen and (max-width: 809px) {
+    .season {
+        display: none;
+    }
+}

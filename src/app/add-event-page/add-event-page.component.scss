@@ -1,14 +1,24 @@
 @mixin marginsTitle() {
-    margin: 1em 1em;
+    margin-top: 1rem;
 }
 
 .main-title {
     @include marginsTitle();
+    margin-left: -1em;
+}
+
+@media screen and (max-width: 588px) {
+    .main-title {
+        margin-left: 0;
+    }
 }
 
 .form-class {
     .name-input-group {
         .subscription {}
+    }
+    .descr-input-group {
+        @include marginsTitle();
     }
     .event-photo-upload {
         overflow: hidden;
@@ -21,8 +31,9 @@
             .upload-input {
                 opacity: 0;
                 z-index: 100;
-                width: 100%;
-                height: 100%;
+                width: 117%;
+                height: 5vh;
+                box-sizing: border-box;
             }
             &:hover {
                 .upload-btn {
@@ -31,11 +42,19 @@
             }
         }
         .subscription {
-            margin-top: 1em;
+            @include marginsTitle();
         }
     }
 }
 
 .next-btn {
     margin-bottom: 1em;
+}
+
+@-moz-document url-prefix() {
+    .all-events-body {
+        position: relative;
+        top: 3em;
+        height: 70%;
+    }
 }
