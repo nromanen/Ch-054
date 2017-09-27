@@ -38,8 +38,8 @@ export class ConfService {
       this.conf.confDescr = editForm.value.descr;
       this.confs.update(key, this.conf);
     }*/
-    addLection(lection: Lection) {
-      this.conf.confLections.push(lection);
+    addLections(lections: Array<Lection>) {
+      this.conf.confLections = lections;
       this.confs.update(this.key, this.conf);
     }
     deleteConf(key: string) {

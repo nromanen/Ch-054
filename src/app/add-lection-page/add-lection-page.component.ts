@@ -11,7 +11,7 @@ import {Lection} from '../lection';
   styleUrls: ['./add-lection-page.component.scss']
 })
 export class AddLectionPageComponent implements OnInit {
-  lection = new Lection;
+  lections = Array<Lection>();
   addLectionForm: FormGroup;
   constructor(private router: Router, private confService: ConfService, private fb: FormBuilder) {
 this.createForm();
@@ -25,11 +25,18 @@ createForm() {
   }));
 }
 save(addLectionForm: FormGroup) {
-  this.lection.lectionDescr = addLectionForm.value.descr;
-  this.lection.lectionName = addLectionForm.value.name;
-  this.lection.lectionSpeaker = addLectionForm.value.speaker;
-  this.lection.lectionTime = addLectionForm.value.time;
-  this.confService.addLection(this.lection);
+  const lection = new Lection();
+  lection.lectionDescr = addLectionForm.value.descr;
+  lection.lectionName = addLectionForm.value.name;
+  lection.lectionSpeaker = addLectionForm.value.speaker;
+  lection.lectionTime = addLectionForm.value.time;
+  // this.confService.addLection(this.lection);
+  this.lections.push(lection);
+  // this.lections[this.lections.length] = this.lection;
+  console.log(this.lections);
+}
+submit(lections: Array<Lection>) {
+  this.confService.addLections(this.lections);
 }
   ngOnInit() {
   }

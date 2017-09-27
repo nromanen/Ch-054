@@ -36,12 +36,15 @@
                       </label>-->
             </div>
             <div class="col-2 button-overlay">
-                <button type="submit" class="btn btn-secondary submit-btn btn-block" (click)="save(addLectionForm)">Submit</button>
+                <button type="submit" class="btn btn-secondary submit-btn btn-block" (click)="save(addLectionForm);">Save</button>
             </div>
         </form>
     </div>
-    <div>
-
+    <div *ngFor="let lection of lections">
+        <div>{{lection.lectionName}}</div>
+        <div>{{lection.lectionDescr}}</div>
+        <div>{{lection.lectionTime}}</div>
+        <div>{{lection.lectionSpeaker}}</div>
     </div>
-
+    <button class="btn btn-secondary submit-btn" (click)="submit(this.lections);">Submit</button>
 </div>
