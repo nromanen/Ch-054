@@ -8,6 +8,7 @@ import 'rxjs/add/operator/toPromise';
 import {FormGroup} from '@angular/forms';
 
 import {Conf} from './conf';
+import {Lection} from './lection';
 
 @Injectable()
 export class ConfService {
@@ -15,6 +16,7 @@ export class ConfService {
     confArr: Conf[];
     selectedConf: Conf;
     conf = new Conf();
+    key: any;
     constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase) {
       this.confs = af.list('/conference', {
       });
@@ -28,14 +30,18 @@ export class ConfService {
       this.conf.confDescr = addForm.value.descr;
       this.conf.confDateFrom = addForm.value.dateFrom;
       this.conf.confDateTo = addForm.value.dateTo;
-      this.confs.push(this.conf);
+      this.conf.confLections = new Array<Lection>();
+      this.confs.push(this.conf).then((item) => { this.key = item.key; console.log('key is -' + this.key); });
     }
-    updateConf(key: string, editForm: FormGroup) {
+    /*updateConf(key: string, editForm: FormGroup) {
       this.conf.confName = editForm.value.name;
       this.conf.confDescr = editForm.value.descr;
       this.confs.update(key, this.conf);
+    }*/
+    addLection(lection: Lection) {
+      this.conf.confLections.push(lection);
+      this.confs.update(this.key, this.conf);
     }
-
     deleteConf(key: string) {
       this.confs.remove(key);
     }

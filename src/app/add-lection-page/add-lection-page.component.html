@@ -1,15 +1,15 @@
 <div class="container justify-content-center all-events-body">
     <div class="row">
         <div class="col-lg-2 col-md-1 col-sm-1"></div>
-        <form class="form-class lection-add-form col-sm-9 col-md-11 col-lg-8">
+        <form [formGroup]="addLectionForm" class="form-class lection-add-form col-sm-9 col-md-11 col-lg-8">
             <h2 class="main-title">Fill the shedule of event</h2>
             <div class="form-group name-input-group">
                 <label for="lection-name">Lection name</label>
-                <input type="text" class="form-control" id="event-name" aria-describedby="lectionHelp" placeholder="Enter name the lection">
+                <input type="text" formControlName="name" class="form-control" id="event-name" aria-describedby="lectionHelp" placeholder="Enter name the lection">
             </div>
             <div class="lection-speaker">
                 <label for="lection-speaker-dropdown">Select speaker for this lection</label>
-                <select id="lection-speaker-dropdown" class="selectpicker">
+                <select formControlName="speaker" id="lection-speaker-dropdown" class="selectpicker">
                 <option>Bob Dylan</option>
                 <option>Salvador Dali</option>
                 <option>Jimmi Hendrix</option>
@@ -17,11 +17,11 @@
             </div>
             <div class="lection-time">
                 <label for="lection-time-input">Set time of lection</label>
-                <ngb-timepicker id="lection-time-input" [spinners]="OFF"></ngb-timepicker>
+                <ngb-timepicker formControlName="time" id="lection-time-input" [spinners]="OFF"></ngb-timepicker>
             </div>
             <div class="lection-descr">
                 <label for="descriptionTextarea">Description of lection</label>
-                <textarea class="form-control" id="descriptionTextarea" rows="3"></textarea>
+                <textarea formControlName="descr" class="form-control" id="descriptionTextarea" rows="3"></textarea>
             </div>
 
             <div class="form-group lection-photo-upload">
@@ -36,8 +36,12 @@
                       </label>-->
             </div>
             <div class="col-2 button-overlay">
-                <button type="submit" class="btn btn-secondary submit-btn btn-block">Submit</button>
+                <button type="submit" class="btn btn-secondary submit-btn btn-block" (click)="save(addLectionForm)">Submit</button>
             </div>
         </form>
     </div>
+    <div>
+
+    </div>
+
 </div>
