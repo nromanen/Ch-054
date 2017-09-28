@@ -22,3 +22,8 @@
 hs_err_pid*
 
 /node_modules
+.editorconfig
+
+.project
+.vscode/settings.json
+.project
