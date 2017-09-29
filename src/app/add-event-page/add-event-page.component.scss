@@ -1,0 +1,67 @@
+@mixin marginsTitle() {
+    margin-top: 1rem;
+}
+
+.main-title {
+    @include marginsTitle();
+    margin-left: -1em;
+}
+
+@media screen and (max-width: 588px) {
+    .main-title {
+        margin-left: 0;
+    }
+}
+
+.form-class {
+    .name-input-group {
+        .subscription {}
+    }
+    .descr-input-group {
+        @include marginsTitle();
+    }
+    .label-date {
+        @include marginsTitle();
+    }
+    .event-photo-upload {
+        overflow: hidden;
+        .upload-div {
+            padding: 0;
+            margin: 0;
+            .upload-btn {
+                position: absolute;
+            }
+            .upload-input {
+                opacity: 0;
+                z-index: 100;
+                width: 117%;
+                height: 5vh;
+                box-sizing: border-box;
+            }
+            &:hover {
+                .upload-btn {
+                    background-color: #36393e;
+                }
+            }
+        }
+        .subscription {
+            @include marginsTitle();
+        }
+    }
+    .button-overlay {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.next-btn {
+    margin-bottom: 1em;
+}
+
+@-moz-document url-prefix() {
+    .all-events-body {
+        position: relative;
+        top: 3em;
+        height: 70%;
+    }
+}

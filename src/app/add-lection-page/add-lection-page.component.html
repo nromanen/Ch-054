@@ -1,0 +1,50 @@
+<div class="container justify-content-center all-events-body">
+    <div class="row">
+        <div class="col-lg-2 col-md-1 col-sm-1"></div>
+        <form [formGroup]="addLectionForm" class="form-class lection-add-form col-sm-9 col-md-11 col-lg-8">
+            <h2 class="main-title">Fill the shedule of event</h2>
+            <div class="form-group name-input-group">
+                <label for="lection-name">Lection name</label>
+                <input type="text" formControlName="name" class="form-control" id="event-name" aria-describedby="lectionHelp" placeholder="Enter name the lection">
+            </div>
+            <div class="lection-speaker">
+                <label for="lection-speaker-dropdown">Select speaker for this lection</label>
+                <select formControlName="speaker" id="lection-speaker-dropdown" class="selectpicker">
+                <option>Bob Dylan</option>
+                <option>Salvador Dali</option>
+                <option>Jimmi Hendrix</option>
+              </select>
+            </div>
+            <div class="lection-time">
+                <label for="lection-time-input">Set time of lection</label>
+                <ngb-timepicker formControlName="time" id="lection-time-input" [spinners]="OFF"></ngb-timepicker>
+            </div>
+            <div class="lection-descr">
+                <label for="descriptionTextarea">Description of lection</label>
+                <textarea formControlName="descr" class="form-control" id="descriptionTextarea" rows="3"></textarea>
+            </div>
+
+            <div class="form-group lection-photo-upload">
+                <div class="col-2 lection-upload-div">
+                    <button class="btn btn-secondary lection-upload-btn btn-block">Upload a file</button>
+                    <input type="file" class="form-control-file lection-upload-input" id="photoInput" aria-describedby="photoInputHelp">
+                </div>
+                <small id="photoInputHelp" class="form-text text-muted subscription">Upload photo for this event</small>
+                <!--<label class="custom-file">
+                        <input type="file" id="file" class="custom-file-input file-input">
+                        <span class="custom-file-control"></span>
+                      </label>-->
+            </div>
+            <div class="col-2 button-overlay">
+                <button type="submit" class="btn btn-secondary submit-btn btn-block" (click)="save(addLectionForm);">Save</button>
+            </div>
+        </form>
+    </div>
+    <div *ngFor="let lection of lections">
+        <div>{{lection.lectionName}}</div>
+        <div>{{lection.lectionDescr}}</div>
+        <div>{{lection.lectionTime}}</div>
+        <div>{{lection.lectionSpeaker}}</div>
+    </div>
+    <button class="btn btn-secondary submit-btn" (click)="submit(this.lections);">Submit</button>
+</div>

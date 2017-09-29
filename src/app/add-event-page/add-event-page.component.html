@@ -1,0 +1,40 @@
+<div class="container justify-content-center all-events-body">
+    <div class="row">
+        <div class="col-lg-2 col-md-1 col-sm-1"></div>
+        <form [formGroup]="addForm" class="form-class col-sm-9 col-md-11 col-lg-8">
+            <h2 class="main-title">Create new event</h2>
+            <div class="form-group name-input-group">
+                <label for="event-name">Event name</label>
+                <input type="text" formControlName="name" class="form-control" id="event-name" aria-describedby="eventHelp" placeholder="Enter name of future event">
+            </div>
+            <label class="label-date" for="eventDateFrom">Event begins at</label>
+            <div class="input-group">
+                <input id="eventDateFrom" formControlName="dateFrom" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
+                <button class="input-group-addon" (click)="d.toggle()" type="button">
+            <img src="./assets\images\calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+            </div>
+            <label class="label-date" for="eventDateTo">Event ends at</label>
+            <div class="input-group">
+                <input id="eventDateTo" formControlName="dateTo" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dt="ngbDatepicker">
+                <button class="input-group-addon" (click)="dt.toggle()" type="button">
+                <img src="./assets\images\calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+              </button>
+            </div>
+            <div class="form-group descr-input-group">
+                <label for="descriptionTextarea">Description</label>
+                <textarea formControlName="descr" class="form-control" id="descriptionTextarea" rows="3"></textarea>
+            </div>
+            <div class="form-group event-photo-upload">
+                <div class="col-lg-2 upload-div">
+                    <button class="btn btn-secondary upload-btn btn-block">Upload a file</button>
+                    <input type="file" class="form-control-file upload-input" id="photoInput" aria-describedby="photoInputHelp">
+                </div>
+                <small id="photoInputHelp" class="form-text text-muted subscription">Upload photo for this event</small>
+            </div>
+            <div class="col-2 button-overlay">
+                <a class="btn btn-secondary next-btn btn-block" (click)="save(addForm)" routerLink="/add-lection-page">Next</a>
+            </div>
+        </form>
+    </div>
+</div>

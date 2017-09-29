@@ -1,0 +1,50 @@
+    @mixin marginsTitle() {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .main-title {
+        @include marginsTitle();
+        margin-left: -1em;
+    }
+    
+    @media screen and (max-width: 588px) {
+        .main-title {
+            margin-left: 0;
+        }
+    }
+    
+    .lection-add-form {
+        .lection-photo-upload {
+            @include marginsTitle();
+            overflow: hidden;
+            .lection-upload-div {
+                padding: 0;
+                margin: 0;
+                .lection-upload-btn {
+                    position: absolute;
+                }
+                .lection-upload-input {
+                    opacity: 0;
+                    z-index: 100;
+                    width: 100%;
+                    height: 100%;
+                }
+                &:hover {
+                    .lection-upload-btn {
+                        background-color: #36393e;
+                    }
+                }
+            }
+            .subscription {
+                @include marginsTitle();
+            }
+        }
+        .submit-btn {
+            margin-bottom: 2rem;
+        }
+        .button-overlay {
+            margin: 0;
+            padding: 0;
+        }
+    }
