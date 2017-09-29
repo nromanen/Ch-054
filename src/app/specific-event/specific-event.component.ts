@@ -9,7 +9,10 @@ export class SpecificEventComponent implements OnInit {
   background={link:"/assets/images/1.png"}
   bgLocation={link:"/assets/images/bg-location.png"}
   constructor() { }
-
+  goTo(location: string): void {
+    window.location.hash = ''; 
+    window.location.hash = location;
+}
   ngOnInit() {
   }
 

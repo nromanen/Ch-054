@@ -47,6 +47,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "ng2-scrollable": "^0.8.0",
     "ng2-utils": "^0.6.1",
     "node-sass": "^4.5.3",
     "popper.js": "^1.12.5",
