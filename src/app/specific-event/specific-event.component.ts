@@ -13,6 +13,19 @@ export class SpecificEventComponent implements OnInit {
     window.location.hash = ''; 
     window.location.hash = location;
 }
+
+up():any{
+  let t;
+  function onEdit(){
+      let top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+      if(top > 0) {
+        window.scrollBy(0,-100);
+        this.t = setTimeout(onEdit,20);
+      } else clearTimeout(this.t);
+      return false;
+    } 
+    return onEdit();
+  }
   ngOnInit() {
   }
 

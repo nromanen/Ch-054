@@ -6,10 +6,10 @@ import { AddLectionPageComponent } from './add-lection-page/add-lection-page.com
 import { SpecificEventComponent } from './specific-event/specific-event.component';
 
 const routes: Routes = [
+    {path: 'add-lection-page', component: AddLectionPageComponent},
     {path: 'event', component: SpecificEventComponent },
     {path: 'all-event', component: AllEventsComponentComponent},
     {path: 'add-event-page', component: AddEventPageComponent},
-    {path: 'add-lection-page', component: AddLectionPageComponent},
     {path: '', redirectTo: 'specific-event-page', pathMatch: 'full'}
 ];
 
