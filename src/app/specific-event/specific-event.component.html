@@ -1,6 +1,6 @@
 <div>
     <img class="imgEvent img-fluid" src="/assets/images/fearless.jpg" alt="">
-    <h1 class="event-title text-center">Fearless conference 28.12.2017</h1>
+    <h1 class="event-title text-center text-white">Fearless conference 28.12.2017</h1>
 </div>
 
 <div style="height: 150px"></div>
@@ -24,14 +24,13 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <table class="table table-responsive table-hover font-table my-5 table-sm w-100">
-                    <caption class="time p-0 table-bgraund text-center">
+                <table class="table table-responsive table-hover font-table text-white my-5 table-sm">
+                    <caption class="time p-0 table-bgraund text-white text-center">
                         <span class="fa-stack fa-2x py-0">
                         <i class="fa fa-calendar-o fa-stack-1x"></i>
                         <strong class="fa-stack-1x calendar-text pt-1">28</strong>
                         </span>
-                        <span class="month align-middle font-weight-bold">December</span>
-
+                        <span class="month align-middle font-weight-bold text-uppercase">December</span>
                     </caption>
                     <thead class="theader">
                         <tr>
@@ -63,42 +62,42 @@
                             <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
                             <td class="text-center align-middle">
                                 <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0">How takes a good photo?</p>
+                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
                             <td class="text-center align-middle">
                                 <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0">How takes a good photo?</p>
+                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
                             <td class="text-center align-middle">
                                 <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0">How takes a good photo?</p>
+                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
                             <td class="text-center align-middle">
                                 <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0">How takes a good photo?</p>
+                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
                             <td class="text-center align-middle">
                                 <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0">How takes a good photo?</p>
+                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
                             <td class="text-center align-middle">
                                 <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0">How takes a good photo?</p>
+                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
                             </td>
                         </tr>
                     </tbody>
@@ -294,4 +293,4 @@
 </div>
 
 
-<button type="button" id="return-to-top" class="btn btn-secondary btn-circle" (click)="up()">Up</button>
+<button type="button" id="return-to-top" class="btn btn-secondary btn-circle text-center d-none" (click)="up()" [class.show]="isShow">Up</button>

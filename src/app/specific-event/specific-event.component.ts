@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from "@angular/core";
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-specific-event',
@@ -8,7 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class SpecificEventComponent implements OnInit {
   background={link:"/assets/images/1.png"}
   bgLocation={link:"/assets/images/bg-location.png"}
-  constructor() { }
+
+
+  public isShow: boolean = false;
+  
+  constructor(@Inject(DOCUMENT) private document: Document) { }
+ 
+
+
+
   goTo(location: string): void {
     window.location.hash = ''; 
     window.location.hash = location;
@@ -28,5 +37,16 @@ up():any{
   }
   ngOnInit() {
   }
+
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (position > 400) {
+      this.isShow = true;
+    } else if (this.isShow && position < 400) {
+      this.isShow = false;
+    }
+  }
+
 
 }
