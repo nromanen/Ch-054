@@ -15,9 +15,6 @@ export class SpecificEventComponent implements OnInit {
   
   constructor(@Inject(DOCUMENT) private document: Document) { }
  
-
-
-
   goTo(location: string): void {
     window.location.hash = ''; 
     window.location.hash = location;
@@ -43,9 +40,9 @@ up():any{
     let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if (position > 400) {
       this.isShow = true;
-    } else if (this.isShow && position < 400) {
+    } else //if (this.isShow && position < 400) {
       this.isShow = false;
-    }
+    //}
   }
 
 

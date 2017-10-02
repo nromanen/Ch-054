@@ -3,5 +3,5 @@ export class Lection {
     lectionDescr: string;
     lectionTime: Date;
     lectionSpeaker: string;
-    speakerPhoto: File;
+    speakerPhoto: string;
   }
