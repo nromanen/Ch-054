@@ -49,3 +49,19 @@
         }
     }
         
+
+    
+    .stepwizard-row {
+        display: table-row;
+    }
+    .stepwizard {
+        display: table;
+        width: 50%;
+        position: relative;
+    }
+
+    .stepwizard-step {
+        display: table-cell;
+        text-align: center;
+        position: relative;
+    }

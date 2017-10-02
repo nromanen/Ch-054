@@ -7,6 +7,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FormsModule} from '@angular/forms';
+import { FormWizardModule } from 'angular2-wizard';
 
 
 import { AppComponent } from './app.component';
@@ -46,7 +47,8 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FormWizardModule
   ],
   providers: [ConfService],
   bootstrap: [AppComponent]

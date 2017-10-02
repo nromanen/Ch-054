@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ConfService} from '../conf-service';
+import { Location } from '@angular/common';
 import * as firebase from 'firebase';
 import {Lection} from '../lection';
 
@@ -15,7 +16,8 @@ export class AddLectionPageComponent implements OnInit {
   lections = Array<Lection>();
   addLectionForm: FormGroup;
   file:File;
-  constructor(private router: Router, private confService: ConfService, private fb: FormBuilder) {
+  photoSpeaker:string = "Choose file...";
+  constructor(private router: Router, private confService: ConfService, private fb: FormBuilder,  private location: Location) {
 this.createForm();
 }
 createForm() {
@@ -29,6 +31,7 @@ createForm() {
 
 change(photo){
   this.file = photo.target.files[0];
+  this.photoSpeaker = this.file.name;
 }
 
 save(addLectionForm: FormGroup) {
@@ -37,10 +40,19 @@ save(addLectionForm: FormGroup) {
   lection.lectionName = addLectionForm.value.name;
   lection.lectionSpeaker = addLectionForm.value.speaker;
   lection.lectionTime = addLectionForm.value.time;
-  lection.speakerPhoto = this.file.name;
+  lection.speakerPhoto = this.photoSpeaker;
   this.lections.push(lection);
+  this.photoSpeaker = "Choose file...";
+  this.downloadImg(this.photoSpeaker);
   // console.log(this.file);
 }
+downloadImg(photo){
+  let pathReference = firebase.storage().ref('images/speakers/'+ photo);
+  pathReference.getDownloadURL().then(function(url) {
+  })
+}
+
+
 submit(lections: Array<Lection>) {
   let storageRef = firebase.storage().ref();
   let metadata = {
@@ -48,7 +60,13 @@ submit(lections: Array<Lection>) {
   }; 
   let uploadTask = storageRef.child('images/speakers/').child(this.file.name).put(this.file, metadata);
   this.confService.addLections(this.lections);
+  this.goBack();
 }
+
+goBack(): void {
+  this.location.back();
+}
+
   ngOnInit() {
   }
 

@@ -1,4 +1,23 @@
 <div class="container justify-content-center all-events-body">
+
+
+    <div class="row">
+        <div class="stepwizard col-md-offset-3 my-4 w-100">
+            <div class="stepwizard-row setup-panel">
+                <div class="stepwizard-step">
+                    <a type="button" (click)="goBack()" class="btn btn-default btn-circle text-center w-100" disabled="disabled">Step 1</a>
+                    <!-- <button (click)="goBack()" class="btn btn-default btn-circle text-center" disabled="disabled">1</button> -->
+                </div>
+                <div class="stepwizard-step">
+                    <a type="button" class="btn btn-primary btn-circle text-center w-100">Step 2</a>
+                    <!-- <button type="button" class="btn btn-primary btn-circle text-center">2</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="row">
         <div class="col-lg-2 col-md-1 col-sm-1"></div>
         <form [formGroup]="addLectionForm" class="form-class lection-add-form col-sm-9 col-md-11 col-lg-8">
@@ -17,7 +36,8 @@
             </div>
             <div class="lection-time">
                 <label for="lection-time-input">Set time of lection</label>
-                <ngb-timepicker formControlName="time" id="lection-time-input" [spinners]="OFF"></ngb-timepicker>
+                <ngb-timepicker formControlName="time" id="lection-time-input"></ngb-timepicker>
+                <hr>
             </div>
             <div class="lection-descr">
                 <label for="descriptionTextarea">Description of lection</label>
@@ -25,13 +45,16 @@
             </div>
 
             <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <input type="file" (change)="change($event)" name="photo" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+
+                <label class="custom-file" id="customCss">
+                            <input type="file" (change)="change($event)" name="photo" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                            <span class="custom-file-control form-control-file">{{photoSpeaker}}</span>
+                    </label>
             </div>
 
 
             <div class="col-2 button-overlay">
-                <button type="submit" class="btn btn-secondary submit-btn btn-block" (click)="save(addLectionForm);">Save</button>
+                <button type="submit" class="btn btn-secondary submit-btn btn-block" (click)="save(addLectionForm); addLectionForm.reset();">Save</button>
             </div>
         </form>
     </div>
@@ -42,5 +65,6 @@
         <div>{{lection.lectionSpeaker}}</div>
         <div>{{lection.speakerPhoto}}</div>
     </div>
-    <button class="btn btn-secondary submit-btn" (click)="submit(this.lections);">Submit</button>
+    <button class="btn btn-success submit-btn" (click)="submit(this.lections)">Add</button>
+    <button class="btn btn-danger submit-btn" (click)="goBack()">Back</button>
 </div>
