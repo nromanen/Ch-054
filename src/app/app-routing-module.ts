@@ -6,11 +6,11 @@ import { AddLectionPageComponent } from './add-lection-page/add-lection-page.com
 import { SpecificEventComponent } from './specific-event/specific-event.component';
 
 const routes: Routes = [
+    {path: '', redirectTo: 'all-event', pathMatch: 'full'},
     {path: 'add-lection-page', component: AddLectionPageComponent},
     {path: 'event', component: SpecificEventComponent },
     {path: 'all-event', component: AllEventsComponentComponent},
-    {path: 'add-event-page', component: AddEventPageComponent},
-    {path: '', redirectTo: 'specific-event-page', pathMatch: 'full'}
+    {path: 'add-event-page', component: AddEventPageComponent}
 ];
 
   @NgModule({

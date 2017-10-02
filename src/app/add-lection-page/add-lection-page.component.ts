@@ -13,6 +13,7 @@ import {Lection} from '../lection';
 export class AddLectionPageComponent implements OnInit {
   lections = Array<Lection>();
   addLectionForm: FormGroup;
+  file:File;
   constructor(private router: Router, private confService: ConfService, private fb: FormBuilder) {
 this.createForm();
 }
@@ -24,16 +25,20 @@ createForm() {
     speaker: new FormControl('')
   }));
 }
+
+change(photo){
+  this.file = photo.target.files[0];
+}
+
 save(addLectionForm: FormGroup) {
   const lection = new Lection();
   lection.lectionDescr = addLectionForm.value.descr;
   lection.lectionName = addLectionForm.value.name;
   lection.lectionSpeaker = addLectionForm.value.speaker;
   lection.lectionTime = addLectionForm.value.time;
-  // this.confService.addLection(this.lection);
+  lection.speakerPhoto = this.file;
+  console.log(lection.speakerPhoto);
   this.lections.push(lection);
-  // this.lections[this.lections.length] = this.lection;
-  console.log(this.lections);
 }
 submit(lections: Array<Lection>) {
   this.confService.addLections(this.lections);
