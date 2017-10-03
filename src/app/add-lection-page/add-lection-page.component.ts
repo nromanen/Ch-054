@@ -17,6 +17,7 @@ export class AddLectionPageComponent implements OnInit {
   addLectionForm: FormGroup;
   file:File;
   photoSpeaker:string = "Choose file...";
+  photo:string="https://firebasestorage.googleapis.com/v0/b/project-ui.appspot.com/o/images%2Fspeakers%2Fph-10.jpg?alt=media&token=3a2ae2e9-a09e-4950-9f82-ca4a8cfd84bc";
   constructor(private router: Router, private confService: ConfService, private fb: FormBuilder,  private location: Location) {
 this.createForm();
 }
@@ -43,12 +44,12 @@ save(addLectionForm: FormGroup) {
   lection.speakerPhoto = this.photoSpeaker;
   this.lections.push(lection);
   this.photoSpeaker = "Choose file...";
-  this.downloadImg(this.photoSpeaker);
   // console.log(this.file);
 }
 downloadImg(photo){
-  let pathReference = firebase.storage().ref('images/speakers/'+ photo);
-  pathReference.getDownloadURL().then(function(url) {
+  let pathReference = firebase.storage().ref();
+  let ref = pathReference.child('images/speakers/'+ photo);
+  ref.getDownloadURL().then(function(url) { this.photo = "https://firebasestorage.googleapis.com/v0/b/project-ui.appspot.com/o/images%2Fspeakers%2Fph-10.jpg?alt=media&token=3a2ae2e9-a09e-4950-9f82-ca4a8cfd84bc";
   })
 }
 
@@ -61,6 +62,7 @@ submit(lections: Array<Lection>) {
   let uploadTask = storageRef.child('images/speakers/').child(this.file.name).put(this.file, metadata);
   this.confService.addLections(this.lections);
   this.goBack();
+  this.downloadImg(this.file.name);
 }
 
 goBack(): void {
