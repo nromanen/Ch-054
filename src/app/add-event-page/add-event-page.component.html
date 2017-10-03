@@ -30,16 +30,35 @@
                 <label for="descriptionTextarea">Description</label>
                 <textarea formControlName="descr" class="form-control" id="descriptionTextarea" rows="3"></textarea>
             </div>
-            <div class="form-group event-photo-upload">
-                <div class="col-lg-2 upload-div">
-                    <button class="btn btn-secondary upload-btn btn-block">Upload a file</button>
-                    <input type="file" class="form-control-file upload-input" id="photoInput" aria-describedby="photoInputHelp">
-                </div>
-                <small id="photoInputHelp" class="form-text text-muted subscription">Upload photo for this event</small>
+
+            <div class="form-group">
+                <label class="custom-file" id="customCss">
+                            <input type="file" (change)="change($event)" formControlName="photo" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                            <span class="custom-file-control form-control-file">{{photoEvent}}</span>
+                    </label>
             </div>
+
+            <div class="form-group name-input-group">
+                <label for="event-name">Location</label>
+                <input type="text" formControlName="location" class="form-control" id="event-name" aria-describedby="eventHelp" placeholder="Enter address of event">
+            </div>
+
+            <div class="form-group">
+                <label class="custom-file" id="customCss">
+                            <input type="file" (change)="changeLocation($event)" formControlName="photoLocation" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                            <span class="custom-file-control form-control-file">{{photoEventLocation}}</span>
+                    </label>
+            </div>
+
             <div class="col-2 button-overlay">
                 <a class="btn btn-secondary next-btn btn-block" (click)="save(addForm)" routerLink="/add-lection-page">Next</a>
             </div>
         </form>
     </div>
 </div>
+
+<ul>
+    <li *ngFor="let todo of (todos$ | async)" [class.done]="todo.done">
+      {{ todo.confDateFrom.day }}
+    </li>
+  </ul>

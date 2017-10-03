@@ -4,5 +4,8 @@ export class Conf {
     confDescr: string;
     confDateFrom: Date;
     confDateTo: Date;
+    confPhoto: string;
     confLections: Lection[];
+    confphotoEventLocation: string;
+    confLocationEvent: string;
   }

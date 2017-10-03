@@ -25,13 +25,17 @@ export class ConfService {
     selectConf(conf: Conf) {
       this.selectedConf = conf;
     }
-    addConf(addForm: FormGroup) {
+    addConf(addForm: FormGroup, photo:string, photoLocation:string) {
       this.conf.confName = addForm.value.name;
       this.conf.confDescr = addForm.value.descr;
       this.conf.confDateFrom = addForm.value.dateFrom;
       this.conf.confDateTo = addForm.value.dateTo;
+      this.conf.confPhoto = photo;
+      this.conf.confphotoEventLocation = photoLocation;
+      this.conf.confLocationEvent = addForm.value;
       this.conf.confLections = new Array<Lection>();
       this.confs.push(this.conf).then((item) => { this.key = item.key; console.log('key is -' + this.key); });
+
     }
     /*updateConf(key: string, editForm: FormGroup) {
       this.conf.confName = editForm.value.name;
