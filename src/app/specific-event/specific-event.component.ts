@@ -1,5 +1,9 @@
 import { Component, HostListener, Inject, OnInit } from "@angular/core";
 import { DOCUMENT } from '@angular/platform-browser';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AngularFireDatabase } from 'angularfire2/database';
+import {Conf} from '../conf';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-specific-event',
@@ -9,11 +13,12 @@ import { DOCUMENT } from '@angular/platform-browser';
 export class SpecificEventComponent implements OnInit {
   background={link:"/assets/images/1.png"}
   bgLocation={link:"/assets/images/bg-location.png"}
-
+  items: Conf[] = [];
 
   public isShow: boolean = false;
   
-  constructor(@Inject(DOCUMENT) private document: Document) { }
+  constructor(@Inject(DOCUMENT) private document: Document, private route: ActivatedRoute, private af: AngularFireDatabase) { }
+
  
   goTo(location: string): void {
     window.location.hash = ''; 
@@ -32,7 +37,11 @@ up():any{
     } 
     return onEdit();
   }
-  ngOnInit() {
+  key:any;
+  ngOnInit(): void {
+    this.key = this.route.snapshot.params['key'];
+    var adaRef = firebase.database().ref("conference/" +this.key);
+    // console.log(adaRef.key);
   }
 
   @HostListener("window:scroll", [])

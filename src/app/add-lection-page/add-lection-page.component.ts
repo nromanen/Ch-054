@@ -30,7 +30,13 @@ export class AddLectionPageComponent implements OnInit {
   }
 
   change(photo) {
-    this.photoSpeaker = 'images/speakers/'+photo.target.files[0].name;
+    let refphoto = 'images/speakers/'+photo.target.files[0].name;
+    let storageRef = firebase.storage().ref();
+    var photoRef = storageRef.child(refphoto);
+    photoRef.getDownloadURL().then(function(url) {
+      this.photoSpeaker = url;
+      console.log(this.photoSpeaker);
+    })
   }
 
   save(addLectionForm: FormGroup) {
@@ -50,7 +56,7 @@ export class AddLectionPageComponent implements OnInit {
     // let metadata = {
     //   contentType: this.file.type
     // };
-    // let uploadTask = storageRef.child('images/speakers/').child(this.file.name).put(this.file, metadata);
+    // let uploadTask = storageRef.child('images/speakers/').child(this.file.name).put(this.file, metadata); 
     this.confService.addLections(this.lections);
     this.goBack();
   }

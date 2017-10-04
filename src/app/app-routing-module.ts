@@ -8,7 +8,7 @@ import { SpecificEventComponent } from './specific-event/specific-event.componen
 const routes: Routes = [
     {path: '', redirectTo: 'all-event', pathMatch: 'full'},
     {path: 'add-lection-page', component: AddLectionPageComponent},
-    {path: 'event', component: SpecificEventComponent },
+    {path: 'event/:key', component: SpecificEventComponent },
     {path: 'all-event', component: AllEventsComponentComponent},
     {path: 'add-event-page', component: AddEventPageComponent}
 ];

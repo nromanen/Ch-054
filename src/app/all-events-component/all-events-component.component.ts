@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
-import {ConfService} from '../conf-service';
+import { ConfService } from '../conf-service';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import {Conf} from '../conf';
+import 'rxjs/add/operator/switchMap';
+import { Conf } from '../conf';
 
 @Component({
   selector: 'app-all-events-component',
@@ -14,18 +15,27 @@ import {Conf} from '../conf';
 export class AllEventsComponentComponent implements OnInit {
   date = new Date;
   season = 'Summer';
-  items: Conf[]=[];
+  items: Conf[] = [];
+  //item: Conf = new Conf();
   constructor(private af: AngularFireDatabase) { }
 
-  ngOnInit() {
-    this.af.list('/conference', { preserveSnapshot: true})
-    .subscribe(snapshots=>{
+  ngOnInit(): void {
+    this.af.list('/conference', { preserveSnapshot: true })
+      .subscribe(snapshots => {
         snapshots.forEach(childSnapshot => {
-          var item = childSnapshot.val();
+          let item = new Conf();
+          for (let variable in childSnapshot.val()) {
+            item[variable] = childSnapshot.val()[variable];
+          }
+          item['confDateTo'] = new Date(childSnapshot.val()['confDateTo'].year, childSnapshot.val()['confDateTo'].month, childSnapshot.val()['confDateTo'].day);
+
           item.key = childSnapshot.key;
+          console.log(item['key']);
           this.items.push(item);
         });
-    })
+        // console.log(this.items.key);
+      })
   }
+
 
 }

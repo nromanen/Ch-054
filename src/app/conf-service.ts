@@ -46,6 +46,7 @@ export class ConfService {
       this.conf.confLections = lections;
       this.confs.update(this.key, this.conf);
     }
+
     deleteConf(key: string) {
       this.confs.remove(key);
     }
