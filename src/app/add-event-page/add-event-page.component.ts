@@ -16,24 +16,24 @@ import {Conf} from '../conf';
 })
 export class AddEventPageComponent implements OnInit {
   // todos$: FirebaseListObservable<any[]>;
-  items: Observable<Conf[]>;
+ 
   addForm: FormGroup;
   file: File;
   photoEvent: string = "Choose file...";
   photoEventLocation: string = "Choose file...";
   // titlePhotoLocation: string = "Choose file...";
-  constructor(private router: Router, private confService: ConfService, private fb: FormBuilder, private af: AngularFireDatabase) {
+  constructor(private router: Router, private confService: ConfService, private fb: FormBuilder) {
 this.createForm();
-af.list('conf');
+// af.list('conf');
 }
 
 change(photo) {
   this.file = photo.target.files[0];
-  this.photoEvent = this.file.name;
+  this.photoEvent = 'images/photo_events/' + this.file.name;
 }
 changeLocation(photo) {
   this.file = photo.target.files[0];
-  this.photoEventLocation = this.file.name;
+  this.photoEventLocation = 'images/location/' + this.file.name;
 //   let arrPhotoFile = photo.target.files;
 // for(let i = 0; i<arrPhotoFile.length;i++){this.photoEventLocation[i]=(arrPhotoFile[i].name);}
 }
@@ -56,27 +56,7 @@ save(addForm: FormGroup) {
 
 
   ngOnInit() {
-    this.af.list('/conference', { preserveSnapshot: true})
-    .subscribe(snapshots=>{
-        snapshots.forEach(item => {
-          console.log(item.val().confDescr);
-          // console.log(item.key, item.val().confDescr);
-        });
-                // this.items = this.af.list('/conference').map((conferences) => {
-        //   return conferences.map(item => {
-        //     item = this.af.object(item.val() + item.$key);
-        //     return item;
-        //   });
-    })
 
-    console.log(this.items);
-
-  //   this.items  = this.af.list('/conference');
-  //   this.items.forEach(item => {
-  //     console.log('Item:', item[0].confDescr);
-  // });
-    
-  
   }
 
 }

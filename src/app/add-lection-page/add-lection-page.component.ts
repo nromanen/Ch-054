@@ -16,7 +16,6 @@ import { Lection } from '../lection';
 export class AddLectionPageComponent implements OnInit {
   lections = Array<Lection>();
   addLectionForm: FormGroup;
-  file: File;
   photoSpeaker: string;
   constructor(private router: Router, private confService: ConfService, private fb: FormBuilder, private location: Location) {
     this.createForm();
@@ -31,8 +30,7 @@ export class AddLectionPageComponent implements OnInit {
   }
 
   change(photo) {
-    this.file = photo.target.files[0];
-    this.photoSpeaker = this.file.name;
+    this.photoSpeaker = 'images/speakers/'+photo.target.files[0].name;
   }
 
   save(addLectionForm: FormGroup) {
@@ -43,22 +41,16 @@ export class AddLectionPageComponent implements OnInit {
     lection.lectionTime = addLectionForm.value.time;
     lection.speakerPhoto = this.photoSpeaker;
     this.lections.push(lection);
-    // console.log(this.file);
   }
-  // downloadImg(photo) {
-  //   let pathReference = firebase.storage().ref();
-  //   let ref = pathReference.child('images/speakers/' + photo);
-  //   ref.getDownloadURL().then(function (url) {
-  //   })
-  // }
+
 
 
   submit(lections: Array<Lection>) {
-    let storageRef = firebase.storage().ref();
-    let metadata = {
-      contentType: this.file.type
-    };
-    let uploadTask = storageRef.child('images/speakers/').child(this.file.name).put(this.file, metadata);
+    // let storageRef = firebase.storage().ref();
+    // let metadata = {
+    //   contentType: this.file.type
+    // };
+    // let uploadTask = storageRef.child('images/speakers/').child(this.file.name).put(this.file, metadata);
     this.confService.addLections(this.lections);
     this.goBack();
   }

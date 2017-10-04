@@ -1,9 +1,4 @@
 <div class="container justify-content-center all-events-body">
-
-
-
-
-
     <div class="row">
         <div class="col-lg-2 col-md-1 col-sm-1"></div>
         <form [formGroup]="addForm" class="form-class col-sm-9 col-md-11 col-lg-8">
@@ -56,9 +51,3 @@
         </form>
     </div>
 </div>
-
-<ul>
-    <li *ngFor="let todo of (todos$ | async)" [class.done]="todo.done">
-      {{ todo.confDateFrom.day }}
-    </li>
-  </ul>

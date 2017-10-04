@@ -48,7 +48,7 @@
 
                 <label class="custom-file" id="customCss">
                             <input type="file" (change)="change($event)" name="photo" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
-                            <span class="custom-file-control form-control-file">{{photoSpeaker}}</span>
+                            <span class="custom-file-control form-control-file"></span>
                     </label>
             </div>
 
@@ -68,4 +68,3 @@
     <button class="btn btn-success submit-btn" (click)="submit(this.lections)">Add</button>
     <button class="btn btn-danger submit-btn" (click)="goBack()">Back</button>
 </div>
-<img [src]="photo" alt="">

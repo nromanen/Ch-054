@@ -1,5 +1,6 @@
 import {Lection} from './lection';
 export class Conf {
+    key: string;
     confName: string;
     confDescr: string;
     confDateFrom: Date;
