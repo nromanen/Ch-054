@@ -31,7 +31,7 @@ export class ConfService {
       this.conf.confDateFrom = addForm.value.dateFrom;
       this.conf.confDateTo = addForm.value.dateTo;
       this.conf.confPhoto = photo;
-      this.conf.confphotoEventLocation = photoLocation;
+      // this.conf.confphotoEventLocations = photoLocation;
       this.conf.confLocationEvent = addForm.value.location;
       this.conf.confLections = new Array<Lection>();
       this.confs.push(this.conf).then((item) => { this.key = item.key; console.log('key is -' + this.key); });

@@ -7,6 +7,6 @@ export class Conf {
     confDateTo: Date;
     confPhoto: string;
     confLections: Lection[];
-    confphotoEventLocation: string;
+    confphotoEventLocations: string[];
     confLocationEvent: string;
   }
