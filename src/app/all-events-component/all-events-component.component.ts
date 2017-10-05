@@ -28,12 +28,9 @@ export class AllEventsComponentComponent implements OnInit {
             item[variable] = childSnapshot.val()[variable];
           }
           item['confDateTo'] = new Date(childSnapshot.val()['confDateTo'].year, childSnapshot.val()['confDateTo'].month, childSnapshot.val()['confDateTo'].day);
-
           item.key = childSnapshot.key;
-          console.log(item['key']);
           this.items.push(item);
         });
-        // console.log(this.items.key);
       })
   }
 

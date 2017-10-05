@@ -1,6 +1,6 @@
 <div>
-    <img class="imgEvent img-fluid" src="/assets/images/fearless.jpg" alt="">
-    <h1 class="event-title text-center text-white">Fearless conference 28.12.2017</h1>
+    <img class="imgEvent img-fluid" src={{item.confPhoto}} alt="">
+    <h1 class="event-title text-center text-white">{{item.confName}} {{item.confDateTo | date:"dd.MM.yyyy"}}</h1>
 </div>
 
 <div style="height: 150px"></div>
@@ -116,6 +116,39 @@
             </div>
         </div>
     </div>
+
+
+
+    <!-- <div class="row">
+        <div class="col-md-6 col-lg-4" *ngFor="let speaker of item.confLections">
+            <a href="#">
+                <div class="info-card mb-4">
+                    <div class="front">
+                        <img class="card-image" src="">
+                        <div class="img-responsive">
+                            <div class="carousel-caption">
+                                <h3>Mr.Boot</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <img class="card-image" src="">
+
+                        <div class="carousel-caption">
+                            <h3>Mr.Boot</h3>
+                            <h6>
+                                Leading photografer
+                            </h6>
+                            <p>
+                                Ltd "Photographer group"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div></div> -->
+
+
 
     <div class="row">
         <div class="col-md-6 col-lg-4">
