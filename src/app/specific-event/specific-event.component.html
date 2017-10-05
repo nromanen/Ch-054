@@ -123,8 +123,8 @@
         <div class="col-md-6 col-lg-4" *ngFor="let speaker of item.confLections">
             <a href="#">
                 <div class="info-card mb-4">
-                    <div class="front">
-                        <img class="card-image" src="">
+                    <div class="front" *ngIf={{speaker.speakerPhoto}}>
+                        <img class="card-image" src={{speaker.speakerPhoto}}>
                         <div class="img-responsive">
                             <div class="carousel-caption">
                                 <h3>Mr.Boot</h3>
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                     <div class="back">
-                        <img class="card-image" src="">
+                        <img class="card-image" src={{speaker.speakerPhoto}}>
 
                         <div class="carousel-caption">
                             <h3>Mr.Boot</h3>
@@ -146,7 +146,8 @@
                     </div>
                 </div>
             </a>
-        </div></div> -->
+        </div>
+    </div> -->
 
 
 
