@@ -1,7 +1,7 @@
 export class Lection {
     lectionName: string;
     lectionDescr: string;
-    lectionTime: Date;
+    lectionTime: string;
     lectionSpeaker: string;
     speakerPhoto: string;
   }

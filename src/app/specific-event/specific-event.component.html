@@ -3,14 +3,15 @@
     <h1 class="event-title text-center text-white">{{item.confName}} {{item.confDateTo | date:"dd.MM.yyyy"}}</h1>
 </div>
 
-<div style="height: 150px"></div>
-
-<div class="container">
-    <div class="row anchors">
+<div class="container anchors">
+    <div class="row my-5">
         <div class="but-anchor col-sm-4 col-md-4 col-lg-5 text-right"><button type="button" class="btn btn-lg btn-outline-secondary btn-anchor" (click)="goTo('speakers')">SREAKERS</button></div>
         <div class="but-anchor col-sm-4 col-md-4 col-lg-2 text-center"><button type="button" class="btn btn-lg btn-outline-secondary btn-anchor" (click)="goTo('location')">LOCATION</button></div>
         <div class="but-anchor col-sm-4 col-md-4 col-lg-5 text-left"><button type="button" class="btn btn-lg btn-outline-secondary btn-anchor" (click)="goTo('agenda')">AGENDA</button></div>
     </div>
+
+    <div class="event-description my-5 font-weight-bold text-justify"><span class="h1 text-uppercase font-weight-bold text-muted">About conference </span>{{item.confDescr}}</div>
+
     <div class="row my-4">
         <div class="col">
             <div class="mx-auto w-50 p-3 text-center">
@@ -23,41 +24,33 @@
 <div class="container-fluid py-5" [ngStyle]="{'background-image':'url(' + background.link + ')'}">
     <div class="container">
     
-        <div class="Table w-100 font-table text-white my-5 embed-responsive text-center mx-auto">
-            <div class="Title">
+        <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">
+            <div class="table-bgraund font-weight-bold text-center cell-div">
                 <div class="text-center">
-                    <span class="fa-stack fa-2x py-0">
+                    <span class="fa-stack fa-2x py-0 mx-auto">
                      <i class="fa fa-calendar-o fa-stack-1x"></i>
-                      <strong class="calendar fa-stack-1x calendar-text pt-1">{{item.confDateTo | date:"dd"}}</strong>
-                       </span>
-                    <span class="calendar month align-middle font-weight-bold text-uppercase">{{item.confDateTo | date:"MMMM"}}</span>
+                      <strong class="fa-stack-1x calendar-text pt-1 mx-auto">{{item.confDateTo | date:"dd"}}</strong>
+                    </span>
+                    <span class="month align-middle font-weight-bold text-uppercase mx-auto">{{item.confDateTo | date:"MMMM"}}</span>
                 </div>
             </div>
-            <div class="Heading text-center">
-                <div class="Cell text-center">
-                    <p class="text-center align-middle">Time</p>
+            <div class="theader text-center font-weight-bold">
+                <div class="cell-div d-table-cell text-center">
+                    <p class="text-center align-middle text-size">Time</p>
                 </div>
-                <div class="Cell">
-                    <p class="text-center align-middle">Event</p>
-                </div>
-            </div>
-            <div class="Row" *ngFor="let agenda of item.confLections">
-                <div class="Cell">
-                    <p class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> {{agenda.lectionTime}}</p>
-                </div>
-                <div class="Cell">
-                    <p class="text-center align-middle">{{agenda.lectionName}}</p>
-                    <span class="text-center align-middle mt-0">{{agenda.lectionSpeaker}}</span>
+                <div class="cell-div d-table-cell">
+                    <p class="text-center align-middle text-size ">Event</p>
                 </div>
             </div>
-            <!-- <div class="Row">
-                <div class="Cell">
-                    <p class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 09:00</p>
+            <div class="row-div" *ngFor="let agenda of item.confLections">
+                <div class="cell-div d-table-cell align-middle">
+                    <p class="text-center text-size align-middle  my-2"><i class="fa fa-clock-o fa-lg"></i> {{agenda.lectionTime}}</p>
                 </div>
-                <div class="Cell">
-                    <p class="text-center action p-0 m-0 align-middle">Registration&Coffe</p>
+                <div class="cell-div d-table-cell align-middle">
+                    <p class="text-center align-middle text-size text-size my-2"><span class="mb-0">{{agenda.lectionName}}</span><br>
+                        <span class="text-center report mt-0">{{agenda.lectionSpeaker}}</span></p>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>
@@ -123,7 +116,7 @@
 </div>
 
 <div class="container mb-5">
-    <div class="row anchors">
+    <div class="row">
         <div class="but-anchor col-sm-4 col-md-4 col-lg-5 text-right"><button type="button" class="btn btn-lg btn-outline-secondary btn-anchor" (click)="goTo('speakers')">SREAKERS</button></div>
         <div class="but-anchor col-sm-4 col-md-4 col-lg-2 text-center"><button type="button" class="btn btn-lg btn-outline-secondary btn-anchor" (click)="goTo('location')">LOCATION</button></div>
         <div class="but-anchor col-sm-4 col-md-4 col-lg-5 text-left"><button type="button" class="btn btn-lg btn-outline-secondary btn-anchor" (click)="goTo('agenda')">AGENDA</button></div>

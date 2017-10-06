@@ -3,6 +3,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Conf } from '../conf';
+import { Lection } from '../lection';
 import * as firebase from 'firebase';
 
 @Component({
@@ -14,8 +15,9 @@ export class SpecificEventComponent implements OnInit {
   background = { link: "/assets/images/1.png" }
   bgLocation = { link: "/assets/images/bg-location.png" }
   item = new Conf();
-
-  public isShow: boolean = false;
+  isShow: boolean = false;
+  key: any;
+  speakers: Array<object> = [];
 
   constructor( @Inject(DOCUMENT) private document: Document, private route: ActivatedRoute, private af: AngularFireDatabase) { }
 
@@ -37,8 +39,7 @@ export class SpecificEventComponent implements OnInit {
     }
     return onEdit();
   }
-  key: any;
-  speakers: Array<object> = [];
+
   ngOnInit(): void {
     this.key = this.route.snapshot.params['key'];
     this.item.key = this.key;
@@ -57,34 +58,33 @@ export class SpecificEventComponent implements OnInit {
         this.item.confphotoEventLocations = photoLocation;
         //Photo speaker
         for (let key in this.item.confLections) {
-          let speaker: Object = {lectionSpeaker:"", speakerPhoto:""};
+          let speaker: Object = { lectionSpeaker: "", speakerPhoto: "" };
           for (let property in this.item.confLections[key]) {
             if (property === 'lectionSpeaker') {
               speaker['lectionSpeaker'] = this.item.confLections[key][property];
               speaker['speakerPhoto'] = this.item.confLections[key]['speakerPhoto'];
-              // console.log(this.speaker[index][property]);
               this.speakers.push(speaker);
             }
           }
-          
+
         }
-console.log(this.item.confLections[3].lectionTime);
-
-
+        //Time
+        for (let key in this.item.confLections) {
+          for (let property in this.item.confLections[key]) {
+            if (property === 'lectionTime') { this.item.confLections[key][property] = (this.item.confLections[key][property]['hour'] + ":" + this.item.confLections[key][property]['minute']) }
+          }
+        }
       }
-      );
+    );
 
   }
 
   @HostListener("window:scroll", [])
   onWindowScroll() {
     let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    if (position > 400) {
+    if (position > 300) {
       this.isShow = true;
-    } else //if (this.isShow && position < 400) {
+    } else 
       this.isShow = false;
-    //}
   }
-
-
 }

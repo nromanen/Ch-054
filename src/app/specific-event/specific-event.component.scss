@@ -4,6 +4,7 @@ $hidden: hidden;
 $media: screen;
 $larg-screen: 40.19rem;
 $small-screen: 30.81rem;
+$little-screen: 25.94rem;
 @mixin size($height, $width) {
 	height: $height;
 	width: $width;
@@ -11,7 +12,7 @@ $small-screen: 30.81rem;
 @mixin transform($rotateY) {
 	transform: $rotateY;
   }
-  @mixin position($position, $left, $z-index, $top) {
+@mixin position($position, $left, $z-index, $top) {
 	position: $position;
 	left: $left;
 	z-index: $z-index;
@@ -36,22 +37,30 @@ $small-screen: 30.81rem;
 			@include size(11.25rem, auto);
 			@include position(relative, 2.6rem, 1, -6.48rem);
 	}
-	@media #{$media} and (max-width: 415px) {
+	@media #{$media} and (max-width: $little-screen) {
 		@include size(100px, auto);
+		@include position(relative, 2.6rem, 1, -6.2rem);
 }
 	 + .event-title {margin-top: -31.25rem; position: relative; font-size: 4.49rem;
 		letter-spacing: .1rem; z-index: 40; margin-top: -31.25rem;
 		text-shadow: 0 -0.0625rem 0 #fff,  0 0.0625rem 0 #2c2c2c, 0 0.125rem 0 #2a2a2a, 0 0.1875rem 0 #282828, 0 0.25rem 0 #242424, 0 0.3125rem 0 #222, 0 0.375rem 0 #202020, 0 0.4375rem 0 #1e1e1e, 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.9);
 		@media #{$media} and (max-width: $small-screen) {
-     font-size: 1.2rem;
+     font-size: 1.6rem;
 		}	
 	}
 }
-
+.anchors{
+	margin-top: 10rem; 
+	@media #{$media} and (max-width: 25.94rem) {margin-top: 1rem;}
+}
 .container{
-	.btn-anchor {
-	@include size(3rem, 8.063rem);
-	cursor: pointer;
+	.event-description{font-size: 1.8rem; font-family: "Times New Roman", Georgia, Serif;		
+		@media #{$media} and (max-width: 26rem) {
+		font-size: 1.1rem;
+ }}
+		.btn-anchor {
+		@include size(3rem, 8.063rem);
+		cursor: pointer;
 	}
 	.info-card {
 		perspective: 37.5rem;
@@ -89,32 +98,51 @@ $small-screen: 30.81rem;
          width: 90% !important;
 	   }
 	   @media #{$media} and (max-width: 31.44rem) {
-   		width: 100% !important;
+		   width: 100% !important;
 	   }
+	   @media #{$media} and (max-width: 26rem) {
+		   font-size: 1.44rem;
+	}
    }
    	@media #{$media} and (max-width: 36rem) {
 		.but-anchor{text-align: center !important; padding-bottom: 0.5rem;}
 	 }
+	 @media #{$media} and (max-width: 23.5rem){
+		 .text-size {
+		font-size: 0.875rem;
+	}
+}
 	 
 	 .font-table{
 		font-size: 1.5rem;
 		background-color: rgba(54, 57, 62, .61); 
-		box-shadow: 0 0 15px rgba(0,0,0,0.6);
+		box-shadow: 0 0 0.9375rem rgba(0,0,0,0.6);
 		.table-bgraund{
+			display: table-caption;
 			background-color: rgba(54, 57, 62, 0.9); 
-			caption-side: top; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+			box-shadow: 0 0 10px rgba(0,0,0,0.5);
 			.calendar-text{
 				font-size: 1.3rem;
-				+ .month  {
-					font-size: 2.063rem;
-					line-height: 1;
-				}
 			}
-			+	.theader{font-size: 1.7rem; 
-				 background-color: rgba(54, 57, 62, 0.5);
+			.month  {
+				font-size: 2.063rem;
+				line-height: 1;
+				@media #{$media} and (max-width: 23.5rem){font-size: 1.2rem;}
+			}
+			+	.theader{
+				display: table-row;
+				font-size: 1.7rem; 
+				background-color: rgba(54, 57, 62, 0.5);
 			}
 		}
-		.report{font-size: 50%;}
+		.cell-div{
+			border-bottom: solid;
+			border-width: thin;
+		}
+		.row-div{
+			display: table-row;
+		}
+		.report{font-size: 70%;}
 	}
 	+ .container-fluid{background-attachment: fixed;
 		background-size: cover;}
@@ -128,69 +156,9 @@ $small-screen: 30.81rem;
 		right: 1.875rem;
 		z-index: 99;
 		cursor: pointer;
+		@media #{$media} and (max-width: 25.75rem){@include size(4rem, 4rem); border-radius: 2rem; font-size: 1.2rem;}
+		
 	  }	
 }
 
 .show {display: block !important;}
-
-
-.Table
-{
-	display: table;
-}
-.Title
-{
-	display: table-caption;
-	text-align: center;
-	font-weight: bold;
-	background-color: rgba(54, 57, 62, 0.9); 
-	caption-side: top; box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-.Heading
-{
-	display: table-row;
-	font-weight: bold;
-	font-size: 1.7rem; 
-	background-color: rgba(54, 57, 62, 0.5);
-}
-.Row
-{
-	display: table-row;
-}
-.Cell
-{
-	display: table-cell;
-	border-bottom: solid;
-	border-width: thin;
-	padding-left: 5px;
-	padding-right: 5px;}
-
-	.calendar-text{
-		font-size: 1.3rem;
-		}
-
-		.month  {
-			font-size: 2.063rem;
-			line-height: 1;
-		}
-
-		.font-table{
-			font-size: 1.5rem;
-			background-color: rgba(54, 57, 62, .61); 
-			box-shadow: 0 0 15px rgba(0,0,0,0.6);}
-
-
-			@media (max-width: 376px) {
-				.calendar {
-				  font-size: 20px;
-				}
-				p, span {
-					font-size: 14px;
-				}
-			// 	h3 {
-			// 		font-size: 1.563em;
-			// 	}
-			// 	h4 {
-			// 		font-size: 1.25em;
-			// 	}
-			}
