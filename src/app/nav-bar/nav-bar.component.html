@@ -5,20 +5,20 @@
       <span class="navbar-toggler-icon"></span>
       </button> 
     
-      <a class="navbar-brand py-0" href="#"><img src="/assets/images/logo-pr.png"></a>
+      <a class="navbar-brand py-0" href="#"><img class="img-brand" src={{img_logo}}></a>
       
       <div class="collapse navbar-collapse navbar-toggleable-md" id="nav-content">
           <form class="form-inline mr-auto  mt-2 mt-lg-0">
               <div class="input-group mr-sm-2">
                   <input class="form-control input-lg input border-right-0" size="25" type="text" placeholder="Search">
-                  <button class="input-group-addon button-submit button" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  <button class="input-group-addon button-submit button-search" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
               </div>
             </form>
                  <ul class="navbar-nav">
-                <li class="nav-item">
-                <a routerLink="/all-event" class="nav-link" href="#">All events</a>
+                <li>
+                <a routerLink="/all-event" class="nav-link">All events</a>
                 </li>
-                <li class="nav-item">
+                <li>
                 <a class="nav-link" href="#">Open events</a>
                 </li>
                 </ul>
@@ -27,4 +27,4 @@
     </div>
 
 </div>
-<div class="backg-nav full-bg-img flex-center mb-5" [ngStyle]="{'background-image':'url(' + background.link + ')'}"></div>
+<div class="backg-nav full-bg-img flex-center mb-5 nav-img" [ngStyle]="{'background-image':'url(' + background.link + ')'}"></div>
