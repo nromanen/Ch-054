@@ -56,7 +56,6 @@ export class SpecificEventComponent implements OnInit {
         }
         this.item.confphotoEventLocations = photoLocation;
         //Photo speaker
-        
         for (let key in this.item.confLections) {
           let speaker: Object = {lectionSpeaker:"", speakerPhoto:""};
           for (let property in this.item.confLections[key]) {
@@ -69,7 +68,7 @@ export class SpecificEventComponent implements OnInit {
           }
           
         }
-
+console.log(this.item.confLections[3].lectionTime);
 
 
       }

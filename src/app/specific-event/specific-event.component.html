@@ -22,136 +22,45 @@
 
 <div class="container-fluid py-5" [ngStyle]="{'background-image':'url(' + background.link + ')'}">
     <div class="container">
-
-
-
-
-        <div class="Table w-100 font-table text-white my-5 embed-responsive">
+    
+        <div class="Table w-100 font-table text-white my-5 embed-responsive text-center mx-auto">
             <div class="Title">
                 <div class="text-center">
                     <span class="fa-stack fa-2x py-0">
-                                                            <i class="fa fa-calendar-o fa-stack-1x"></i>
-                                                            <strong class="fa-stack-1x calendar-text pt-1">{{item.confDateTo | date:"dd"}}</strong>
-                                                            </span>
-                    <span class="month align-middle font-weight-bold text-uppercase">{{item.confDateTo | date:"MMMM"}}</span>
+                     <i class="fa fa-calendar-o fa-stack-1x"></i>
+                      <strong class="calendar fa-stack-1x calendar-text pt-1">{{item.confDateTo | date:"dd"}}</strong>
+                       </span>
+                    <span class="calendar month align-middle font-weight-bold text-uppercase">{{item.confDateTo | date:"MMMM"}}</span>
                 </div>
             </div>
             <div class="Heading text-center">
-                <div class="Cell text-center align-middle">
-                    <p>Time</p>
+                <div class="Cell text-center">
+                    <p class="text-center align-middle">Time</p>
                 </div>
                 <div class="Cell">
-                    <p>Even</p>
+                    <p class="text-center align-middle">Event</p>
                 </div>
             </div>
-            <div class="Row">
+            <div class="Row" *ngFor="let agenda of item.confLections">
+                <div class="Cell">
+                    <p class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> {{agenda.lectionTime}}</p>
+                </div>
+                <div class="Cell">
+                    <p class="text-center align-middle">{{agenda.lectionName}}</p>
+                    <span class="text-center align-middle mt-0">{{agenda.lectionSpeaker}}</span>
+                </div>
+            </div>
+            <!-- <div class="Row">
                 <div class="Cell">
                     <p class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 09:00</p>
                 </div>
-                <div class="Cell text-center align-middle">
-                    <p class=" action p-0 m-0">Registration&Coffe</p>
+                <div class="Cell">
+                    <p class="text-center action p-0 m-0 align-middle">Registration&Coffe</p>
                 </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-        <div class="row">
-            <div class="col-12">
-                <table class="table table-responsive table-hover font-table text-white my-5 table-sm">
-                    <caption class="time p-0 table-bgraund text-white text-center">
-                        <span class="fa-stack fa-2x py-0">
-                        <i class="fa fa-calendar-o fa-stack-1x"></i>
-                        <strong class="fa-stack-1x calendar-text pt-1">{{item.confDateTo | date:"dd"}}</strong>
-                        </span>
-                        <span class="month align-middle font-weight-bold text-uppercase">{{item.confDateTo | date:"MMMM"}}</span>
-                    </caption>
-                    <thead class="theader">
-                        <tr>
-                            <th class="text-center">Time</th>
-                            <th class="text-center">Event</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 09:00</td>
-                            <td class="text-center align-middle">
-                                <p class="action p-0 m-0">Registration&Coffe</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 10:00</td>
-                            <td class="text-center align-middle">
-                                <p class="action p-0 m-0">Introduction&Welcome</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
-                            <td class="text-center align-middle">
-                                <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0">How takes a good photo?</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
-                            <td class="text-center align-middle">
-                                <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
-                            <td class="text-center align-middle">
-                                <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
-                            <td class="text-center align-middle">
-                                <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
-                            <td class="text-center align-middle">
-                                <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
-                            <td class="text-center align-middle">
-                                <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center align-middle"><i class="fa fa-clock-o fa-lg"></i> 11:30</td>
-                            <td class="text-center align-middle">
-                                <p class="action p-0 m-0">Michael de Vede</p>
-                                <p class="report p-0 m-0 font-italic">How takes a good photo?</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 <div class="container">
     <div class="row my-4">

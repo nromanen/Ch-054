@@ -178,3 +178,19 @@ $small-screen: 30.81rem;
 			font-size: 1.5rem;
 			background-color: rgba(54, 57, 62, .61); 
 			box-shadow: 0 0 15px rgba(0,0,0,0.6);}
+
+
+			@media (max-width: 376px) {
+				.calendar {
+				  font-size: 20px;
+				}
+				p, span {
+					font-size: 14px;
+				}
+			// 	h3 {
+			// 		font-size: 1.563em;
+			// 	}
+			// 	h4 {
+			// 		font-size: 1.25em;
+			// 	}
+			}
