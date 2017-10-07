@@ -1,33 +1,33 @@
 <div class="container-fluid">
-    <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-faded fixed-top px-5">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <i class="navbar-toggler-icon"></i>
-            </button>
-            <a class="navbar-brand py-0" href="#">
-                <img class="img-brand" src={{img_logo}}>
-            </a>
-            <div class="collapse navbar-collapse navbar-toggleable-md" id="nav-content">
-                <form class="form-inline mr-auto  mt-2 mt-lg-0">
-                    <div class="input-group mr-sm-2">
-                        <input class="form-control input-lg input border-right-0" size="25" type="text" placeholder="Search">
-                        <button class="input-group-addon button-submit button-search" type="submit">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </form>
-                <ul class="navbar-nav">
-                    <li>
-                        <a routerLink="/all-event" class="nav-link">All events</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#">Open events</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+	<div class="row">
+		<nav class="navbar navbar-expand-lg navbar-light bg-faded fixed-top px-5">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<i class="navbar-toggler-icon"></i>
+			</button>
+			<a class="navbar-brand py-0" href="#">
+				<img class="img-brand" src={{imgLogo}}>
+			</a>
+			<div class="collapse navbar-collapse navbar-toggleable-md" id="nav-content">
+				<form class="form-inline mr-auto  mt-2 mt-lg-0">
+					<div class="input-group mr-sm-2">
+						<input class="form-control input-lg input border-right-0" size="25" type="text" placeholder="Search">
+						<button class="input-group-addon button-submit button-search" type="submit">
+							<i class="fa fa-search" aria-hidden="true"></i>
+						</button>
+					</div>
+				</form>
+				<ul class="navbar-nav">
+					<li>
+						<a routerLink="/all-event" class="nav-link">All events</a>
+					</li>
+					<li>
+						<a class="nav-link" href="#">Open events</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
 
 </div>
-<div class="backg-nav full-bg-img flex-center mb-5 nav-img" [ngStyle]="{'background-image':'url(' + background.link + ')'}"></div>
+<div class="backg-nav full-bg-img flex-center mb-5 nav-img"></div>

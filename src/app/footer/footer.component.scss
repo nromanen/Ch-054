@@ -1,24 +1,18 @@
-
 @import '../_main';
 
-.main-footer {
-    background-image: $url-img;
-}
+$url-img: url('/assets/images/imgFooter.jpeg');
 
 .img-footer {
+    background-image: $url-img;
     @include size(31.25rem, 100%);
     background-size: cover;
-}
 
-.img-brand{
-    @include size($height-logotip, $width-logotip);
-    margin-left: 3.125rem;
-}
+    .bg-footer {
+        background-color: $colorBg;
 
-.bg-footer {
-    background-color: $colorBg;
-}
-
-.brand-name{
-    @include size(2.5rem, auto);
+        .img-brand{
+            @include size($height-logotip, $width-logotip);
+            margin-left: 3.125rem;
+        }
+    }
 }
