@@ -1,14 +1,12 @@
-$width-card: 100%;
-$height-card: auto;
+@import '../_size';
+@import '../_color';
+
+$auto-size: auto;
 $hidden: hidden;
 $media: screen;
 $larg-screen: 40.19rem;
 $small-screen: 30.81rem;
 $little-screen: 25.94rem;
-@mixin size($height, $width) {
-    height: $height;
-    width: $width;
-}
 
 @mixin transform($rotateY) {
     transform: $rotateY;
@@ -22,7 +20,7 @@ $little-screen: 25.94rem;
 }
 
 %img-size {
-    @include size(100%, 100%);
+    @include size($full-width, $full-width);
 }
 
 %style-card {
@@ -92,7 +90,7 @@ $little-screen: 25.94rem;
             }
         }
         .front {
-            @include size($height-card, $width-card);
+            @include size($auto-size, $full-width);
             position: absolute;
             z-index: 1;
             @extend %style-card;
@@ -101,7 +99,7 @@ $little-screen: 25.94rem;
             }
         }
         .back {
-            @include size($height-card, $width-card);
+            @include size($auto-size, $full-width);
             @include transform(rotateY(-180deg));
             background-color: rgba(54, 57, 62, 0.97);
             @extend %style-card;
@@ -121,7 +119,7 @@ $little-screen: 25.94rem;
             width: 90% !important;
         }
         @media #{$media} and (max-width: 31.44rem) {
-            width: 100% !important;
+            width: $full-width !important;
         }
         @media #{$media} and (max-width: 26rem) {
             font-size: 1.44rem;

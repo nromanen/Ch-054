@@ -1,12 +1,11 @@
-@import '../_main';
-$colorBg: rgb(54, 57, 62);
+@import '../_size';
+@import '../_color';
 $block-line: inline-block;
-$color-wh: white;
 $color-grey: rgb(83, 87, 93);
 $color-grey-icon: rgba(134, 136, 138, .5);
-$full-width:100%;
 $url-img: url('/assets/images/imgNav.jpg');
-@mixin bgColor($bg,$color) {
+@mixin bgColor($bg,
+$color) {
     color: $color;
     background: $bg;
 }
@@ -28,7 +27,8 @@ $url-img: url('/assets/images/imgNav.jpg');
         }
     }
     .input {
-        @include bgColor($color-grey, $color-wh);
+        @include bgColor($color-grey,
+        $color-wh);
         +.button-search {
             @include bgColor($color-grey-icon,
             $color-wh);
@@ -44,12 +44,11 @@ $url-img: url('/assets/images/imgNav.jpg');
         box-shadow: 0 0 0.0625rem rgba(204, 208, 216, 0.4) inset, 0 0 0 rgba(0, 0, 0, 0);
         outline: 0 none;
     }
-}
-
-.backg-nav {
-    height: 37.5rem;
-    width: 100%;
-    background-size: cover;
-    background-image: $url-img;
-    margin-top: 3rem;
+    +.backg-nav {
+        @include size(37.5rem,
+        $full-width);
+        background-size: cover;
+        background-image: $url-img;
+        margin-top: 3rem;
+    }
 }

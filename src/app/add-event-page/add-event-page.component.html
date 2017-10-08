@@ -1,4 +1,4 @@
-<div class="container justify-content-center all-events-body">
+<!-- <div class="container justify-content-center all-events-body">
     <div class="row">
         <div class="col-lg-2 col-md-1 col-sm-1"></div>
         <form [formGroup]="addForm" class="form-class col-sm-9 col-md-11 col-lg-8">
@@ -9,17 +9,18 @@
             </div>
             <label class="label-date" for="eventDateFrom">Event begins at</label>
             <div class="input-group">
-                <input id="eventDateFrom" formControlName="dateFrom" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
+                <input id="eventDateFrom" formControlName="dateFrom" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                    #d="ngbDatepicker">
                 <button class="input-group-addon" (click)="d.toggle()" type="button">
-            <img src="./assets\images\calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
+                    <img src="./assets\images\calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                </button>
             </div>
             <label class="label-date" for="eventDateTo">Event ends at</label>
             <div class="input-group">
                 <input id="eventDateTo" formControlName="dateTo" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dt="ngbDatepicker">
                 <button class="input-group-addon" (click)="dt.toggle()" type="button">
-                <img src="./assets\images\calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-              </button>
+                    <img src="./assets\images\calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                </button>
             </div>
             <div class="form-group descr-input-group">
                 <label for="descriptionTextarea">Description</label>
@@ -28,9 +29,9 @@
 
             <div class="form-group">
                 <label class="custom-file" id="customCss">
-                            <input type="file" (change)="change($event)" formControlName="photo" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
-                            <span class="custom-file-control form-control-file">{{photoEvent}}</span>
-                    </label>
+                    <input type="file" (change)="change($event)" formControlName="photo" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                    <span class="custom-file-control form-control-file">{{photoEvent}}</span>
+                </label>
             </div>
 
             <div class="form-group name-input-group">
@@ -40,9 +41,10 @@
 
             <div class="form-group">
                 <label class="custom-file" id="customCss">
-                            <input type="file" (change)="changeLocation($event)" formControlName="photoLocation" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
-                            <span class="custom-file-control form-control-file">{{photoEventLocation}}</span>
-                    </label>
+                    <input type="file" (change)="changeLocation($event)" formControlName="photoLocation" class="custom-file-input" id="exampleInputFile"
+                        aria-describedby="fileHelp">
+                    <span class="custom-file-control form-control-file">{{photoEventLocation}}</span>
+                </label>
             </div>
 
             <div class="col-2 button-overlay">
@@ -50,4 +52,170 @@
             </div>
         </form>
     </div>
+</div> -->
+
+
+
+
+
+
+<!-- New -->
+
+<div class="container">
+    <form class="form-horizontal" role="form">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2>Create new event</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">Title of event</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Wedding conference" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">Photo of event</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <span class="custom-file-control form-control-file"></span>
+                        <input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                        <!-- Put e-mail validation error messages here -->
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="descr">Description of event</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        
+                        <textarea type="text" name="descr" class="form-control" id="descr" placeholder="Description of conference" required autofocus></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="password">Calendar</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <h1>Location</h1>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" name="country" class="form-control" id="country" placeholder="Country" required>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-university"></i>
+                        </div>
+                        <input type="text" name="city" class="form-control" id="city" placeholder="City" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <input type="text" name="address" class="form-control" id="address" placeholder="Address" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">Photo of location</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <span class="custom-file-control form-control-file"></span>
+                        <input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                        <!-- Put e-mail validation error messages here -->
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12"></div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-plus-circle"></i> Add agenda</button>
+            </div>
+
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-cart-plus"></i> Template</button>
+            </div>
+        </div>
+    </form>
 </div>
