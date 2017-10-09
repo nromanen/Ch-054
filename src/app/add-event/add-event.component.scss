@@ -1,0 +1,28 @@
+@import '../_size';
+.logo-Camera {
+    height: $height-logotip;
+    width: $width-logotip;
+}
+
+.title-bg {background-color:rgb(83, 87, 93);}
+
+.jumbotron {
+    background-color:rgb(83, 87, 93);
+    color: #FFF;
+    border-radius: 0px;
+    }
+    .jumbotron-sm { padding-top: 24px;
+    padding-bottom: 24px; }
+    .jumbotron small {
+    color: #FFF;
+    }
+    .h1 small {
+    font-size: 24px;
+    }
+
+    .form { background-color:rgba(83, 87, 93, .3);
+        border-radius: 5px;
+    }
+
+    .preview {background-color:rgba(83, 87, 93, .2);
+        border-radius: 5px;}

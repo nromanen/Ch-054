@@ -19,6 +19,7 @@ import { AddLectionPageComponent } from './add-lection-page/add-lection-page.com
 import { AppRoutingModule } from './app-routing-module';
 import {ConfService} from './conf-service';
 import { AddEventComponent } from './add-event/add-event.component';
+import { ModalLocationComponent } from './modal-location/modal-location.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -38,7 +39,8 @@ export const firebaseConfig = {
     AllEventsComponentComponent,
     AddEventPageComponent,
     AddLectionPageComponent,
-    AddEventComponent
+    AddEventComponent,
+    ModalLocationComponent
   ],
   imports: [
     BrowserModule,

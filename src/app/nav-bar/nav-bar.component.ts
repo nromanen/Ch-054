@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  imgLogo ='/assets/images/logo-pr.png';
+  imgLogo = '/assets/images/logo-pr.png';
   constructor() { }
 
   ngOnInit() {
