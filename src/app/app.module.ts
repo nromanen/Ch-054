@@ -18,6 +18,7 @@ import { AddEventPageComponent } from './add-event-page/add-event-page.component
 import { AddLectionPageComponent } from './add-lection-page/add-lection-page.component';
 import { AppRoutingModule } from './app-routing-module';
 import {ConfService} from './conf-service';
+import { AddEventComponent } from './add-event/add-event.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -36,7 +37,8 @@ export const firebaseConfig = {
     FooterComponent,
     AllEventsComponentComponent,
     AddEventPageComponent,
-    AddLectionPageComponent
+    AddLectionPageComponent,
+    AddEventComponent
   ],
   imports: [
     BrowserModule,
