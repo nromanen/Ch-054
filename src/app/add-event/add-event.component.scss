@@ -22,7 +22,9 @@
 
     .form { background-color:rgba(83, 87, 93, .3);
         border-radius: 5px;
+        background-image: url('/assets/images/bgForm.png');
+        background-size: cover;
     }
-
+input, textarea, .input-bg {background-color:rgba(83, 87, 93, .4);}
     .preview {background-color:rgba(83, 87, 93, .2);
-        border-radius: 5px;}
+        border-radius: 5px; background-image: url('/assets/images/bgForm.png');}

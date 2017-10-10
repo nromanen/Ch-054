@@ -1,155 +1,14 @@
-<!-- <div class="container-fluid">
-	<h2 class="mx-auto text-center title-bg py-1 text-white">
-		<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h2>
-	<div class="row">
-		<div class="col-md-6">
-				<div class="row">
-						<div class="col-md-3 field-label-responsive text-right">
-							<label for="name">Title of event</label>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-									<input type="text" name="name" class="form-control" id="name" placeholder="Wedding conference" required autofocus>
-									<div class="input-group-addon" style="width: 2.6rem">
-										<i class="fa fa-pencil"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3 field-label-responsive text-right">
-							<label for="email">Photo of event</label>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-			
-								<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-									<span class="custom-file-control form-control-file"></span>
-									<input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
-								</div>
-							</div>
-						</div>
-		</div>
-		<div class="col-md-6">
-				<div class="col-md-12">
-			<label for="decr">Description</label></div>
-			<textarea name="" id="decr" cols="80" rows="10"></textarea>
-		</div>
-
-
-	</div>
-</div>
-<div class="container">
-	<form class="form-horizontal" role="form">
-		<div class="row">
-			<div class="col-md-3 field-label-responsive text-right">
-				<label for="name">Title of event</label>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-						<input type="text" name="name" class="form-control" id="name" placeholder="Wedding conference" required autofocus>
-						<div class="input-group-addon" style="width: 2.6rem">
-							<i class="fa fa-pencil"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-3 field-label-responsive text-right">
-				<label for="email">Photo of event</label>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-						<span class="custom-file-control form-control-file"></span>
-						<input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-3 field-label-responsive text-right">
-				<label for="descr">Description of event</label>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-						<textarea type="text" name="descr" class="form-control" id="descr" placeholder="Description of conference" required autofocus></textarea>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-3 field-label-responsive text-right">
-				<label for="calendar">Calendar</label>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
-						<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker">
-						<span class="input-group-addon">to</span>
-						<input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="modelDate" ngbDatepicker (click)="dp.toggle()"
-						 #dp="ngbDatepicker">
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-3 field-label-responsive text-right">
-				<label for="name">Location</label>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-
-					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-						<input type="text" name="name" class="form-control" id="name" placeholder="US, 245 West72nd Street New York, NY 10023" required
-						 autofocus>
-						<app-modal-location></app-modal-location>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-12"></div>
-			<div class="col-md-6">
-				<button type="submit" class="btn btn-success">
-					<i class="fa fa-plus-circle"></i> Add agenda</button>
-			</div>
-
-			<div class="col-md-6">
-				<button type="submit" class="btn btn-warning">
-					<i class="fa fa-paper-plane"></i> Template</button>
-			</div>
-		</div>
-	</form>
-</div> -->
-
-
-<div class="jumbotron jumbotron-sm">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12 col-lg-12">
-				<h1 class="h1 text-center">
-					<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h1>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="container-fluid">
-	<div class="row mx-1 my-1">
+<div class="container-fluid text-white">
+	<div class="row mx-2 my-2">
 		<div class="col-md-12">
-			<div class="well well-sm">
-				<form class="form px-3 py-3">
+			<div class="well well-sm form">
+				<div class="col-sm-12 col-lg-12 title-bg py-2">
+					<h1 class="h1 text-center">
+						<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h1>
+				</div>
+				<form class="px-3 py-3">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-6 px-5">
 							<div class="form-group">
 								<label for="name">Title of event</label>
 								<div class="form-group">
@@ -164,9 +23,12 @@
 							<div class="form-group">
 								<label for="email">Photo of event</label>
 								<div class="form-group">
-									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-										<span class="custom-file-control form-control-file"></span>
-										<input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+									<div class="form-group">
+										<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+											<!-- <span class="custom-file-control form-control-file"></span>
+											<input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp"> -->
+											<label class="file"> <input type="file" id="file"> <span class="file-custom"></span> </label>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -196,7 +58,7 @@
 
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6 px-5">
 							<div class="form-group">
 								<label for="descr">
 									Description</label>
@@ -213,6 +75,6 @@
 				</form>
 			</div>
 		</div>
-		
+
 	</div>
 </div>

@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 	styleUrls: ['./add-event.component.scss']
 })
 export class AddEventComponent implements OnInit {
-	logoCamera = '/assets/images/camera.png';;
+	logoCamera = '/assets/images/camera.png';
 	constructor() { }
 
 	ngOnInit() {
