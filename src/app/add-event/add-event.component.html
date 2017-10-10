@@ -1,4 +1,4 @@
-<div class="container mb-5 py-5 text-white">
+<!-- <div class="container mb-5 py-5 text-white">
 	<div class="row mx-2 my-2">
 		<div class="col-md-12">
 			<div class="well well-sm form">
@@ -29,8 +29,6 @@
 											<label for="files" class="btn btn-secondary my-auto py-2">Select Image</label>
 											<input id="files" style="display: none;" type="file">
 											<span class="pl-1 my-auto py-2">Selected file</span>
-
-											<!-- <input type="file" id="exampleInputFile" aria-describedby="fileHelp"> -->
 
 
 										</div>
@@ -81,7 +79,7 @@
 		</div>
 
 	</div>
-</div>
+</div> -->
 
 
 
@@ -127,35 +125,60 @@
 											<input id="files" style="display: none;" type="file">
 											<span class="pl-1 my-auto py-2">Selected file</span>
 
-											<!-- <input type="file" id="exampleInputFile" aria-describedby="fileHelp"> -->
-
 										</div>
 									</div>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="name" class="font-weight-bold">Calendar</label>
+								<label for="calendar1" class="font-weight-bold">Calendar</label>
 								<div class="form-group">
 									<div class="row">
 										<div class="col">
 											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
-												<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker">
+												<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker"
+												 id="calendar1">
 												<div class="input-group-addon" style="width: 2.6rem">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
 												</div>
 											</div>
-											<!-- <span class="input-group-addon">to</span>
-										<input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="modelDate" ngbDatepicker (click)="dp.toggle()"
-										 #dp="ngbDatepicker"> -->
 										</div>
 										<div class="col">
-											<button type="button" class="btn btn-secondary">
-												<i class="fa fa-calendar" aria-hidden="true" (click)="addCalendar()"></i> End</button>
+												<button type="button" class="btn btn-secondary" (click)="addCalendar()">
+													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i> End</button>
+											
 										</div>
 									</div>
 								</div>
 							</div>
+
+
+
+							<div class="form-group" *ngIf="isShowCalendarTo">
+								<label for="calendar2" class="font-weight-bold">Calendar To</label>
+								<div class="form-group">
+									<div class="row">
+										<div class="col">
+											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
+												<input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="modelDate" ngbDatepicker (click)="dp.toggle()"
+												 #dp="ngbDatepicker" id="calendar2">
+												<div class="input-group-addon" style="width: 2.6rem">
+													<i class="fa fa-calendar" aria-hidden="true"></i>
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
+												<button type="button" class="btn btn-secondary" (click)="deleteCalendar()">
+													<i class="fa fa-calendar-times-o" aria-hidden="true"></i> Delete</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
 
 							<div class="form-group">
 								<label for="location" class="font-weight-bold">
@@ -163,10 +186,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-9" style="color: black;">
-											<div class="input-group" ng2-auto-complete 
-											[source]="arrayOfStrings"
-											(ngModelChange)="myCallback($event)"
-											placeholder="enter text">
+											<div class="input-group" ng2-auto-complete [source]="arrayOfStrings" (ngModelChange)="myCallback($event)" placeholder="enter text">
 												<input type="text" name="location" class="form-control" id="location" [ngModel]="model1" placeholder="US, 245 West72nd Street New York, NY 10023"
 												 required autofocus>
 												<app-modal-location></app-modal-location>
@@ -174,7 +194,8 @@
 											</div>
 										</div>
 										<div class="col-md-3">
-											<button class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
+											<button class="btn btn-info">
+												<i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
 										</div>
 									</div>
 

@@ -4,15 +4,21 @@
     width: $width-logotip;
 }
 
-.title-bg {background-color:rgb(83, 87, 93);  
-    border-radius: 15px 15px 0 0;}
+.title-bg {
+    background-color: rgb(83, 87, 93);
+    border-radius: 15px 15px 0 0;
+}
 
-    .form { background-color:rgba(83, 87, 93, .3);
-        border-radius: 15px;
-        background-image: url('/assets/images/bgForm.png');
-        background-size: cover;
-        // position: fixed; 
-        box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
-    }
-input, textarea, .input-bg {background-color:rgba(83, 87, 93, .4);}
-   
+.form {
+    background-color: rgba(83, 87, 93, .3);
+    border-radius: 15px;
+    background-image: url('/assets/images/bgForm.png');
+    background-size: cover; // position: fixed; 
+    box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
+}
+
+input,
+textarea,
+.input-bg {
+    background-color: rgba(83, 87, 93, .4);
+}

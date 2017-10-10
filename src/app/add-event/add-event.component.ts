@@ -22,7 +22,12 @@ export class AddEventComponent implements OnInit {
 	}
 
 	addCalendar() {
-		this.isShowCalendarTo;
+		this.isShowCalendarTo = true;
+		console.log(this.isShowCalendarTo);
+	}
+
+	deleteCalendar() {
+		this.isShowCalendarTo = false;
 	}
 
 
