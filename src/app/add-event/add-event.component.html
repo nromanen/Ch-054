@@ -1,4 +1,4 @@
-<div class="container-fluid text-white">
+<div class="container text-white">
 	<div class="row mx-2 my-2">
 		<div class="col-md-12">
 			<div class="well well-sm form">
@@ -10,7 +10,7 @@
 					<div class="row">
 						<div class="col-md-6 px-5">
 							<div class="form-group">
-								<label for="name">Title of event</label>
+								<label for="name" class="font-weight-bold">Title of event</label>
 								<div class="form-group">
 									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 										<input type="text" name="name" class="form-control" id="name" placeholder="Wedding conference" required autofocus>
@@ -25,9 +25,13 @@
 								<div class="form-group">
 									<div class="form-group">
 										<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-											<!-- <span class="custom-file-control form-control-file"></span>
-											<input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp"> -->
-											<label class="file"> <input type="file" id="file"> <span class="file-custom"></span> </label>
+
+											<!-- <label for="files" class="btn btn-success">Select Image</label>
+											<input id="files" style="visibility:hidden;" type="file"> -->
+
+											<input type="file" id="exampleInputFile" aria-describedby="fileHelp">
+
+
 										</div>
 									</div>
 								</div>
@@ -63,7 +67,6 @@
 								<label for="descr">
 									Description</label>
 								<textarea name="descr" class="form-control" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
-								<!-- <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea> -->
 							</div>
 							<button type="submit" class="btn btn-warning text-white">
 								<i class="fa fa-paper-plane"></i> Template</button>

@@ -4,27 +4,15 @@
     width: $width-logotip;
 }
 
-.title-bg {background-color:rgb(83, 87, 93);}
-
-.jumbotron {
-    background-color:rgb(83, 87, 93);
-    color: #FFF;
-    border-radius: 0px;
-    }
-    .jumbotron-sm { padding-top: 24px;
-    padding-bottom: 24px; }
-    .jumbotron small {
-    color: #FFF;
-    }
-    .h1 small {
-    font-size: 24px;
-    }
+.title-bg {background-color:rgb(83, 87, 93);  
+    border-radius: 5px 5px 0 0;}
 
     .form { background-color:rgba(83, 87, 93, .3);
         border-radius: 5px;
         background-image: url('/assets/images/bgForm.png');
         background-size: cover;
+        box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
     }
 input, textarea, .input-bg {background-color:rgba(83, 87, 93, .4);}
-    .preview {background-color:rgba(83, 87, 93, .2);
+    .preview {background-color:rgba(83, 87, 93, .2); 
         border-radius: 5px; background-image: url('/assets/images/bgForm.png');}

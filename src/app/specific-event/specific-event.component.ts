@@ -12,8 +12,6 @@ import * as firebase from 'firebase';
   styleUrls: ['./specific-event.component.scss']
 })
 export class SpecificEventComponent implements OnInit {
-  background = { link: "/assets/images/1.png" }
-  bgLocation = { link: "/assets/images/bg-location.png" }
   item = new Conf();
   isShow: boolean = false;
   key: any;

@@ -1,6 +1,7 @@
 $height-logotip: 3.4rem;
 $width-logotip: 3.4rem;
 $full-width:100%;
+$auto-size: auto;
 
 @mixin size($height, $width) {
 	height: $height;
