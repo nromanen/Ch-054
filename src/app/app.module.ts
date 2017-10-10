@@ -1,12 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
-import {ReactiveFormsModule} from '@angular/forms';
-import {FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { HttpModule } from '@angular/http';
 
 
 import { AppComponent } from './app.component';
@@ -17,7 +20,7 @@ import { AllEventsComponentComponent } from './all-events-component/all-events-c
 import { AddEventPageComponent } from './add-event-page/add-event-page.component';
 import { AddLectionPageComponent } from './add-lection-page/add-lection-page.component';
 import { AppRoutingModule } from './app-routing-module';
-import {ConfService} from './conf-service';
+import { ConfService } from './conf-service';
 import { AddEventComponent } from './add-event/add-event.component';
 import { ModalLocationComponent } from './modal-location/modal-location.component';
 
@@ -50,7 +53,8 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    Ng2AutoCompleteModule
   ],
   providers: [ConfService],
   bootstrap: [AppComponent]

@@ -1,9 +1,9 @@
-<div class="container text-white">
+<div class="container mb-5 py-5 text-white">
 	<div class="row mx-2 my-2">
 		<div class="col-md-12">
 			<div class="well well-sm form">
 				<div class="col-sm-12 col-lg-12 title-bg py-2">
-					<h1 class="h1 text-center">
+					<h1 class="h1 text-center font-weight-bold">
 						<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h1>
 				</div>
 				<form class="px-3 py-3">
@@ -21,15 +21,16 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="email">Photo of event</label>
+								<label for="email" class="font-weight-bold">Photo of event</label>
 								<div class="form-group">
 									<div class="form-group">
 										<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-											<!-- <label for="files" class="btn btn-success">Select Image</label>
-											<input id="files" style="visibility:hidden;" type="file"> -->
+											<label for="files" class="btn btn-secondary my-auto py-2">Select Image</label>
+											<input id="files" style="display: none;" type="file">
+											<span class="pl-1 my-auto py-2">Selected file</span>
 
-											<input type="file" id="exampleInputFile" aria-describedby="fileHelp">
+											<!-- <input type="file" id="exampleInputFile" aria-describedby="fileHelp"> -->
 
 
 										</div>
@@ -38,7 +39,7 @@
 							</div>
 
 							<div class="form-group">
-								<label for="name">Calendar</label>
+								<label for="name" class="font-weight-bold">Calendar</label>
 								<div class="form-group">
 									<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
 										<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker">
@@ -50,7 +51,7 @@
 							</div>
 
 							<div class="form-group">
-								<label for="location">
+								<label for="location" class="font-weight-bold">
 									Location</label>
 								<div class="form-group">
 									<div class="input-group">
@@ -59,12 +60,12 @@
 										<app-modal-location></app-modal-location>
 									</div>
 								</div>
-
+								<button class="btn btn-info">Review</button>
 							</div>
 						</div>
 						<div class="col-md-6 px-5">
 							<div class="form-group">
-								<label for="descr">
+								<label for="descr" class="font-weight-bold">
 									Description</label>
 								<textarea name="descr" class="form-control" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
 							</div>
@@ -74,6 +75,121 @@
 								<i class="fa fa-plus-circle"></i> Add agenda</button>
 
 						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+
+
+
+<div class="container mb-5 py-5 text-white">
+	<div class="row mx-2 my-2">
+		<div class="col-md-12">
+			<div class="well well-sm form">
+				<div class="col-sm-12 col-lg-12 title-bg py-2">
+					<h1 class="h1 text-center font-weight-bold">
+						<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h1>
+				</div>
+				<form class="px-3 py-3">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-10 px-5">
+							<div class="form-group">
+								<label for="name" class="font-weight-bold">Title of event</label>
+								<div class="form-group">
+									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										<input type="text" name="name" class="form-control" id="name" placeholder="Wedding conference" required autofocus>
+										<div class="input-group-addon" style="width: 2.6rem">
+											<i class="fa fa-pencil"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="descr" class="font-weight-bold">
+									Description</label>
+								<textarea name="descr" class="form-control" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="email" class="font-weight-bold">Photo of event</label>
+								<div class="form-group">
+									<div class="form-group">
+										<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+											<label for="files" class="btn btn-secondary my-auto py-2">Select Image</label>
+											<input id="files" style="display: none;" type="file">
+											<span class="pl-1 my-auto py-2">Selected file</span>
+
+											<!-- <input type="file" id="exampleInputFile" aria-describedby="fileHelp"> -->
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="name" class="font-weight-bold">Calendar</label>
+								<div class="form-group">
+									<div class="row">
+										<div class="col">
+											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
+												<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker">
+												<div class="input-group-addon" style="width: 2.6rem">
+													<i class="fa fa-calendar" aria-hidden="true"></i>
+												</div>
+											</div>
+											<!-- <span class="input-group-addon">to</span>
+										<input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="modelDate" ngbDatepicker (click)="dp.toggle()"
+										 #dp="ngbDatepicker"> -->
+										</div>
+										<div class="col">
+											<button type="button" class="btn btn-secondary">
+												<i class="fa fa-calendar" aria-hidden="true"></i> End</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="location" class="font-weight-bold">
+									Location</label>
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-9" style="color: black;">
+											<div class="input-group" ng2-auto-complete 
+											[source]="arrayOfStrings"
+											(ngModelChange)="myCallback($event)"
+											placeholder="enter text">
+												<input type="text" name="location" class="form-control" id="location" [ngModel]="model1" placeholder="US, 245 West72nd Street New York, NY 10023"
+												 required autofocus>
+												<app-modal-location></app-modal-location>
+
+											</div>
+										</div>
+										<div class="col-md-3">
+											<button class="btn btn-info">Preview</button>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+							<div class="mb-5 mt-4 text-center">
+								<button type="submit" class="btn btn-warning text-white">
+									<i class="fa fa-paper-plane"></i> Template</button>
+								<button type="submit" class="btn btn-success">
+									<i class="fa fa-plus-circle"></i> Add agenda</button>
+							</div>
+
+						</div>
+						<div class="col-md-1"></div>
 					</div>
 				</form>
 			</div>
