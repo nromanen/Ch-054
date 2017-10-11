@@ -11,6 +11,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 export class AddEventComponent implements OnInit {
 	logoCamera: string = '/assets/images/camera.png';
 	isShowCalendarTo: boolean = false;
+	isShowButton: boolean = true;
 
 //autocomplete
 	model1 = "USA";
@@ -23,11 +24,13 @@ export class AddEventComponent implements OnInit {
 
 	addCalendar() {
 		this.isShowCalendarTo = true;
+		this.isShowButton = false;
 		console.log(this.isShowCalendarTo);
 	}
 
 	deleteCalendar() {
 		this.isShowCalendarTo = false;
+		this.isShowButton = true;
 	}
 
 

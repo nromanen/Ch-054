@@ -1,0 +1,15 @@
+<div *ngIf="isShowCropper">
+  <div class="file-upload">
+    <label for="files" class="btn btn-secondary my-auto py-2">Select Image</label>
+    <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+  </div>
+  <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+</div>
+<div *ngIf="data1.image">
+  <p class="result">
+    <img [src]="data1.image" [width]="500" [height]="260">
+  </p>
+  <button class="btn btn-secondary my-auto py-2" (click)="showCropper()">Show cropper</button>
+</div>
+
+<!-- <button><i class="fa fa-crop" aria-hidden="true"></i></button> -->

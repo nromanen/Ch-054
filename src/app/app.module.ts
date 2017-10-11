@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpModule } from '@angular/http';
+import {ImageCropperComponent} from 'ng2-img-cropper';
 
 
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { AppRoutingModule } from './app-routing-module';
 import { ConfService } from './conf-service';
 import { AddEventComponent } from './add-event/add-event.component';
 import { ModalLocationComponent } from './modal-location/modal-location.component';
+import { CropperComponent } from './cropper-event/cropper.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -43,7 +45,9 @@ export const firebaseConfig = {
     AddEventPageComponent,
     AddLectionPageComponent,
     AddEventComponent,
-    ModalLocationComponent
+    ModalLocationComponent,
+    CropperComponent,
+    ImageCropperComponent
   ],
   imports: [
     BrowserModule,
