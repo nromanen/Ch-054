@@ -1,15 +1,24 @@
 <div *ngIf="isShowCropper">
-  <div class="file-upload">
-    <label for="files" class="btn btn-secondary my-auto py-2">Select Image</label>
-    <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+  <div>
+    <div class="file-upload">
+      <label for="files" class="btn btn-secondary my-auto py-2">Select Image</label>
+      <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+    </div>
+    <button class="btn btn-secondary my-auto py-2 hiddeCropper" *ngIf="data1.image" (click)="hiddeCropper()">Upload</button>
   </div>
+
   <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
 </div>
-<div *ngIf="data1.image">
+
+
+<div *ngIf="isHiddeCropper">
   <p class="result">
     <img [src]="data1.image" [width]="500" [height]="260">
-  </p>
-  <button class="btn btn-secondary my-auto py-2" (click)="showCropper()">Show cropper</button>
-</div>
 
-<!-- <button><i class="fa fa-crop" aria-hidden="true"></i></button> -->
+    <span class="card-hover-icons">
+        <a class="crop" (click)="showCropper()">
+          <i class="fa fa-crop" aria-hidden="true"></i>
+        </a>
+      </span>
+  </p>
+</div>

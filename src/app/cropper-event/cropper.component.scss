@@ -1,17 +1,51 @@
 .file-upload {
     position: relative;
-    top: -5px;
+    top: -0.3125rem;
     cursor: pointer;
+    display: inline;
+
+    input[type='file'] {
+        height: 3.438rem;
+        width: 9.688rem;
+        position: absolute;
+        top: 0;
+        left: 0%;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      +.hiddeCropper {    
+        position: relative;
+        top: -0.3125rem;
+        cursor: pointer;
+    }
   }
+  
   
 
-  
-  input[type='file'] {
-    height: 55px;
-    width: 150px;
+
+  .card-hover-icons {
     position: absolute;
-    top: 0;
-    left: 42.5%;
-    opacity: 0;
-    cursor: pointer;
+	top: 1.875rem;
+	bottom: 0;
+	left: 50%;
+	right: 0;
+	padding: 0.5rem;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
   }
+
+  .crop{
+      font-size: 2rem;
+      text-shadow: 0.0625rem 0.0625rem 0.1875rem black, 0.0625rem 0.0625rem 0.5rem black;
+    margin: 0.125rem;
+	opacity: 0;
+	transform: translateY(50%);
+	transition: all 0.35s ease;
+      &:hover {transition: all 0.35s ease;
+	opacity: 1;
+	transform: translateX(0);}
+    }
