@@ -6,50 +6,52 @@
 					<h1 class="h1 text-center font-weight-bold">
 						<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h1>
 				</div>
-				<form class="px-3 py-3">
+				<form class="px-3 py-3" [formGroup]="myForm">
 					<div class="row">
 						<div class="col-md-1"></div>
-						<div class="col-md-10 px-5">
+						 <div class="col-md-10 px-5">
 
-								<div class="form-group text-center">
-										<label for="email" class="font-weight-bold">Photo of event</label>
-										<div class="form-group">
-												<app-cropper></app-cropper>
-										</div>
-									</div>
+							 <div class="form-group text-center">
+								<label for="cropper" class="font-weight-bold">Photo of event</label>
+								<div class="form-group">
+									<app-cropper></app-cropper>
+								</div>
+							</div>  
 
 							<div class="form-group">
 								<label for="name" class="font-weight-bold">Title of event</label>
-									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-										<input type="text" name="name" class="form-control input-bg" id="name" placeholder="Wedding conference" required autofocus>
-										<div class="input-group-addon" style="width: 2.6rem">
-											<i class="fa fa-pencil"></i>
-										</div>
+								<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+									<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference" required autofocus>
+									<div class="input-group-addon" style="width: 2.6rem">
+										<i class="fa fa-pencil"></i>
 									</div>
+								</div>
 							</div>
 							<div class="form-group">
 								<label for="descr" class="font-weight-bold">
 									Description</label>
-								<textarea name="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
+								<textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
 							</div>
 
-							<div class="form-group">
-								<label for="calendar1" class="font-weight-bold">Calendar <span *ngIf="isShowCalendarTo"> From</span></label>
+							 <div class="form-group">
+								<label for="calendar1" class="font-weight-bold">Calendar
+									<span *ngIf="isShowCalendarTo"> From</span>
+								</label>
 								<div class="form-group">
 									<div class="row">
 										<div class="col my-1 col-md-6 col-sm-8">
 											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
-												<input class="form-control input-bg" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker"
-												 id="calendar1">
+												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()"
+												 #d="ngbDatepicker" id="calendar1">
 												<div class="input-group-addon" style="width: 2.6rem">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-12 col-md-6" [class.hiddeButton]="isShowCalendarTo">
-												<button type="button" class="btn btn-secondary my-1" (click)="addCalendar()" *ngIf="isShowButton">
-													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Endjjttj</button>
-											
+											<button type="button" class="btn btn-secondary my-1" (click)="addCalendar()" *ngIf="isShowButton">
+												<i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Append</button>
+
 										</div>
 									</div>
 								</div>
@@ -63,7 +65,7 @@
 									<div class="row">
 										<div class="my-1 col-md-6 col-sm-8">
 											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
-												<input class="form-control input-bg" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="modelDate" ngbDatepicker (click)="dp.toggle()"
+												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDate" ngbDatepicker (click)="dp.toggle()"
 												 #dp="ngbDatepicker" id="calendar2">
 												<div class="input-group-addon" style="width: 2.6rem">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -90,7 +92,7 @@
 									<div class="row">
 										<div class="col-md-9 my-1" style="color: black;">
 											<div class="input-group" ng2-auto-complete [source]="arrayOfStrings" (ngModelChange)="myCallback($event)" placeholder="enter text">
-												<input type="text" name="location" class="form-control input-bg" id="location" [ngModel]="model1" placeholder="US, 245 West72nd Street New York, NY 10023"
+												<input type="text" formControlName="location" class="form-control input-bg" id="location" [ngModel]="model1" placeholder="US, 245 West72nd Street New York, NY 10023"
 												 required autofocus>
 												<app-modal-location></app-modal-location>
 
@@ -104,11 +106,11 @@
 
 								</div>
 
-							</div>
+							</div> 
 							<div class="mb-5 mt-4 text-center">
 								<button type="submit" class="btn btn-warning text-white sizeButton">
 									<i class="fa fa-paper-plane"></i> Template</button>
-								<button type="submit" class="btn btn-success">
+								<button type="submit" class="btn btn-success" routerLink="/add/agenda">
 									<i class="fa fa-plus-circle"></i> Add agenda</button>
 							</div>
 
@@ -121,3 +123,4 @@
 
 	</div>
 </div>
+

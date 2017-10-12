@@ -1,4 +1,5 @@
-import { Component, NgModule, ViewChild } from '@angular/core'
+import { Component, NgModule, ViewChild, Input, OnChanges, NgZone } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser'
 import { ImageCropperComponent, CropperSettings, Bounds, ImageCropper } from 'ng2-img-cropper';
 
@@ -19,6 +20,7 @@ export class CropperComponent {
   isHiddeCropper: boolean = false;
   event: any;
 
+  // @Input() form: FormGroup;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   constructor() {
