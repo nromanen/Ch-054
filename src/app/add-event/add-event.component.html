@@ -11,7 +11,6 @@
 						<div class="col-md-1"></div>
 						<div class="col-md-10 px-5">
 
-
 								<div class="form-group text-center">
 										<label for="email" class="font-weight-bold">Photo of event</label>
 										<div class="form-group">
@@ -31,28 +30,14 @@
 							<div class="form-group">
 								<label for="descr" class="font-weight-bold">
 									Description</label>
-								<textarea name="descr" class="form-control" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
+								<textarea name="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
 							</div>
-							<!-- <div class="form-group">
-								<label for="email" class="font-weight-bold">Photo of event</label>
-								<div class="form-group">
-									<div class="form-group">
-										<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-
-											<label for="files" class="btn btn-secondary my-auto py-2">Select Image</label>
-											<input id="files" style="display: none;" type="file">
-											<span class="pl-1 my-auto py-2">Selected file</span>
-
-										</div>
-									</div>
-								</div>
-							</div> -->
 
 							<div class="form-group">
 								<label for="calendar1" class="font-weight-bold">Calendar <span *ngIf="isShowCalendarTo"> From</span></label>
 								<div class="form-group">
 									<div class="row">
-										<div class="col">
+										<div class="col my-1 col-md-6 col-sm-8">
 											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker"
 												 id="calendar1">
@@ -61,9 +46,9 @@
 												</div>
 											</div>
 										</div>
-										<div class="col">
-												<button type="button" class="btn btn-secondary" (click)="addCalendar()" *ngIf="isShowButton">
-													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i> End</button>
+										<div class="col-sm-12 col-md-6" [class.hiddeButton]="isShowCalendarTo">
+												<button type="button" class="btn btn-secondary my-1" (click)="addCalendar()" *ngIf="isShowButton">
+													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Endjjttj</button>
 											
 										</div>
 									</div>
@@ -76,7 +61,7 @@
 								<label for="calendar2" class="font-weight-bold">Calendar To</label>
 								<div class="form-group">
 									<div class="row">
-										<div class="col">
+										<div class="my-1 col-md-6 col-sm-8">
 											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="modelDate" ngbDatepicker (click)="dp.toggle()"
 												 #dp="ngbDatepicker" id="calendar2">
@@ -87,7 +72,7 @@
 										</div>
 										<div class="col">
 											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
-												<button type="button" class="btn btn-secondary" (click)="deleteCalendar()">
+												<button type="button" class="btn btn-secondary my-1" (click)="deleteCalendar()">
 													<i class="fa fa-calendar-times-o" aria-hidden="true"></i> Delete</button>
 											</div>
 										</div>
@@ -103,7 +88,7 @@
 									Location</label>
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-9" style="color: black;">
+										<div class="col-md-9 my-1" style="color: black;">
 											<div class="input-group" ng2-auto-complete [source]="arrayOfStrings" (ngModelChange)="myCallback($event)" placeholder="enter text">
 												<input type="text" name="location" class="form-control input-bg" id="location" [ngModel]="model1" placeholder="US, 245 West72nd Street New York, NY 10023"
 												 required autofocus>
@@ -112,7 +97,7 @@
 											</div>
 										</div>
 										<div class="col-md-3">
-											<button class="btn btn-info">
+											<button class="btn btn-info my-1">
 												<i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
 										</div>
 									</div>
@@ -121,7 +106,7 @@
 
 							</div>
 							<div class="mb-5 mt-4 text-center">
-								<button type="submit" class="btn btn-warning text-white">
+								<button type="submit" class="btn btn-warning text-white sizeButton">
 									<i class="fa fa-paper-plane"></i> Template</button>
 								<button type="submit" class="btn btn-success">
 									<i class="fa fa-plus-circle"></i> Add agenda</button>

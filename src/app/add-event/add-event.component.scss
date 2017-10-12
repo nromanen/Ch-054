@@ -1,4 +1,5 @@
 @import '../_size';
+@import '../_color';
 $bg-color: rgba(83, 87, 93, .4);
 .logo-Camera {
     @include size($height-logotip,
@@ -18,8 +19,15 @@ $bg-color: rgba(83, 87, 93, .4);
     box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
 }
 
-input,
-textarea,
 .input-bg {
-    background-color: rgba(83, 87, 93, .4);
+    @include bgColor($color-grey,
+    $color-wh);
 }
+
+// .hiddeButton {display: none;}
+@media screen and (max-width: 575px) {
+    // .hiddeButton {display: none;}
+    .hiddeButton{display: none;}
+}
+
+button {width: 8.125rem;}

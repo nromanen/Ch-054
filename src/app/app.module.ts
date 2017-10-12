@@ -25,6 +25,7 @@ import { ConfService } from './conf-service';
 import { AddEventComponent } from './add-event/add-event.component';
 import { ModalLocationComponent } from './modal-location/modal-location.component';
 import { CropperComponent } from './cropper-event/cropper.component';
+import { AddAgendaComponent } from './add-agenda/add-agenda.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -47,7 +48,8 @@ export const firebaseConfig = {
     AddEventComponent,
     ModalLocationComponent,
     CropperComponent,
-    ImageCropperComponent
+    ImageCropperComponent,
+    AddAgendaComponent
   ],
   imports: [
     BrowserModule,

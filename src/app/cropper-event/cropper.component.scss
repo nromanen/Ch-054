@@ -22,6 +22,8 @@
 }
 
 .card-hover-icons {
+    height: 50%;
+    width: 50%;
     position: absolute;
     top: 1.875rem;
     bottom: 0;
@@ -47,3 +49,6 @@
         }
     }
 }
+button, .button {width: 8.125rem;}
+
+img-cropper canvas {background-color: red !important;}

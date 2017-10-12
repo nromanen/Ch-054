@@ -38,6 +38,9 @@ export class CropperComponent {
 
     this.cropperSettings1.rounded = false;
     this.cropperSettings1.noFileInput = true;
+    // this.cropperSettings1.dynamicSizing = true;
+
+
 
 
     this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';

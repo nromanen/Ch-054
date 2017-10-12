@@ -1,14 +1,8 @@
 @import '../_size';
 @import '../_color';
 $block-line: inline-block;
-$color-grey: rgb(83, 87, 93);
 $color-grey-icon: rgba(134, 136, 138, .5);
 $url-img: url('/assets/images/imgNav.jpg');
-@mixin bgColor($bg,
-$color) {
-    color: $color;
-    background: $bg;
-}
 
 .container-fluid {
     width: $full-width;
