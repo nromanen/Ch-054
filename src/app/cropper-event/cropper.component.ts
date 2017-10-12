@@ -17,6 +17,7 @@ export class CropperComponent {
   croppedHeight: number;
   isShowCropper: boolean = true;
   isHiddeCropper: boolean = false;
+  event: any;
 
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
@@ -50,21 +51,23 @@ export class CropperComponent {
     this.croppedWidth = bounds.right - bounds.left;
   }
 
-  fileChangeListener($event) {
+  fileChangeListener(event) {
     var image = new Image();
-    var file: File = $event.target.files[0];
+    var file: File = event.target.files[0];
     var myReader: FileReader = new FileReader();
     var that = this;
     myReader.onloadend = function (loadEvent: any) {
       image.src = loadEvent.target.result;
       that.cropper.setImage(image);
     };
+    this.event = event;
     myReader.readAsDataURL(file);
   }
 
   showCropper() {
     this.isShowCropper = !this.isShowCropper;
     this.isHiddeCropper = false;
+    this.fileChangeListener(this.event);
   }
 
   hiddeCropper() {
@@ -72,5 +75,5 @@ export class CropperComponent {
     this.isShowCropper = false;
   }
 
-  
+
 }
