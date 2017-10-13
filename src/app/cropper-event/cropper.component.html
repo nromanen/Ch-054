@@ -1,14 +1,15 @@
-<div *ngIf="isShowCropper" >
+<div *ngIf="isShowCropper" [formGroup]="form" (window:resize)="onResize($event)">
 	<div>
 		<div class="file-upload">
 			<label for="files" class="btn btn-secondary mx-auto my-1 py-2 button">Select Image</label>
-			<input id="custom-input" type="file" (change)="fileChangeListener($event)">
+			<input id="custom-input" type="file" (change)="fileChangeListener($event)" formControlName="cropper">
 		</div>
-		<button class="btn btn-secondary my-1 mr-1 py-2 hiddeCropper" *ngIf="data1.image" (click)="hiddeCropper()">Upload Image</button>
+		<button class="btn btn-secondary my-1 mr-1 py-2 hiddeCropper" *ngIf="data1.image" (click)="hiddeCropper()">Save Image</button>
 	</div>
 
 	<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
 </div>
+
 
 <div *ngIf="isHiddeCropper">
 	<p class="result">
@@ -20,3 +21,4 @@
 		</span>
 	</p>
 </div>
+

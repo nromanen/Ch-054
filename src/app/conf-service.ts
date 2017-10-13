@@ -35,7 +35,6 @@ export class ConfService {
     this.conf.confLocationEvent = addForm.value.location;
     this.conf.confLections = new Array<Lection>();
     this.confs.push(this.conf).then((item) => { this.key = item.key; console.log('key is -' + this.key); });
-
   }
   /*updateConf(key: string, editForm: FormGroup) {
     this.conf.confName = editForm.value.name;

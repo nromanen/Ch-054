@@ -14,7 +14,7 @@
 							 <div class="form-group text-center">
 								<label for="cropper" class="font-weight-bold">Photo of event</label>
 								<div class="form-group">
-									<app-cropper></app-cropper>
+									<app-cropper (onChanged)="onChanged($event)" [form]="myForm.controls.photoEvent"></app-cropper>
 								</div>
 							</div>  
 
@@ -98,7 +98,7 @@
 
 											</div>
 										</div>
-										<div class="col-md-3">
+										<div class="col-md-3 col-sm-12 text-center">
 											<button class="btn btn-info my-1">
 												<i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
 										</div>
@@ -124,3 +124,4 @@
 	</div>
 </div>
 
+<pre>{{myForm.value | json}}</pre>
