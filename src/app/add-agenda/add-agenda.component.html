@@ -52,7 +52,8 @@
                       <div class="row">
                         <div class="col-md-9 my-1" style="color: black;">
                           <div class="input-group" ng2-auto-complete [source]="arrayOfStrings" placeholder="enter text" style="z-index:100;">
-                            <input type="text" formControlName="speaker" class="form-control input-bg" id="speaker" [ngModel]="model1" placeholder="Choose a speaker" required autofocus>
+                            <input type="text" formControlName="speaker" class="form-control input-bg" id="speaker" [ngModel]="model1" placeholder="Choose a speaker"
+                              required autofocus>
                             <app-modal-speaker></app-modal-speaker>
 
                           </div>
@@ -69,22 +70,22 @@
                 <!-- <h1 class="text-center">Report</h1> -->
 
                 <div class="row">
-                    <div class="col-lg-3">
-                        <label for="timeReport" class="font-weight-bold">Choose time</label>
-                        <ngb-timepicker formControlName="timeReport" [(ngModel)]="timeReport" readonlyInputs="true"></ngb-timepicker>
-                      </div>
-                      <div class="col-lg-9">
-                        <div class="form-group">
-                          <label for="nameReport" class="font-weight-bold">Report</label>
-                          <div class="input-group mb-2 mr-sm-2 mb-sm-0 marginAction">
-                            <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
-                              required autofocus>
-                            <div class="input-group-addon" style="width: 2.6rem">
-                              <i class="fa fa-pencil"></i>
-                            </div>
-                          </div>
+                  <div class="col-lg-3">
+                    <label for="timeReport" class="font-weight-bold">Choose time</label>
+                    <ngb-timepicker formControlName="timeReport" [(ngModel)]="timeReport" readonlyInputs="true"></ngb-timepicker>
+                  </div>
+                  <div class="col-lg-9">
+                    <div class="form-group">
+                      <label for="nameReport" class="font-weight-bold">Report</label>
+                      <div class="input-group mb-2 mr-sm-2 mb-sm-0 marginAction">
+                        <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
+                          required autofocus>
+                        <div class="input-group-addon" style="width: 2.6rem">
+                          <i class="fa fa-pencil"></i>
                         </div>
                       </div>
+                    </div>
+                  </div>
                 </div>
 
 
@@ -98,14 +99,18 @@
 
 
 
-              <div class="mb-5 mt-4 text-center">
-                <button type="submit" class="btn btn-warning text-white sizeButton">
+              <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-secondary text-white sizeButton mb-2">
                   <i class="fa fa-paper-plane"></i> Template</button>
-                <button type="submit" class="btn btn-warning text-white sizeButton">
-                  <i class="fa fa-paper-plane"></i> Save agenda</button>
-                <button type="submit" class="btn btn-warning text-white sizeButton">
-                  <i class="fa fa-paper-plane"></i> Add event</button>
-                <button type="submit" class="btn btn-success" routerLink="/add/event">
+                <button type="submit" class="btn btn-secondary text-white sizeButton mb-2">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
+                    <button type="submit" class="btn btn-secondary text-white sizeButton mb-2">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>
+              </div>
+
+
+              <div class="mb-5 mt-2 text-center">
+                <button type="submit" class="btn blackButton" routerLink="/add/event">
                   <i class="fa fa-backward" aria-hidden="true"></i> Go back</button>
               </div>
 
