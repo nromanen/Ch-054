@@ -6,7 +6,6 @@ import { CropperComponent } from '../cropper-event/cropper.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbdButtonsRadio } from './buttons-radio';
 
 
 
@@ -17,13 +16,23 @@ import { NgbdButtonsRadio } from './buttons-radio';
 })
 
 
-	
-	
 export class AddAgendaComponent implements OnInit {
-	
+
 	logoCamera: string = '/assets/images/camera.png';
+	isAction: boolean = true;
+	isReport: boolean = false;
 	myFormAgenda: FormGroup;
-	constructor(private fb: FormBuilder) {} 
+	constructor(private fb: FormBuilder) { }
+
+	action() {
+		this.isAction = true;
+		this.isReport = false;
+	}
+
+	report() {
+		this.isAction = false;
+		this.isReport = true;
+	}
 
 	ngOnInit() {
 		this.myFormAgenda = this.fb.group({

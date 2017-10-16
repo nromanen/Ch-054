@@ -11,7 +11,6 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpModule } from '@angular/http';
 import { ImageCropperComponent } from 'ng2-img-cropper';
-import { JsonpModule } from '@angular/http';
 
 
 import { AppComponent } from './app.component';
@@ -27,7 +26,6 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { ModalLocationComponent } from './modal-location/modal-location.component';
 import { CropperComponent } from './cropper-event/cropper.component';
 import { AddAgendaComponent } from './add-agenda/add-agenda.component';
-import { NgbdButtonsRadio } from './add-agenda/buttons-radio';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -51,8 +49,7 @@ export const firebaseConfig = {
     ModalLocationComponent,
     CropperComponent,
     ImageCropperComponent,
-    AddAgendaComponent,
-    NgbdButtonsRadio
+    AddAgendaComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +61,6 @@ export const firebaseConfig = {
     ReactiveFormsModule,
     FormsModule,
     Ng2AutoCompleteModule,
-    JsonpModule,
     NgbModule.forRoot()
   ],
   providers: [ConfService],
