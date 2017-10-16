@@ -1,18 +1,18 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { JsonpModule } from '@angular/http';
 import { CropperComponent } from '../cropper-event/cropper.component';
-
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 @Component({
 	selector: 'app-add-agenda',
 	templateUrl: './add-agenda.component.html',
-	styleUrls: ['../add-event/add-event.component.scss']
+	styleUrls: [
+		'../add-event/add-event.component.scss',
+		'./add-agenda.component.scss',
+	]
 })
 
 
@@ -22,6 +22,15 @@ export class AddAgendaComponent implements OnInit {
 	isAction: boolean = true;
 	isReport: boolean = false;
 	myFormAgenda: FormGroup;
+
+	time = { hour: '09', minute: '00' };
+	timeReport = { hour: '09', minute: '00' };
+
+	//autocomplete
+	model1 = "";
+	arrayOfStrings: string[] =
+	["Marius Barbulesco", "Stolte Jon", "Brenda B Jon", "Lotrean Jon Maria", "Jason P Marcus", "Alfred T Marchese", "Hernandez Alex", "Cortes Ana",];
+
 	constructor(private fb: FormBuilder) { }
 
 	action() {
@@ -36,9 +45,14 @@ export class AddAgendaComponent implements OnInit {
 
 	ngOnInit() {
 		this.myFormAgenda = this.fb.group({
-			name: new FormControl(''),
+			nameAction: new FormControl(''),
+			timeAction: new FormControl(''),
+			speaker: new FormControl(''),
+			nameReport: new FormControl(''),
+			timeReport: new FormControl(''),
 			descr: new FormControl(''),
-			photoEvent: new FormControl('')
+			photoEvent: new FormControl(''),
+
 		});
 	}
 
