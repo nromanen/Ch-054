@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { CropperComponent } from '../cropper-event/cropper.component';
 
 @Component({
 	selector: 'app-add-event',
