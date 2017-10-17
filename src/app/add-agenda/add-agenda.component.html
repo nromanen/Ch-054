@@ -1,83 +1,112 @@
-<div class="container mb-5 py-5 text-white">
-  <div class="row mx-2 my-2">
-    <div class="col-md-12">
-      <div class="well well-sm form">
-        <div class="col-sm-12 col-lg-12 title-bg py-2">
-          <h1 class="h1 text-center font-weight-bold">
-            <img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h1>
-        </div>
+<div class="container-fluid bg-image">
+  <div class="container py-5 text-white">
+    <div class="row mx-2 my-2">
+      <div class="col-md-12">
+        <div class="well well-sm form">
+          <div class="col-sm-12 col-lg-12 title-bg py-2">
+            <h1 class="h1 text-center font-weight-bold">
+              <img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h1>
+          </div>
+          <form class="px-3 py-3" [formGroup]="myFormAgenda">
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10 px-5">
 
-        <form class="px-3 py-3" [formGroup]="myFormAgenda">
-          <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10 px-5">
-
-
-              <div class="btn-group align-items-center justify-content-center w-100" data-toggle="buttons">
-                <label class="btn btn-primary active" (click)="action()">
-                  <input value="true" type="radio" name="action" autocomplete="off" checked> Action
-                </label>
-                <label class="btn btn-primary" (click)="report()">
-                  <input type="radio" name="options" id="option2" autocomplete="off"> Report
-                </label>
-              </div>
-
-              <div class="row" *ngIf="isAction">
-                <div class="col-lg-3">
-                  <label for="time" class="font-weight-bold">Choose time</label>
-                  <ngb-timepicker formControlName="timeAction" [(ngModel)]="time" readonlyInputs="true"></ngb-timepicker>
-                </div>
-                <div class="col-lg-9">
-                  <div class="form-group">
-                    <label for="nameAction" class="font-weight-bold">Action</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0 marginAction">
-                      <input type="text" formControlName="nameAction" class="form-control input-bg" id="name" placeholder="Registration & Wellcome"
-                        required autofocus>
-                      <div class="input-group-addon" style="width: 2.6rem">
-                        <i class="fa fa-pencil"></i>
-                      </div>
-                    </div>
+                <div class="bg-agenda mt-4 py-4 margin-agenda">
+                  <div class="btn-group align-items-center justify-content-center w-100" data-toggle="buttons">
+                    <label class="btn btn-radio active font-weight-bold" (click)="action()">
+                      <input value="true" type="radio" name="action" autocomplete="off" checked> Action
+                    </label>
+                    <label class="btn btn-radio font-weight-bold" (click)="report()">
+                      <input type="radio" name="options" id="option2" autocomplete="off"> Report
+                    </label>
                   </div>
-                </div>
-              </div>
 
-
-              <div *ngIf="isReport">
-                <!-- <h1 class="text-center">Speaker</h1> -->
-                <div class="row">
-                  <div class="col md-12">
-                    <div class="form-group">
-                      <label for="speaker" class="font-weight-bold">Choose a speaker</label>
-
-                      <div class="row">
-                        <div class="col-md-9 my-1" style="color: black;">
-                          <div class="input-group" ng2-auto-complete [source]="arrayOfStrings" placeholder="enter text" style="z-index:100;">
-                            <input type="text" formControlName="speaker" class="form-control input-bg" id="speaker" [ngModel]="model1" placeholder="Choose a speaker"
-                              required autofocus>
-                            <app-modal-speaker></app-modal-speaker>
-
+                  <div *ngIf="isAction" class="action-marin">
+                    <div class="row mt-4 mb-2">
+                      <div class="col-lg-4 mb-2">
+                        <label for="timeActionTo" class="font-weight-bold">Time Start</label>
+                        <ngb-timepicker formControlName="timeActionTo" [(ngModel)]="timeActionTo" size="small"></ngb-timepicker>
+                      </div>
+                      <div class="col-lg-4 mb-2">
+                        <label for="timeActionFrom" class="font-weight-bold">Time End</label>
+                        <ngb-timepicker formControlName="timeActionFrom" [(ngModel)]="timeActionFrom" size="small"></ngb-timepicker>
+                      </div>
+                      <div class="col-lg-4">
+                        <label for="dataPickerAction" class="font-weight-bold">Date</label>
+                        <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepicker">
+                          <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerAction" [(ngModel)]="modelDate"
+                            ngbDatepicker (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2">
+                          <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
                           </div>
                         </div>
-                        <div class="col-md-3 col-sm-12 text-center">
-                          <button class="btn btn-info my-1">
-                            <i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="nameAction" class="font-weight-bold">Action</label>
+                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" formControlName="nameAction" class="form-control input-bg" id="name" placeholder="Registration & Wellcome"
+                          required autofocus>
+                        <div class="input-group-addon" style="width: 2.6rem">
+                          <i class="fa fa-pencil"></i>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <!-- <h1 class="text-center">Report</h1> -->
-
-                <div class="row">
-                  <div class="col-lg-3">
-                    <label for="timeReport" class="font-weight-bold">Choose time</label>
-                    <ngb-timepicker formControlName="timeReport" [(ngModel)]="timeReport" readonlyInputs="true"></ngb-timepicker>
                   </div>
-                  <div class="col-lg-9">
+
+                  <div *ngIf="isReport">
+                    <div class="row">
+                      <div class="col md-12">
+                        <div class="form-group">
+                          <label for="speaker" class="font-weight-bold">Choose a speaker</label>
+                          <div class="row">
+                            <div class="col-md-9 my-1" style="color: black;">
+                              <div class="input-group" ng2-auto-complete [source]="arrayOfStrings" placeholder="enter text" style="z-index:100;">
+                                <input type="text" formControlName="speaker" class="form-control input-bg" id="speaker" [ngModel]="model1" placeholder="Choose a speaker"
+                                  required autofocus>
+                                <app-modal-speaker></app-modal-speaker>
+                              </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12 text-center">
+                              <button class="btn btn-info my-1">
+                                <i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <label for="timeReportFrom" class="font-weight-bold">Time start
+                          <ngb-timepicker formControlName="timeReportFrom" [(ngModel)]="timeReportFrom"></ngb-timepicker>
+                        </label>
+
+                      </div>
+                      <div class="col-lg-4">
+                        <label for="timeReport" class="font-weight-bold">Time End
+                          <ngb-timepicker formControlName="timeReportTo" [(ngModel)]="timeReportTo"></ngb-timepicker>
+                        </label>
+                      </div>
+
+                      <div class="col-lg-4">
+                        <label for="dataPickerReport" class="font-weight-bold">Date</label>
+                        <div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepickerReport">
+                          <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerReport" [(ngModel)]="modelDateRepor" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker" id="calendarReport">
+                          <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
                     <div class="form-group">
                       <label for="nameReport" class="font-weight-bold">Report</label>
-                      <div class="input-group mb-2 mr-sm-2 mb-sm-0 marginAction">
+                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
                           required autofocus>
                         <div class="input-group-addon" style="width: 2.6rem">
@@ -85,41 +114,45 @@
                         </div>
                       </div>
                     </div>
+
+
+                    <div class="form-group">
+                      <label for="descr" class="font-weight-bold">
+                        Description</label>
+                      <textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
+                    </div>
+
                   </div>
+
+                  <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-color sizeButton mb-2">
+                      <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
+                    <button class="btn btn-info sizeButton mb-2">
+                      <i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
+                  </div>
+
+
                 </div>
 
 
-                <div class="form-group">
-                  <label for="descr" class="font-weight-bold">
-                    Description</label>
-                  <textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
+
+                <div class="mb-5 mt-4 text-center">
+
+                  <button type="submit" class="btn btn btn-color sizeButton mb-2">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>
+                  <button type="submit" class="btn btn-color sizeButton mb-2">
+                    <i class="fa fa-paper-plane"></i> Template</button>
+                  <button type="submit" class="btn btn-color sizeButton mb-2" routerLink="/add/event">
+                    <i class="fa fa-backward" aria-hidden="true"></i> Go back</button>
                 </div>
 
               </div>
-
-
-
-              <div class="mt-4 text-center">
-                <button type="submit" class="btn btn-secondary text-white sizeButton mb-2">
-                  <i class="fa fa-paper-plane"></i> Template</button>
-                <button type="submit" class="btn btn-secondary text-white sizeButton mb-2">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
-                    <button type="submit" class="btn btn-secondary text-white sizeButton mb-2">
-                      <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>
-              </div>
-
-
-              <div class="mb-5 mt-2 text-center">
-                <button type="submit" class="btn blackButton" routerLink="/add/event">
-                  <i class="fa fa-backward" aria-hidden="true"></i> Go back</button>
-              </div>
-
+              <div class="col-md-1"></div>
             </div>
-            <div class="col-md-1"></div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>

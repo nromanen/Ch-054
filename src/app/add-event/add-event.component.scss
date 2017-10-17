@@ -30,3 +30,9 @@ $bg-color: rgba(83, 87, 93, .4);
 
 
 button {width: 8.125rem;}
+.btn-color{
+    @include bgColor($bt-bg,$color-wh);    
+    &:hover{
+        @include bgColor($hover-bg,$color-wh);
+    }
+}
