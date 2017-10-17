@@ -1,5 +1,6 @@
-@import '../_size';
-@import '../_color';
+@import '../import_scss/_size';
+@import '../import_scss/_color';
+
 $block-line: inline-block;
 $color-grey-icon: rgba(134, 136, 138, .5);
 $url-img: url('/assets/images/imgNav.jpg');

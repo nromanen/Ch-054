@@ -1,49 +1,52 @@
-@import '../_color';
+@import '../import_scss/_color';
 
-.bg-agenda {
-    background-color: rgba(96, 100, 106, .5);
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    min-height: 676px;
+$box-shadow: 0 0 0.625rem rgba(0,0,0,0.5);
+$input-width: 2.6rem;
+$padding-x: 2.813rem;
+$padding-x-min: 0.3125rem; 
+
+.input-group-addon {
+    width: $input-width;
 }
-.action-marin{margin-bottom: 356px;}
-.marginAction{
-    margin-top: 29px;
-}
-.margin-agenda {
-    padding-left: 45px; padding-right: 45px;
-    @media screen and (max-width: 455px) {
-        padding-left: 5px; 
-        padding-right: 5px;
-    }
-}
-
-@media screen and (max-width: 991px) {
-    .marginAction {
-        margin-top: 10px;
-    }
-}
-
-.btn-radio {
-    @include bgColor(rgb(218,228,243),black);  
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    @media screen and (max-width:20.56rem){
-        width: 4rem; font-size: 0.8rem;
-    }
-    &:hover{
-        @include bgColor(rgb(15, 77, 168),$color-wh);  
-    }
-}
-.active {
-    @include bgColor(rgb(42, 62, 91),$color-wh);
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-
-
-
 
 .bg-image{
     background-image: url('/assets/images/ph-bg.png');
     background-size: cover;
-    background-attachment: fixed; 
+    background-attachment: fixed;
+    
+    
+    .bg-agenda {
+        background-color: rgba(96, 100, 106, .5);
+        box-shadow: $box-shadow;
+        min-height: 42.25rem;
+        padding-left: $padding-x; 
+        padding-right: $padding-x;
+        @media screen and (max-width: 28.44rem) {
+            padding-left: $padding-x-min; 
+            padding-right: $padding-x-min;
+        }
+
+        .btn-radio {
+            @include bgColor(rgb(218,228,243),black);  
+            box-shadow: $box-shadow;
+            &:hover{
+                @include bgColor(rgb(15, 77, 168),$color-wh);  
+            }
+            @media screen and (max-width:20.56rem){
+                width: 4rem; 
+                font-size: 0.8rem;
+            }
+        }
+        
+        .active {
+            @include bgColor(rgb(42, 62, 91),$color-wh);
+            box-shadow: $box-shadow;
+        }
+
+        .action-marin{
+            margin-bottom: 23.2rem;
+        }
+
+
+    }
 }

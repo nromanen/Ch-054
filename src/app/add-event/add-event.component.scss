@@ -1,5 +1,5 @@
-@import '../_size';
-@import '../_color';
+@import '../import_scss/_size';
+@import '../import_scss/_color';
 $bg-color: rgba(83, 87, 93, .4);
 .logo-Camera {
     @include size($height-logotip,
