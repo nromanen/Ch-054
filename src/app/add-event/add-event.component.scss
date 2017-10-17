@@ -1,5 +1,6 @@
 @import '../import_scss/_size';
 @import '../import_scss/_color';
+
 $bg-color: rgba(83, 87, 93, .4);
 .logo-Camera {
     @include size($height-logotip,
@@ -8,12 +9,12 @@ $bg-color: rgba(83, 87, 93, .4);
 
 .title-bg {
     background-color: rgb(83, 87, 93);
-    border-radius: 15px 15px 0 0;
+    border-radius: 0.9375rem 0.9375rem 0 0;
 }
 
 .form {
     background-color: rgba(83, 87, 93, .3);
-    border-radius: 15px;
+    border-radius: 0.9375rem;
     background-image: url('/assets/images/bgForm.png');
     background-size: cover; 
     box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
@@ -24,12 +25,15 @@ $bg-color: rgba(83, 87, 93, .4);
     $color-wh);
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 35.94rem) {
     .hiddeButton{display: none;}
 }
 
 
-button {width: 8.125rem;}
+.sizeButton {
+    width: 8.125rem;
+}
+
 .btn-color{
     @include bgColor($bt-bg,$color-wh);    
     &:hover{
