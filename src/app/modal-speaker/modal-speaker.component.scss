@@ -1,7 +1,22 @@
+.modal-main {
+    background-image: url('/assets/images/modal-bg.png');
+    background-size: cover;
+	font-family: 'Times New Roman', Times, serif;
+}
+
+@import '../import_scss/_color';
+
 .modal-content {
-    background-color: rgba(49, 42, 39, .5);
-    color: white;
+    @include bgColor(rgb(253, 254, 254),black); 
   }
-  .dark-modal .close {
-    color: white;   
-  }
+
+
+  .input-bg {
+    @include bgColor(rgba(251, 252, 252, .9),
+    black);
+    &:focus{
+        @include bgColor(rgb(251, 252, 252),
+        black);
+    }
+    
+}

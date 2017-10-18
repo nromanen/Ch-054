@@ -6,7 +6,6 @@
 		</div>
 		<button class="btn btn-secondary my-1 mr-1 py-2 hiddeCropper" *ngIf="data1.image" (click)="hiddeCropper()">Save Image</button>
 	</div>
-
 	<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
 </div>
 

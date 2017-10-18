@@ -17,7 +17,7 @@
 							<div class="form-group text-center">
 								<label for="cropper" class="font-weight-bold">Photo of event</label>
 								<div class="form-group">
-									<app-cropper (onChanged)="onChanged($event)" [form]="myForm.controls.photoEvent"></app-cropper>
+									<app-cropper (onChanged)="onChanged($event)" [form]="myForm.controls.photoEvent" [width]="width"></app-cropper>
 								</div>
 							</div>
 

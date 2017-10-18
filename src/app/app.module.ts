@@ -27,6 +27,7 @@ import { ModalLocationComponent } from './modal-location/modal-location.componen
 import { CropperComponent } from './cropper-event/cropper.component';
 import { AddAgendaComponent } from './add-agenda/add-agenda.component';
 import { ModalSpeakerComponent } from './modal-speaker/modal-speaker.component';
+import { SpeakerPageComponent } from './speaker-page/speaker-page.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -51,7 +52,8 @@ export const firebaseConfig = {
     CropperComponent,
     ImageCropperComponent,
     AddAgendaComponent,
-    ModalSpeakerComponent
+    ModalSpeakerComponent,
+    SpeakerPageComponent
   ],
   imports: [
     BrowserModule,

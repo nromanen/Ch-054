@@ -11,6 +11,12 @@ import { ImageCropperComponent, CropperSettings, Bounds, ImageCropper } from 'ng
 })
 export class CropperComponent {
 
+  // @Input() canvasWidth: number;
+  // @Input() canvasHeight: number;
+  @Input() width: number;
+
+  // canvasWidth: number = this.width;
+
   name: string;
   data1: any;
   cropperSettings1: CropperSettings = new CropperSettings();
@@ -19,8 +25,8 @@ export class CropperComponent {
   isShowCropper: boolean = true;
   isHiddeCropper: boolean = false;
   event: any;
-  width: number = window.screen.width / 3;
-  height: number = window.screen.height / 4;
+  
+  
 
   @Input() form: FormGroup;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
@@ -34,9 +40,6 @@ export class CropperComponent {
     this.cropperSettings1.croppedWidth = 1080;
     this.cropperSettings1.croppedHeight = 540;
 
-    this.cropperSettings1.canvasWidth = this.width;
-    this.cropperSettings1.canvasHeight = this.height;
-
     this.cropperSettings1.minWidth = 135;
     this.cropperSettings1.minHeight = 270;
 
@@ -44,7 +47,9 @@ export class CropperComponent {
     this.cropperSettings1.noFileInput = true;
     this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
     this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
-    console.log(this.cropperSettings1.canvasWidth);
+    // console.log(this.cropperSettings1.canvasWidth);
+
+    this.setCropperSetting();
 
     this.data1 = {};
   }
@@ -65,7 +70,7 @@ export class CropperComponent {
     };
     this.event = event;
     myReader.readAsDataURL(file);
-    this.onChanged.emit(file.name);
+    // this.onChanged.emit(file.name);
   }
 
   showCropper() {
@@ -79,18 +84,25 @@ export class CropperComponent {
     this.isShowCropper = false;
   }
 
+  setCropperSetting() { 
+    this.cropperSettings1.canvasWidth = window.innerWidth / 3;
+    this.cropperSettings1.canvasHeight = window.innerHeight / 4;
+    if (this.cropper && this.cropper.cropper) {
+      this.cropper.cropper.resizeCanvas(this.cropperSettings1.canvasWidth, this.cropperSettings1.canvasHeight, true);
+    }
+  }
+
   onResize(event) {
     const innerWidth = event.target.innerWidth;
     // this.height = innerWidth;
-    // console.log(event);
-    this.cropperSettings1.canvasWidth = 50;
+    this.setCropperSetting();
     if (innerWidth <= 991) {
 
-      console.log(this.width);
+
     }
   }
 
 
-  @Output() onChanged = new EventEmitter<string>();
+  // @Output() onChanged = new EventEmitter<string>();
 
 }

@@ -10,6 +10,8 @@ import { CropperComponent } from '../cropper-event/cropper.component';
 	styleUrls: ['./add-event.component.scss']
 })
 export class AddEventComponent implements OnInit {
+	width: number = window.innerWidth / 3;
+	canvasHeight: number = 200;
 	logoCamera: string = '/assets/images/camera.png';
 	isShowCalendarTo: boolean = false;
 	isShowButton: boolean = true;
