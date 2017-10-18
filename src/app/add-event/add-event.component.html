@@ -1,16 +1,16 @@
-<div class="container-fluid bg-image">
-	<div class="container size-height text-white">
-		<div class="row">
-			<div class="col-sm-12 col-lg-12 title-bg pt-1">
-				<h1 class="h1 text-center font-weight-bold py-2">
-					<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event
-				</h1>
-			</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12 col-lg-12 title-bg pt-1">
+			<h1 class="h1 text-center font-weight-bold py-2">
+				<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event
+			</h1>
 		</div>
+	</div>
 
-		<div class="row">
-			<div class="col-md-12">
-				<form class="px-3 py-3" [formGroup]="myForm">
+	<form [formGroup]="myForm">
+		<div class="container my-5">
+			<div class="row">
+				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-10 px-5">
@@ -20,112 +20,168 @@
 									<app-cropper (onChanged)="onChanged($event)" [form]="myForm.controls.photoEvent" [width]="width"></app-cropper>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-							<div class="form-group">
-								<label for="name" class="font-weight-bold">Title of event</label>
-								<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-									<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference" required
-									 autofocus>
-									<div class="input-group-addon" style="width: 2.6rem">
-										<i class="fa fa-pencil"></i>
+		<div class="row bg-image py-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-10 px-5">
+
+								<div class="form-group">
+									<label for="name" class="font-weight-bold">Title of event</label>
+									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference" required
+										 autofocus>
+										<div class="input-group-addon" style="width: 2.6rem">
+											<i class="fa fa-pencil"></i>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label for="descr" class="font-weight-bold">
-									Description</label>
-								<textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
-							</div>
+								<div class="form-group">
+									<label for="descr" class="font-weight-bold">
+										Description</label>
+									<textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
+								</div>
 
-							<div class="form-group">
-								<label for="calendar1" class="font-weight-bold">Calendar
-									<span *ngIf="isShowCalendarTo"> From</span>
-								</label>
+
+
 								<div class="form-group">
 									<div class="row">
-										<div class="col my-1 col-md-6 col-sm-8">
-											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
+										<div class="col-lg-6">
+
+											<label for="calendar1" class="font-weight-bold">Calendar
+												<span *ngIf="isShowCalendarTo"> From</span>
+											</label>
+											<div class="input-group" placeholder="enter text">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="model" ngbDatepicker
 												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1">
-												<div class="input-group-addon" style="width: 2.6rem">
+												<button style="width: 2.6rem; height: 38px; border-radius: 0 5px 5px 0 ;" ngbPopover="Add calendar" triggers="mouseenter:mouseleave"
+												 (click)="addCalendar()" *ngIf="isShowButton" [class.hiddeButton]="isShowCalendarTo">
+													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+												</button>
+
+												<div class="input-group-addon" style="width: 2.6rem" *ngIf="isShowIcon">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
 												</div>
 											</div>
 										</div>
-										<div class="col-sm-12 col-md-6" [class.hiddeButton]="isShowCalendarTo">
-											<button type="button" class="btn btn-secondary my-1" (click)="addCalendar()" *ngIf="isShowButton">
-												<i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Append</button>
 
-										</div>
-									</div>
-								</div>
-							</div>
-
-
-
-							<div class="form-group" *ngIf="isShowCalendarTo">
-								<label for="calendar2" class="font-weight-bold">Calendar To</label>
-								<div class="form-group">
-									<div class="row">
-										<div class="my-1 col-md-6 col-sm-8">
-											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
+										<div class="col-lg-6" *ngIf="isShowCalendarTo">
+											<label for="calendar2" class="font-weight-bold">Calendar To</label>
+											<div class="input-group" placeholder="enter text">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDate" ngbDatepicker
 												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2">
-												<div class="input-group-addon" style="width: 2.6rem">
-													<i class="fa fa-calendar" aria-hidden="true"></i>
+												<button style="width: 2.6rem; height: 38px; border-radius: 0 5px 5px 0 ;" ngbPopover="Remove calendar" triggers="mouseenter:mouseleave"
+												 (click)="deleteCalendar()">
+													<i class="fa fa-calendar-times-o" aria-hidden="true"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
+
+								<!-- <div class="form-group">
+									<label for="calendar1" class="font-weight-bold">Calendar
+										<span *ngIf="isShowCalendarTo"> From</span>
+									</label>
+									<div class="form-group">
+										<div class="row">
+											<div class="col my-1 col-md-6 col-sm-8">
+												<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
+													<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="model" ngbDatepicker
+													 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1">
+													<div class="input-group-addon" style="width: 2.6rem">
+														<i class="fa fa-calendar" aria-hidden="true"></i>
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-12 col-md-6" [class.hiddeButton]="isShowCalendarTo">
+												<button type="button" class="btn btn-secondary my-1" (click)="addCalendar()" *ngIf="isShowButton">
+													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Append</button>
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="form-group" *ngIf="isShowCalendarTo">
+									<label for="calendar2" class="font-weight-bold">Calendar To</label>
+									<div class="form-group">
+										<div class="row">
+											<div class="my-1 col-md-6 col-sm-8">
+												<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
+													<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDate" ngbDatepicker
+													 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2">
+													<div class="input-group-addon" style="width: 2.6rem">
+														<i class="fa fa-calendar" aria-hidden="true"></i>
+													</div>
+												</div>
+											</div>
+											<div class="col">
+												<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
+													<button type="button" class="btn btn-secondary my-1" (click)="deleteCalendar()">
+														<i class="fa fa-calendar-times-o" aria-hidden="true"></i> Delete</button>
 												</div>
 											</div>
 										</div>
-										<div class="col">
-											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
-												<button type="button" class="btn btn-secondary my-1" (click)="deleteCalendar()">
-													<i class="fa fa-calendar-times-o" aria-hidden="true"></i> Delete</button>
-											</div>
-										</div>
 									</div>
-								</div>
-							</div>
+								</div> -->
 
 
 
 
-							<div class="form-group">
-								<label for="location" class="font-weight-bold">
-									Location</label>
 								<div class="form-group">
-									<div class="row">
-										<div class="col-md-9 my-1" style="color: black;">
-											<div class="input-group" ng2-auto-complete [source]="arrayOfStrings" (ngModelChange)="myCallback($event)" placeholder="enter text">
-												<input type="text" formControlName="location" class="form-control input-bg" id="location" [ngModel]="model1" placeholder="US, 245 West72nd Street New York, NY 10023"
-												 required autofocus>
-												<app-modal-location></app-modal-location>
+									<label for="location" class="font-weight-bold">
+										Location</label>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-md-9 my-1" style="color: black;">
+												<div class="input-group" ng2-auto-complete [source]="arrayOfStrings" (ngModelChange)="myCallback($event)" placeholder="enter text">
+													<input type="text" formControlName="location" class="form-control input-bg" id="location" [ngModel]="model1" placeholder="Choose a location"
+													 required autofocus>
+													<app-modal-location></app-modal-location>
 
+												</div>
+											</div>
+											<div class="col-md-3 col-sm-12 text-center">
+												<button class="btn btn-info my-1">
+													<i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
 											</div>
 										</div>
-										<div class="col-md-3 col-sm-12 text-center">
-											<button class="btn btn-info my-1">
-												<i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
-										</div>
+
 									</div>
 
 								</div>
-
 							</div>
-							<div class="mb-5 mt-4 text-center">
-								<button type="submit" class="btn btn-color text-white sizeButton">
-									<i class="fa fa-paper-plane"></i> Template</button>
-								<button type="submit" class="btn btn-color sizeButton" routerLink="/add/agenda">
-									<i class="fa fa-plus-circle"></i> Add agenda</button>
-							</div>
-
+							<div class="col-md-1"></div>
 						</div>
-						<div class="col-md-1"></div>
 					</div>
-				</form>
-			</div>
 
+
+				</div>
+			</div>
 		</div>
-	</div>
+		<div class="my-5 text-center">
+			<button type="submit" class="btn btn-color text-white sizeButton">
+				<i class="fa fa-paper-plane"></i> Template</button>
+			<button type="submit" class="btn btn-color sizeButton" routerLink="/add/agenda">
+				<i class="fa fa-plus-circle"></i> Add agenda</button>
+		</div>
+
+
+	</form>
 </div>
 
 <!-- <pre>{{myForm.value | json}}</pre> -->

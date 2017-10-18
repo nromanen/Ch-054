@@ -2,29 +2,16 @@
 @import '../import_scss/_color';
 
 
-.bg-image{
-    background-image: url('/assets/images/ph-bg.png');
-    background-size: cover;
-    background-attachment: fixed;
+
 
     .size-height {
-        min-height: 100vh;
-        background-color: rgba(83, 87, 93, .3);
-        background-image: url('/assets/images/bgForm.png');
-        background-size: cover; 
-        box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
+        // min-height: 100vh;
+        // background-color: rgba(83, 87, 93, .3);
+        // background-image: url('/assets/images/bgForm.png');
+        // background-size: cover; 
+        // box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
 
-        .title-bg {
-            background-color: rgb(83, 87, 93);
-            width: 100%;
-            margin-right: 0;
-            padding-right: 0;
-    
-            .logo-Camera {
-                @include size($height-logotip,
-                $width-logotip);
-            }
-        }
+        
     }
 
     .input-bg {
@@ -33,7 +20,9 @@
     }
 
     .sizeButton {
-        width: 8.125rem;
+        height: 3rem;
+        width: 8.063rem;
+        cursor: pointer;
     }
 
     .btn-color{
@@ -49,4 +38,21 @@
         }
     }
 
+    .bg-image{
+        background-image: url('/assets/images/ph-bg.png');
+        background-size: cover;
+        background-attachment: fixed;
+
+}
+
+.title-bg {
+    background-color: rgb(83, 87, 93);
+    width: 100%;
+    margin-right: 0;
+    padding-right: 0;
+
+    .logo-Camera {
+        @include size($height-logotip,
+        $width-logotip);
+    }
 }
