@@ -1,42 +1,52 @@
 @import '../import_scss/_size';
 @import '../import_scss/_color';
 
-$bg-color: rgba(83, 87, 93, .4);
-.logo-Camera {
-    @include size($height-logotip,
-    $width-logotip);
-}
 
-.title-bg {
-    background-color: rgb(83, 87, 93);
-    border-radius: 0.9375rem 0.9375rem 0 0;
-}
+.bg-image{
+    background-image: url('/assets/images/ph-bg.png');
+    background-size: cover;
+    background-attachment: fixed;
 
-.form {
-    background-color: rgba(83, 87, 93, .3);
-    border-radius: 0.9375rem;
-    background-image: url('/assets/images/bgForm.png');
-    background-size: cover; 
-    box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
-}
+    .size-height {
+        min-height: 100vh;
+        background-color: rgba(83, 87, 93, .3);
+        background-image: url('/assets/images/bgForm.png');
+        background-size: cover; 
+        box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
 
-.input-bg {
-    @include bgColor($color-grey,
-    $color-wh);
-}
-
-@media screen and (max-width: 35.94rem) {
-    .hiddeButton{display: none;}
-}
-
-
-.sizeButton {
-    width: 8.125rem;
-}
-
-.btn-color{
-    @include bgColor($bt-bg,$color-wh);    
-    &:hover{
-        @include bgColor($hover-bg,$color-wh);
+        .title-bg {
+            background-color: rgb(83, 87, 93);
+            width: 100%;
+            margin-right: 0;
+            padding-right: 0;
+    
+            .logo-Camera {
+                @include size($height-logotip,
+                $width-logotip);
+            }
+        }
     }
+
+    .input-bg {
+        @include bgColor($color-grey,
+        $color-wh);
+    }
+
+    .sizeButton {
+        width: 8.125rem;
+    }
+
+    .btn-color{
+        @include bgColor($bt-bg,$color-wh);    
+        &:hover{
+            @include bgColor($hover-bg,$color-wh);
+        }
+    }
+
+    @media screen and (max-width: 35.94rem) {
+        .hiddeButton{
+            display: none;
+        }
+    }
+
 }

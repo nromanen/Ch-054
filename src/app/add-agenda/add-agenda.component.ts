@@ -57,7 +57,6 @@ export class AddAgendaComponent implements OnInit {
 			timeReportFrom: new FormControl(''),
 			timeReportTo: new FormControl(''),
 			dataPickerReport: new FormControl(''),
-			descr: new FormControl(''),
 			photoEvent: new FormControl(''),
 
 		});

@@ -1,27 +1,31 @@
-<div class="container mb-5 py-5 text-white">
-	<div class="row mx-2 my-2">
-		<div class="col-md-12">
-			<div class="well well-sm form">
-				<div class="col-sm-12 col-lg-12 title-bg py-2">
-					<h1 class="h1 text-center font-weight-bold">
-						<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h1>
-				</div>
+<div class="container-fluid bg-image">
+	<div class="container size-height text-white">
+		<div class="row">
+			<div class="col-sm-12 col-lg-12 title-bg pt-1">
+				<h1 class="h1 text-center font-weight-bold py-2">
+					<img class="logo-Camera" src={{logoCamera}} alt=""> Create new event
+				</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
 				<form class="px-3 py-3" [formGroup]="myForm">
 					<div class="row">
 						<div class="col-md-1"></div>
-						 <div class="col-md-10 px-5">
-
-							 <div class="form-group text-center">
+						<div class="col-md-10 px-5">
+							<div class="form-group text-center">
 								<label for="cropper" class="font-weight-bold">Photo of event</label>
 								<div class="form-group">
 									<app-cropper (onChanged)="onChanged($event)" [form]="myForm.controls.photoEvent"></app-cropper>
 								</div>
-							</div>  
+							</div>
 
 							<div class="form-group">
 								<label for="name" class="font-weight-bold">Title of event</label>
 								<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-									<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference" required autofocus>
+									<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference" required
+									 autofocus>
 									<div class="input-group-addon" style="width: 2.6rem">
 										<i class="fa fa-pencil"></i>
 									</div>
@@ -33,7 +37,7 @@
 								<textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
 							</div>
 
-							 <div class="form-group">
+							<div class="form-group">
 								<label for="calendar1" class="font-weight-bold">Calendar
 									<span *ngIf="isShowCalendarTo"> From</span>
 								</label>
@@ -41,8 +45,8 @@
 									<div class="row">
 										<div class="col my-1 col-md-6 col-sm-8">
 											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
-												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="model" ngbDatepicker (click)="d.toggle()"
-												 #d="ngbDatepicker" id="calendar1">
+												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="model" ngbDatepicker
+												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1">
 												<div class="input-group-addon" style="width: 2.6rem">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
 												</div>
@@ -65,8 +69,8 @@
 									<div class="row">
 										<div class="my-1 col-md-6 col-sm-8">
 											<div class="input-daterange input-group mb-2 mr-sm-2 mb-sm-0" id="datepicker">
-												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDate" ngbDatepicker (click)="dp.toggle()"
-												 #dp="ngbDatepicker" id="calendar2">
+												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDate" ngbDatepicker
+												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2">
 												<div class="input-group-addon" style="width: 2.6rem">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
 												</div>
@@ -106,7 +110,7 @@
 
 								</div>
 
-							</div> 
+							</div>
 							<div class="mb-5 mt-4 text-center">
 								<button type="submit" class="btn btn-color text-white sizeButton">
 									<i class="fa fa-paper-plane"></i> Template</button>
@@ -119,8 +123,8 @@
 					</div>
 				</form>
 			</div>
-		</div>
 
+		</div>
 	</div>
 </div>
 

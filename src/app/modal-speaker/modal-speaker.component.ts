@@ -1,11 +1,12 @@
-import { Component, ViewChild, EventEmitter, Input, Output, ElementRef } from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modal-speaker',
   templateUrl: './modal-speaker.component.html',
-  styleUrls: ['./modal-speaker.component.scss']
+  styleUrls: ['./modal-speaker.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ModalSpeakerComponent {
 
@@ -14,7 +15,8 @@ export class ModalSpeakerComponent {
     constructor(private modalService: NgbModal) { }
   
     open(content) {
-      this.modalService.open(content, { size: 'lg' });
+      this.modalService.open(content, { size: 'lg',  windowClass: 'dark-modal' });
+      // this.modalService.open(content,  { windowClass: 'dark-modal' });
     }
 
 }

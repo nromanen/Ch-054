@@ -1,12 +1,15 @@
 <div class="container-fluid bg-image">
-  <div class="container py-5 text-white">
-    <div class="row mx-2 my-2">
-      <div class="col-md-12">
-        <div class="well well-sm form">
-          <div class="col-sm-12 col-lg-12 title-bg py-2">
-            <h1 class="h1 text-center font-weight-bold">
-              <img class="logo-Camera" src={{logoCamera}} alt=""> Create new event</h1>
-          </div>
+    <div class="container size-height text-white">
+      <div class="row">
+        <div class="col-sm-12 col-lg-12 title-bg pt-1">
+          <h1 class="h1 text-center font-weight-bold py-2">
+            <img class="logo-Camera" src={{logoCamera}} alt=""> Create new event
+          </h1>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-12">
           <form class="px-3 py-3" [formGroup]="myFormAgenda">
             <div class="row">
               <div class="col-md-1"></div>
@@ -63,8 +66,8 @@
                         <div class="form-group">
                           <label for="speaker" class="font-weight-bold">Choose a speaker</label>
                           <div class="row">
-                            <div class="col-md-9 my-1" style="color: black;">
-                              <div class="input-group" ng2-auto-complete [source]="arrayOfStrings" placeholder="enter text" style="z-index:100;">
+                            <div class="col-md-9 my-1 speaker-autocomplete">
+                              <div class="input-group" ng2-auto-complete [source]="arrayOfStrings" placeholder="enter text">
                                 <input type="text" formControlName="speaker" class="form-control input-bg" id="speaker" [ngModel]="model1" placeholder="Choose a speaker"
                                   required autofocus>
                                 <app-modal-speaker></app-modal-speaker>
@@ -116,13 +119,6 @@
                       </div>
                     </div>
 
-
-                    <div class="form-group">
-                      <label for="descr" class="font-weight-bold">
-                        Description</label>
-                      <textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
-                    </div>
-
                   </div>
 
                   <div class="mt-4 text-center">
@@ -151,7 +147,6 @@
               <div class="col-md-1"></div>
             </div>
           </form>
-        </div>
       </div>
 
     </div>
