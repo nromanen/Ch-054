@@ -1,4 +1,4 @@
-import { Component, NgModule, ViewChild, Input, OnChanges, NgZone, EventEmitter, Output } from '@angular/core'
+import { Component, NgModule, ViewChild, Input, OnChanges, NgZone, EventEmitter, Output, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser'
 import { ImageCropperComponent, CropperSettings, Bounds, ImageCropper } from 'ng2-img-cropper';
@@ -9,13 +9,14 @@ import { ImageCropperComponent, CropperSettings, Bounds, ImageCropper } from 'ng
   styleUrls: ['./cropper.component.scss'],
 
 })
-export class CropperComponent {
+export class CropperComponent implements OnInit {
 
-  // @Input() canvasWidth: number;
-  // @Input() canvasHeight: number;
+
   @Input() width: number;
+  @Input() height: number;
+  @Input() cropperSettingsWidth: number;
+  @Input() cropperSettingsHeight: number;
 
-  // canvasWidth: number = this.width;
 
   name: string;
   data1: any;
@@ -25,31 +26,25 @@ export class CropperComponent {
   isShowCropper: boolean = true;
   isHiddeCropper: boolean = false;
   event: any;
-  
-  
+  child: [any];
+
+
 
   @Input() form: FormGroup;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   constructor() {
     this.name = 'Angular2'
-    //this.cropperSettings1 = new CropperSettings();
-    this.cropperSettings1.width = 1080;
-    this.cropperSettings1.height = 540;
 
-    this.cropperSettings1.croppedWidth = 1080;
-    this.cropperSettings1.croppedHeight = 540;
-
-    this.cropperSettings1.minWidth = 135;
-    this.cropperSettings1.minHeight = 270;
-
+    this.cropperSettings1.minWidth = this.cropperSettings1.width / 2;
+    this.cropperSettings1.minHeight = this.cropperSettings1.height / 2;
+    
     this.cropperSettings1.rounded = false;
     this.cropperSettings1.noFileInput = true;
     this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
     this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
-    // console.log(this.cropperSettings1.canvasWidth);
 
-    this.setCropperSetting();
+    this.setCropperSettingCanvas();
 
     this.data1 = {};
   }
@@ -70,21 +65,23 @@ export class CropperComponent {
     };
     this.event = event;
     myReader.readAsDataURL(file);
-    // this.onChanged.emit(file.name);
   }
 
   showCropper() {
     this.isShowCropper = !this.isShowCropper;
     this.isHiddeCropper = false;
     this.fileChangeListener(this.event);
+    console.log(this.event.target.files[0]);
   }
 
   hiddeCropper() {
     this.isHiddeCropper = true;
     this.isShowCropper = false;
+    this.onChanged.emit(this.data1);
+
   }
 
-  setCropperSetting() { 
+  setCropperSettingCanvas() {
     this.cropperSettings1.canvasWidth = window.innerWidth / 3;
     this.cropperSettings1.canvasHeight = window.innerHeight / 4;
     if (this.cropper && this.cropper.cropper) {
@@ -94,15 +91,21 @@ export class CropperComponent {
 
   onResize(event) {
     const innerWidth = event.target.innerWidth;
-    // this.height = innerWidth;
-    this.setCropperSetting();
+    this.setCropperSettingCanvas();
     if (innerWidth <= 991) {
 
 
     }
   }
 
+  ngOnInit() { 
+    this.cropperSettings1.width = this.cropperSettingsWidth;
+    this.cropperSettings1.height = this.cropperSettingsHeight;
+    this.cropperSettings1.croppedWidth = this.cropperSettingsWidth;
+    this.cropperSettings1.croppedHeight = this.cropperSettingsHeight;
+  }
 
-  // @Output() onChanged = new EventEmitter<string>();
+
+  @Output() onChanged = new EventEmitter<any[]>();
 
 }

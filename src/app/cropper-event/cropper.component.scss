@@ -1,33 +1,33 @@
 @import '../import_scss/_size';
+@import '../import_scss/_color';
 
 .file-upload {
     position: relative;
-    top: -0.3125rem;
+    top: -0.1125rem;
     cursor: pointer;
     display: inline;
     input[type='file'] {
         @include size(3.438rem,
-        9.688rem);
+        8rem);
         position: absolute;
-        top: 0;
+        top: -1rem;
         left: 0%;
         opacity: 0;
         cursor: pointer;
     }
     +.hiddeCropper {
         position: relative;
-        top: -0.3125rem;
-        cursor: pointer;
+        top: -0.205rem;
     }
 }
 
 .card-hover-icons {
-    height: 50%;
-    width: 50%;
+    height: 5em;
+    width: 25%;
     position: absolute;
-    top: 1.875rem;
+    top: 2.3rem;
     bottom: 0;
-    left: 50%;
+    left: 37%;
     right: 0;
     padding: 0.5rem;
     display: -webkit-flex;
@@ -36,8 +36,9 @@
     flex-direction: column;
     justify-content: flex-start;
     .crop {
-        font-size: 2rem;
+        font-size: 1.18rem;
         text-shadow: 0.0625rem 0.0625rem 0.1875rem black, 0.0625rem 0.0625rem 0.5rem black;
+        color: white;
         margin: 0.125rem;
         opacity: 0;
         transform: translateY(50%);
@@ -49,6 +50,3 @@
         }
     }
 }
-button, .button {width: 8.125rem;}
-
-img-cropper canvas {background-color: red !important;}

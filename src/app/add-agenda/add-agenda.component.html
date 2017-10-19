@@ -1,12 +1,13 @@
 <div class="container-fluid bg-image">
-    <div class="container size-height text-white">
-      <div class="row">
+    <div class="row">
         <div class="col-sm-12 col-lg-12 title-bg pt-1">
-          <h1 class="h1 text-center font-weight-bold py-2">
+          <h1 class="h1 text-center font-weight-bold text-white py-2">
             <img class="logo-Camera" src={{logoCamera}} alt=""> Create new event
           </h1>
         </div>
       </div>
+    <div class="container size-height text-white">
+      
   
       <div class="row">
         <div class="col-md-12">
@@ -15,7 +16,17 @@
               <div class="col-md-1"></div>
               <div class="col-md-10 px-5">
 
-                <div class="bg-agenda mt-4 py-4">
+                <div class="mt-4 py-4">
+
+                    <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+                        <button class="btn btn-outline-primary" id="dropdownManual" ngbDropdownToggle>Selecte action</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                          <button class="dropdown-item">Action</button>
+                          <button class="dropdown-item">Report</button>
+                        </div>
+                    
+                      </div>
+
                   <div class="btn-group align-items-center justify-content-center w-100" data-toggle="buttons">
                     <label class="btn btn-radio active font-weight-bold" (click)="action()">
                       <input value="true" type="radio" name="action" autocomplete="off" checked> Action

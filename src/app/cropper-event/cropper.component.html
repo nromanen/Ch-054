@@ -1,23 +1,25 @@
 <div *ngIf="isShowCropper" [formGroup]="form" (window:resize)="onResize($event)">
 	<div>
 		<div class="file-upload">
-			<label for="files" class="btn btn-secondary mx-auto my-1 py-2 button">Select Image</label>
+			<button class="btn mx-auto my-1 btn-color sizeButton">
+				<i class="fa fa-picture-o" aria-hidden="true"></i> Select</button>
 			<input id="custom-input" type="file" (change)="fileChangeListener($event)" formControlName="cropper">
 		</div>
-		<button class="btn btn-secondary my-1 mr-1 py-2 hiddeCropper" *ngIf="data1.image" (click)="hiddeCropper()">Save Image</button>
+		<button class="btn btn-secondary my-1 mr-1 hiddeCropper btn-color sizeButton" *ngIf="data1.image" (click)="hiddeCropper()">
+			<i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
 	</div>
 	<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
 </div>
 
 
 <div *ngIf="isHiddeCropper">
-	<p class="result">
-		<img [src]="data1.image" [width]="500" [height]="260" class="img-fluid">
+	<div class="result">
+		<img [src]="data1.image" [width]="width" [height]="height" class="img-fluid">
 		<span class="card-hover-icons">
-			<a class="crop" (click)="showCropper()">
+			<button class="crop" (click)="showCropper()">
 				<i class="fa fa-crop" aria-hidden="true"></i>
-			</a>
+			</button>
 		</span>
-	</p>
+	</div>
 </div>
 

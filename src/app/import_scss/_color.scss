@@ -8,3 +8,10 @@ $color) {
     color: $color;
     background: $bg;
 }
+
+.btn-color{
+    @include bgColor($bt-bg,$color-wh);    
+    &:hover{
+            @include bgColor($hover-bg,$color-wh);
+    }
+}

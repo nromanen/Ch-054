@@ -3,17 +3,6 @@
 
 
 
-
-    .size-height {
-        // min-height: 100vh;
-        // background-color: rgba(83, 87, 93, .3);
-        // background-image: url('/assets/images/bgForm.png');
-        // background-size: cover; 
-        // box-shadow: 0 0 0.20rem 0.12rem rgba(0, 0, 0, 0.5);
-
-        
-    }
-
     .input-bg {
         @include bgColor($color-grey,
         $color-wh);

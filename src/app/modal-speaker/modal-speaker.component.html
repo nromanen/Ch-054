@@ -8,7 +8,15 @@
       </button>
     </div>
     <div class="modal-body">
-      <form>
+      <form [formGroup]="modalForm">
+        <div class="row justify-content-center align-items-center">
+            <div class="form-group text-center">
+								<label for="cropper" class="font-weight-bold">Photo of speaker</label>
+								<div class="form-group mx-auto">
+									<app-cropper [form]="modalForm.controls.photoEvent" [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth" [width]="width" [height]="height"></app-cropper>
+								</div>
+							</div>
+        </div>
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -16,7 +24,7 @@
                 <div class="input-group-addon" style="width: 2.6rem">
                   <i class="fa fa-user" aria-hidden="true"></i>
                 </div>
-                <input type="text" name="name" class="form-control input-bg font-weight-bold" id="name" placeholder="Full name" required>
+                <input type="text" formControlformControlName="name" class="form-control input-bg font-weight-bold" id="name" placeholder="Full name" required>
               </div>
             </div>
           </div>
@@ -28,7 +36,7 @@
                 <div class="input-group-addon" style="width: 2.6rem">
                   <i class="fa fa-university"></i>
                 </div>
-                <input type="text" name="place of work" class="form-control input-bg font-weight-bold" id="placeWork" placeholder="Place of work"
+                <input type="text" formControlformControlName="placeWork" class="form-control input-bg font-weight-bold" id="placeWork" placeholder="Place of work"
                   required>
               </div>
             </div>
@@ -40,7 +48,7 @@
                 <div class="input-group-addon" style="width: 2.6rem">
                   <i class="fa fa-briefcase" aria-hidden="true"></i>
                 </div>
-                <input type="text" name="position" class="form-control input-bg font-weight-bold" id="position" placeholder="Position" required>
+                <input type="text" formControlName="position" class="form-control input-bg font-weight-bold" id="position" placeholder="Position" required>
               </div>
             </div>
           </div>
@@ -51,7 +59,7 @@
           <div class="col-lg-12">
             <label for="descr" class="font-weight-bold">
               About speaker</label>
-            <textarea name="descr" class="form-control input-bg font-weight-bold" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
+            <textarea formControlName="descr" class="form-control input-bg font-weight-bold" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
           </div>
         </div>
       </form>
@@ -63,6 +71,6 @@
 
 </ng-template>
 
-<button (click)="open(content)" style="width: 2.6rem; height: 38px; border-radius: 0 5px 5px 0 ;" ngbPopover="Click to add a speaker" triggers="mouseenter:mouseleave" popoverTitle="Add speaker">
+<button (click)="open(content)" style="width: 2.6rem; height: 38px; border-radius: 0 5px 5px 0 ;" ngbPopover="Add speaker" triggers="mouseenter:mouseleave">
   <i class="fa fa-user-plus" aria-hidden="true"></i>
 </button>

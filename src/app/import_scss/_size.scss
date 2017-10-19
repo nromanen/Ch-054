@@ -6,4 +6,11 @@ $auto-size: auto;
 @mixin size($height, $width) {
 	height: $height;
 	width: $width;
-  }
+	}
+	
+	.sizeButton {
+		height: 3rem;
+		width: 8.063rem;
+		cursor: pointer;
+}
+

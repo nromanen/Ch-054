@@ -10,20 +10,22 @@ import { CropperComponent } from '../cropper-event/cropper.component';
 	styleUrls: ['./add-event.component.scss']
 })
 export class AddEventComponent implements OnInit {
-	width: number = window.innerWidth / 3;
-	canvasHeight: number = 200;
+	width: number = 500;
+	height: number = 260;
+	cropperSettingsWidth: number = 1080;
+	cropperSettingsHeight: number = 540;
 	logoCamera: string = '/assets/images/camera.png';
 	isShowCalendarTo: boolean = false;
 	isShowButton: boolean = true;
 	isShowIcon: boolean = false;
-	imgEvent: string = '';
+	imgEvent: any;
 
 	//autocomplete
 	model1 = "";
 	arrayOfStrings: string[] =
 	["Central Park West, New York, NY 10023, USA", "60 E 65th St, New York, NY 10065, USA", "Time Warner Center, 10 Columbus Cir, New York, NY 10023, USA", "900 Canada Pl, Vancouver, BC V6C 3L5, Canada", "101 Trans-Canada Hwy, Duncan, BC V9L 3P8, Canada", "999 Canada Pl #410, Vancouver, BC V6C 3E1, Canada",];
 	myForm: FormGroup;
-	
+
 	myCallback(newVal) {
 		this.model1 = newVal;
 	}
@@ -42,10 +44,11 @@ export class AddEventComponent implements OnInit {
 	}
 	constructor(private fb: FormBuilder) { }
 
-	onChanged(imgName){
-		this.imgEvent = imgName;
-		console.log(this.imgEvent);
-    }
+	onChanged(imgCrop) {
+		this.imgEvent = imgCrop;
+
+	}
+
 
 	ngOnInit() {
 		this.myForm = this.fb.group({
