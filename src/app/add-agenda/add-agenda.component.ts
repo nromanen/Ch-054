@@ -22,8 +22,8 @@ import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 export class AddAgendaComponent implements OnInit {
 
 	logoCamera: string = '/assets/images/camera.png';
-	isAction: boolean = true;
-	isReport: boolean = false;
+	isReport: boolean = true;
+	isAction: boolean = false;
 	myFormAgenda: FormGroup;
 
 	time = { hour: '09', minute: '00' };
@@ -36,14 +36,9 @@ export class AddAgendaComponent implements OnInit {
 
 	constructor(private fb: FormBuilder, config: NgbTimepickerConfig) { config.spinners = false;}
 
-	action() {
-		this.isAction = true;
-		this.isReport = false;
-	}
-
-	report() {
-		this.isAction = false;
-		this.isReport = true;
+	changeSelect() {
+		this.isAction = !this.isAction;
+		this.isReport = !this.isReport;
 	}
 
 	ngOnInit() {
