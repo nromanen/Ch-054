@@ -15,8 +15,6 @@ export class ModalSpeakerComponent {
 	cropperSettingsWidth: number = 860;
 	cropperSettingsHeight: number = 638;
   modalForm: FormGroup;
-
-  closeResult: string;
   
   constructor(private modalService: NgbModal, private fb: FormBuilder) {
     this.modalForm = this.fb.group({
@@ -28,7 +26,8 @@ export class ModalSpeakerComponent {
 				cropper: new FormControl()
 			})
 		});
-     }
+  }
+  
   
     open(content) {
       this.modalService.open(content, { size: 'lg',  windowClass: 'dark-modal' });

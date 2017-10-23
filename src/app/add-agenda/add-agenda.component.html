@@ -7,27 +7,28 @@
     </div>
   </div>
 
-  <form [formGroup]="myFormAgenda">
-    
 
 
-    <div class="row bg-image py-5">
-      <div class="container">
-        <div class="row  mb-2">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-2">
-                <label for="gender1" class="font-weight-bold">Select action</label>
-                <div class="btn-group align-items-center justify-content-center w-100" data-toggle="buttons">
-                  <select class="form-control selcls" id="gender1" (change)="changeSelect()">
-                    <option value="1">Official</option>
-                    <option selected value="2">Lecture</option>
-                  </select>
-                </div>
+
+
+  <div class="row bg-image py-5">
+    <div class="container">
+      <div class="row  mb-2">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-2">
+              <label for="gender1" class="font-weight-bold">Select action</label>
+              <div class="btn-group align-items-center justify-content-center w-100" data-toggle="buttons">
+                <select class="form-control selcls" id="gender1" (change)="changeSelect()">
+                  <option value="1">Official</option>
+                  <option selected value="2">Lecture</option>
+                </select>
               </div>
+            </div>
 
-              <div class="col-md-10 px-5">
-                <div *ngIf="isAction" class="action-marin">
+            <div class="col-md-10 px-5">
+              <div *ngIf="isAction" class="action-marin">
+                <form [formGroup]="myFormAction">
                   <div class="row mb-2">
                     <div class="col-lg-4 mb-3">
                       <label for="timeActionFrom" class="font-weight-bold">Time Start</label>
@@ -59,20 +60,28 @@
                       </div>
                     </div>
                   </div>
+                  <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-color size-button mb-2">
+                      <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
+                  </div>
+                </form>
+              </div>
 
-                </div>
-
-                <div *ngIf="isReport">
+              <div *ngIf="isReport">
+                <form [formGroup]="myFormReport">
                   <div class="row">
                     <div class="col md-12 mb-3">
                       <div class="form-group">
                         <label for="speaker" class="font-weight-bold">Choose a speaker</label>
                         <div class="row">
                           <div class="col-md-9 my-1 speaker-autocomplete">
-                            <div class="input-group" ng2-auto-complete [source]="arrayOfStrings" placeholder="enter text">
-                              <input type="text" formControlName="speaker" class="form-control input-bg" id="speaker" [ngModel]="model1" placeholder="Choose a speaker"
-                                required autofocus>
+                            <div class="input-group w-100">
+                              <div class="w-100">
+                                <input ng2-auto-complete [source]="arrayOfStrings" formControlName="speaker" class="form-control input-bg w-100" id="speaker"
+                                  [ngModel]="model1" placeholder="Choose a speaker" required autofocus>
+                              </div>
                               <app-modal-speaker></app-modal-speaker>
+
                             </div>
                           </div>
                           <div class="col-md-3 col-sm-12 text-center">
@@ -103,83 +112,76 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-
-
-
-                  <div class="form-group">
-                    <label for="nameReport" class="font-weight-bold">Report</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                      <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
-                        required autofocus>
-                      <div class="input-group-addon">
-                        <i class="fa fa-pencil"></i>
-                      </div>
+                    <div class="mt-4 text-center">
+                      <button type="submit" class="btn btn-color size-button mb-2">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
                     </div>
-                  </div>
+                </form>
                 </div>
 
 
-                <div class="mt-4 text-center">
-                  <button type="submit" class="btn btn-color size-button mb-2">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
-                </div>
 
-
-                <div class="w-75 mx-auto">
-                  <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">
-                    <div class="table-bgraund font-weight-bold text-center cell-div">
-                      Schedule
+                <div class="form-group">
+                  <label for="nameReport" class="font-weight-bold">Report</label>
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
+                      required autofocus>
+                    <div class="input-group-addon">
+                      <i class="fa fa-pencil"></i>
                     </div>
-                    <div class="theader text-center font-weight-bold text-center">
-                      <div class="cell-div d-table-cell text-center">
-                        <p class="text-center align-middle text-size my-2">Time</p>
-                      </div>
-                      <div class="cell-div d-table-cell text-center">
-                        <p class="text-center align-middle text-size my-2">Event</p>
-                      </div>
-                    </div>
-                    <div class="row-div">
-                      <div class="cell-div d-table-cell align-middle">
-                        <p class="text-center text-size align-middle my-2">
-                          <i class="fa fa-clock-o fa-lg"></i> 09:00</p>
-                      </div>
-                      <div class="cell-div d-table-cell align-middle">
-                        <p class="text-center align-middle text-size text-size my-2">
-                          <span class="text-center report mt-0">Registration & Coffee break</span>
-                        </p>
-                      </div>
-                    </div>
-
                   </div>
                 </div>
+              </div>
 
 
+
+
+
+              <div class="w-75 mx-auto" *ngIf="myFormAgenda">
+                <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">
+                  <div class="table-bgraund font-weight-bold text-center cell-div">
+                    Schedule
+                  </div>
+                  <div class="theader text-center font-weight-bold text-center">
+                    <div class="cell-div d-table-cell text-center">
+                      <p class="text-center align-middle text-size my-2">Time</p>
+                    </div>
+                    <div class="cell-div d-table-cell text-center">
+                      <p class="text-center align-middle text-size my-2">Event</p>
+                    </div>
+                  </div>
+                  <div class="row-div">
+                    <div class="cell-div d-table-cell align-middle">
+                      <p class="text-center text-size align-middle my-2">
+                        <i class="fa fa-clock-o fa-lg"></i> 09:00</p>
+                    </div>
+                    <div class="cell-div d-table-cell align-middle">
+                      <p class="text-center align-middle text-size text-size my-2">
+                        <span class="text-center report mt-0">Registration & Coffee break</span>
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
-
-
-
           </div>
 
-
-
-
-
-
         </div>
+
       </div>
-
-    </div>
-    <div class="my-5 text-center">
-      <button type="submit" class="btn btn btn-color size-button mb-2">
-        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>
-      <button type="submit" class="btn btn-color size-button mb-2">
-        <i class="fa fa-paper-plane"></i> Template</button>
-      <button type="submit" class="btn btn-color size-button mb-2" routerLink="/add/event">
-        <i class="fa fa-backward" aria-hidden="true"></i> Go back</button>
     </div>
 
+  </div>
+  <div class="my-5 text-center">
+    <button type="submit" class="btn btn btn-color size-button mb-2">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>
+    <button type="submit" class="btn btn-color size-button mb-2">
+      <i class="fa fa-paper-plane"></i> Template</button>
+    <button type="submit" class="btn btn-color size-button mb-2" routerLink="/add/event">
+      <i class="fa fa-backward" aria-hidden="true"></i> Go back</button>
+  </div>
 
-  </form>
+
+
 </div>

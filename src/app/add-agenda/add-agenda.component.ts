@@ -22,7 +22,8 @@ export class AddAgendaComponent implements OnInit {
 	logoCamera: string = '/assets/images/camera.png';
 	isReport: boolean = true;
 	isAction: boolean = false;
-	myFormAgenda: FormGroup;
+	myFormAction: FormGroup;
+	myFormReport: FormGroup;
 
 	time = { hour: '09', minute: '00' };
 	timeReport = { hour: '09', minute: '00' };
@@ -30,7 +31,8 @@ export class AddAgendaComponent implements OnInit {
 	//autocomplete
 	model1 = "";
 	arrayOfStrings: string[] =
-	["Marius Barbulesco", "Stolte Jon", "Brenda B Jon", "Lotrean Jon Maria", "Jason P Marcus", "Alfred T Marchese", "Hernandez Alex", "Cortes Ana",];
+	["Marius Barbulesco", "Stolte Jon kjfkj DDD fdjg GGG", "Brenda B Jon", "Lotrean Jon Maria", "Jason P Marcus", "Alfred T Marchese", "Hernandez Alex", "Cortes Ana",];
+	
 
 	constructor(private fb: FormBuilder, config: NgbTimepickerConfig) {
 		config.spinners = false;
@@ -42,17 +44,19 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.myFormAgenda = this.fb.group({
+		this.myFormAction = this.fb.group({
 			nameAction: new FormControl(''),
 			timeActionTo: new FormControl(''),
 			timeActionFrom: new FormControl(''),
 			dataPickerAction: new FormControl(''),
-			speaker: new FormControl(''),
+		});
+
+		this.myFormReport = this.fb.group({
+			speaker: '',
 			nameReport: new FormControl(''),
 			timeReportFrom: new FormControl(''),
 			timeReportTo: new FormControl(''),
 			dataPickerReport: new FormControl(''),
-			photoEvent: new FormControl(''),
 
 		});
 	}
