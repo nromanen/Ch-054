@@ -2,12 +2,6 @@
 @import '../import_scss/_color';
 
 
-
-    .input-bg {
-        @include bgColor($color-grey,
-        $color-wh);
-    }
-
     .size-button {
         height: 3rem;
         width: 8.063rem;

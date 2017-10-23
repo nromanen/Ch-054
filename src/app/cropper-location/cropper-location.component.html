@@ -1,3 +1,42 @@
-<p>
-  cropper-location works!
-</p>
+<div  [formGroup]="form" (window:resize)="onResize($event)">
+    <div>
+      <div class="file-upload">
+        <button class="btn mx-auto my-1 btn-color sizeButton">
+          <i class="fa fa-picture-o" aria-hidden="true"></i> Select</button>
+        <input id="custom-input" type="file" (change)="fileChangeListener($event)" formControlName="cropper">
+      </div>
+      <button class="btn btn-secondary my-1 mr-1 hiddeCropper btn-color sizeButton" *ngIf="data1.image" (click)="hiddeCropper()">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+    </div>
+    <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+  </div>
+  
+  
+  <div *ngIf="isHiddeCropper">
+    <div class="row">
+      <div class="col-md-6">
+          <div class="result">
+              <img [src]="data1.image" [width]="width" [height]="height" class="img-fluid">
+              <!-- <span class="card-hover-icons">
+                <button class="crop" (click)="showCropper()">
+                  <i class="fa fa-crop" aria-hidden="true"></i>
+                </button>
+              </span> -->
+            </div>
+      </div>
+      <div class="col-md-6">
+          <div class="result">
+              <img [src]="data1.image" [width]="width" [height]="height" class="img-fluid">
+              <!-- <span class="card-hover-icons">
+                <button class="crop" (click)="showCropper()">
+                  <i class="fa fa-crop" aria-hidden="true"></i>
+                </button>
+              </span> -->
+            </div>
+      </div>
+
+    </div>
+    
+  </div>
+  
+  

@@ -8,23 +8,7 @@
   </div>
 
   <form [formGroup]="myFormAgenda">
-    <div class="container my-5" style="height: 30px;">
-      <div class="row">
-        <div class="col-md-12">
-          <!-- <h1 class="text-center">Added agenda</h1> -->
-          <!--<div class="row">
-            <div class="col-md-10 px-5">
-              <div class="btn-group align-items-center justify-content-center w-100" data-toggle="buttons">
-                <select class="custom-select " (change)="changeSelect()">
-                  <option selected value="1">Official</option>
-                  <option value="2">Lecture</option>
-                </select>
-              </div>
-            </div>
-          </div>-->
-        </div>
-      </div>
-    </div>
+    
 
 
     <div class="row bg-image py-5">
@@ -40,23 +24,23 @@
                     <option selected value="2">Lecture</option>
                   </select>
                 </div>
-
               </div>
+
               <div class="col-md-10 px-5">
                 <div *ngIf="isAction" class="action-marin">
                   <div class="row mb-2">
                     <div class="col-lg-4 mb-3">
-                      <label for="timeReportFrom" class="font-weight-bold">Time Start</label>
-                      <ngb-timepicker formControlName="timeReportFrom" [(ngModel)]="timeReportFrom"></ngb-timepicker>
+                      <label for="timeActionFrom" class="font-weight-bold">Time Start</label>
+                      <ngb-timepicker formControlName="timeActionFrom" [(ngModel)]="timeActionFrom"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4 mb-2">
-                      <label for="timeReportTo" class="font-weight-bold">Time End</label>
-                      <ngb-timepicker formControlName="timeReportTo" [(ngModel)]="timeReportTo"></ngb-timepicker>
+                      <label for="timeActionTo" class="font-weight-bold">Time End</label>
+                      <ngb-timepicker formControlName="timeActionTo" [(ngModel)]="timeActionTo"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
                       <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepicker">
-                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerReport" [(ngModel)]="modelDate"
+                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerAction" [(ngModel)]="modelDate"
                           ngbDatepicker (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2">
                         <div class="input-group-addon">
                           <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -133,21 +117,59 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
+
+
+                <div class="mt-4 text-center">
+                  <button type="submit" class="btn btn-color size-button mb-2">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
+                </div>
+
+
+                <div class="w-75 mx-auto">
+                  <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">
+                    <div class="table-bgraund font-weight-bold text-center cell-div">
+                      Schedule
+                    </div>
+                    <div class="theader text-center font-weight-bold text-center">
+                      <div class="cell-div d-table-cell text-center">
+                        <p class="text-center align-middle text-size my-2">Time</p>
+                      </div>
+                      <div class="cell-div d-table-cell text-center">
+                        <p class="text-center align-middle text-size my-2">Event</p>
+                      </div>
+                    </div>
+                    <div class="row-div">
+                      <div class="cell-div d-table-cell align-middle">
+                        <p class="text-center text-size align-middle my-2">
+                          <i class="fa fa-clock-o fa-lg"></i> 09:00</p>
+                      </div>
+                      <div class="cell-div d-table-cell align-middle">
+                        <p class="text-center align-middle text-size text-size my-2">
+                          <span class="text-center report mt-0">Registration & Coffee break</span>
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
               </div>
             </div>
-            <div class="mt-4 text-center">
-              <button type="submit" class="btn btn-color size-button mb-2">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
-              <button class="btn btn-info size-button mb-2">
-                <i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
-            </div>
+
+
+
           </div>
+
+
+
+
 
 
         </div>
       </div>
+
     </div>
     <div class="my-5 text-center">
       <button type="submit" class="btn btn btn-color size-button mb-2">
