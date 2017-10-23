@@ -13,6 +13,7 @@ export class ModalLocationComponent {
   constructor(private modalService: NgbModal) { }
 
   open(content) {
-    this.modalService.open(content, { size: 'lg' });
+    this.modalService.open(content, { size: 'lg',  windowClass: 'dark-modal' });
   }
+
 } 

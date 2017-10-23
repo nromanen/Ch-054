@@ -39,7 +39,7 @@
 									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 										<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference" required
 										 autofocus>
-										<div class="input-group-addon" style="width: 2.6rem">
+										<div class="input-group-addon calendar-width">
 											<i class="fa fa-pencil"></i>
 										</div>
 									</div>
@@ -62,12 +62,12 @@
 											<div class="input-group" placeholder="enter text">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="model" ngbDatepicker
 												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1">
-												<button style="width: 2.6rem; height: 38px; border-radius: 0 5px 5px 0 ;" ngbPopover="Add calendar" triggers="mouseenter:mouseleave"
+												<button class="btn-cursor btn-icon" ngbPopover="Add calendar" triggers="mouseenter:mouseleave"
 												 (click)="addCalendar()" *ngIf="isShowButton" [class.hiddeButton]="isShowCalendarTo">
 													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
 												</button>
 
-												<div class="input-group-addon" style="width: 2.6rem" *ngIf="isShowIcon">
+												<div class="input-group-addon calendar-width" *ngIf="isShowIcon">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
 												</div>
 											</div>
@@ -78,7 +78,7 @@
 											<div class="input-group" placeholder="enter text">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDate" ngbDatepicker
 												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2">
-												<button style="width: 2.6rem; height: 38px; border-radius: 0 5px 5px 0 ;" ngbTooltip="Remove calendar" (click)="deleteCalendar()">
+												<button class="btn-cursor btn-icon" ngbPopover="Delete calendar" triggers="mouseenter:mouseleave" (click)="deleteCalendar()">
 													<i class="fa fa-calendar-times-o" aria-hidden="true"></i>
 												</button>
 											</div>
@@ -93,7 +93,7 @@
 										Location</label>
 									<div class="form-group">
 										<div class="row">
-											<div class="col-md-9 my-1" style="color: black;">
+											<div class="col-md-9 my-1">
 												<div class="input-group" ng2-auto-complete [source]="arrayOfStrings" (ngModelChange)="myCallback($event)" placeholder="enter text">
 													<input type="text" formControlName="location" class="form-control input-bg" id="location" [ngModel]="model1" placeholder="Choose a location"
 													 required autofocus>
@@ -102,8 +102,8 @@
 												</div>
 											</div>
 											<div class="col-md-3 col-sm-12 text-center">
-												<button class="btn btn-info size-button my-1">
-													<i class="fa fa-eye" aria-hidden="true"></i> Preview</button>
+												<button class="btn btn-cursor btn-info my-1">
+													<i class="fa fa-eye" aria-hidden="true"></i> Location</button>
 											</div>
 										</div>
 
