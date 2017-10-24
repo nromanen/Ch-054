@@ -27,6 +27,10 @@ export class CropperComponent implements OnInit {
   isHiddeCropper: boolean = false;
   event: any;
   child: [any];
+  imgWidth: number;
+  imgHeight: number;
+  
+
 
 
 
@@ -59,19 +63,33 @@ export class CropperComponent implements OnInit {
     var file: File = event.target.files[0];
     var myReader: FileReader = new FileReader();
     var that = this;
-    myReader.onloadend = function (loadEvent: any) {
-      image.src = loadEvent.target.result;
-      that.cropper.setImage(image);
+
+
+    image.onload = function() {
+      console.log(image.width + ' ' + image.height);
+      that.imgWidth = image.naturalWidth || image.width;
+      if(that.imgWidth<1080)
+        alert(that.imgWidth + 'small');
     };
+        myReader.onloadend = function (loadEvent: any) {
+          image.src = loadEvent.target.result;
+          that.cropper.setImage(image);
+          console.log('dnf');
+      };
+
+
+
+
     this.event = event;
     myReader.readAsDataURL(file);
+
+    console.log(that.imgWidth);
   }
 
   showCropper() {
     this.isShowCropper = !this.isShowCropper;
     this.isHiddeCropper = false;
     this.fileChangeListener(this.event);
-    console.log(this.event.target.files[0]);
   }
 
   hiddeCropper() {
