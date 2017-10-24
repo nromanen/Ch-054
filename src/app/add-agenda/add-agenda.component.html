@@ -27,8 +27,9 @@
             </div>
 
             <div class="col-md-10 px-5">
-              <div *ngIf="isAction" class="action-marin">
-                <form [formGroup]="myFormAction">
+              <div *ngIf="isAction" class="">
+                <form [formGroup]="myFormAction" #fa="ngForm"
+                (ngSubmit)="onSubmit(fa.value); fa.value='';myFormAction.reset();">
                   <div class="row mb-2">
                     <div class="col-lg-4 mb-3">
                       <label for="timeActionFrom" class="font-weight-bold">Time Start</label>
@@ -50,7 +51,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group action-marin">
                     <label for="nameAction" class="font-weight-bold">Action</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <input type="text" formControlName="nameAction" class="form-control input-bg" id="name" placeholder="Registration & Wellcome"
@@ -62,7 +63,7 @@
                   </div>
                   <div class="mt-4 text-center">
                     <button type="submit" class="btn btn-color size-button mb-2">
-                      <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
+                      <i class="fa fa-floppy-o" aria-hidden="true"></i> Save action</button>
                   </div>
                 </form>
               </div>
@@ -112,26 +113,31 @@
                         </div>
                       </div>
                     </div>
-                    <div class="mt-4 text-center">
-                      <button type="submit" class="btn btn-color size-button mb-2">
-                        <i class="fa fa-floppy-o" aria-hidden="true"></i> Save agenda</button>
-                    </div>
-                </form>
-                </div>
-
-
-
-                <div class="form-group">
-                  <label for="nameReport" class="font-weight-bold">Report</label>
-                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
-                      required autofocus>
-                    <div class="input-group-addon">
-                      <i class="fa fa-pencil"></i>
-                    </div>
                   </div>
-                </div>
+
+                  <div class="form-group">
+                      <label for="nameReport" class="font-weight-bold">Report</label>
+                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
+                          required autofocus>
+                        <div class="input-group-addon">
+                          <i class="fa fa-pencil"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                  <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-color size-button mb-2" (click)="save(myFormReport.value); myFormReport.value='';myFormReport.reset();" [disabled]="myFormReport.invalid">
+                          <i class="fa fa-floppy-o" aria-hidden="true"></i> Save lection</button>
+                  </div>
+
+                </form>
               </div>
+
+
+
+
+            
 
 
 
@@ -171,8 +177,8 @@
 
       </div>
     </div>
-
   </div>
+
   <div class="my-5 text-center">
     <button type="submit" class="btn btn btn-color size-button mb-2">
       <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>

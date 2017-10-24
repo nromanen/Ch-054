@@ -43,6 +43,8 @@ export class AddAgendaComponent implements OnInit {
 		this.isReport = !this.isReport;
 	}
 
+	save(form){}
+
 	ngOnInit() {
 		this.myFormAction = this.fb.group({
 			nameAction: new FormControl(''),

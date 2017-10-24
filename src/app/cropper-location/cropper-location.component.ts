@@ -10,7 +10,7 @@ import { ImageCropperComponent, CropperSettings, Bounds, ImageCropper } from 'ng
 })
 export class CropperLocationComponent implements OnInit {
 
-  
+
   @Input() width: number;
   @Input() height: number;
   @Input() cropperSettingsWidth: number;
@@ -26,6 +26,7 @@ export class CropperLocationComponent implements OnInit {
   isHiddeCropper: boolean = false;
   event: any;
   child: [any];
+  files: Array<File>;
 
 
 
@@ -36,7 +37,7 @@ export class CropperLocationComponent implements OnInit {
     this.name = 'Angular2'
     this.cropperSettings1.minWidth = this.cropperSettings1.width / 2;
     this.cropperSettings1.minHeight = this.cropperSettings1.height / 2;
-    
+
     this.cropperSettings1.rounded = false;
     this.cropperSettings1.noFileInput = true;
     this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
@@ -96,7 +97,7 @@ export class CropperLocationComponent implements OnInit {
     }
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.cropperSettings1.width = this.cropperSettingsWidth;
     this.cropperSettings1.height = this.cropperSettingsHeight;
     this.cropperSettings1.croppedWidth = this.cropperSettingsWidth;
