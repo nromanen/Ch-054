@@ -28,16 +28,15 @@
 
             <div class="col-md-10 px-5">
               <div *ngIf="isAction" class="">
-                <form [formGroup]="myFormAction" #fa="ngForm"
-                (ngSubmit)="onSubmit(fa.value); fa.value='';myFormAction.reset();">
+                <form [formGroup]="myFormAction">
                   <div class="row mb-2">
                     <div class="col-lg-4 mb-3">
                       <label for="timeActionFrom" class="font-weight-bold">Time Start</label>
-                      <ngb-timepicker formControlName="timeActionFrom" [(ngModel)]="timeActionFrom"></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeActionFrom" [(ngModel)]="timeActionFrom" required></ngb-timepicker>
                     </div>
                     <div class="col-lg-4 mb-2">
                       <label for="timeActionTo" class="font-weight-bold">Time End</label>
-                      <ngb-timepicker formControlName="timeActionTo" [(ngModel)]="timeActionTo"></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeActionTo" [(ngModel)]="timeActionTo" required></ngb-timepicker>
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
@@ -62,7 +61,7 @@
                     </div>
                   </div>
                   <div class="mt-4 text-center">
-                    <button type="submit" class="btn btn-color size-button mb-2">
+                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';myFormAction.reset();" [disabled]="myFormAction.invalid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save action</button>
                   </div>
                 </form>
@@ -75,8 +74,8 @@
                       <div class="form-group">
                         <label for="speaker" class="font-weight-bold">Choose a speaker</label>
                         <div class="row">
-                          <div class="col-md-9 my-1 speaker-autocomplete">
-                            <div class="input-group w-100">
+                          <div class="col-md-9 my-1">
+                            <div class="input-group w-100 speaker-autocomplete">
                               <div class="w-100">
                                 <input ng2-auto-complete [source]="arrayOfStrings" formControlName="speaker" class="form-control input-bg w-100" id="speaker"
                                   [ngModel]="model1" placeholder="Choose a speaker" required autofocus>
@@ -97,11 +96,11 @@
                   <div class="row mb-3">
                     <div class="col-lg-4 mb-2">
                       <label for="timeReportFrom" class="font-weight-bold">Time Start</label>
-                      <ngb-timepicker formControlName="timeReportFrom" [(ngModel)]="timeReportFrom"></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeReportFrom" [(ngModel)]="timeReportFrom" required></ngb-timepicker>
                     </div>
                     <div class="col-lg-4 mb-2">
                       <label for="timeReportTo" class="font-weight-bold">Time End</label>
-                      <ngb-timepicker formControlName="timeReportTo" [(ngModel)]="timeReportTo"></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeReportTo" [(ngModel)]="timeReportTo" required></ngb-timepicker>
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
@@ -127,21 +126,12 @@
                     </div>
 
                   <div class="mt-4 text-center">
-                    <button type="submit" class="btn btn-color size-button mb-2" (click)="save(myFormReport.value); myFormReport.value='';myFormReport.reset();" [disabled]="myFormReport.invalid">
+                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveReport(myFormReport.value); myFormReport.value='';myFormReport.reset();" [disabled]="myFormReport.invalid">
                           <i class="fa fa-floppy-o" aria-hidden="true"></i> Save lection</button>
                   </div>
 
                 </form>
               </div>
-
-
-
-
-            
-
-
-
-
 
               <div class="w-75 mx-auto" *ngIf="myFormAgenda">
                 <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">

@@ -43,7 +43,12 @@ export class AddAgendaComponent implements OnInit {
 		this.isReport = !this.isReport;
 	}
 
-	save(form){}
+	saveReport(form) {
+		
+	}
+	saveAction(form) {
+		
+	}
 
 	ngOnInit() {
 		this.myFormAction = this.fb.group({
