@@ -26,12 +26,7 @@ export class CropperComponent implements OnInit {
   isShowCropper: boolean = true;
   isHiddeCropper: boolean = false;
   event: any;
-  isShowerrorTypePhoto = false;
-
-
-
-
-
+  isShowErrorTypePhoto = false;
 
   @Input() form: FormGroup;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
@@ -58,17 +53,14 @@ export class CropperComponent implements OnInit {
   }
 
   fileChangeListener(event) {
+    this.isShowErrorTypePhoto = false;
     var image = new Image();
     var file: File = event.target.files[0];
-    var getExtensionImage = file.type.split('/');
-    var checkimg = getExtensionImage[1].toLowerCase();
-    var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
-    if (extensionImage.indexOf(checkimg) == -1) { 
-        this.isShowerrorTypePhoto = true;
-        return false;
-     }
     var myReader: FileReader = new FileReader();
     var that = this;
+
+
+
     image.onload = function () {
       // console.log(image.width + ' ' + image.height + that.cropperSettingsWidth);
       // that.imgWidth = image.naturalWidth || image.width;
@@ -77,14 +69,29 @@ export class CropperComponent implements OnInit {
       // }
     };
 
+
     myReader.onloadend = function (loadEvent: any) {
+
+      var getExtensionImage = file.type.split('/');
+      var checkimg = getExtensionImage[1].toLowerCase();
+      var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
+
+      if (extensionImage.indexOf(checkimg) == -1) {
+        that.isShowErrorTypePhoto = true;
+        image.src = 'http://www.solidbackgrounds.com/images/2560x1440/2560x1440-davys-grey-solid-color-background.jpg';
+        that.cropper.setImage(image);
+        return false;
+      }
+
       image.src = loadEvent.target.result;
       that.cropper.setImage(image);
-    };
-    this.event = event;
-    myReader.readAsDataURL(file);
 
-    console.log(file.type);
+    };
+    that.event = event;
+    if (file) {
+      myReader.readAsDataURL(file);
+    }
+
   }
 
   showCropper() {

@@ -25,6 +25,7 @@ export class AddEventComponent implements OnInit {
 	modelFrom: object = {};
 	modelDate: object = {};
 	isSelectedCalendar: boolean = true;
+	temp:object;
 
 	//autocomplete
 	model ='';
@@ -43,10 +44,11 @@ export class AddEventComponent implements OnInit {
 	selectedDateFrom(event) {
 		let mydate = new Date(event['year'],event['month']-1,event['day']); 
 		this.minDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() };
-		this.modelDate = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() };
+		this.modelDate = this.minDateTo;
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
+		this.temp = this.minDateTo;
 	}
 
 
@@ -54,12 +56,16 @@ export class AddEventComponent implements OnInit {
 		this.isShowCalendarTo = true;
 		this.isShowButton = false;
 		this.isShowIcon = true;
+		if (this.temp) {
+			this.modelDate = this.temp;
+		}
 	}
 
 	deleteCalendar() {
 		this.isShowCalendarTo = false;
 		this.isShowButton = true;
 		this.isShowIcon = false;
+		this.modelDate = null;
 	}
 
 
@@ -74,11 +80,11 @@ export class AddEventComponent implements OnInit {
 
 	ngOnInit() {
 		this.myForm = this.fb.group({
-			name: '',
-			descr: new FormControl(''),
-			dataPickerFrom: new FormControl(''),
-			dataPickerTo: new FormControl(''),
-			location: new FormControl(''),
+			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
+			descr: new FormControl('', [Validators.required,Validators.minLength(2), Validators.maxLength(50)]),
+			dataPickerFrom: new FormControl('', [Validators.required]),
+			dataPickerTo: '',
+			location: new FormControl('', [Validators.required]),
 			photoEvent: this.fb.group({
 				cropper: ''
 			})

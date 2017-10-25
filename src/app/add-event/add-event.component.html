@@ -38,7 +38,7 @@
 								<div class="form-group">
 									<label for="name" class="font-weight-bold">Title of event</label>
 									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-										<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference" required>
+										<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference">
 										<div class="input-group-addon calendar-width">
 											<i class="fa fa-pencil"></i>
 										</div>
@@ -47,9 +47,8 @@
 								<div class="form-group">
 									<label for="descr" class="font-weight-bold">
 										Description</label>
-									<textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description" required></textarea>
+									<textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
 								</div>
-
 
 
 								<div class="form-group">
@@ -61,7 +60,7 @@
 											</label>
 											<div class="input-group" placeholder="enter text">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="modelFrom" ngbDatepicker
-												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)" (click)="selectToday()" required>
+												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)" (click)="selectToday()">
 												<button class="btn-cursor btn-icon" ngbPopover="Add date" triggers="mouseenter:mouseleave" (click)="addCalendar()" *ngIf="isShowButton"
 												 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
 													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
@@ -97,7 +96,7 @@
 													<div class="input-group w-100">
 														<div class="w-100">
 															<input ng2-auto-complete [source]="arrayOfStrings" formControlName="location" class="form-control input-bg w-100" id="location"
-															 [ngModel]="model1" placeholder="Choose a location" required>
+															 [ngModel]="model1" placeholder="Choose a location">
 														</div>
 														<app-modal-speaker></app-modal-speaker>
 
@@ -123,7 +122,7 @@
 		<div class="my-5 text-center">
 			<button type="submit" class="btn btn-color text-white size-button">
 				<i class="fa fa-paper-plane"></i> Template</button>
-			<button type="submit" class="btn btn-color size-button" routerLink="/add/agenda" (click)="saveEvent(myForm); myForm.value='';">
+			<button type="submit" class="btn btn-color size-button" routerLink="/add/agenda" (click)="saveEvent(myForm); myForm.value='';" [disabled]="myForm.invalid">
 				<i class="fa fa-plus-circle"></i> Add agenda</button>
 		</div>
 
@@ -132,5 +131,5 @@
 </div>
 
 
-<!-- 
-<pre>{{myForm.value | json}}</pre> -->
+
+<pre>{{myForm.value | json}}</pre>

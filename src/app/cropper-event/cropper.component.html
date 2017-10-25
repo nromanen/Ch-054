@@ -1,16 +1,18 @@
-<div *ngIf="isShowCropper" [formGroup]="form" (window:resize)="onResize($event)" class="mb-0">
+<div class="marginTopCrop" *ngIf="isShowCropper" [formGroup]="form" (window:resize)="onResize($event)" class="mb-0">
 	<div>
 		<div class="file-upload">
 			<button class="btn mx-auto my-1 btn-color sizeButton">
 				<i class="fa fa-picture-o" aria-hidden="true"></i> Select</button>
 			<input id="custom-input" type="file" (change)="fileChangeListener($event)" formControlName="cropper">
 		</div>
-		<button class="btn btn-secondary my-1 mr-1 hiddeCropper btn-color sizeButton" *ngIf="data1.image" (click)="hiddeCropper()">
+		<button class="btn btn-secondary my-1 mr-1 hiddeCropper btn-color sizeButton" *ngIf="data1.image" (click)="hiddeCropper()" [disabled]='isShowErrorTypePhoto'>
 			<i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
 	</div>
 	<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
 </div>
-<span *ngIf="isShowerrorTypePhoto" class="m-0 py-0 text-danger">Image type not valid. Valid type is: jpg, png, jpeg</span>
+<div class="errorType m-0 p-0">
+	<span *ngIf="isShowErrorTypePhoto" class="m-0 py-0 text-danger">Invalid image type. Valid type is: jpg, png, jpeg</span>
+</div>
 
 <div *ngIf="isHiddeCropper">
 	<div class="result">
@@ -22,4 +24,3 @@
 		</span>
 	</div>
 </div>
-
