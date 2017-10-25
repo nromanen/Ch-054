@@ -65,7 +65,7 @@ export class AddEventComponent implements OnInit {
 		this.isShowCalendarTo = false;
 		this.isShowButton = true;
 		this.isShowIcon = false;
-		this.modelDate = null;
+		this.modelDate = {year:2010, month:10, day:10};
 	}
 
 
@@ -75,7 +75,9 @@ export class AddEventComponent implements OnInit {
 		this.imgEvent = imgCrop;
 	}
 
-	saveEvent(form){}
+	saveEvent(form) {
+		console.log(form);
+	}
 
 
 	ngOnInit() {

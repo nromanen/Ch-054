@@ -5,9 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Action } from '../action';
-import { Lection } from '../lection';
-
-
+import { Report } from '../report';
 
 @Component({
 	selector: 'app-add-agenda',
@@ -29,13 +27,13 @@ export class AddAgendaComponent implements OnInit {
 
 	time = { hour: '09', minute: '00' };
 	timeReport = { hour: '09', minute: '00' };
-	schedules
+	schedules: Array<Action> = new Array();
 
 	//autocomplete
 	model1 = "";
 	arrayOfStrings: string[] =
 	["Marius Barbulesco", "Stolte Jon kjfkj DDD fdjg GGG", "Brenda B Jon", "Lotrean Jon Maria", "Jason P Marcus", "Alfred T Marchese", "Hernandez Alex", "Cortes Ana",];
-	
+
 
 	constructor(private fb: FormBuilder, config: NgbTimepickerConfig) {
 		config.spinners = false;
@@ -47,10 +45,13 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	saveReport(form) {
-		
+		let report = new Report(form.nameReport, form.timeReport, form.timeReportFrom, form.timeReportTo, form.dataPickerReport);
+		this.schedules.push(report);
+
 	}
 	saveAction(form) {
-		
+		let action = new Action(form.nameAction, form.timeActionTo, form.timeActionFrom, form.dataPickerAction);
+		this.schedules.push(action);
 	}
 
 	ngOnInit() {
@@ -69,6 +70,8 @@ export class AddAgendaComponent implements OnInit {
 			dataPickerReport: new FormControl(''),
 
 		});
+
+		console.log(this.schedules);
 	}
 
 
