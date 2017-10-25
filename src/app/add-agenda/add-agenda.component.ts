@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Action } from '../action';
+import { Lection } from '../lection';
 
 
 
@@ -27,6 +29,7 @@ export class AddAgendaComponent implements OnInit {
 
 	time = { hour: '09', minute: '00' };
 	timeReport = { hour: '09', minute: '00' };
+	schedules
 
 	//autocomplete
 	model1 = "";

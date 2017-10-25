@@ -74,7 +74,7 @@ export class AddEventComponent implements OnInit {
 
 	ngOnInit() {
 		this.myForm = this.fb.group({
-			name: new FormControl(''),
+			name: '',
 			descr: new FormControl(''),
 			dataPickerFrom: new FormControl(''),
 			dataPickerTo: new FormControl(''),

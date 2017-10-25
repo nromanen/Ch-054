@@ -26,10 +26,9 @@ export class CropperComponent implements OnInit {
   isShowCropper: boolean = true;
   isHiddeCropper: boolean = false;
   event: any;
-  child: [any];
-  imgWidth: number;
-  imgHeight: number;
-  
+  isShowerrorTypePhoto = false;
+
+
 
 
 
@@ -42,7 +41,7 @@ export class CropperComponent implements OnInit {
 
     this.cropperSettings1.minWidth = this.cropperSettings1.width / 2;
     this.cropperSettings1.minHeight = this.cropperSettings1.height / 2;
-    
+
     this.cropperSettings1.rounded = false;
     this.cropperSettings1.noFileInput = true;
     this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
@@ -61,29 +60,31 @@ export class CropperComponent implements OnInit {
   fileChangeListener(event) {
     var image = new Image();
     var file: File = event.target.files[0];
+    var getExtensionImage = file.type.split('/');
+    var checkimg = getExtensionImage[1].toLowerCase();
+    var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
+    if (extensionImage.indexOf(checkimg) == -1) { 
+        this.isShowerrorTypePhoto = true;
+        return false;
+     }
     var myReader: FileReader = new FileReader();
     var that = this;
-
-
-    image.onload = function() {
-      console.log(image.width + ' ' + image.height);
-      that.imgWidth = image.naturalWidth || image.width;
-      if(that.imgWidth<1080)
-        alert(that.imgWidth + 'small');
+    image.onload = function () {
+      // console.log(image.width + ' ' + image.height + that.cropperSettingsWidth);
+      // that.imgWidth = image.naturalWidth || image.width;
+      // if (that.imgWidth < that.cropperSettingsWidth) {
+      //   alert(that.imgWidth + 'small');
+      // }
     };
-        myReader.onloadend = function (loadEvent: any) {
-          image.src = loadEvent.target.result;
-          that.cropper.setImage(image);
-          console.log('dnf');
-      };
 
-
-
-
+    myReader.onloadend = function (loadEvent: any) {
+      image.src = loadEvent.target.result;
+      that.cropper.setImage(image);
+    };
     this.event = event;
     myReader.readAsDataURL(file);
 
-    console.log(that.imgWidth);
+    console.log(file.type);
   }
 
   showCropper() {
@@ -116,7 +117,7 @@ export class CropperComponent implements OnInit {
     }
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.cropperSettings1.width = this.cropperSettingsWidth;
     this.cropperSettings1.height = this.cropperSettingsHeight;
     this.cropperSettings1.croppedWidth = this.cropperSettingsWidth;
