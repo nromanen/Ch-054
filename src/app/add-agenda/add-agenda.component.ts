@@ -4,8 +4,8 @@ import { CropperComponent } from '../cropper-event/cropper.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import { Action } from '../modul_ts/action';
-import { Report } from '../modul_ts/report';
+import { Action } from '../module_ts/action';
+import { Report } from '../module_ts/report';
 
 @Component({
 	selector: 'app-add-agenda',
@@ -27,7 +27,7 @@ export class AddAgendaComponent implements OnInit {
 
 	time = { hour: '09', minute: '00' };
 	timeReport = { hour: '09', minute: '00' };
-	schedules: Array<Action> = new Array();
+	schedules: Array<Action[]> = [[],[]];
 
 	//autocomplete
 	model1 = "";
@@ -46,13 +46,13 @@ export class AddAgendaComponent implements OnInit {
 
 	saveReport(form) {
 		let report = new Report(form.nameReport, form.timeReportTo, form.timeReportFrom, form.dataPickerReport, form.speaker);
-		this.schedules.push(report);
-		console.log( form.dataPickerReport);
+		this.schedules[1].push(report);
+		console.log( this.schedules);
 
 	}
 	saveAction(form) {
 		let action = new Action(form.nameAction, form.timeActionTo, form.timeActionFrom, form.dataPickerAction);
-		this.schedules.push(action);
+		this.schedules[0].push(action);
 	}
 
 	ngOnInit() {

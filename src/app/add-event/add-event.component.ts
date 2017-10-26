@@ -25,7 +25,7 @@ export class AddEventComponent implements OnInit {
 	modelFrom: object = {};
 	modelDate: object = {};
 	isSelectedCalendar: boolean = true;
-	temp:object;
+	temporaryStorageFromDate:object;
 
 	//autocomplete
 	model ='';
@@ -48,7 +48,7 @@ export class AddEventComponent implements OnInit {
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
-		this.temp = this.minDateTo;
+		this.temporaryStorageFromDate = this.minDateTo;
 	}
 
 
@@ -56,8 +56,8 @@ export class AddEventComponent implements OnInit {
 		this.isShowCalendarTo = true;
 		this.isShowButton = false;
 		this.isShowIcon = true;
-		if (this.temp) {
-			this.modelDate = this.temp;
+		if (this.temporaryStorageFromDate) {
+			this.modelDate = this.temporaryStorageFromDate;
 		}
 	}
 

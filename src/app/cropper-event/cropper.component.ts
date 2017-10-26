@@ -27,7 +27,7 @@ export class CropperComponent implements OnInit {
   isHiddeCropper: boolean = false;
   event: any;
   isShowErrorTypePhoto = false;
-  private isValid: boolean = true;
+  isValid: boolean = true;
 
   @Input() form: FormGroup;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
@@ -64,13 +64,20 @@ export class CropperComponent implements OnInit {
 
     image.onload = function () {
       console.log(that.isValid);
-      if (!that.isValid) {
-        that.cropper.cropper.reset();
-        that.isValid = true;
-      }
-      if (that.isValid && (image.width < that.cropperSettingsWidth)) {
-        that.isValid = false;
+      // if (!that.isValid) {
+      //   that.cropper.cropper.reset();
+      //   that.isValid = true;
+      // }
+      // if (that.isValid && (image.width < that.cropperSettingsWidth)) {
+      //   that.isValid = false;
+      //   console.log(that.isValid);
+      //   this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+
+      // }
+
+      if (image.width < that.cropperSettingsWidth) {
         this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        console.log(this);
 
       }
     };
