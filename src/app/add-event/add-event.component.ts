@@ -65,7 +65,8 @@ export class AddEventComponent implements OnInit {
 		this.isShowCalendarTo = false;
 		this.isShowButton = true;
 		this.isShowIcon = false;
-		this.modelDate = {year:2010, month:10, day:10};
+		this.myForm.removeControl('dataPickerTo');
+		this.modelDate = {};
 	}
 
 

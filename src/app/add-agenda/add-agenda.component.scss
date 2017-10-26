@@ -98,7 +98,15 @@ $colorB: rgb(96, 10, 186);
 		.row-div {
 			display: table-row;
 		}
-		.report {
-			font-size: 70%;
+		.size-report {
+            font-size: 70%;
+            display: block;
 		}
 	}
+.size-clock{
+    font-size: 90%;
+}
+
+.size-cell {
+    width: 50%;
+}

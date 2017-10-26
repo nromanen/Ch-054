@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddEventPageComponent } from './add-event-page.component';
+import { EventPhoto }  from '../modul_ts/event-photo'
 
 describe('AddEventPageComponent', () => {
   let component: AddEventPageComponent;

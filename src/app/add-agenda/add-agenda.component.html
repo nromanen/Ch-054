@@ -61,7 +61,8 @@
                     </div>
                   </div>
                   <div class="mt-4 text-center">
-                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';myFormAction.reset();" [disabled]="myFormAction.invalid">
+                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';myFormAction.reset();"
+                      [disabled]="myFormAction.invalid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save action</button>
                   </div>
                 </form>
@@ -115,50 +116,57 @@
                   </div>
 
                   <div class="form-group">
-                      <label for="nameReport" class="font-weight-bold">Report</label>
-                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
-                          required autofocus>
-                        <div class="input-group-addon">
-                          <i class="fa fa-pencil"></i>
-                        </div>
+                    <label for="nameReport" class="font-weight-bold">Report</label>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                      <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
+                        required autofocus>
+                      <div class="input-group-addon">
+                        <i class="fa fa-pencil"></i>
                       </div>
                     </div>
+                  </div>
 
                   <div class="mt-4 text-center">
-                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveReport(myFormReport.value); myFormReport.value='';myFormReport.reset();" [disabled]="myFormReport.invalid">
-                          <i class="fa fa-floppy-o" aria-hidden="true"></i> Save lection</button>
+                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveReport(myFormReport.value); myFormReport.value='';myFormReport.reset();"
+                      [disabled]="myFormReport.invalid">
+                      <i class="fa fa-floppy-o" aria-hidden="true"></i> Save lection</button>
                   </div>
 
                 </form>
               </div>
 
-              <div class="w-75 mx-auto" *ngIf="myFormAgenda">
-                <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">
-                  <div class="table-bgraund font-weight-bold text-center cell-div">
-                    Schedule
-                  </div>
-                  <div class="theader text-center font-weight-bold text-center">
-                    <div class="cell-div d-table-cell text-center">
-                      <p class="text-center align-middle text-size my-2">Time</p>
+              <div class="w-75 mx-auto" *ngIf="schedules.length>0">
+                  <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">
+                    <div class="table-bgraund font-weight-bold text-center cell-div py-2">
+                      Schedule {{schedules[0].date | pipeDate}}
                     </div>
-                    <div class="cell-div d-table-cell text-center">
-                      <p class="text-center align-middle text-size my-2">Event</p>
+                    <div class="theader text-center font-weight-bold text-center">
+                      <div class="cell-div d-table-cell">
+                        <p class="align-middle text-size my-2">Time</p>
+                      </div>
+                      <div class="cell-div d-table-cell text-center">
+                        <p class="text-center align-middle text-size my-2">Event</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="row-div">
-                    <div class="cell-div d-table-cell align-middle">
-                      <p class="text-center text-size align-middle my-2">
-                        <i class="fa fa-clock-o fa-lg"></i> 09:00</p>
+                    <div class="row-div" *ngFor="let schedule of schedules">
+                      <div class="cell-div d-table-cell align-middle size-cell">
+                        <p class="text-center text-size align-middle my-2 text-center size-clock">
+                          <i class="fa fa-clock-o fa-lg"></i>
+                          {{schedule.startTime | join}}-{{schedule.endTime | join}}
+                        </p>
+                      </div>
+                      <div class="cell-div d-table-cell align-middle size-cell">
+                        <p class="text-center align-middle text-size text-size my-2">
+                          {{schedule.name}}
+                          <span class="text-center size-report mt-0">{{schedule.speaker}}</span>
+                        </p>
+                      </div>
                     </div>
-                    <div class="cell-div d-table-cell align-middle">
-                      <p class="text-center align-middle text-size text-size my-2">
-                        <span class="text-center report mt-0">Registration & Coffee break</span>
-                      </p>
-                    </div>
-                  </div>
-
                 </div>
+
+              
+
+
               </div>
             </div>
           </div>
@@ -168,14 +176,20 @@
       </div>
     </div>
   </div>
-
-  <div class="my-5 text-center">
-    <button type="submit" class="btn btn btn-color size-button mb-2">
-      <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>
-    <button type="submit" class="btn btn-color size-button mb-2">
-      <i class="fa fa-paper-plane"></i> Template</button>
-    <button type="submit" class="btn btn-color size-button mb-2" routerLink="/add/event">
-      <i class="fa fa-backward" aria-hidden="true"></i> Go back</button>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-10 px-5">
+        <div class="my-5 text-center">
+          <button type="submit" class="btn btn btn-color size-button mb-2">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>
+          <button type="submit" class="btn btn-color size-button mb-2">
+            <i class="fa fa-paper-plane"></i> Template</button>
+          <button type="submit" class="btn btn-color size-button mb-2" routerLink="/add/event">
+            <i class="fa fa-backward" aria-hidden="true"></i> Go back</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 

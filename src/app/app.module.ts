@@ -12,7 +12,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpModule } from '@angular/http';
 import { ImageCropperComponent } from 'ng2-img-cropper';
 
-
+import { JoinPipe } from './pipes/join.pipe';
+import { DatePipe } from './pipes/date.pipe';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SpecificEventComponent } from './specific-event/specific-event.component';
@@ -55,7 +56,9 @@ export const firebaseConfig = {
     AddAgendaComponent,
     ModalSpeakerComponent,
     SpeakerPageComponent,
-    CropperLocationComponent
+    CropperLocationComponent,
+    JoinPipe,
+    DatePipe
   ],
   imports: [
     BrowserModule,
