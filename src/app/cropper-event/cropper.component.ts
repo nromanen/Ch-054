@@ -63,23 +63,24 @@ export class CropperComponent implements OnInit {
     var that = this;
 
     image.onload = function () {
+      // that.isValid = true;
       console.log(that.isValid);
-      // if (!that.isValid) {
-      //   that.cropper.cropper.reset();
-      //   that.isValid = true;
-      // }
-      // if (that.isValid && (image.width < that.cropperSettingsWidth)) {
-      //   that.isValid = false;
-      //   console.log(that.isValid);
-      //   this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-
-      // }
 
       if (image.width < that.cropperSettingsWidth) {
+        console.log(that.isValid);
+        image.onload = null;
         this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-        console.log(this);
-
+        that.cropper.reset();
+        return false;
+      } else {
+        
       }
+
+      // if (image.width < that.cropperSettingsWidth) {
+      //   this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+      //   console.log(this);
+
+      // }
     };
 
 
