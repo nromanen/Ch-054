@@ -53,10 +53,12 @@ export class AddEventComponent implements OnInit {
 
 
 	addCalendar() {
+		let control: FormControl = new FormControl('');
 		this.isShowCalendarTo = true;
 		this.isShowButton = false;
 		this.isShowIcon = true;
 		if (this.temporaryStorageFromDate) {
+			this.myForm.addControl('dataPickerTo', control)
 			this.modelDate = this.temporaryStorageFromDate;
 		}
 	}
