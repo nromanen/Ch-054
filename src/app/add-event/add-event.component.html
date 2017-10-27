@@ -98,7 +98,7 @@
 															<input ng2-auto-complete [source]="arrayOfStrings" formControlName="location" class="form-control input-bg w-100" id="location"
 															 [ngModel]="model1" placeholder="Choose a location">
 														</div>
-														<app-modal-speaker></app-modal-speaker>
+														<app-modal-location></app-modal-location>
 
 													</div>
 												</div>
@@ -129,3 +129,5 @@
 
 	</form>
 </div>
+
+<pre>Selected : {{myForm.value | json}}</pre>

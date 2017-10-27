@@ -1,42 +1,27 @@
-<div  [formGroup]="form" (window:resize)="onResize($event)">
+<div class="marginTopCrop" *ngIf="isShowCropper" [formGroup]="form" (window:resize)="onResize($event)" class="mb-0">
     <div>
       <div class="file-upload">
         <button class="btn mx-auto my-1 btn-color sizeButton">
           <i class="fa fa-picture-o" aria-hidden="true"></i> Select</button>
         <input id="custom-input" type="file" (change)="fileChangeListener($event)" formControlName="cropper">
       </div>
-      <button class="btn btn-secondary my-1 mr-1 hiddeCropper btn-color sizeButton" *ngIf="data1.image" (click)="hiddeCropper()">
+      <button class="btn btn-secondary my-1 mr-1 hiddeCropper btn-color sizeButton" *ngIf="data1.image" (click)="hiddeCropper()" [disabled]='isShowErrorPhoto'>
         <i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
     </div>
     <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
   </div>
-  
-  
-  <div *ngIf="isHiddeCropper">
-    <div class="row">
-      <div class="col-md-6">
-          <div class="result">
-              <img [src]="data1.image" [width]="width" [height]="height" class="img-fluid">
-              <!-- <span class="card-hover-icons">
-                <button class="crop" (click)="showCropper()">
-                  <i class="fa fa-crop" aria-hidden="true"></i>
-                </button>
-              </span> -->
-            </div>
-      </div>
-      <div class="col-md-6">
-          <div class="result">
-              <img [src]="data1.image" [width]="width" [height]="height" class="img-fluid">
-              <!-- <span class="card-hover-icons">
-                <button class="crop" (click)="showCropper()">
-                  <i class="fa fa-crop" aria-hidden="true"></i>
-                </button>
-              </span> -->
-            </div>
-      </div>
-
-    </div>
-    
+  <div class="errorType m-0 p-0">
+    <span *ngIf="isShowErrorPhoto" class="m-0 py-0 text-danger">{{messageErrorPhoto}}</span>
   </div>
   
-  
+  <div *ngIf="isHiddeCropper">
+    <div class="result">
+      <p class="mb-2 pb-1">{{tittlePhoto}}</p>
+      <img [src]="data1.image" [width]="width" [height]="height" class="img-fluid">
+      <span class="card-hover-icons">
+        <button class="crop" (click)="showCropper()">
+          <i class="fa fa-crop" aria-hidden="true"></i>
+        </button>
+      </span>
+    </div>
+  </div>

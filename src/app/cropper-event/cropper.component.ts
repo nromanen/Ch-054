@@ -68,10 +68,12 @@ export class CropperComponent implements OnInit {
     image.onload = function () {
       let width = image.width;
       let height = image.height;
+      let img = new Image();
       if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
+        //TODO change img.onload=null. 
         image.onload = null;
         this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
-        that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: width - ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
+        that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
         that.cropper.reset();
         that.isShowErrorPhoto = true;
         that.isValidSize = false;
@@ -150,3 +152,4 @@ export class CropperComponent implements OnInit {
   @Output() onChanged = new EventEmitter<any[]>();
 
 }
+

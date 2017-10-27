@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
-import { NgbDateStruct, NgbCalendar  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CropperComponent } from '../cropper-event/cropper.component';
 
@@ -25,10 +25,10 @@ export class AddEventComponent implements OnInit {
 	modelFrom: object = {};
 	modelDate: object = {};
 	isSelectedCalendar: boolean = true;
-	temporaryStorageFromDate:object;
+	temporaryStorageFromDate: object;
 
 	//autocomplete
-	model ='';
+	model = '';
 	arrayOfStrings: string[] =
 	["Central Park West, New York, NY 10023, USA", "60 E 65th St, New York, NY 10065, USA", "Time Warner Center, 10 Columbus Cir, New York, NY 10023, USA", "900 Canada Pl, Vancouver, BC V6C 3L5, Canada", "101 Trans-Canada Hwy, Duncan, BC V9L 3P8, Canada", "999 Canada Pl #410, Vancouver, BC V6C 3E1, Canada",];
 	myForm: FormGroup;
@@ -42,7 +42,7 @@ export class AddEventComponent implements OnInit {
 	}
 
 	selectedDateFrom(event) {
-		let mydate = new Date(event['year'],event['month']-1,event['day']); 
+		let mydate = new Date(event['year'], event['month'] - 1, event['day']);
 		this.minDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() };
 		this.modelDate = this.minDateTo;
 		if (Object.keys(event).length != 0) {
@@ -72,10 +72,29 @@ export class AddEventComponent implements OnInit {
 	}
 
 
-	constructor(private fb: FormBuilder) { }
+	constructor(private fb: FormBuilder) {
+		this.myForm = this.fb.group({
+			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
+			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+			dataPickerFrom: new FormControl('', [Validators.required]),
+			dataPickerTo: '',
+			location: new FormControl('', [Validators.required]),
+			photoEvent: this.fb.group({
+				cropper: ''
+			})
+		});
+	}
 
 	onChanged(imgCrop) {
+		let obj = {name:'jbkj'};
+		let imgCropper = {
+			cropper: null
+		};
 		this.imgEvent = imgCrop;
+		this.myForm.patchValue({
+			photoEvent: imgCropper
+		});
+		console.log(imgCrop)
 	}
 
 	saveEvent(form) {
@@ -84,16 +103,7 @@ export class AddEventComponent implements OnInit {
 
 
 	ngOnInit() {
-		this.myForm = this.fb.group({
-			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
-			descr: new FormControl('', [Validators.required,Validators.minLength(2), Validators.maxLength(50)]),
-			dataPickerFrom: new FormControl('', [Validators.required]),
-			dataPickerTo: '',
-			location: new FormControl('', [Validators.required]),
-			photoEvent: this.fb.group({
-				cropper: ''
-			})
-		});
+
 
 	}
 

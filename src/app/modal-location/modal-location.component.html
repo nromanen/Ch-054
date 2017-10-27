@@ -1,19 +1,28 @@
 <ng-template #content let-c="close" let-d="dismiss">
-	<div class="modal-main">
+	<div class="modal-main" [hidden]="hideModal">
 		<div class="modal-header">
 			<h4 class="modal-title mx-auto">Location</h4>
 			<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
-		<div class="modal-body">
-			<form [formGroup]="modalFormLocat">
+		<form [formGroup]="modalFormLocat">
+			<div class="modal-body">
 				<div class="row justify-content-center align-items-center">
 					<div class="form-group text-center">
-						<label for="cropper" class="font-weight-bold">Photo of speaker</label>
+						<label for="cropper" class="font-weight-bold">Photos of location</label>
 						<div class="form-group mx-auto">
-							<app-cropper-location [form]="modalFormLocat.controls.photoEvent" [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth"
-							 [width]="width" [height]="height"></app-cropper-location>
+							<div class="row">
+								<div class="col-md-6">
+									<app-cropper-location [form]="modalFormLocat.controls.photoEvent" [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth"
+									 [width]="width" [height]="height" [tittlePhoto]="tittlePhotoOne"></app-cropper-location>
+								</div>
+								<div class="col-md-6">
+									<app-cropper-location [form]="modalFormLocat.controls.photoEvent" [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth"
+									 [width]="width" [height]="height" [tittlePhoto]="tittlePhotoTwo"></app-cropper-location>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -24,7 +33,7 @@
 								<div class="input-group-addon" style="width: 2.6rem">
 									<i class="fa fa-home"></i>
 								</div>
-								<input type="text" formControlformControlName="country" class="form-control" id="country" placeholder="Country" required>
+								<input type="text" formControlName="country" class="form-control" id="country" placeholder="Country" required>
 							</div>
 						</div>
 					</div>
@@ -53,11 +62,15 @@
 					</div>
 				</div>
 
-			</form>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-		</div>
+			</div>
+			<div class="modal-footer text-center">
+				<button type="submit" class="btn my-1 btn-color sizeButton" (click)="save(modalFormLocat.value); modalFormLocat.value=''; modalFormLocat.reset();"
+				 [disabled]="modalFormLocat.invalid" (click)="c('Close click')">
+					<i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+				<button type="button" class="btn my-1 btn-color sizeButton" (click)="c('Close click')">
+					<i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
+			</div>
+		</form>
 	</div>
 </ng-template>
 

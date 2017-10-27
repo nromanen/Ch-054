@@ -10,11 +10,11 @@ import { ImageCropperComponent, CropperSettings, Bounds, ImageCropper } from 'ng
 })
 export class CropperLocationComponent implements OnInit {
 
-
-  @Input() width: number;
-  @Input() height: number;
   @Input() cropperSettingsWidth: number;
   @Input() cropperSettingsHeight: number;
+  @Input() width: number;
+  @Input() height: number;
+  @Input() tittlePhoto: string;
 
 
   name: string;
@@ -25,9 +25,9 @@ export class CropperLocationComponent implements OnInit {
   isShowCropper: boolean = true;
   isHiddeCropper: boolean = false;
   event: any;
-  child: [any];
-  files: Array<File>;
-
+  isShowErrorPhoto = false;
+  isValidSize: boolean = true;
+  messageErrorPhoto = '';
 
 
   @Input() form: FormGroup;
@@ -35,8 +35,8 @@ export class CropperLocationComponent implements OnInit {
 
   constructor() {
     this.name = 'Angular2'
-    this.cropperSettings1.minWidth = this.cropperSettings1.width / 2;
-    this.cropperSettings1.minHeight = this.cropperSettings1.height / 2;
+    this.cropperSettings1.minWidth = this.cropperSettings1.width / 4;
+    this.cropperSettings1.minHeight = this.cropperSettings1.height / 4;
 
     this.cropperSettings1.rounded = false;
     this.cropperSettings1.noFileInput = true;
@@ -54,23 +54,64 @@ export class CropperLocationComponent implements OnInit {
   }
 
   fileChangeListener(event) {
+    this.isShowErrorPhoto = false;
+    this.isValidSize = true;
     var image = new Image();
     var file: File = event.target.files[0];
     var myReader: FileReader = new FileReader();
     var that = this;
+
+
+    image.onload = function () {
+      let width = image.width;
+      let height = image.height;
+      let img = new Image();
+      if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
+        //TODO change img.onload=null. 
+        image.onload = null;
+        this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
+        that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
+        that.cropper.reset();
+        that.isShowErrorPhoto = true;
+        that.isValidSize = false;
+        return false;
+      }
+    };
+
+
     myReader.onloadend = function (loadEvent: any) {
+      var getExtensionImage = file.type.split('/');
+      var checkimg = getExtensionImage[1].toLowerCase();
+      var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
+
+      if (extensionImage.indexOf(checkimg) == -1) {
+        that.messageErrorPhoto = 'Invalid image type. Valid type is: jpg, png, jpeg';
+        that.isShowErrorPhoto = true;
+        that.cropper.reset();
+        return false;
+      }
+
       image.src = loadEvent.target.result;
       that.cropper.setImage(image);
     };
-    this.event = event;
-    myReader.readAsDataURL(file);
+
+
+    that.event = event;
+    if (file) {
+      myReader.readAsDataURL(file);
+    }
+
+    if (!file && !this.isValidSize) {
+      this.cropper.reset();
+      return false;
+    }
+
   }
 
   showCropper() {
     this.isShowCropper = !this.isShowCropper;
     this.isHiddeCropper = false;
     this.fileChangeListener(this.event);
-    console.log(this.event.target.files[0]);
   }
 
   hiddeCropper() {
@@ -81,8 +122,8 @@ export class CropperLocationComponent implements OnInit {
   }
 
   setCropperSettingCanvas() {
-    this.cropperSettings1.canvasWidth = window.innerWidth / 3;
-    this.cropperSettings1.canvasHeight = window.innerHeight / 4;
+    this.cropperSettings1.canvasWidth = window.innerWidth / 6;
+    this.cropperSettings1.canvasHeight = window.innerHeight / 7;
     if (this.cropper && this.cropper.cropper) {
       this.cropper.cropper.resizeCanvas(this.cropperSettings1.canvasWidth, this.cropperSettings1.canvasHeight, true);
     }

@@ -5,7 +5,7 @@
 				<i class="fa fa-picture-o" aria-hidden="true"></i> Select</button>
 			<input id="custom-input" type="file" (change)="fileChangeListener($event)" formControlName="cropper">
 		</div>
-		<button class="btn btn-secondary my-1 mr-1 hiddeCropper btn-color sizeButton" *ngIf="data1.image" (click)="hiddeCropper()" [disabled]='isShowErrorPhoto'>
+		<button class="btn my-1 mr-1 hiddeCropper btn-color sizeButton" *ngIf="data1.image" (click)="hiddeCropper()" [disabled]='isShowErrorPhoto'>
 			<i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
 	</div>
 	<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>

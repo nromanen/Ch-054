@@ -71,8 +71,6 @@ export class AddAgendaComponent implements OnInit {
 			dataPickerReport: new FormControl(''),
 
 		});
-
-		console.log(this.schedules);
 	}
 
 
