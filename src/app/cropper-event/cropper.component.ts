@@ -26,8 +26,9 @@ export class CropperComponent implements OnInit {
   isShowCropper: boolean = true;
   isHiddeCropper: boolean = false;
   event: any;
-  isShowErrorTypePhoto = false;
-  isValid: boolean = true;
+  isShowErrorPhoto = false;
+  isValidSize: boolean = true;
+  messageErrorPhoto = '';
 
   @Input() form: FormGroup;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
@@ -56,31 +57,26 @@ export class CropperComponent implements OnInit {
 
 
   fileChangeListener(event) {
-    this.isShowErrorTypePhoto = false;
+    this.isShowErrorPhoto = false;
+    this.isValidSize = true;
     var image = new Image();
     var file: File = event.target.files[0];
     var myReader: FileReader = new FileReader();
     var that = this;
 
+
     image.onload = function () {
-      // that.isValid = true;
-      console.log(that.isValid);
-
-      if (image.width < that.cropperSettingsWidth) {
-        console.log(that.isValid);
+      let width = image.width;
+      let height = image.height;
+      if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
         image.onload = null;
-        this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
+        that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: width - ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
         that.cropper.reset();
+        that.isShowErrorPhoto = true;
+        that.isValidSize = false;
         return false;
-      } else {
-        
       }
-
-      // if (image.width < that.cropperSettingsWidth) {
-      //   this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-      //   console.log(this);
-
-      // }
     };
 
 
@@ -90,7 +86,8 @@ export class CropperComponent implements OnInit {
       var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
 
       if (extensionImage.indexOf(checkimg) == -1) {
-        that.isShowErrorTypePhoto = true;
+        that.messageErrorPhoto = 'Invalid image type. Valid type is: jpg, png, jpeg';
+        that.isShowErrorPhoto = true;
         that.cropper.reset();
         return false;
       }
@@ -98,9 +95,16 @@ export class CropperComponent implements OnInit {
       image.src = loadEvent.target.result;
       that.cropper.setImage(image);
     };
+
+
     that.event = event;
     if (file) {
       myReader.readAsDataURL(file);
+    }
+
+    if (!file && !this.isValidSize) {
+      this.cropper.reset();
+      return false;
     }
 
   }
