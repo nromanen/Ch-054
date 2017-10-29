@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, OnChanges, NgModule, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,10 +24,13 @@ export class AddAgendaComponent implements OnInit {
 	isAction: boolean = false;
 	myFormAction: FormGroup;
 	myFormReport: FormGroup;
+	isValid: boolean = true;
 
 	time = { hour: '09', minute: '00' };
 	timeReport = { hour: '09', minute: '00' };
-	schedules: Array<Action[]> = [[],[]];
+	schedules: Array<Action[]> = [[], []];
+
+
 
 	//autocomplete
 	model1 = "";
@@ -42,12 +45,15 @@ export class AddAgendaComponent implements OnInit {
 	changeSelect() {
 		this.isAction = !this.isAction;
 		this.isReport = !this.isReport;
+		this.isValid = true;
+		this.myFormReport.reset();
+		this.myFormAction.reset();
 	}
 
 	saveReport(form) {
 		let report = new Report(form.nameReport, form.timeReportTo, form.timeReportFrom, form.dataPickerReport, form.speaker);
 		this.schedules[1].push(report);
-		console.log( this.schedules);
+		console.log(this.schedules);
 
 	}
 	saveAction(form) {
@@ -58,19 +64,38 @@ export class AddAgendaComponent implements OnInit {
 	ngOnInit() {
 		this.myFormAction = this.fb.group({
 			nameAction: new FormControl(''),
-			timeActionTo: new FormControl(''),
 			timeActionFrom: new FormControl(''),
+			timeActionTo: new FormControl(''),
 			dataPickerAction: new FormControl(''),
 		});
 
 		this.myFormReport = this.fb.group({
-			speaker: '',
+			speaker: new FormControl(''),
 			nameReport: new FormControl(''),
 			timeReportFrom: new FormControl(''),
 			timeReportTo: new FormControl(''),
 			dataPickerReport: new FormControl(''),
 
 		});
+	}
+
+
+	change() {
+		if (this.isAction) {
+			this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
+		} else if (this.isReport) {
+			this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
+		} else { 
+			this.isValid = true; 
+		}
+	}
+
+	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
+		if (timeFrom && timeTo) {
+			return ((timeFrom.hour < timeTo.hour) || ((timeFrom.hour === timeTo.hour) && (timeFrom.minute < timeTo.minute)));
+
+		}
+		return false;
 	}
 
 

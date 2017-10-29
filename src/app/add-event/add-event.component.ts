@@ -79,6 +79,7 @@ export class AddEventComponent implements OnInit {
 			dataPickerFrom: new FormControl('', [Validators.required]),
 			dataPickerTo: '',
 			location: new FormControl('', [Validators.required]),
+			ok: null,
 			photoEvent: this.fb.group({
 				cropper: ''
 			})
@@ -86,16 +87,10 @@ export class AddEventComponent implements OnInit {
 	}
 
 	onChanged(imgCrop) {
-		let obj = {name:'jbkj'};
-		let imgCropper = {
-			cropper: null
-		};
-		this.imgEvent = imgCrop;
-		this.myForm.patchValue({
-			photoEvent: imgCropper
-		});
-		console.log(imgCrop)
+
 	}
+
+	
 
 	saveEvent(form) {
 		console.log(form);

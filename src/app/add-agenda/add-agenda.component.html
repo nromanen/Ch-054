@@ -33,13 +33,14 @@
                     </div>
                     <div class="col-lg-4 mb-2">
                       <label for="timeActionTo" class="font-weight-bold">Time End</label>
-                      <ngb-timepicker formControlName="timeActionTo" [(ngModel)]="timeActionTo" required></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeActionTo" (change)="change()"
+                       [(ngModel)]="timeActionTo" required></ngb-timepicker>
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
                       <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepicker">
                         <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerAction" [(ngModel)]="modelDate"
-                          ngbDatepicker (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2">
+                          ngbDatepicker (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" (change)="change()">
                         <div class="input-group-addon">
                           <i class="fa fa-calendar" aria-hidden="true"></i>
                         </div>
@@ -51,7 +52,7 @@
                     <label for="nameAction" class="font-weight-bold">Action</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <input type="text" formControlName="nameAction" class="form-control input-bg" id="name" placeholder="Registration & Wellcome"
-                        required>
+                        required (change)="change()">
                       <div class="input-group-addon">
                         <i class="fa fa-pencil"></i>
                       </div>
@@ -59,7 +60,7 @@
                   </div>
                   <div class="mt-4 text-center">
                     <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';myFormAction.reset();"
-                      [disabled]="myFormAction.invalid">
+                      [disabled]="isValid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save action</button>
                   </div>
                 </form>
@@ -76,7 +77,7 @@
                             <div class="input-group w-100 speaker-autocomplete">
                               <div class="w-100">
                                 <input ng2-auto-complete [source]="arrayOfStrings" formControlName="speaker" class="form-control input-bg w-100" id="speaker"
-                                  [ngModel]="model1" placeholder="Choose a speaker" required>
+                                  [ngModel]="model1" placeholder="Choose a speaker" required (change)="change()">
                               </div>
                               <app-modal-speaker></app-modal-speaker>
 
@@ -94,11 +95,11 @@
                   <div class="row mb-3">
                     <div class="col-lg-4 mb-2">
                       <label for="timeReportFrom" class="font-weight-bold">Time Start</label>
-                      <ngb-timepicker formControlName="timeReportFrom" [(ngModel)]="timeReportFrom" required></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeReportFrom" [(ngModel)]="timeReportFrom" (change)="change()"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4 mb-2">
                       <label for="timeReportTo" class="font-weight-bold">Time End</label>
-                      <ngb-timepicker formControlName="timeReportTo" [(ngModel)]="timeReportTo" required></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeReportTo" [(ngModel)]="timeReportTo" (change)="change()"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
@@ -116,7 +117,7 @@
                     <label for="nameReport" class="font-weight-bold">Report</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
-                        required autofocus>
+                        required (change)="change()">
                       <div class="input-group-addon">
                         <i class="fa fa-pencil"></i>
                       </div>
@@ -124,7 +125,7 @@
                   </div>
 
                   <div class="mt-4 text-center">
-                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveReport(myFormReport.value); myFormReport.value='';myFormReport.reset();" [disabled]="myFormReport.invalid">
+                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveReport(myFormReport.value); myFormReport.value='';myFormReport.reset();" [disabled]="isValid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save lection</button>
                   </div>
 
@@ -187,3 +188,4 @@
 
 
 </div>
+<pre>{{myFormReport.value | json }}</pre>

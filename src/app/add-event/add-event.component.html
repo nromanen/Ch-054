@@ -60,7 +60,8 @@
 											</label>
 											<div class="input-group" placeholder="enter text">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="modelFrom" ngbDatepicker
-												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)" (click)="selectToday()">
+												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)"
+												 (click)="selectToday()">
 												<button class="btn-cursor btn-icon" ngbPopover="Add date" triggers="mouseenter:mouseleave" (click)="addCalendar()" *ngIf="isShowButton"
 												 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
 													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
@@ -122,12 +123,11 @@
 		<div class="my-5 text-center">
 			<button type="submit" class="btn btn-color text-white size-button">
 				<i class="fa fa-paper-plane"></i> Template</button>
-			<button type="submit" class="btn btn-color size-button" routerLink="/add/agenda" (click)="saveEvent(myForm); myForm.value='';" [disabled]="myForm.invalid">
+			<button type="submit" class="btn btn-color size-button" routerLink="/add/agenda" (click)="saveEvent(myForm); myForm.value='';"
+			 [disabled]="myForm.invalid">
 				<i class="fa fa-plus-circle"></i> Add agenda</button>
 		</div>
 
 
 	</form>
 </div>
-
-<pre>Selected : {{myForm.value | json}}</pre>
