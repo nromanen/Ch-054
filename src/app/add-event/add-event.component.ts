@@ -26,6 +26,9 @@ export class AddEventComponent implements OnInit {
 	modelDate: object = {};
 	isSelectedCalendar: boolean = true;
 	temporaryStorageFromDate: object;
+	isShowAgenda: boolean = false;
+	isShowEvent: boolean = true;
+	selectData: Array <any> = new Array();
 
 	//autocomplete
 	model = '';
@@ -44,11 +47,11 @@ export class AddEventComponent implements OnInit {
 	selectedDateFrom(event) {
 		let mydate = new Date(event['year'], event['month'] - 1, event['day']);
 		this.minDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() };
-		this.modelDate = this.minDateTo;
+		this.modelDate = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() +1 };
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
-		this.temporaryStorageFromDate = this.minDateTo;
+		this.temporaryStorageFromDate = this.modelDate;
 	}
 
 
@@ -79,7 +82,6 @@ export class AddEventComponent implements OnInit {
 			dataPickerFrom: new FormControl('', [Validators.required]),
 			dataPickerTo: '',
 			location: new FormControl('', [Validators.required]),
-			ok: null,
 			photoEvent: this.fb.group({
 				cropper: ''
 			})
@@ -87,19 +89,31 @@ export class AddEventComponent implements OnInit {
 	}
 
 	onChanged(imgCrop) {
+		// console.log(imgCrop);
 
 	}
 
-	
+
 
 	saveEvent(form) {
-		console.log(form);
+		if(!form.dataPickerTo && form.dataPickerFrom){
+			this.selectData.push(form.dataPickerFrom);
+		}
+		if(form.dataPickerFrom && form.dataPickerTo){
+			this.selectData.push(form.dataPickerFrom, form.dataPickerTo);
+		}
+		console.log(this.selectData);
+		this.isShowAgenda = true;
+		this.isShowEvent = false;
 	}
 
 
 	ngOnInit() {
-
-
 	}
+
+	isHideAgenda(increased){
+		this.isShowAgenda = increased;
+		this.isShowEvent = !increased;
+    }
 
 }

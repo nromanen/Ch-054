@@ -33,13 +33,12 @@
                     </div>
                     <div class="col-lg-4 mb-2">
                       <label for="timeActionTo" class="font-weight-bold">Time End</label>
-                      <ngb-timepicker formControlName="timeActionTo" (change)="change()"
-                       [(ngModel)]="timeActionTo" required></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeActionTo" (change)="change()" [(ngModel)]="timeActionTo" required></ngb-timepicker>
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
                       <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepicker">
-                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerAction" [(ngModel)]="modelDate"
+                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerAction" [(ngModel)]="modelDate" [minDate]="minDate" [maxDate]="maxDate"
                           ngbDatepicker (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" (change)="change()">
                         <div class="input-group-addon">
                           <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -59,7 +58,7 @@
                     </div>
                   </div>
                   <div class="mt-4 text-center">
-                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';myFormAction.reset();"
+                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';"
                       [disabled]="isValid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save action</button>
                   </div>
@@ -104,8 +103,9 @@
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
                       <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepickerReport">
-                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerReport" [(ngModel)]="modelDateRepor"
-                          ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker" id="calendarReport">
+                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" [readonly]="true" [minDate]="minDate" [maxDate]="maxDate"
+                          formControlName="dataPickerReport" [(ngModel)]="modelDateRepor" ngbDatepicker (click)="d.toggle()"
+                          #d="ngbDatepicker" id="calendarReport">
                         <div class="input-group-addon">
                           <i class="fa fa-calendar" aria-hidden="true"></i>
                         </div>
@@ -125,42 +125,45 @@
                   </div>
 
                   <div class="mt-4 text-center">
-                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveReport(myFormReport.value); myFormReport.value='';myFormReport.reset();" [disabled]="isValid">
+                    <button type="submit" class="btn btn-color size-button mb-2" (click)="saveReport(myFormReport.value); myFormReport.value='';"
+                      [disabled]="isValid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save lection</button>
                   </div>
 
                 </form>
               </div>
 
-              <!-- <div class="w-75 mx-auto" *ngIf="schedules.length>0">
-                  <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">
-                    <div class="table-bgraund font-weight-bold text-center cell-div py-2">
-                      Schedule {{schedules[0].date | pipeDate}}
+              <div class="w-75 mx-auto" *ngIf="schedules[0].length>0">
+                <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table" *ngFor="let schedule of schedules">
+                  <div class="table-bgraund font-weight-bold text-center cell-div py-2">
+                    Schedule {{schedule[0].date | pipeDate}}
+                  </div>
+                  <div class="theader text-center font-weight-bold text-center">
+                    <div class="cell-div d-table-cell">
+                      <p class="align-middle text-size my-2">Time</p>
                     </div>
-                    <div class="theader text-center font-weight-bold text-center">
-                      <div class="cell-div d-table-cell">
-                        <p class="align-middle text-size my-2">Time</p>
-                      </div>
-                      <div class="cell-div d-table-cell text-center">
-                        <p class="text-center align-middle text-size my-2">Event</p>
-                      </div>
+                    <div class="cell-div d-table-cell text-center">
+                      <p class="text-center align-middle text-size my-2">Event</p>
                     </div>
-                    <div class="row-div" *ngFor="let schedule of schedules">
-                      <div class="cell-div d-table-cell align-middle size-cell">
-                        <p class="text-center text-size align-middle my-2 text-center size-clock">
-                          <i class="fa fa-clock-o fa-lg"></i>
-                          {{schedule.startTime | join}}-{{schedule.endTime | join}}
-                        </p>
-                      </div>
-                      <div class="cell-div d-table-cell align-middle size-cell">
-                        <p class="text-center align-middle text-size text-size my-2">
-                          {{schedule.name}}
-                          <span class="text-center size-report mt-0">{{schedule.speaker}}</span>
-                        </p>
-                      </div>
+                  </div>
+                  <div class="row-div" *ngFor="let action of schedule">
+                    <div class="cell-div d-table-cell align-middle size-cell">
+                      <p class="text-center text-size align-middle my-2 text-center size-clock">
+                        <i class="fa fa-clock-o fa-lg"></i>
+                        {{action.startTime | join}}-{{action.endTime | join}}
+                      </p>
                     </div>
+                    <div class="cell-div d-table-cell align-middle size-cell">
+                      <p class="text-center align-middle text-size text-size my-2">
+                        {{action.name}}
+                        <span class="text-center size-report mt-0">{{action.speaker}}</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div> -->
+              </div>
+
+
             </div>
           </div>
 
@@ -178,7 +181,7 @@
             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>
           <button type="submit" class="btn btn-color size-button mb-2">
             <i class="fa fa-paper-plane"></i> Template</button>
-          <button type="submit" class="btn btn-color size-button mb-2" routerLink="/add/event">
+          <button type="submit" class="btn btn-color size-button mb-2" (click)="hideAgenda(false)">
             <i class="fa fa-backward" aria-hidden="true"></i> Go back</button>
         </div>
       </div>
@@ -188,4 +191,4 @@
 
 
 </div>
-<pre>{{myFormReport.value | json }}</pre>
+<pre>{{myFormReport.value | json }} {{selectData[0]| json}}</pre>
