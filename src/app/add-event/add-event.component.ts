@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CropperComponent } from '../cropper-event/cropper.component';
+import { Event } from '../module_ts/event';
 
 @Component({
 	selector: 'app-add-event',
@@ -28,7 +29,9 @@ export class AddEventComponent implements OnInit {
 	temporaryStorageFromDate: object;
 	isShowAgenda: boolean = false;
 	isShowEvent: boolean = true;
-	selectData: Array <any> = new Array();
+	selectData: Array<any> = new Array();
+	photo: string = '';
+	event: Event;
 
 	//autocomplete
 	model = '';
@@ -75,45 +78,45 @@ export class AddEventComponent implements OnInit {
 	}
 
 
-	constructor(private fb: FormBuilder) {
-		this.myForm = this.fb.group({
-			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
-			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-			dataPickerFrom: new FormControl('', [Validators.required]),
-			dataPickerTo: '',
-			location: new FormControl('', [Validators.required]),
-			photoEvent: this.fb.group({
-				cropper: ''
-			})
-		});
-	}
+	constructor(private fb: FormBuilder) {}
 
 	onChanged(imgCrop) {
-		// console.log(imgCrop);
-
+		this.photo = imgCrop.image;
 	}
 
 
 
 	saveEvent(form) {
+		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
 		if(!form.dataPickerTo && form.dataPickerFrom){
 			this.selectData.push(form.dataPickerFrom);
 		}
 		if(form.dataPickerFrom && form.dataPickerTo){
 			this.selectData.push(form.dataPickerFrom, form.dataPickerTo);
 		}
-		console.log(this.selectData);
 		this.isShowAgenda = true;
 		this.isShowEvent = false;
 	}
 
 
 	ngOnInit() {
+		this.myForm = this.fb.group({
+			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
+			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+			dataPickerFrom: new FormControl('', [Validators.required]),
+			dataPickerTo: '',
+			location: new FormControl('', [Validators.required])
+		});
 	}
 
 	isHideAgenda(increased){
 		this.isShowAgenda = increased;
 		this.isShowEvent = !increased;
+		if (this.isShowEvent) {
+			this.myForm.reset();
+			this.modelFrom = {};
+			this.modelDate = {};
+		}
     }
 
 }

@@ -2,8 +2,7 @@ import { Component, OnInit, NgModule, Input, Output, EventEmitter } from '@angul
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbModule, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
 
@@ -48,52 +47,60 @@ export class AddAgendaComponent implements OnInit {
 		this.isAction = !this.isAction;
 		this.isReport = !this.isReport;
 		this.isValid = true;
-		// this.myFormReport.reset();
-		// this.myFormAction.reset();
+		this.myFormReport.reset();
+		this.myFormAction.reset();
+		this.setDate(this.selectData);
 	}
 
 	saveReport(form) {
 		let report = new Report(form.nameReport, form.timeReportFrom, form.timeReportTo, form.dataPickerReport, form.speaker);
 		if (this.schedules.length === 1) {
 			this.schedules[this.schedules.length - 1].push(report);
-		}
-		if (this.schedules.length > 1) {
+		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedules(report);
 		}
 
 	}
+
 	saveAction(form) {
 		let action = new Action(form.nameAction, form.timeActionFrom, form.timeActionTo, form.dataPickerAction);
 		if (this.schedules.length === 1) {
 			this.schedules[this.schedules.length - 1].push(action);
+		} else if (this.schedules.length > 1) {
+			this.addElementsToSchedules(action);
 		}
 	}
 
 	addElementsToSchedules(item: any) {
-		if (this.schedules[0].length === 0) { 
-			this.schedules[0].push(item); 
-		} else {
-			for(let i = 0; i < this.schedules.length; i++){
-
+		for (let i = 0; i < this.schedules.length; i++) {
+			if (this.schedules[i].length == 0) {
+				this.schedules[i].push(item);
+				return;
+			}
+			for (let j = 0; j < this.schedules[i].length; j++) {
+				let schedulDate = this.schedules[i][j]['date'];
+				if (item.date.day == schedulDate['day']) {
+					this.schedules[i].push(item);
+					return;
+				}
 			}
 		}
-
 	}
 
 	ngOnInit() {
 		this.myFormAction = this.fb.group({
-			nameAction: new FormControl(''),
+			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
 			timeActionFrom: new FormControl(''),
 			timeActionTo: new FormControl(''),
 			dataPickerAction: new FormControl(''),
 		});
 
 		this.myFormReport = this.fb.group({
-			nameReport: new FormControl(''),
+			nameReport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
 			timeReportFrom: new FormControl(''),
 			timeReportTo: new FormControl(''),
 			dataPickerReport: new FormControl(''),
-			speaker: new FormControl(''),
+			speaker: new FormControl('', [Validators.required]),
 
 		});
 
@@ -112,18 +119,27 @@ export class AddAgendaComponent implements OnInit {
 		}
 		if (selectDate.length > 1) {
 			this.minDate = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
+			this.modelDate = this.minDate;
+			this.modelDateRepor = this.minDate;
 			this.maxDate = { year: selectDate[selectDate.length - 1].year, month: selectDate[selectDate.length - 1].month, day: selectDate[selectDate.length - 1].day };;
 			let datesConference = this.numberOfDays(selectDate);
-			this.schedules.length = datesConference;
-			console.log(this.schedules.length);
+			let arrays = this.addArrays(datesConference + 1);
+			this.schedules = arrays;
 		}
 	}
+	addArrays(n) {
+		let arr = [];
+		for (let i = 0; i < n; i++) {
+			arr.push([]);
+		}
+		return arr;
+	}
+
 
 	numberOfDays(selectDate: any): number {
 		let dateOne = new Date(selectDate[0].year, selectDate[0].month - 1, selectDate[0].day);
 		let dateEnd = new Date(selectDate[selectDate.length - 1].year, selectDate[selectDate.length - 1].month - 1, selectDate[selectDate.length - 1].day);
 		let differenceDays = Math.floor((dateEnd.valueOf() - dateOne.valueOf()) / 86400000);
-		console.log(differenceDays);
 		return differenceDays;
 	}
 

@@ -30,7 +30,6 @@ export class CropperComponent implements OnInit {
   isValidSize: boolean = true;
   messageErrorPhoto = '';
 
-  @Input() form: FormGroup;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   constructor() {
@@ -63,8 +62,6 @@ export class CropperComponent implements OnInit {
     var file: File = event.target.files[0];
     var myReader: FileReader = new FileReader();
     var that = this;
-
-
     image.onload = function () {
       let width = image.width;
       let height = image.height;
@@ -80,7 +77,6 @@ export class CropperComponent implements OnInit {
         return false;
       }
     };
-
 
     myReader.onloadend = function (loadEvent: any) {
       var getExtensionImage = file.type.split('/');

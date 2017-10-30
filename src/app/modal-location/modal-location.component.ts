@@ -44,11 +44,7 @@ export class ModalLocationComponent implements OnInit {
         return;
       }
     }
-
-
   }
-
-
 
   save(form) {
     this.location = new EventLocation(form.address, form.city, form.country, this.photos);

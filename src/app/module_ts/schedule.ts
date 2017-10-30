@@ -1,5 +1,5 @@
 class Schedule{
-    key: string;
+    id: number;
     startTime: string;
     //action:
 }

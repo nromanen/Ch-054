@@ -6,8 +6,7 @@
       </h1>
     </div>
   </div>
-
-
+  <div class="empty-space"></div>
   <div class="row bg-image py-5">
     <div class="container">
       <div class="row  mb-2">
@@ -16,9 +15,9 @@
             <div class="col-md-2">
               <label for="gender1" class="font-weight-bold">Select action</label>
               <div class="btn-group align-items-center justify-content-center w-100" data-toggle="buttons">
-                <select class="form-control selcls" id="gender1" (change)="changeSelect()">
-                  <option value="1">Official</option>
-                  <option selected value="2">Lecture</option>
+                <select class="form-control selectsSchedule" id="gender1" (change)="changeSelect()">
+                  <option value="1" class="optionSelect">Official</option>
+                  <option selected value="2" class="optionSelect">Lecture</option>
                 </select>
               </div>
             </div>
@@ -29,17 +28,18 @@
                   <div class="row mb-2">
                     <div class="col-lg-4 mb-3">
                       <label for="timeActionFrom" class="font-weight-bold">Time Start</label>
-                      <ngb-timepicker formControlName="timeActionFrom" [(ngModel)]="timeActionFrom" required></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeActionFrom" [(ngModel)]="timeActionFrom"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4 mb-2">
                       <label for="timeActionTo" class="font-weight-bold">Time End</label>
-                      <ngb-timepicker formControlName="timeActionTo" (change)="change()" [(ngModel)]="timeActionTo" required></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeActionTo" (change)="change()" [(ngModel)]="timeActionTo"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
                       <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepicker">
-                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerAction" [(ngModel)]="modelDate" [minDate]="minDate" [maxDate]="maxDate"
-                          ngbDatepicker (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" (change)="change()">
+                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerAction" [(ngModel)]="modelDate"
+                          [minDate]="minDate" [maxDate]="maxDate" ngbDatepicker (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2"
+                          (change)="change()">
                         <div class="input-group-addon">
                           <i class="fa fa-calendar" aria-hidden="true"></i>
                         </div>
@@ -51,7 +51,7 @@
                     <label for="nameAction" class="font-weight-bold">Action</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <input type="text" formControlName="nameAction" class="form-control input-bg" id="name" placeholder="Registration & Wellcome"
-                        required (change)="change()">
+                        (change)="change()">
                       <div class="input-group-addon">
                         <i class="fa fa-pencil"></i>
                       </div>
@@ -59,7 +59,7 @@
                   </div>
                   <div class="mt-4 text-center">
                     <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';"
-                      [disabled]="isValid">
+                      [disabled]="isValid" [disabled]="myFormAction.invalid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save action</button>
                   </div>
                 </form>
@@ -76,7 +76,7 @@
                             <div class="input-group w-100 speaker-autocomplete">
                               <div class="w-100">
                                 <input ng2-auto-complete [source]="arrayOfStrings" formControlName="speaker" class="form-control input-bg w-100" id="speaker"
-                                  [ngModel]="model1" placeholder="Choose a speaker" required (change)="change()">
+                                  [ngModel]="model1" placeholder="Choose a speaker" (change)="change()">
                               </div>
                               <app-modal-speaker></app-modal-speaker>
 
@@ -103,9 +103,8 @@
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
                       <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepickerReport">
-                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" [readonly]="true" [minDate]="minDate" [maxDate]="maxDate"
-                          formControlName="dataPickerReport" [(ngModel)]="modelDateRepor" ngbDatepicker (click)="d.toggle()"
-                          #d="ngbDatepicker" id="calendarReport">
+                        <input class="form-control input-bg" placeholder="yyyy-mm-dd" [readonly]="true" [minDate]="minDate" [maxDate]="maxDate" formControlName="dataPickerReport"
+                          [(ngModel)]="modelDateRepor" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker" id="calendarReport">
                         <div class="input-group-addon">
                           <i class="fa fa-calendar" aria-hidden="true"></i>
                         </div>
@@ -117,7 +116,7 @@
                     <label for="nameReport" class="font-weight-bold">Report</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
-                        required (change)="change()">
+                        (change)="change()">
                       <div class="input-group-addon">
                         <i class="fa fa-pencil"></i>
                       </div>
@@ -126,7 +125,7 @@
 
                   <div class="mt-4 text-center">
                     <button type="submit" class="btn btn-color size-button mb-2" (click)="saveReport(myFormReport.value); myFormReport.value='';"
-                      [disabled]="isValid">
+                      [disabled]="isValid" [disabled]="myFormReport.invalid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save lection</button>
                   </div>
 
@@ -134,35 +133,37 @@
               </div>
 
               <div class="w-75 mx-auto" *ngIf="schedules[0].length>0">
-                <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table" *ngFor="let schedule of schedules">
-                  <div class="table-bgraund font-weight-bold text-center cell-div py-2">
-                    Schedule {{schedule[0].date | pipeDate}}
-                  </div>
-                  <div class="theader text-center font-weight-bold text-center">
-                    <div class="cell-div d-table-cell">
-                      <p class="align-middle text-size my-2">Time</p>
+                <div *ngFor="let schedule of schedules; let i = index">
+
+                  <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table" *ngIf="schedules[i].length>0">
+                    <div class="table-bgraund font-weight-bold text-center cell-div py-2">
+                      Schedule {{schedule[0].date | pipeDate}}
                     </div>
-                    <div class="cell-div d-table-cell text-center">
-                      <p class="text-center align-middle text-size my-2">Event</p>
+                    <div class="theader text-center font-weight-bold text-center">
+                      <div class="cell-div d-table-cell">
+                        <p class="align-middle text-size my-2">Time</p>
+                      </div>
+                      <div class="cell-div d-table-cell text-center">
+                        <p class="text-center align-middle text-size my-2">Event</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="row-div" *ngFor="let action of schedule">
-                    <div class="cell-div d-table-cell align-middle size-cell">
-                      <p class="text-center text-size align-middle my-2 text-center size-clock">
-                        <i class="fa fa-clock-o fa-lg"></i>
-                        {{action.startTime | join}}-{{action.endTime | join}}
-                      </p>
-                    </div>
-                    <div class="cell-div d-table-cell align-middle size-cell">
-                      <p class="text-center align-middle text-size text-size my-2">
-                        {{action.name}}
-                        <span class="text-center size-report mt-0">{{action.speaker}}</span>
-                      </p>
+                    <div class="row-div" *ngFor="let action of schedule">
+                      <div class="cell-div d-table-cell align-middle size-cell">
+                        <p class="text-center text-size align-middle my-2 text-center size-clock">
+                          <i class="fa fa-clock-o fa-lg"></i>
+                          {{action.startTime | join}}-{{action.endTime | join}}
+                        </p>
+                      </div>
+                      <div class="cell-div d-table-cell align-middle size-cell">
+                        <p class="text-center align-middle text-size text-size my-2">
+                          {{action.name}}
+                          <span class="text-center size-report mt-0">{{action.speaker}}</span>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-
 
             </div>
           </div>
@@ -187,8 +188,4 @@
       </div>
     </div>
   </div>
-
-
-
 </div>
-<pre>{{myFormReport.value | json }} {{selectData[0]| json}}</pre>

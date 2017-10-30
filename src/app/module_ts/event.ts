@@ -1,7 +1,18 @@
 export class Event{
-    key: string;
-    date: Date;
+    id: number;
+    description: string;
+    dateFrom: Date;
+    dateTo: Date;
     name: string;
     location: Location;
-    eventPhotos: Array<string> = [];
+    eventPhotos: string;
+
+    constructor(name, description, dateFrom, location, dateTo, eventPhotos) {
+        this.name = name;
+        this.description = description;
+        this.dateFrom = dateFrom;
+        this.location = location;
+        this.dateTo = dateTo;
+        this.eventPhotos = eventPhotos;
+    }
 }
