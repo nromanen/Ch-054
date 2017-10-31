@@ -77,14 +77,11 @@ export class AddEventComponent implements OnInit {
 		this.modelDate = {};
 	}
 
-
 	constructor(private fb: FormBuilder) {}
 
 	onChanged(imgCrop) {
 		this.photo = imgCrop.image;
 	}
-
-
 
 	saveEvent(form) {
 		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
@@ -97,7 +94,6 @@ export class AddEventComponent implements OnInit {
 		this.isShowAgenda = true;
 		this.isShowEvent = false;
 	}
-
 
 	ngOnInit() {
 		this.myForm = this.fb.group({
@@ -117,6 +113,5 @@ export class AddEventComponent implements OnInit {
 			this.modelFrom = {};
 			this.modelDate = {};
 		}
-    }
-
+	}
 }

@@ -4,6 +4,7 @@ import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-boots
 import { CropperLocationComponent } from '../cropper-location/cropper-location.component';
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { EventLocation } from '../module_ts/location';
+import { LocationService } from '../services/location/location.service';
 
 @Component({
   selector: 'app-modal-location',
@@ -24,7 +25,7 @@ export class ModalLocationComponent implements OnInit {
   location: EventLocation;
 
 
-  constructor(private modalService: NgbModal, private fb: FormBuilder) { }
+  constructor(private modalService: NgbModal, private fb: FormBuilder, private locationService: LocationService) { }
 
   open(content) {
     this.modalService.open(content, { size: 'lg', windowClass: 'dark-modal' });
@@ -49,9 +50,11 @@ export class ModalLocationComponent implements OnInit {
   save(form) {
     this.location = new EventLocation(form.address, form.city, form.country, this.photos);
     console.log(this.location);
-
   }
 
+  getLocations() {
+    this.locationService.getAllLocations().subscribe(locations => console.log('its locations ', locations));
+  }
 
   ngOnInit() {
     this.modalFormLocat = this.fb.group({
@@ -62,8 +65,6 @@ export class ModalLocationComponent implements OnInit {
         cropper: new FormControl()
       })
     });
+   this.getLocations();
   }
-
-
-
 } 

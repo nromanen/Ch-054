@@ -30,6 +30,7 @@ import { AddAgendaComponent } from './add-agenda/add-agenda.component';
 import { ModalSpeakerComponent } from './modal-speaker/modal-speaker.component';
 import { SpeakerPageComponent } from './speaker-page/speaker-page.component';
 import { CropperLocationComponent } from './cropper-location/cropper-location.component';
+import { LocationService } from './services/location/location.service';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -69,10 +70,11 @@ export const firebaseConfig = {
     AngularFireAuthModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpModule,
     Ng2AutoCompleteModule,
     NgbModule.forRoot()
   ],
-  providers: [ConfService],
+  providers: [LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
