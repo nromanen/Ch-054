@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms'
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { Event } from '../module_ts/event';
 
@@ -32,12 +32,35 @@ export class AddEventComponent implements OnInit {
 	selectData: Array<any> = new Array();
 	photo: string = '';
 	event: Event;
+	isSowSelectLocat: boolean = false;
 
 	//autocomplete
+
 	model = '';
-	arrayOfStrings: string[] =
-	["Central Park West, New York, NY 10023, USA", "60 E 65th St, New York, NY 10065, USA", "Time Warner Center, 10 Columbus Cir, New York, NY 10023, USA", "900 Canada Pl, Vancouver, BC V6C 3L5, Canada", "101 Trans-Canada Hwy, Duncan, BC V9L 3P8, Canada", "999 Canada Pl #410, Vancouver, BC V6C 3E1, Canada",];
+	locations =
+	[{
+		country: 'USA',
+		city: 'NY',
+		address: 'Central Park',
+		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'],
+		 ['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
+	}, {
+		country: 'Ukraine',
+		city: 'Lviv',
+		address: 'Golovna, 31',
+		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'], ['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
+	}
+	];
 	myForm: FormGroup;
+
+	myValueFormatter(location: any): string {
+		return `${location.country},${location.city},${location.address}`;
+	}
+
+	autocompleListFormatter = (location: any): SafeHtml => {
+		let html = `<span>${location.country},${location.city},${location.address}</span>`;
+		return this._sanitizer.bypassSecurityTrustHtml(html);
+	}
 
 	myCallback(newVal) {
 		this.model = newVal;
@@ -50,7 +73,7 @@ export class AddEventComponent implements OnInit {
 	selectedDateFrom(event) {
 		let mydate = new Date(event['year'], event['month'] - 1, event['day']);
 		this.minDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() };
-		this.modelDate = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() +1 };
+		this.modelDate = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() + 1 };
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
@@ -78,7 +101,7 @@ export class AddEventComponent implements OnInit {
 	}
 
 
-	constructor(private fb: FormBuilder) {}
+	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer) { }
 
 	onChanged(imgCrop) {
 		this.photo = imgCrop.image;
@@ -88,10 +111,10 @@ export class AddEventComponent implements OnInit {
 
 	saveEvent(form) {
 		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
-		if(!form.dataPickerTo && form.dataPickerFrom){
+		if (!form.dataPickerTo && form.dataPickerFrom) {
 			this.selectData.push(form.dataPickerFrom);
 		}
-		if(form.dataPickerFrom && form.dataPickerTo){
+		if (form.dataPickerFrom && form.dataPickerTo) {
 			this.selectData.push(form.dataPickerFrom, form.dataPickerTo);
 		}
 		this.isShowAgenda = true;
@@ -109,7 +132,7 @@ export class AddEventComponent implements OnInit {
 		});
 	}
 
-	isHideAgenda(increased){
+	isHideAgenda(increased) {
 		this.isShowAgenda = increased;
 		this.isShowEvent = !increased;
 		if (this.isShowEvent) {
@@ -117,6 +140,10 @@ export class AddEventComponent implements OnInit {
 			this.modelFrom = {};
 			this.modelDate = {};
 		}
-    }
+	}
 
+	showSelectLocation(show) {
+		this.isSowSelectLocat = show;
+	}
 }
+

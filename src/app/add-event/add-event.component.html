@@ -90,19 +90,32 @@
 												<div class="col-md-9 my-1">
 													<div class="input-group w-100">
 														<div class="w-100">
-															<input ng2-auto-complete [source]="arrayOfStrings" formControlName="location" class="form-control input-bg w-100" id="location"
-															 [ngModel]="model1" placeholder="Choose a location">
+															<input ng2-auto-complete [source]="locations" [value-formatter]="myValueFormatter" [list-formatter]="autocompleListFormatter"
+															 formControlName="location" class="form-control input-bg w-100" id="location" placeholder="Choose a location">
 														</div>
 														<app-modal-location></app-modal-location>
 
 													</div>
 												</div>
 												<div class="col-md-3 col-sm-12 text-center">
-													<button class="btn btn-info my-1">
-														<i class="fa fa-eye" aria-hidden="true"></i> Speaker</button>
+													<button class="btn btn-info my-1" [disabled]="myForm.value.location == ''" (click)="showSelectLocation(true)">
+														<i class="fa fa-eye" aria-hidden="true"></i> Location</button>
 												</div>
 											</div>
 										</div>
+									</div>
+								</div>
+								<div class="row" *ngIf="isSowSelectLocat">
+									<div class="row ">
+										<div class="m-auto w-100">
+												<img src={{myForm.value.location.photos[0][1]}} alt="photo one">
+									
+												<img src={{myForm.value.location.photos[1][1]}} alt="photo two">
+											</div>
+										
+									</div>
+									<div class="col-md-12 text-center">
+										<p class="font-weight-bold">{{myForm.value.location.country}}, {{myForm.value.location.city}}, {{myForm.value.location.address}}</p>
 									</div>
 								</div>
 							</div>
