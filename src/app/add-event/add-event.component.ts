@@ -24,7 +24,7 @@ export class AddEventComponent implements OnInit {
 	minDateFrom = { year: this.now.getFullYear(), month: this.now.getMonth() + 1, day: this.now.getDate() };
 	minDateTo: object;
 	modelFrom: object = {};
-	modelDate: object = {};
+	modelDateTo: object = {};
 	isSelectedCalendar: boolean = true;
 	temporaryStorageFromDate: object;
 	isShowAgenda: boolean = false;
@@ -73,11 +73,11 @@ export class AddEventComponent implements OnInit {
 	selectedDateFrom(event) {
 		let mydate = new Date(event['year'], event['month'] - 1, event['day']);
 		this.minDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() };
-		this.modelDate = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() + 1 };
+		this.modelDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() + 1 };
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
-		this.temporaryStorageFromDate = this.modelDate;
+		this.temporaryStorageFromDate = this.modelDateTo;
 	}
 
 
@@ -88,7 +88,7 @@ export class AddEventComponent implements OnInit {
 		this.isShowIcon = true;
 		if (this.temporaryStorageFromDate) {
 			this.myForm.addControl('dataPickerTo', control)
-			this.modelDate = this.temporaryStorageFromDate;
+			this.modelDateTo = this.temporaryStorageFromDate;
 		}
 	}
 
@@ -97,7 +97,7 @@ export class AddEventComponent implements OnInit {
 		this.isShowButton = true;
 		this.isShowIcon = false;
 		this.myForm.removeControl('dataPickerTo');
-		this.modelDate = {};
+		this.modelDateTo = {};
 	}
 
 
@@ -138,7 +138,7 @@ export class AddEventComponent implements OnInit {
 		if (this.isShowEvent) {
 			this.myForm.reset();
 			this.modelFrom = {};
-			this.modelDate = {};
+			this.modelDateTo = {};
 		}
 	}
 

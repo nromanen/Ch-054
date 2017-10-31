@@ -16,19 +16,13 @@
 	</div>
 
 	<form [formGroup]="myForm">
-		<div class="container mb-5">
-			<div class="row">
-
-			</div>
-		</div>
-		<div class="row bg-image py-5">
+		<div class="row bg-image mt-5 py-5">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="row">
 							<div class="col-md-1"></div>
 							<div class="col-md-10 px-5">
-
 								<div class="form-group">
 									<label for="name" class="font-weight-bold">Title of event</label>
 									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -43,8 +37,6 @@
 										Description</label>
 									<textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
 								</div>
-
-
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-6">
@@ -66,11 +58,10 @@
 												</div>
 											</div>
 										</div>
-
 										<div class="col-lg-6" *ngIf="isShowCalendarTo">
 											<label for="calendar2" class="font-weight-bold">Date To</label>
 											<div class="input-group" placeholder="enter text">
-												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDate" ngbDatepicker
+												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDateTo" ngbDatepicker
 												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" [minDate]="minDateTo">
 												<button class="btn-cursor btn-icon" ngbPopover="Delete date" triggers="mouseenter:mouseleave" (click)="deleteCalendar()">
 													<i class="fa fa-calendar-times-o" aria-hidden="true"></i>
@@ -79,8 +70,6 @@
 										</div>
 									</div>
 								</div>
-
-
 								<div class="row">
 									<div class="col md-12 mb-3">
 										<div class="form-group">
@@ -94,7 +83,6 @@
 															 formControlName="location" class="form-control input-bg w-100" id="location" placeholder="Choose a location">
 														</div>
 														<app-modal-location></app-modal-location>
-
 													</div>
 												</div>
 												<div class="col-md-3 col-sm-12 text-center">
@@ -108,11 +96,10 @@
 								<div class="row" *ngIf="isSowSelectLocat">
 									<div class="row ">
 										<div class="m-auto w-100">
-												<img src={{myForm.value.location.photos[0][1]}} alt="photo one">
-									
-												<img src={{myForm.value.location.photos[1][1]}} alt="photo two">
-											</div>
-										
+											<img src={{myForm.value.location.photos[0][1]}} alt="photo one">
+
+											<img src={{myForm.value.location.photos[1][1]}} alt="photo two">
+										</div>
 									</div>
 									<div class="col-md-12 text-center">
 										<p class="font-weight-bold">{{myForm.value.location.country}}, {{myForm.value.location.city}}, {{myForm.value.location.address}}</p>
@@ -122,8 +109,6 @@
 							<div class="col-md-1"></div>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
