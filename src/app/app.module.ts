@@ -30,6 +30,7 @@ import { AddAgendaComponent } from './add-agenda/add-agenda.component';
 import { ModalSpeakerComponent } from './modal-speaker/modal-speaker.component';
 import { SpeakerPageComponent } from './speaker-page/speaker-page.component';
 import { CropperLocationComponent } from './cropper-location/cropper-location.component';
+import { ModalViewSpeakerComponent } from './modal-view-speaker/modal-view-speaker.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -58,7 +59,8 @@ export const firebaseConfig = {
     SpeakerPageComponent,
     CropperLocationComponent,
     JoinPipe,
-    DatePipe
+    DatePipe,
+    ModalViewSpeakerComponent
   ],
   imports: [
     BrowserModule,

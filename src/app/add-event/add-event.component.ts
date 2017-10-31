@@ -16,27 +16,27 @@ export class AddEventComponent implements OnInit {
 	cropperSettingsWidth: number = 1080;
 	cropperSettingsHeight: number = 540;
 	logoCamera: string = '/assets/images/camera.png';
-	isShowCalendarTo: boolean = false;
-	isShowButton: boolean = true;
-	isShowIcon: boolean = false;
+	photo: string = '';
 	imgEvent: any;
 	now = new Date();
 	minDateFrom = { year: this.now.getFullYear(), month: this.now.getMonth() + 1, day: this.now.getDate() };
-	minDateTo: object;
+	minDateTo: object = {};
 	modelFrom: object = {};
 	modelDateTo: object = {};
-	isSelectedCalendar: boolean = true;
 	temporaryStorageFromDate: object;
+	isShowCalendarTo: boolean = false;
+	isShowButton: boolean = true;
+	isShowIcon: boolean = false;
+	isSelectedCalendar: boolean = true;
 	isShowAgenda: boolean = false;
 	isShowEvent: boolean = true;
-	selectData: Array<any> = new Array();
-	photo: string = '';
-	event: Event;
+	isValidPhoto: boolean = true;
 	isSowSelectLocat: boolean = false;
+	selectData: Array<any> = new Array();
+	event: Event;
+	myForm: FormGroup;
 
-	//autocomplete
-
-	model = '';
+	//TODO autocomplete with database
 	locations =
 	[{
 		country: 'USA',
@@ -51,7 +51,6 @@ export class AddEventComponent implements OnInit {
 		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'], ['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
 	}
 	];
-	myForm: FormGroup;
 
 	myValueFormatter(location: any): string {
 		return `${location.country},${location.city},${location.address}`;
@@ -62,24 +61,18 @@ export class AddEventComponent implements OnInit {
 		return this._sanitizer.bypassSecurityTrustHtml(html);
 	}
 
-	myCallback(newVal) {
-		this.model = newVal;
-	}
-
 	selectToday() {
 		this.modelFrom = this.minDateFrom;
 	}
 
 	selectedDateFrom(event) {
-		let mydate = new Date(event['year'], event['month'] - 1, event['day']);
-		this.minDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() };
-		this.modelDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() + 1 };
+		this.minDateTo = { year: event['year'], month: event['month'], day: event['day'] };
+		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day'] +1};
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
-		this.temporaryStorageFromDate = this.modelDateTo;
+		this.temporaryStorageFromDate = this.modelFrom;
 	}
-
 
 	addCalendar() {
 		let control: FormControl = new FormControl('');
@@ -103,11 +96,11 @@ export class AddEventComponent implements OnInit {
 
 	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer) { }
 
+
 	onChanged(imgCrop) {
 		this.photo = imgCrop.image;
+		this.isValidPhoto = false;
 	}
-
-
 
 	saveEvent(form) {
 		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
@@ -120,7 +113,6 @@ export class AddEventComponent implements OnInit {
 		this.isShowAgenda = true;
 		this.isShowEvent = false;
 	}
-
 
 	ngOnInit() {
 		this.myForm = this.fb.group({
@@ -138,12 +130,13 @@ export class AddEventComponent implements OnInit {
 		if (this.isShowEvent) {
 			this.myForm.reset();
 			this.modelFrom = {};
-			this.modelDateTo = {};
+			this.deleteCalendar();
+			this.isValidPhoto = true;
 		}
 	}
 
-	showSelectLocation(show) {
-		this.isSowSelectLocat = show;
+	showSelectLocation() {
+		this.isSowSelectLocat = !this.isSowSelectLocat;
 	}
 }
 

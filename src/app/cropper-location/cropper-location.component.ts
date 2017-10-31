@@ -53,99 +53,92 @@ export class CropperLocationComponent implements OnInit {
     this.croppedWidth = bounds.right - bounds.left;
   }
 
-  fileChangeListener(event) {
-    this.isShowErrorPhoto = false;
-    this.isValidSize = true;
-    var image = new Image();
-    var file: File = event.target.files[0];
-    var myReader: FileReader = new FileReader();
-    var that = this;
-
-
-    image.onload = function () {
-      let width = image.width;
-      let height = image.height;
-      let img = new Image();
-      if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
-        //TODO change img.onload=null. 
-        image.onload = null;
-        this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
-        that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
-        that.cropper.reset();
-        that.isShowErrorPhoto = true;
-        that.isValidSize = false;
-        return false;
-      }
-    };
-
-
-    myReader.onloadend = function (loadEvent: any) {
-      var getExtensionImage = file.type.split('/');
-      var checkimg = getExtensionImage[1].toLowerCase();
-      var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
-
-      if (extensionImage.indexOf(checkimg) == -1) {
-        that.messageErrorPhoto = 'Invalid image type. Valid type is: jpg, png, jpeg';
-        that.isShowErrorPhoto = true;
-        that.cropper.reset();
-        return false;
-      }
-
-      image.src = loadEvent.target.result;
-      that.cropper.setImage(image);
-    };
-
-
-    that.event = event;
-    if (file) {
-      myReader.readAsDataURL(file);
+  onloadPhoto(image, width, height){
+    let img = new Image();
+    if (width < this.cropperSettingsWidth || height < this.cropperSettingsHeight) {
+      //TODO change img.onload=null. 
+      image.onload = null;
+      this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
+      this.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + this.cropperSettingsWidth + '*' + this.cropperSettingsHeight;
+      this.cropper.reset();
+      this.isShowErrorPhoto = true;
+      this.isValidSize = false;
+      return false;
     }
-
-    if (!file && !this.isValidSize) {
+  }
+  
+  validationPhotoType(file:File){
+    var getExtensionImage = file.type.split('/');
+    var checkimg = getExtensionImage[1].toLowerCase();
+    var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
+    if (extensionImage.indexOf(checkimg) == -1) {
+      this.messageErrorPhoto = 'Invalid image type. Valid type is: jpg, png, jpeg';
+      this.isShowErrorPhoto = true;
       this.cropper.reset();
       return false;
     }
-
   }
-
-  showCropper() {
-    this.isShowCropper = !this.isShowCropper;
-    this.isHiddeCropper = false;
-    this.fileChangeListener(this.event);
-  }
-
-  hiddeCropper() {
-    this.isHiddeCropper = true;
-    this.isShowCropper = false;
-    this.onChanged.emit(this.data1);
-
-  }
-
-  setCropperSettingCanvas() {
-    this.cropperSettings1.canvasWidth = window.innerWidth / 6;
-    this.cropperSettings1.canvasHeight = window.innerHeight / 7;
-    if (this.cropper && this.cropper.cropper) {
-      this.cropper.cropper.resizeCanvas(this.cropperSettings1.canvasWidth, this.cropperSettings1.canvasHeight, true);
+  
+    fileChangeListener(event) {
+      this.isShowErrorPhoto = false;
+      this.isValidSize = true;
+      var image = new Image();
+      var file: File = event.target.files[0];
+      var myReader: FileReader = new FileReader();
+      var that = this;
+      image.onload = function () {
+        let width = image.width;
+        let height = image.height;
+        that.onloadPhoto(image, width, height); 
+      };
+      myReader.onloadend = function (loadEvent: any) {
+        that.validationPhotoType(file);
+        image.src = loadEvent.target.result;
+        that.cropper.setImage(image);
+      };
+      that.event = event;
+      if (file) {
+        myReader.readAsDataURL(file);
+      }
+      if (!file && !this.isValidSize) {
+        this.cropper.reset();
+        return false;
+      }
     }
-  }
-
-  onResize(event) {
-    const innerWidth = event.target.innerWidth;
-    this.setCropperSettingCanvas();
-    if (innerWidth <= 991) {
-
-
+  
+    showCropper() {
+      this.isShowCropper = !this.isShowCropper;
+      this.isHiddeCropper = false;
+      this.fileChangeListener(this.event);
     }
+  
+    hiddeCropper() {
+      this.isHiddeCropper = true;
+      this.isShowCropper = false;
+      this.onChanged.emit(this.data1);
+  
+    }
+  
+    setCropperSettingCanvas() {
+      this.cropperSettings1.canvasWidth = window.innerWidth / 3;
+      this.cropperSettings1.canvasHeight = window.innerHeight / 4;
+      if (this.cropper && this.cropper.cropper) {
+        this.cropper.cropper.resizeCanvas(this.cropperSettings1.canvasWidth, this.cropperSettings1.canvasHeight, true);
+      }
+    }
+  
+    onResize(event) {
+      this.setCropperSettingCanvas();
+    }
+  
+    ngOnInit() {
+      this.cropperSettings1.width = this.cropperSettingsWidth;
+      this.cropperSettings1.height = this.cropperSettingsHeight;
+      this.cropperSettings1.croppedWidth = this.cropperSettingsWidth;
+      this.cropperSettings1.croppedHeight = this.cropperSettingsHeight;
+    }
+  
+  
+    @Output() onChanged = new EventEmitter<any[]>();
+  
   }
-
-  ngOnInit() {
-    this.cropperSettings1.width = this.cropperSettingsWidth;
-    this.cropperSettings1.height = this.cropperSettingsHeight;
-    this.cropperSettings1.croppedWidth = this.cropperSettingsWidth;
-    this.cropperSettings1.croppedHeight = this.cropperSettingsHeight;
-  }
-
-
-  @Output() onChanged = new EventEmitter<any[]>();
-
-}

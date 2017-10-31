@@ -86,7 +86,7 @@
 													</div>
 												</div>
 												<div class="col-md-3 col-sm-12 text-center">
-													<button class="btn btn-info my-1" [disabled]="myForm.value.location == ''" (click)="showSelectLocation(true)">
+													<button class="btn btn-info my-1 btn-cursor" [disabled]="myForm.value.location == ''" (click)="showSelectLocation()">
 														<i class="fa fa-eye" aria-hidden="true"></i> Location</button>
 												</div>
 											</div>
@@ -94,8 +94,9 @@
 									</div>
 								</div>
 								<div class="row" *ngIf="isSowSelectLocat">
-									<div class="row ">
-										<div class="m-auto w-100">
+									<div class="row mx-auto w-100 center-block">
+										<div class="col-md-12 text-center">
+											<p class="font-weight-bold">LOCATION</p>
 											<img src={{myForm.value.location.photos[0][1]}} alt="photo one">
 
 											<img src={{myForm.value.location.photos[1][1]}} alt="photo two">
@@ -115,7 +116,7 @@
 		<div class="my-5 text-center">
 			<button type="submit" class="btn btn-color text-white size-button">
 				<i class="fa fa-paper-plane"></i> Template</button>
-			<button type="submit" class="btn btn-color size-button" (click)="saveEvent(myForm.value); myForm.value='';" [disabled]="myForm.invalid">
+			<button type="submit" class="btn btn-color size-button" (click)="saveEvent(myForm.value); myForm.value='';" [disabled]="myForm.invalid || isValidPhoto">
 				<i class="fa fa-plus-circle"></i> Add agenda</button>
 		</div>
 
