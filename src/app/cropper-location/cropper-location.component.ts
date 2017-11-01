@@ -29,14 +29,12 @@ export class CropperLocationComponent implements OnInit {
   isValidSize: boolean = true;
   messageErrorPhoto = '';
 
-
-  @Input() form: FormGroup;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   constructor() {
     this.name = 'Angular2'
-    this.cropperSettings1.minWidth = this.cropperSettings1.width / 4;
-    this.cropperSettings1.minHeight = this.cropperSettings1.height / 4;
+    this.cropperSettings1.minWidth = this.cropperSettings1.width;
+    this.cropperSettings1.minHeight = this.cropperSettings1.height;
 
     this.cropperSettings1.rounded = false;
     this.cropperSettings1.noFileInput = true;

@@ -6,31 +6,32 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
-		<form [formGroup]="modalFormLocat">
-			<div class="modal-body">
-				<div class="row justify-content-center align-items-center">
-					<div class="form-group text-center">
-						<label for="cropper" class="font-weight-bold">Photos of location</label>
-						<div class="form-group mx-auto">
-							<div class="row">
-								<div class="col-md-6">
-									<app-cropper-location [form]="modalFormLocat.controls.photoEvent" [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth"
-									 [width]="width" [height]="height" [tittlePhoto]="tittlePhotoOne" (onChanged)="onChanged($event, 'one')"></app-cropper-location>
-								</div>
-								<div class="col-md-6">
-									<app-cropper-location [form]="modalFormLocat.controls.photoEvent" [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth"
-									 [width]="width" [height]="height" [tittlePhoto]="tittlePhotoTwo" (onChanged)="onChanged($event, 'two')"></app-cropper-location>
-								</div>
-							</div>
 
+		<div class="modal-body">
+			<div class="row justify-content-center align-items-center">
+				<div class="form-group text-center">
+					<label for="cropper" class="font-weight-bold">Photos of location</label>
+					<div class="form-group mx-auto">
+						<div class="row">
+							<div class="col-md-6">
+								<app-cropper-location [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth" [width]="width"
+								 [height]="height" [tittlePhoto]="tittlePhotoOne" (onChanged)="onChanged($event, 'one')"></app-cropper-location>
+							</div>
+							<div class="col-md-6">
+								<app-cropper-location [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth" [width]="width"
+								 [height]="height" [tittlePhoto]="tittlePhotoTwo" (onChanged)="onChanged($event, 'two')"></app-cropper-location>
+							</div>
 						</div>
+
 					</div>
 				</div>
+			</div>
+			<form [formGroup]="modalFormLocat">
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
 							<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-								<div class="input-group-addon" style="width: 2.6rem">
+								<div class="input-group-addon">
 									<i class="fa fa-home"></i>
 								</div>
 								<input type="text" formControlName="country" class="form-control" id="country" placeholder="Country" required>
@@ -42,7 +43,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-								<div class="input-group-addon" style="width: 2.6rem">
+								<div class="input-group-addon">
 									<i class="fa fa-university"></i>
 								</div>
 								<input type="text" formControlName="city" class="form-control" id="city" placeholder="City" required>
@@ -53,7 +54,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-								<div class="input-group-addon" style="width: 2.6rem">
+								<div class="input-group-addon">
 									<i class="fa fa-map-marker"></i>
 								</div>
 								<input type="text" formControlName="address" class="form-control" id="address" placeholder="Address" required>
@@ -61,16 +62,16 @@
 						</div>
 					</div>
 				</div>
+			</form>
+		</div>
+		<div class="modal-footer text-center">
+			<button type="submit" class="btn my-1 btn-color sizeButton" (click)="save(modalFormLocat.value); modalFormLocat.value=''; modalFormLocat.reset();"
+			 [disabled]="modalFormLocat.invalid || isNullPhotos" (click)="c('Close click')">
+				<i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+			<button type="button" class="btn my-1 btn-color sizeButton" (click)="c('Close click')">
+				<i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
+		</div>
 
-			</div>
-			<div class="modal-footer text-center">
-				<button type="submit" class="btn my-1 btn-color sizeButton" (click)="save(modalFormLocat.value); modalFormLocat.value=''; modalFormLocat.reset();"
-				 [disabled]="modalFormLocat.invalid" (click)="c('Close click')">
-					<i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-				<button type="button" class="btn my-1 btn-color sizeButton" (click)="c('Close click')">
-					<i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
-			</div>
-		</form>
 	</div>
 </ng-template>
 

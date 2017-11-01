@@ -11,8 +11,8 @@ import { EventLocation } from '../module_ts/location';
   styleUrls: ['./modal-location.component.scss']
 })
 export class ModalLocationComponent implements OnInit {
-  width: number = 246;
-  height: number = 60;
+  width: number = 1933;
+  height: number = 100;
   tittlePhotoOne: string = "Location one";
   tittlePhotoTwo: string = "Location two";
   cropperSettingsWidth: number = 852;
@@ -21,10 +21,12 @@ export class ModalLocationComponent implements OnInit {
   closeResult: string;
   hideModal: boolean = false;
   photos: Array<String[]> = [[], []];
+  isNullPhotos:boolean = true;
   location: EventLocation;
 
 
-  constructor(private modalService: NgbModal, private fb: FormBuilder) { }
+  constructor(private modalService: NgbModal, private formfbuild: FormBuilder) { }
+
 
   open(content) {
     this.modalService.open(content, { size: 'lg', windowClass: 'dark-modal' });
@@ -35,12 +37,13 @@ export class ModalLocationComponent implements OnInit {
       if (this.photos[i].length === 0) {
         this.photos[i].push(indexImg);
         this.photos[i].push(imgCrop.image);
-        console.log(this.photos);
+        if(i === 1){
+          this.isNullPhotos = false;
+        }
         return;
       }
       if (indexImg === this.photos[i][0]) {
         this.photos[i][1] = imgCrop.image;
-        console.log(this.photos);
         return;
       }
     }
@@ -48,22 +51,14 @@ export class ModalLocationComponent implements OnInit {
 
   save(form) {
     this.location = new EventLocation(form.address, form.city, form.country, this.photos);
-    console.log(this.location);
-
   }
-
 
   ngOnInit() {
-    this.modalFormLocat = this.fb.group({
+    this.modalFormLocat = this.formfbuild.group({
       country: new FormControl(''),
       city: new FormControl(''),
-      address: new FormControl(''),
-      photoEvent: this.fb.group({
-        cropper: new FormControl()
-      })
+      address: new FormControl('')
     });
   }
-
-
 
 } 
