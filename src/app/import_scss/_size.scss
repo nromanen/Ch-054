@@ -3,15 +3,21 @@ $width-logotip: 3.4rem;
 $full-width:100%;
 $auto-size: auto;
 
+.modal-main {
+	background-image: url('/assets/images/modal-bg.png');
+	background-size: cover;
+	font-family: 'Times New Roman', Times, serif;
+}
+
 @mixin size($height, $width) {
 	height: $height;
 	width: $width;
 	}
 	
-	.sizeButton {
-		height: 3rem;
-		width: 8.063rem;
-		cursor: pointer;
+.size-button {
+	height: 3rem;
+	width: 8.063rem;
+	cursor: pointer;
 }
 
 .btn-icon {
@@ -22,5 +28,9 @@ $auto-size: auto;
 
 .btn-cursor{
 	cursor: pointer;
+}
+
+.calendar-width {
+    width: 2.6rem
 }
 

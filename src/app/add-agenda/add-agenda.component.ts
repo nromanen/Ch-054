@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { CropperComponent } from '../cropper-event/cropper.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { NgbModule, NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
@@ -35,21 +35,36 @@ export class AddAgendaComponent implements OnInit {
 
 	//autocomplete
 	model1 = "";
-	arrayOfStrings: string[] =
-	["Marius Barbulesco", "Stolte Jon kjfkj DDD fdjg GGG", "Brenda B Jon", "Lotrean Jon Maria", "Jason P Marcus", "Alfred T Marchese", "Hernandez Alex", "Cortes Ana",];
+	speakers =
+	[{
+		fullName: 'Marius Barbulesco',
+		description: 'A professional photographer may be an employee, for example of a newspaper, or may contract to cover a particular planned event such as a wedding or graduation, or to illustrate an advertisement. Others, including paparazzi and fine art photographers, are freelancers, first making a picture and then offering it for sale or display. Some workers, such as crime scene detectives, estate agents, journalists and scientists, make photographs as part of other work. Photographers who produce moving rather than still pictures are often called cinematographers, videographers or camera operators, depending on the commercial context.',
+		placeWork: 'IJ Grup',
+		position: 'Director',
+		photoPath: '/assets/images/new_photo/ph-3.jpg'
+	},{
+		fullName: 'Stolte Jon',
+		description: 'A professional photographer may be an employee, for example of a newspaper, or may contract to cover a particular planned event such as a wedding or graduation, or to illustrate an advertisement. Others, including paparazzi and fine art photographers, are freelancers, first making a picture and then offering it for sale or display. Some workers, such as crime scene detectives, estate agents, journalists and scientists, make photographs as part of other work. Photographers who produce moving rather than still pictures are often called cinematographers, videographers or camera operators, depending on the commercial context.',
+		placeWork: 'GGG Photogr',
+		position: 'Director',
+		photoPath: '/assets/images/new_photo/ph-8.jpg'
+	}];
+
+	autocompleListFormatter = (speaker: any): SafeHtml => {
+		let html = `<span>${speaker.fullName}</span>`;
+		return this._sanitizer.bypassSecurityTrustHtml(html);
+	}
 
 
-	constructor(private fb: FormBuilder, config: NgbTimepickerConfig) {
+	constructor(private fb: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer) {
 		config.spinners = false;
 	}
 
 	changeSelect() {
 		this.isAction = !this.isAction;
 		this.isReport = !this.isReport;
-		this.isValid = true;
-		this.myFormReport.reset();
-		this.myFormAction.reset();
-		this.setDate(this.selectData);
+		this.resetForm();
+
 	}
 
 	saveReport(form) {
@@ -59,6 +74,7 @@ export class AddAgendaComponent implements OnInit {
 		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedules(report);
 		}
+		this.resetForm();
 
 	}
 
@@ -69,6 +85,7 @@ export class AddAgendaComponent implements OnInit {
 		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedules(action);
 		}
+		this.resetForm();
 	}
 
 	addElementsToSchedules(item: any) {
@@ -87,23 +104,10 @@ export class AddAgendaComponent implements OnInit {
 		}
 	}
 
-	ngOnInit() {
-		this.myFormAction = this.fb.group({
-			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
-			timeActionFrom: new FormControl(''),
-			timeActionTo: new FormControl(''),
-			dataPickerAction: new FormControl(''),
-		});
-
-		this.myFormReport = this.fb.group({
-			nameReport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
-			timeReportFrom: new FormControl(''),
-			timeReportTo: new FormControl(''),
-			dataPickerReport: new FormControl(''),
-			speaker: new FormControl('', [Validators.required]),
-
-		});
-
+	resetForm() {
+		this.isValid = true;
+		this.myFormReport.reset();
+		this.myFormAction.reset();
 		this.setDate(this.selectData);
 	}
 
@@ -127,14 +131,14 @@ export class AddAgendaComponent implements OnInit {
 			this.schedules = arrays;
 		}
 	}
-	addArrays(n) {
+	
+	addArrays(numbersOfDay) {
 		let arr = [];
-		for (let i = 0; i < n; i++) {
+		for (let i = 0; i < numbersOfDay; i++) {
 			arr.push([]);
 		}
 		return arr;
 	}
-
 
 	numberOfDays(selectDate: any): number {
 		let dateOne = new Date(selectDate[0].year, selectDate[0].month - 1, selectDate[0].day);
@@ -145,20 +149,38 @@ export class AddAgendaComponent implements OnInit {
 
 	change() {
 		if (this.isAction) {
-			this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
-		} else if (this.isReport) {
-			this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
-		} else {
-			this.isValid = true;
+			this.isValid = !(this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo));
+		}
+		if (this.isReport) {
+			this.isValid = !(this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo));
 		}
 	}
 
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
 		if (timeFrom && timeTo) {
 			return ((timeFrom.hour < timeTo.hour) || ((timeFrom.hour === timeTo.hour) && (timeFrom.minute < timeTo.minute)));
-
 		}
 		return false;
+	}
+
+	ngOnInit() {
+		this.myFormAction = this.fb.group({
+			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
+			timeActionFrom: new FormControl(''),
+			timeActionTo: new FormControl(''),
+			dataPickerAction: new FormControl(''),
+		});
+
+		this.myFormReport = this.fb.group({
+			nameReport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
+			timeReportFrom: new FormControl(''),
+			timeReportTo: new FormControl(''),
+			dataPickerReport: new FormControl(''),
+			speaker: new FormControl('', [Validators.required]),
+
+		});
+
+		this.setDate(this.selectData);
 	}
 
 	@Output() isHideAgenda = new EventEmitter<boolean>();

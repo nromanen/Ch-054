@@ -19,8 +19,8 @@ export class ModalSpeakerComponent {
   photo: string = '';
   speaker: Speaker;
   
-  constructor(private modalService: NgbModal, private fb: FormBuilder) {
-    this.modalForm = this.fb.group({
+  constructor(private modalService: NgbModal, private formbuild: FormBuilder) {
+    this.modalForm = this.formbuild.group({
 			name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(15)]),
 			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
 			placeWork: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]),
