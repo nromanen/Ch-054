@@ -4,6 +4,8 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { Event } from '../module_ts/event';
+import { EventLocation } from '../module_ts/location';
+import { LocationService } from '../services/location/location.service';
 
 @Component({
 	selector: 'app-add-event',
@@ -32,12 +34,15 @@ export class AddEventComponent implements OnInit {
 	selectData: Array<any> = new Array();
 	photo: string = '';
 	event: Event;
+	locations: EventLocation[];
 
 	//autocomplete
 	model = '';
 	arrayOfStrings: string[] =
 	["Central Park West, New York, NY 10023, USA", "60 E 65th St, New York, NY 10065, USA", "Time Warner Center, 10 Columbus Cir, New York, NY 10023, USA", "900 Canada Pl, Vancouver, BC V6C 3L5, Canada", "101 Trans-Canada Hwy, Duncan, BC V9L 3P8, Canada", "999 Canada Pl #410, Vancouver, BC V6C 3E1, Canada",];
 	myForm: FormGroup;
+
+	constructor(private fb: FormBuilder, private locationService: LocationService) { }
 
 	myCallback(newVal) {
 		this.model = newVal;
@@ -50,13 +55,12 @@ export class AddEventComponent implements OnInit {
 	selectedDateFrom(event) {
 		let mydate = new Date(event['year'], event['month'] - 1, event['day']);
 		this.minDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() };
-		this.modelDate = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() +1 };
+		this.modelDate = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() + 1 };
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
 		this.temporaryStorageFromDate = this.modelDate;
 	}
-
 
 	addCalendar() {
 		let control: FormControl = new FormControl('');
@@ -77,18 +81,32 @@ export class AddEventComponent implements OnInit {
 		this.modelDate = {};
 	}
 
-	constructor(private fb: FormBuilder) {}
 
 	onChanged(imgCrop) {
 		this.photo = imgCrop.image;
 	}
 
+	getAllLocations() {
+		this.locationService.getAllLocations().subscribe(locations => {
+			this.locations = [];
+			locations.forEach(location => {
+				this.locations.push(new EventLocation(
+					location.address,
+					location.country,
+					location.city,
+					[]
+				))
+			});
+			console.log('come here', locations); // TODO	delete this
+		})
+	}
+
 	saveEvent(form) {
 		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
-		if(!form.dataPickerTo && form.dataPickerFrom){
+		if (!form.dataPickerTo && form.dataPickerFrom) {
 			this.selectData.push(form.dataPickerFrom);
 		}
-		if(form.dataPickerFrom && form.dataPickerTo){
+		if (form.dataPickerFrom && form.dataPickerTo) {
 			this.selectData.push(form.dataPickerFrom, form.dataPickerTo);
 		}
 		this.isShowAgenda = true;
@@ -103,9 +121,10 @@ export class AddEventComponent implements OnInit {
 			dataPickerTo: '',
 			location: new FormControl('', [Validators.required])
 		});
+		this.getAllLocations();
 	}
 
-	isHideAgenda(increased){
+	isHideAgenda(increased) {
 		this.isShowAgenda = increased;
 		this.isShowEvent = !increased;
 		if (this.isShowEvent) {

@@ -49,7 +49,7 @@ export class ModalLocationComponent implements OnInit {
 
   save(form) {
     this.location = new EventLocation(form.address, form.city, form.country, this.photos);
-    console.log(this.location);
+    this.locationService.saveLocation(this.location);
   }
 
   getLocations() {
@@ -65,6 +65,6 @@ export class ModalLocationComponent implements OnInit {
         cropper: new FormControl()
       })
     });
-   this.getLocations();
+    this.locationService.getAllLocations().subscribe(locations=>console.log(locations));
   }
 } 

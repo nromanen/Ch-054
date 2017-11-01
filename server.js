@@ -10,8 +10,8 @@ const api = require('./server/routes/api');
 const app = express();
 
 // Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ extended: true, limit: '50mb'}));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb'}));
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
