@@ -90,7 +90,7 @@
 												<div class="col-md-9 my-1">
 													<div class="input-group w-100">
 														<div class="w-100">
-															<input ng2-auto-complete [source]="arrayOfStrings" formControlName="location" class="form-control input-bg w-100" id="location"
+															<input ng2-auto-complete [source]="locations" list-formatter="myValueFormatter" formControlName="location" class="form-control input-bg w-100" id="location"
 															 [ngModel]="model1" placeholder="Choose a location">
 														</div>
 														<app-modal-location></app-modal-location>

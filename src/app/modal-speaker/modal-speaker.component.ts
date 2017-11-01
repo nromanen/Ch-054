@@ -28,7 +28,6 @@ export class ModalSpeakerComponent {
 		});
   }
   
-  
     open(content) {
       this.modalService.open(content, { size: 'lg',  windowClass: 'dark-modal' });
     }
@@ -40,5 +39,7 @@ export class ModalSpeakerComponent {
     save(form) {
       this.speaker = new Speaker(form.name, form.descr, form.placeWork, form.position, this.photo);
     }
+
+    
 
 }
