@@ -11,8 +11,8 @@ import { EventLocation } from '../module_ts/location';
   styleUrls: ['./modal-location.component.scss']
 })
 export class ModalLocationComponent implements OnInit {
-  width: number = 426;
-  height: number = 240;
+  width: number = 852;
+  height: number = 480;
   tittlePhotoOne: string = "Location one";
   tittlePhotoTwo: string = "Location two";
   cropperSettingsWidth: number = 852;

@@ -132,6 +132,7 @@ export class AddEventComponent implements OnInit {
 			this.modelFrom = {};
 			this.deleteCalendar();
 			this.isValidPhoto = true;
+			this.isSowSelectLocat = false;
 		}
 	}
 
