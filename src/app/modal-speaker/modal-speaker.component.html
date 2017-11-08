@@ -1,11 +1,8 @@
 <ng-template #content let-c="close" let-d="dismiss">
 
   <div class="modal-main">
-    <div class="modal-header">
-      <h4 class="modal-title mx-auto font-weight-bold">Speaker</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="modal-header text-center">
+      <h4 class="modal-title mx-auto text-center font-weight-bold">Speaker</h4>
     </div>
     <div class="modal-body">
       <div class="mt-2 text-center">
@@ -18,35 +15,26 @@
 
       <form [formGroup]="modalForm">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md">
             <div class="form-group">
-              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon" style="width: 2.6rem">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                </div>
+              <div class="mb-2 mr-sm-2 mb-sm-0">
                 <input type="text" formControlName="name" class="form-control input-bg font-weight-bold" id="name" placeholder="Full name">
               </div>
             </div>
           </div>
 
 
-          <div class="col-md-4">
+          <div class="col-md">
             <div class="form-group">
-              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon" style="width: 2.6rem">
-                  <i class="fa fa-university"></i>
-                </div>
+              <div class="mb-2 mr-sm-2 mb-sm-0">
                 <input type="text" formControlName="placeWork" class="form-control input-bg font-weight-bold" id="placeWork" placeholder="Place of work">
               </div>
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md">
             <div class="form-group">
-              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon" style="width: 2.6rem">
-                  <i class="fa fa-briefcase" aria-hidden="true"></i>
-                </div>
+              <div class="mb-2 mr-sm-2 mb-sm-0">
                 <input type="text" formControlName="position" class="form-control input-bg font-weight-bold" id="position" placeholder="Position">
               </div>
             </div>
@@ -65,9 +53,9 @@
     </div>
         <div class="modal-footer text-center">
             <button type="submit" class="btn my-1 btn-color sizeButton" (click)="save(modalForm.value); modalForm.value=''; modalForm.reset();"
-             [disabled]="modalForm.invalid" (click)="c('Close click')">
+             [disabled]="modalForm.invalid || isPhotoSpeaker" (click)="c('Close click')">
               <i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-            <button type="button" class="btn my-1 btn-color sizeButton" (click)="c('Close click')">
+            <button type="button" class="btn my-1 btn-color sizeButton" (click)="close()" (click)="c('Close click')">
               <i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
           </div>
     </div>

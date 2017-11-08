@@ -34,17 +34,13 @@ export class CropperComponent implements OnInit {
 
   constructor() {
     this.name = 'Angular2'
-
     this.cropperSettings1.minWidth = this.cropperSettings1.width / 2;
     this.cropperSettings1.minHeight = this.cropperSettings1.height / 2;
-
     this.cropperSettings1.rounded = false;
     this.cropperSettings1.noFileInput = true;
     this.cropperSettings1.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
     this.cropperSettings1.cropperDrawSettings.strokeWidth = 2;
-
     this.setCropperSettingCanvas();
-
     this.data1 = {};
   }
 
@@ -176,8 +172,8 @@ validationPhotoType(file:File){
   }
 
   setCropperSettingCanvas() {
-    this.cropperSettings1.canvasWidth = window.innerWidth / 3;
-    this.cropperSettings1.canvasHeight = window.innerHeight / 4;
+    this.cropperSettings1.canvasWidth = window.innerWidth / 4;
+    this.cropperSettings1.canvasHeight = window.innerHeight / 5;
     if (this.cropper && this.cropper.cropper) {
       this.cropper.cropper.resizeCanvas(this.cropperSettings1.canvasWidth, this.cropperSettings1.canvasHeight, true);
     }

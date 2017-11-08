@@ -42,7 +42,7 @@ export class AddAgendaComponent implements OnInit {
 		placeWork: 'IJ Grup',
 		position: 'Director',
 		photoPath: '/assets/images/new_photo/ph-3.jpg'
-	},{
+	}, {
 		fullName: 'Stolte Jon',
 		description: 'A professional photographer may be an employee, for example of a newspaper, or may contract to cover a particular planned event such as a wedding or graduation, or to illustrate an advertisement. Others, including paparazzi and fine art photographers, are freelancers, first making a picture and then offering it for sale or display. Some workers, such as crime scene detectives, estate agents, journalists and scientists, make photographs as part of other work. Photographers who produce moving rather than still pictures are often called cinematographers, videographers or camera operators, depending on the commercial context.',
 		placeWork: 'GGG Photogr',
@@ -72,7 +72,7 @@ export class AddAgendaComponent implements OnInit {
 		if (this.schedules.length === 1) {
 			this.schedules[this.schedules.length - 1].push(report);
 		} else if (this.schedules.length > 1) {
-			this.addElementsToSchedules(report);
+			this.addElementsToSchedulesByDate(report);
 		}
 		console.log('this');
 		this.resetForm();
@@ -82,14 +82,15 @@ export class AddAgendaComponent implements OnInit {
 	saveAction(form) {
 		let action = new Action(form.nameAction, form.timeActionFrom, form.timeActionTo, form.dataPickerAction);
 		if (this.schedules.length === 1) {
-			this.schedules[this.schedules.length - 1].push(action);
+			this.addElementsToSchedulesByTime(action);
+			// this.schedules[this.schedules.length - 1].push(action);
 		} else if (this.schedules.length > 1) {
-			this.addElementsToSchedules(action);
+			this.addElementsToSchedulesByDate(action);
 		}
 		this.resetForm();
 	}
 
-	addElementsToSchedules(item: any) {
+	addElementsToSchedulesByDate(item: any) {
 		for (let i = 0; i < this.schedules.length; i++) {
 			if (this.schedules[i].length == 0) {
 				this.schedules[i].push(item);
@@ -105,10 +106,40 @@ export class AddAgendaComponent implements OnInit {
 		}
 	}
 
+	addElementsToSchedulesByTime(item: any) {
+		if (this.schedules[0].length == 0) {
+			this.schedules[0].push(item);
+			return;
+		}
+		let templArr = [];
+		let j;
+		for (let i = 0; i < this.schedules[0].length; i++) {
+			let validdate = this.isValidDate(item['startTime'], item['endTime'], this.schedules[0][i]['startTime'], this.schedules[0][i]['endTime']);
+			j = i;
+			if (validdate) {
+				templArr.push(i);
+				console.log('ok', templArr);
+			}			
+		}
+		if (templArr.length < 0) {
+			return;
+		}
+			this.schedules[0].splice((templArr[templArr.length - 1]) + 1, 0, item);
+
+	}
+
+	isValidDate(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
+		if ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute == itemStartTime.minute) && (scheduleEndTime.hour < itemEndTime.hour)|| (scheduleStartTime.hour < itemStartTime.hour)) {
+			return true;
+		}
+		return false;
+	}
+
 	resetForm() {
 		this.isValid = true;
 		this.myFormReport.reset();
 		this.myFormAction.reset();
+		this.setDate(this.selectData);
 	}
 
 	setDate(selectDate: any) {
@@ -131,7 +162,7 @@ export class AddAgendaComponent implements OnInit {
 			this.schedules = arrays;
 		}
 	}
-	
+
 	addArrays(numbersOfDay) {
 		let arr = [];
 		for (let i = 0; i < numbersOfDay; i++) {

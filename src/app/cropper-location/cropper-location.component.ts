@@ -118,8 +118,8 @@ export class CropperLocationComponent implements OnInit {
     }
   
     setCropperSettingCanvas() {
-      this.cropperSettings1.canvasWidth = window.innerWidth / 3;
-      this.cropperSettings1.canvasHeight = window.innerHeight / 4;
+      this.cropperSettings1.canvasWidth = window.innerWidth / 6;
+      this.cropperSettings1.canvasHeight = window.innerHeight / 5;
       if (this.cropper && this.cropper.cropper) {
         this.cropper.cropper.resizeCanvas(this.cropperSettings1.canvasWidth, this.cropperSettings1.canvasHeight, true);
       }
