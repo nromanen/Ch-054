@@ -33,8 +33,14 @@ $colorB: rgb(96, 10, 186);
         .optionSelect {
             color: black;
             background-color: rgb(173, 181, 191);
-            &:hover {
-                background-color: rgb(71, 75, 81);
+            // &:hover {
+            //     background-color: rgb(71, 75, 81);
+
+            // }
+            &:hover, &:focus, &:active, &:checked {
+                background: linear-gradient(#FFC894,#FFC894);
+                background: #FFC894 !important; /* for IE */
+                outline-color: red;
             }
         }
     }

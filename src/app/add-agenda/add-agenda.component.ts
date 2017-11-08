@@ -74,6 +74,7 @@ export class AddAgendaComponent implements OnInit {
 		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedules(report);
 		}
+		console.log('this');
 		this.resetForm();
 
 	}
@@ -108,7 +109,6 @@ export class AddAgendaComponent implements OnInit {
 		this.isValid = true;
 		this.myFormReport.reset();
 		this.myFormAction.reset();
-		this.setDate(this.selectData);
 	}
 
 	setDate(selectDate: any) {

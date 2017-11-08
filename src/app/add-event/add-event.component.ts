@@ -128,9 +128,8 @@ export class AddEventComponent implements OnInit {
 		this.isShowAgenda = increased;
 		this.isShowEvent = !increased;
 		if (this.isShowEvent) {
-			this.myForm.reset();
-			this.modelFrom = {};
-			this.deleteCalendar();
+
+			
 			this.isValidPhoto = true;
 			this.isSowSelectLocat = false;
 		}

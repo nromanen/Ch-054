@@ -40,7 +40,6 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-6">
-
 											<label for="calendar1" class="font-weight-bold">Date
 												<span *ngIf="isShowCalendarTo"> From</span>
 											</label>
@@ -52,10 +51,9 @@
 												 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
 													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
 												</button>
-
-												<div class="input-group-addon calendar-width" *ngIf="isShowIcon">
+												<button class="btn-cursor btn-icon" (click)="d.toggle()" *ngIf="isShowIcon">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
-												</div>
+												</button>
 											</div>
 										</div>
 										<div class="col-lg-6" *ngIf="isShowCalendarTo">
