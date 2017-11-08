@@ -76,7 +76,6 @@ export class AddAgendaComponent implements OnInit {
 		}
 		console.log('this');
 		this.resetForm();
-
 	}
 
 	saveAction(form) {
