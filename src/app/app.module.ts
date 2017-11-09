@@ -30,11 +30,8 @@ import { AddAgendaComponent } from './add-agenda/add-agenda.component';
 import { ModalSpeakerComponent } from './modal-speaker/modal-speaker.component';
 import { SpeakerPageComponent } from './speaker-page/speaker-page.component';
 import { CropperLocationComponent } from './cropper-location/cropper-location.component';
-<<<<<<< HEAD
 import { LocationService } from './services/location/location.service';
-=======
 import { ModalViewSpeakerComponent } from './modal-view-speaker/modal-view-speaker.component';
->>>>>>> annwagner
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
