@@ -67,11 +67,11 @@ export class AddEventComponent implements OnInit {
 
 	selectedDateFrom(event) {
 		this.minDateTo = { year: event['year'], month: event['month'], day: event['day'] };
-		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day'] +1};
+		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day']+1};
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
-		this.temporaryStorageFromDate = this.modelFrom;
+		this.temporaryStorageFromDate = this.modelDateTo;
 	}
 
 	addCalendar() {

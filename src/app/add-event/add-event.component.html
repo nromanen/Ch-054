@@ -43,7 +43,7 @@
 											<div class="input-group" placeholder="enter text">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="modelFrom" ngbDatepicker
 												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)"
-												 (click)="selectToday()">
+												 (click)="selectToday()" [readonly]="true">
 												<button class="btn-cursor btn-icon" ngbPopover="Add date" triggers="mouseenter:mouseleave" (click)="addCalendar()" *ngIf="isShowButton"
 												 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
 													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
@@ -57,7 +57,7 @@
 											<label for="calendar2" class="font-weight-bold">Date To</label>
 											<div class="input-group" placeholder="enter text">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDateTo" ngbDatepicker
-												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" [minDate]="minDateTo">
+												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" [minDate]="minDateTo" [readonly]="true">
 												<button class="btn-cursor btn-icon" ngbPopover="Delete date" triggers="mouseenter:mouseleave" (click)="deleteCalendar()">
 													<i class="fa fa-calendar-times-o" aria-hidden="true"></i>
 												</button>

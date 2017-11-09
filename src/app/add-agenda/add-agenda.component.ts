@@ -60,33 +60,30 @@ export class AddAgendaComponent implements OnInit {
 		config.spinners = false;
 	}
 
-	changeSelect() {
-		this.isAction = !this.isAction;
-		this.isReport = !this.isReport;
-		this.resetForm();
-
-	}
+	// changeSelect() {
+	// 	this.isAction = !this.isAction;
+	// 	this.isReport = !this.isReport;
+	// 	this.resetForm();
+	// }
 
 	saveReport(form) {
 		let report = new Report(form.nameReport, form.timeReportFrom, form.timeReportTo, form.dataPickerReport, form.speaker);
 		if (this.schedules.length === 1) {
-			this.schedules[this.schedules.length - 1].push(report);
+			this.addElementsToSchedulesByTime(report, this.schedules[0]);
 		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedulesByDate(report);
 		}
-		console.log('this');
-		this.resetForm();
+		// this.resetForm();
 	}
 
 	saveAction(form) {
 		let action = new Action(form.nameAction, form.timeActionFrom, form.timeActionTo, form.dataPickerAction);
 		if (this.schedules.length === 1) {
-			this.addElementsToSchedulesByTime(action);
-			// this.schedules[this.schedules.length - 1].push(action);
+			this.addElementsToSchedulesByTime(action, this.schedules[0]);
 		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedulesByDate(action);
 		}
-		this.resetForm();
+		// this.resetForm();
 	}
 
 	addElementsToSchedulesByDate(item: any) {
@@ -98,48 +95,74 @@ export class AddAgendaComponent implements OnInit {
 			for (let j = 0; j < this.schedules[i].length; j++) {
 				let schedulDate = this.schedules[i][j]['date'];
 				if (item.date.day == schedulDate['day']) {
-					this.schedules[i].push(item);
+					this.addElementsToSchedulesByTime(item, this.schedules[i]);
+					// this.schedules[i].push(item);
 					return;
 				}
 			}
 		}
 	}
 
-	addElementsToSchedulesByTime(item: any) {
-		if (this.schedules[0].length == 0) {
-			this.schedules[0].push(item);
+	addElementsToSchedulesByTime(item: any, schedules: Action[]) {
+		console.log('ok');
+		if (schedules.length == 0) {
+			schedules.push(item);
 			return;
 		}
-		let templArr = [];
-		let j;
-		for (let i = 0; i < this.schedules[0].length; i++) {
-			let validdate = this.isValidDate(item['startTime'], item['endTime'], this.schedules[0][i]['startTime'], this.schedules[0][i]['endTime']);
-			j = i;
-			if (validdate) {
-				templArr.push(i);
-				console.log('ok', templArr);
-			}			
+		let templArrMore = [];
+		let templArrLess = [];
+		let itemMoreSchedule;
+		let itemLessSchedule;
+		for (let i = 0; i < schedules.length; i++) {
+			itemMoreSchedule = this.isTimeMoreSched(item['startTime'], item['endTime'], schedules[i]['startTime'], schedules[i]['endTime']);
+			itemLessSchedule = this.isTimeLessSched(item['startTime'], item['endTime'], schedules[i]['startTime'], schedules[i]['endTime']);
+			if (this.isInvalidItem(item['startTime'], item['endTime'], schedules[i]['startTime'], schedules[i]['endTime'])){
+				return;
+			}
+			if (itemMoreSchedule) {
+				templArrMore.push(i);
+			} else if (itemLessSchedule) {
+				templArrLess.push(i);
+			}		
 		}
-		if (templArr.length < 0) {
+		if (templArrMore.length < 0 && templArrLess.length < 0) {
 			return;
 		}
-			this.schedules[0].splice((templArr[templArr.length - 1]) + 1, 0, item);
-
+		if (templArrMore.length>0){
+			schedules.splice((templArrMore[templArrMore.length - 1]) + 1, 0, item);
+		} else if (templArrLess.length > 0) {
+			schedules.splice(templArrLess[0], 0, item);
+		}
 	}
 
-	isValidDate(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute == itemStartTime.minute) && (scheduleEndTime.hour < itemEndTime.hour)|| (scheduleStartTime.hour < itemStartTime.hour)) {
+	isInvalidItem(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
+		if ((itemStartTime.hour == scheduleStartTime.hour && itemStartTime.minute == scheduleStartTime.minute && scheduleEndTime.hour == itemEndTime.hour && scheduleEndTime.minute == itemEndTime.minute) ||(itemStartTime.hour < scheduleStartTime.hour && scheduleStartTime.hour < itemEndTime.hour) ||(itemStartTime.hour < scheduleStartTime.hour && (scheduleStartTime.hour == itemEndTime.hour && scheduleStartTime.minute < itemEndTime.minute)) || 
+		(itemStartTime.hour > scheduleStartTime.hour && scheduleEndTime.hour > itemEndTime.hour) || (itemStartTime.hour == scheduleStartTime.hour && itemStartTime.minute > scheduleStartTime.minute && scheduleEndTime.hour >= itemEndTime.hour)) {
+			return true;	
+		}
+		return false;
+	}
+
+	isTimeMoreSched(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
+		if ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute == itemStartTime.minute) && (scheduleEndTime.hour < itemEndTime.hour) || (scheduleStartTime.hour < itemStartTime.hour && itemStartTime.hour > scheduleEndTime.hour) || (scheduleEndTime.hour == itemStartTime.hour && itemStartTime.minute > scheduleEndTime.minute)){
 			return true;
 		}
 		return false;
 	}
 
-	resetForm() {
-		this.isValid = true;
-		this.myFormReport.reset();
-		this.myFormAction.reset();
-		this.setDate(this.selectData);
+	isTimeLessSched(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
+		if ( (scheduleStartTime.hour > itemStartTime.hour && itemStartTime.hour < scheduleEndTime.hour) ||  ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute > itemStartTime.minute) && (scheduleStartTime.minute>=scheduleEndTime.minute)) ) {
+			return true;
+		}
+		return false;
 	}
+
+	// resetForm() {
+	// 	this.isValid = true;
+	// 	this.myFormReport.reset();
+	// 	this.myFormAction.reset();
+	// 	this.setDate(this.selectData);
+	// }
 
 	setDate(selectDate: any) {
 		if (selectDate.length === 1) {
@@ -155,16 +178,16 @@ export class AddAgendaComponent implements OnInit {
 			this.minDate = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
 			this.modelDate = this.minDate;
 			this.modelDateRepor = this.minDate;
-			this.maxDate = { year: selectDate[selectDate.length - 1].year, month: selectDate[selectDate.length - 1].month, day: selectDate[selectDate.length - 1].day };;
+			this.maxDate = { year: selectDate[selectDate.length - 1].year, month: selectDate[selectDate.length - 1].month, day: selectDate[selectDate.length - 1].day };
 			let datesConference = this.numberOfDays(selectDate);
 			let arrays = this.addArrays(datesConference + 1);
 			this.schedules = arrays;
 		}
 	}
 
-	addArrays(numbersOfDay) {
+	addArrays(n) {
 		let arr = [];
-		for (let i = 0; i < numbersOfDay; i++) {
+		for (let i = 0; i < n; i++) {
 			arr.push([]);
 		}
 		return arr;
@@ -179,23 +202,26 @@ export class AddAgendaComponent implements OnInit {
 
 	change() {
 		if (this.isAction) {
-			this.isValid = !(this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo));
-		}
-		if (this.isReport) {
-			this.isValid = !(this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo));
+			this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
+		} else if (this.isReport) {
+			this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
+		} else {
+			this.isValid = true;
 		}
 	}
 
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
 		if (timeFrom && timeTo) {
 			return ((timeFrom.hour < timeTo.hour) || ((timeFrom.hour === timeTo.hour) && (timeFrom.minute < timeTo.minute)));
+
 		}
 		return false;
 	}
 
+
 	ngOnInit() {
 		this.myFormAction = this.fb.group({
-			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
+			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
 			timeActionFrom: new FormControl(''),
 			timeActionTo: new FormControl(''),
 			dataPickerAction: new FormControl(''),
@@ -213,9 +239,23 @@ export class AddAgendaComponent implements OnInit {
 		this.setDate(this.selectData);
 	}
 
+
+
+	changeSelect() {
+		this.isAction = !this.isAction;
+		this.isReport = !this.isReport;
+		this.isValid = true;
+		// this.myFormReport.reset();
+		// this.myFormAction.reset();
+		// this.setDate(this.selectData);
+	}
+
+
+
 	@Output() isHideAgenda = new EventEmitter<boolean>();
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
 	}
+
 
 }
