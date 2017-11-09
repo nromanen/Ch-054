@@ -1,45 +1,25 @@
 @import '../import_scss/_size';
 @import '../import_scss/_color';
 
-
-    .size-button {
-        height: 3rem;
-        width: 8.063rem;
-        cursor: pointer;
-    }
-
-    .btn-color{
-        @include bgColor($bt-bg,$color-wh);    
-        &:hover{
-            @include bgColor($hover-bg,$color-wh);
-        }
-    }
-
-    @media screen and (max-width: 35.94rem) {
-        .hiddeButton{
-            display: none;
-        }
-    }
-
-    .bg-image{
-        background-image: url('/assets/images/ph-bg.png');
-        background-size: cover;
-        background-attachment: fixed;
-
-}
-
 .title-bg {
     background-color: rgb(83, 87, 93);
     width: 100%;
     margin-right: 0;
     padding-right: 0;
-
     .logo-Camera {
         @include size($height-logotip,
         $width-logotip);
     }
 }
 
-.calendar-width {
-    width: 2.6rem
+.bg-image{
+    background-image: url('/assets/images/ph-bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+
+    @media screen and (max-width: 35.94rem) {
+        .hiddeButton{
+            display: none;
+        }
+    }
 }

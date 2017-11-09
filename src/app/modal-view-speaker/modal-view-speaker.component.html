@@ -1,0 +1,29 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-main">
+    <div class="modal-header row my-1 pb-0">
+      <div class="col-md-12 text-center mb-0 pb-0">
+        <h4 class="text-center">SPEAKER {{speakers.fullName}}</h4>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="row mx-auto w-100 center-block">
+        <div class="col-md-12 text-center">
+          <img src={{speakers.photoPath}} [width]="400" alt="photo speaker">
+        </div>
+      </div>
+      <div class="col-md-12 text-center">
+        <p class="font-weight-bold">Work of place: {{speakers.placeWork}}, Position: {{speakers.position}}</p>
+      </div>
+      <div class="col-md-12 text-center">
+        <span class="font-weight-bold">Description:</span> {{speakers.description}}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn my-1 btn-color sizeButton" (click)="c('Close click')">
+        <i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
+    </div>
+  </div>
+</ng-template>
+
+<button (click)="open(content)" class="btn btn-info my-1 btn-cursor" [disabled]="!speakers">
+  <i class="fa fa-eye" aria-hidden="true"></i> Speaker</button>

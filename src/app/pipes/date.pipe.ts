@@ -12,7 +12,6 @@ export class DatePipe implements PipeTransform {
         let fullStrDateYear = date[dateYear].toString();
         let shortYear = '';
         for (let i = 2; i < fullStrDateYear.length; i++){
-            console.log(fullStrDateYear[i]);
             shortYear += fullStrDateYear[i];
         }
        

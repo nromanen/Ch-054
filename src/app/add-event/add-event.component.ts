@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms'
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { Event } from '../module_ts/event';
 import { EventLocation } from '../module_ts/location';
@@ -18,34 +18,49 @@ export class AddEventComponent implements OnInit {
 	cropperSettingsWidth: number = 1080;
 	cropperSettingsHeight: number = 540;
 	logoCamera: string = '/assets/images/camera.png';
-	isShowCalendarTo: boolean = false;
-	isShowButton: boolean = true;
-	isShowIcon: boolean = false;
+	photo: string = '';
 	imgEvent: any;
 	now = new Date();
 	minDateFrom = { year: this.now.getFullYear(), month: this.now.getMonth() + 1, day: this.now.getDate() };
-	minDateTo: object;
+	minDateTo: object = {};
 	modelFrom: object = {};
-	modelDate: object = {};
-	isSelectedCalendar: boolean = true;
+	modelDateTo: object = {};
 	temporaryStorageFromDate: object;
+	isShowCalendarTo: boolean = false;
+	isShowButton: boolean = true;
+	isShowIcon: boolean = false;
+	isSelectedCalendar: boolean = true;
 	isShowAgenda: boolean = false;
 	isShowEvent: boolean = true;
+	isValidPhoto: boolean = true;
+	isSowSelectLocat: boolean = false;
 	selectData: Array<any> = new Array();
-	photo: string = '';
 	event: Event;
-	locations: EventLocation[];
-
-	//autocomplete
-	model = '';
-	arrayOfStrings: string[] =
-	["Central Park West, New York, NY 10023, USA", "60 E 65th St, New York, NY 10065, USA", "Time Warner Center, 10 Columbus Cir, New York, NY 10023, USA", "900 Canada Pl, Vancouver, BC V6C 3L5, Canada", "101 Trans-Canada Hwy, Duncan, BC V9L 3P8, Canada", "999 Canada Pl #410, Vancouver, BC V6C 3E1, Canada",];
 	myForm: FormGroup;
 
-	constructor(private fb: FormBuilder, private locationService: LocationService) { }
+	//TODO autocomplete with database
+	locations =
+	[{
+		country: 'USA',
+		city: 'NY',
+		address: 'Central Park',
+		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'],
+		 ['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
+	}, {
+		country: 'Ukraine',
+		city: 'Lviv',
+		address: 'Golovna, 31',
+		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'], ['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
+	}
+	];
 
-	myCallback(newVal) {
-		this.model = newVal;
+	myValueFormatter(location: any): string {
+		return `${location.country},${location.city},${location.address}`;
+	}
+
+	autocompleListFormatter = (location: any): SafeHtml => {
+		let html = `<span>${location.country},${location.city},${location.address}</span>`;
+		return this._sanitizer.bypassSecurityTrustHtml(html);
 	}
 
 	selectToday() {
@@ -53,13 +68,12 @@ export class AddEventComponent implements OnInit {
 	}
 
 	selectedDateFrom(event) {
-		let mydate = new Date(event['year'], event['month'] - 1, event['day']);
-		this.minDateTo = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() };
-		this.modelDate = { year: mydate.getFullYear(), month: mydate.getMonth() + 1, day: mydate.getDate() + 1 };
+		this.minDateTo = { year: event['year'], month: event['month'], day: event['day'] };
+		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day']+1};
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
-		this.temporaryStorageFromDate = this.modelDate;
+		this.temporaryStorageFromDate = this.modelDateTo;
 	}
 
 	addCalendar() {
@@ -69,7 +83,7 @@ export class AddEventComponent implements OnInit {
 		this.isShowIcon = true;
 		if (this.temporaryStorageFromDate) {
 			this.myForm.addControl('dataPickerTo', control)
-			this.modelDate = this.temporaryStorageFromDate;
+			this.modelDateTo = this.temporaryStorageFromDate;
 		}
 	}
 
@@ -78,25 +92,29 @@ export class AddEventComponent implements OnInit {
 		this.isShowButton = true;
 		this.isShowIcon = false;
 		this.myForm.removeControl('dataPickerTo');
-		this.modelDate = {};
+		this.modelDateTo = {};
 	}
+
+
+	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer, private locationService:LocationService) { }
 
 
 	onChanged(imgCrop) {
 		this.photo = imgCrop.image;
+		this.isValidPhoto = false;
 	}
 
 	getAllLocations() {
 		this.locationService.getAllLocations().subscribe(locations => {
 			this.locations = [];
-			locations.forEach(location => {
-				this.locations.push(new EventLocation(
-					location.address,
-					location.country,
-					location.city,
-					[]
-				))
-			});
+			// locations.forEach(location => {
+			// 	this.locations.push(new EventLocation(
+			// 		location.address,
+			// 		location.country,
+			// 		location.city,
+			// 		[]
+			// 	))
+			// });
 			console.log('come here', locations); // TODO	delete this
 		})
 	}
@@ -128,9 +146,15 @@ export class AddEventComponent implements OnInit {
 		this.isShowAgenda = increased;
 		this.isShowEvent = !increased;
 		if (this.isShowEvent) {
-			this.myForm.reset();
-			this.modelFrom = {};
-			this.modelDate = {};
+
+			
+			this.isValidPhoto = true;
+			this.isSowSelectLocat = false;
 		}
 	}
+
+	showSelectLocation() {
+		this.isSowSelectLocat = !this.isSowSelectLocat;
+	}
 }
+

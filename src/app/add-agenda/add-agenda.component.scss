@@ -11,8 +11,6 @@ $colorB: rgb(96, 10, 186);
     background: rgba($color, $opacity);
 }
 
-
-
 .bg-image{
     min-height: 42.25rem;
     .action-marin{
@@ -34,6 +32,7 @@ $colorB: rgb(96, 10, 186);
         } 
         .optionSelect {
             color: black;
+            background-color: rgb(173, 181, 191);
         }
     }
     .input-group-addon {
@@ -79,8 +78,13 @@ $colorB: rgb(96, 10, 186);
 .empty-space {
     min-height: 9rem;
 }
+
 // TODO backgraun for timepicker
-    ngb-timepicker /deep/ input[_ngcontent-c4] {
+    ngb-timepicker /deep/ input {
         @include bgColor($color-grey,
         $color-wh);
+        &:focus {
+            @include bgColor(rgb(117, 115, 115),
+            $color-wh);
+        }
     }

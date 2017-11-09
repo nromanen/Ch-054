@@ -1,3 +1,46 @@
 @import '../import_scss/_size';
 @import '../import_scss/_color';
-@import '../cropper-event/cropper.component';
+
+.marginTopCrop{
+    margin-top: 1.313rem;
+}
+.errorType {
+    min-height: 1.313rem;
+    font-size: 0.9rem;
+}  
+.file-upload {
+    position: relative;
+    top: -0.1125rem;
+    cursor: pointer;
+    display: inline;
+    input[type='file'] {
+        @include size(3.438rem, 8rem);
+        position: absolute;
+        top: -1rem;
+        left: 0%;
+        opacity: 0;
+        cursor: pointer;
+    }
+    +.hiddeCropper {
+        position: relative;
+        top: -0.205rem;
+    }
+}
+.crop {
+    font-size: 0.9rem;
+    width: 50%;
+    text-shadow: 0.0625rem 0.0625rem 0.1875rem black, 0.0625rem 0.0625rem 0.5rem black;
+    color: white;
+    margin: 0.125rem;
+    opacity: 0;
+    transform: translateY(50%);
+    transition: all 0.35s ease;
+    &:hover {
+        transition: all 0.35s ease;
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+

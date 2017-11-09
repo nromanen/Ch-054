@@ -4,12 +4,10 @@
 .marginTopCrop{
     margin-top: 1.313rem;
 }
-        .errorType {
-            min-height: 1.313rem;
-            font-size: 0.9rem;
-        }
-
-
+.errorType {
+    min-height: 1.313rem;
+    font-size: 0.9rem;
+}  
 .file-upload {
     position: relative;
     top: -0.1125rem;
@@ -28,33 +26,21 @@
         top: -0.205rem;
     }
 }
-
-.card-hover-icons {
-    height: 5em;
-    width: 20%;
-    position: absolute;
-    top: 0;
-    // bottom: 0;
-    left: 40%;
-    right: 0;
-    padding: 0.5rem;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    .crop {
-        font-size: 1.18rem;
-        text-shadow: 0.0625rem 0.0625rem 0.1875rem black, 0.0625rem 0.0625rem 0.5rem black;
-        color: white;
-        margin: 0.125rem;
-        opacity: 1;
-        transform: translateY(50%);
+.crop {
+    font-size: 1.18rem;
+    width: 30%;
+    text-shadow: 0.0625rem 0.0625rem 0.1875rem black, 0.0625rem 0.0625rem 0.5rem black;
+    color: white;
+    margin: 0.125rem;
+    opacity: 0;
+    transform: translateY(50%);
+    transition: all 0.35s ease;
+    &:hover {
         transition: all 0.35s ease;
-        &:hover {
-            transition: all 0.35s ease;
-            opacity: 1;
-            transform: translateX(0);
-        }
+        opacity: 1;
+        transform: translateX(0);
     }
 }
+
+
+

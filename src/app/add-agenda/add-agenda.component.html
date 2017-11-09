@@ -16,8 +16,8 @@
               <label for="gender1" class="font-weight-bold">Select action</label>
               <div class="btn-group align-items-center justify-content-center w-100" data-toggle="buttons">
                 <select class="form-control selectsSchedule" id="gender1" (change)="changeSelect()">
-                  <option value="1" class="optionSelect">Official</option>
-                  <option selected value="2" class="optionSelect">Lecture</option>
+                  <option value="1" class="optionSelect" id="option1">Official</option>
+                  <option selected value="2" class="optionSelect" id="option2">Lecture</option>
                 </select>
               </div>
             </div>
@@ -36,30 +36,28 @@
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
-                      <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepicker">
+                      <div class="input-group input-daterange input-group mr-sm-2 mb-sm-0" id="datepicker">
                         <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerAction" [(ngModel)]="modelDate"
                           [minDate]="minDate" [maxDate]="maxDate" ngbDatepicker (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2"
                           (change)="change()">
-                        <div class="input-group-addon">
+
+                        <button class=" btn-cursor btn-icon" (click)="dp.toggle()">
                           <i class="fa fa-calendar" aria-hidden="true"></i>
-                        </div>
+                        </button>
                       </div>
                     </div>
                   </div>
 
                   <div class="form-group action-marin">
                     <label for="nameAction" class="font-weight-bold">Action</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="mb-2 mr-sm-2 mb-sm-0">
                       <input type="text" formControlName="nameAction" class="form-control input-bg" id="name" placeholder="Registration & Wellcome"
                         (change)="change()">
-                      <div class="input-group-addon">
-                        <i class="fa fa-pencil"></i>
-                      </div>
                     </div>
                   </div>
                   <div class="mt-4 text-center">
                     <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';"
-                      [disabled]="isValid" [disabled]="myFormAction.invalid">
+                      [disabled]="myFormAction.invalid || isValid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save action</button>
                   </div>
                 </form>
@@ -75,16 +73,15 @@
                           <div class="col-md-9 my-1">
                             <div class="input-group w-100 speaker-autocomplete">
                               <div class="w-100">
-                                <input ng2-auto-complete [source]="arrayOfStrings" formControlName="speaker" class="form-control input-bg w-100" id="speaker"
-                                  [ngModel]="model1" placeholder="Choose a speaker" (change)="change()">
+                                <input ng2-auto-complete [source]="speakers" display-property-name="fullName" [list-formatter]="autocompleListFormatter"
+                                  formControlName="speaker" class="form-control input-bg w-100" id="speaker" [ngModel]="model1"
+                                  placeholder="Choose a speaker" (change)="change()">
                               </div>
                               <app-modal-speaker></app-modal-speaker>
-
                             </div>
                           </div>
                           <div class="col-md-3 col-sm-12 text-center">
-                            <button class="btn btn-info my-1">
-                              <i class="fa fa-eye" aria-hidden="true"></i> Speaker</button>
+                            <app-modal-view-speaker [speakers]="myFormReport.value.speaker"></app-modal-view-speaker>
                           </div>
                         </div>
                       </div>
@@ -105,33 +102,28 @@
                       <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepickerReport">
                         <input class="form-control input-bg" placeholder="yyyy-mm-dd" [readonly]="true" [minDate]="minDate" [maxDate]="maxDate" formControlName="dataPickerReport"
                           [(ngModel)]="modelDateRepor" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker" id="calendarReport">
-                        <div class="input-group-addon">
+                        <button class=" btn-cursor btn-icon" (click)="d.toggle()">
                           <i class="fa fa-calendar" aria-hidden="true"></i>
-                        </div>
+                        </button>
                       </div>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="nameReport" class="font-weight-bold">Report</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="mb-2 mr-sm-2 mb-sm-0">
                       <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
                         (change)="change()">
-                      <div class="input-group-addon">
-                        <i class="fa fa-pencil"></i>
-                      </div>
                     </div>
                   </div>
 
                   <div class="mt-4 text-center">
                     <button type="submit" class="btn btn-color size-button mb-2" (click)="saveReport(myFormReport.value); myFormReport.value='';"
-                      [disabled]="isValid" [disabled]="myFormReport.invalid">
+                      [disabled]="myFormReport.invalid || isValid">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save lection</button>
                   </div>
-
                 </form>
               </div>
-
               <div class="w-75 mx-auto" *ngIf="schedules[0].length>0">
                 <div *ngFor="let schedule of schedules; let i = index">
 
@@ -167,9 +159,7 @@
 
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>
