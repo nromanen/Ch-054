@@ -40,10 +40,10 @@
 											<label for="calendar1" class="font-weight-bold">Date
 												<span *ngIf="isShowCalendarTo"> From</span>
 											</label>
-											<div class="input-group" placeholder="enter text">
+											<div class="input-group" placeholder="enter text" (document:click)="d.close()" (click)="$event.stopPropagation()">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="modelFrom" ngbDatepicker
 												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)"
-												 (click)="selectToday()" [readonly]="true">
+												 (click)="selectToday()" [readonly]="true" >
 												<button class="btn-cursor btn-icon" ngbPopover="Add date" triggers="mouseenter:mouseleave" (click)="addCalendar()" *ngIf="isShowButton"
 												 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
 													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
@@ -55,7 +55,7 @@
 										</div>
 										<div class="col-lg-6" *ngIf="isShowCalendarTo">
 											<label for="calendar2" class="font-weight-bold">Date To</label>
-											<div class="input-group" placeholder="enter text">
+											<div class="input-group" placeholder="enter text" (document:click)="dp.close()" (click)="$event.stopPropagation()">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDateTo" ngbDatepicker
 												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" [minDate]="minDateTo" [readonly]="true">
 												<button class="btn-cursor btn-icon" ngbPopover="Delete date" triggers="mouseenter:mouseleave" (click)="deleteCalendar()">

@@ -103,7 +103,6 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	addElementsToSchedulesByTime(item: any, schedules: Action[]) {
-		console.log('ok');
 		if (schedules.length == 0) {
 			schedules.push(item);
 			return;
@@ -135,15 +134,21 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	isInvalidItem(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if ((itemStartTime.hour == scheduleStartTime.hour && itemStartTime.minute == scheduleStartTime.minute && scheduleEndTime.hour == itemEndTime.hour && scheduleEndTime.minute == itemEndTime.minute) ||(itemStartTime.hour < scheduleStartTime.hour && scheduleStartTime.hour < itemEndTime.hour) ||(itemStartTime.hour < scheduleStartTime.hour && (scheduleStartTime.hour == itemEndTime.hour && scheduleStartTime.minute < itemEndTime.minute)) || 
-		(itemStartTime.hour > scheduleStartTime.hour && scheduleEndTime.hour > itemEndTime.hour) || (itemStartTime.hour == scheduleStartTime.hour && itemStartTime.minute > scheduleStartTime.minute && scheduleEndTime.hour >= itemEndTime.hour)) {
+		if (
+		(itemStartTime.hour > scheduleStartTime.hour && scheduleEndTime.hour == itemEndTime.hour) || 
+		(itemStartTime.hour > scheduleStartTime.hour && scheduleEndTime.hour >= itemStartTime.hour) || 
+		(itemStartTime.hour == scheduleStartTime.hour && itemStartTime.minute == scheduleStartTime.minute && scheduleEndTime.hour == itemEndTime.hour && scheduleEndTime.minute == itemEndTime.minute) ||
+		(itemStartTime.hour < scheduleStartTime.hour && scheduleStartTime.hour < itemEndTime.hour) || 
+		(itemStartTime.hour < scheduleStartTime.hour && (scheduleStartTime.hour == itemEndTime.hour && scheduleStartTime.minute < itemEndTime.minute))
+		) {
+			console.log('bad');
 			return true;	
 		}
 		return false;
 	}
 
 	isTimeMoreSched(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute == itemStartTime.minute) && (scheduleEndTime.hour < itemEndTime.hour) || (scheduleStartTime.hour < itemStartTime.hour && itemStartTime.hour > scheduleEndTime.hour) || (scheduleEndTime.hour == itemStartTime.hour && itemStartTime.minute > scheduleEndTime.minute)){
+		if ( scheduleStartTime.hour < itemStartTime.hour || ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute == itemStartTime.minute) && (scheduleEndTime.hour < itemEndTime.hour)) || (scheduleEndTime.hour == itemStartTime.hour && itemStartTime.minute > scheduleEndTime.minute) || (scheduleEndTime.hour == itemStartTime.hour && scheduleEndTime.minute == itemStartTime.minute) || (scheduleEndTime.hour == itemStartTime.hour && scheduleEndTime.minute == itemStartTime.minute) ){
 			return true;
 		}
 		return false;
@@ -220,8 +225,8 @@ export class AddAgendaComponent implements OnInit {
 	ngOnInit() {
 		this.myFormAction = this.fb.group({
 			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
-			timeActionFrom: new FormControl(''),
-			timeActionTo: new FormControl(''),
+			timeActionFrom: new FormControl('', [Validators.required]),
+			timeActionTo: new FormControl('', [Validators.required]),
 			dataPickerAction: new FormControl(''),
 		});
 
