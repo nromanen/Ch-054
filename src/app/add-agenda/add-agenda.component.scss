@@ -88,3 +88,5 @@ $colorB: rgb(96, 10, 186);
             $color-wh);
         }
     }
+
+    input.ng-touched.ng-invalid {border:solid red 2px;}

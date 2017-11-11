@@ -76,43 +76,6 @@ validationPhotoType(file:File){
   }
 }
 
-  // fileChangeListener(event) {
-  //   this.isShowErrorPhoto = false;
-  //   this.isValidSize = true;
-  //   var image = new Image();
-  //   var file: File = event.target.files[0];
-  //   var myReader: FileReader = new FileReader();
-  //   var that = this;
-
-  //   image.onload = function () {
-  //     let width = image.width;
-  //     let height = image.height;
-  //     if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
-  //       that.cropper.reset();
-  //       image.onload = null;
-  //       this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-  //       that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
-  //       that.isShowErrorPhoto = true;
-  //       that.isValidSize = false;
-  //       return false;
-  //     }
-  // };
-
-  //   myReader.onloadend = function (loadEvent: any) {
-  //     that.validationPhotoType(file);
-  //     image.src = loadEvent.target.result;
-  //     that.cropper.setImage(image);
-  //   };
-  //   that.event = event;
-  //   if (file) {
-  //     myReader.readAsDataURL(file);
-  //   }
-  //   if (!file && !this.isValidSize) {
-  //     this.cropper.reset();
-  //     return false;
-  //   }
-  // }
-
   fileChangeListener(event) {
     this.isShowErrorPhoto = false;
     this.isValidSize = true;
@@ -122,7 +85,28 @@ validationPhotoType(file:File){
     var that = this;
 
 
-    image.onload = function () {
+    // image.onload = function () {
+    //   let width = image.width;
+    //   let height = image.height;
+    //   if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
+    //     //TODO change img.onload=null. 
+    //     image.onload = null;
+    //     this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
+    //     that.cropper.reset();
+    //     that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
+    //     that.isShowErrorPhoto = true;
+    //     that.isValidSize = false;
+    //     if (!file && that.isValidSize) {
+    //       that.cropper.reset();
+    //       return false;
+    //     }
+    //     return false;
+    //   }
+    // };
+    myReader.onloadend = function (loadEvent: any) {
+      that.validationPhotoType(file);
+      image.src = loadEvent.target.result;
+        image.onload = function () {
       let width = image.width;
       let height = image.height;
       if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
@@ -133,22 +117,17 @@ validationPhotoType(file:File){
         that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
         that.isShowErrorPhoto = true;
         that.isValidSize = false;
-        console.log(that.isValidSize);
         if (!file && that.isValidSize) {
           that.cropper.reset();
           return false;
         }
         return false;
       }
-    };
-    myReader.onloadend = function (loadEvent: any) {
-      that.validationPhotoType(file);
-      image.src = loadEvent.target.result;
-      if(that.isValidSize==true){console.log('hghgjhg');}
       that.cropper.setImage(image);
     };
+      
+    };
     that.event = event;
-    console.log(this.isValidSize);
     if (file) {
       myReader.readAsDataURL(file);
     }
