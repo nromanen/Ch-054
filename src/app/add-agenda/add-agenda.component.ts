@@ -108,6 +108,7 @@ export class AddAgendaComponent implements OnInit {
 			schedules.push(item);
 			return;
 		}
+		console.log(this.mapObjectTimeToMinutes(item['startTime']));
 		let templArrMore = [];
 		let templArrLess = [];
 		let itemMoreSchedule;
@@ -132,6 +133,11 @@ export class AddAgendaComponent implements OnInit {
 		} else if (templArrLess.length > 0) {
 			schedules.splice(templArrLess[0], 0, item);
 		}
+	}
+
+
+	mapObjectTimeToMinutes(time){
+		return time.hour*60 + time.minute;
 	}
 
 	isInvalidItem(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
