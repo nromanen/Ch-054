@@ -61,42 +61,68 @@ export class AddAgendaComponent implements OnInit {
 		config.spinners = false;
 	}
 
-	// changeSelect() {
-	// 	this.isAction = !this.isAction;
-	// 	this.isReport = !this.isReport;
-	// 	this.resetForm();
-	// }
+
+	ngOnInit() {
+		this.myFormAction = this.fb.group({
+			nameAction: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(35)]),
+			timeActionFrom: new FormControl(''),
+			timeActionTo: new FormControl(''),
+			dataPickerAction: new FormControl(''),
+		});
+		this.myFormReport = this.fb.group({
+			nameReport: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(25)]),
+			timeReportFrom: new FormControl(''),
+			timeReportTo: new FormControl(''),
+			dataPickerReport: new FormControl(''),
+			speaker: new FormControl('', [Validators.required]),
+
+		});
+		this.setDate(this.selectData);
+	}
+
+	resetSomevauesForms() {
+		this.isValid = true;
+		this.myFormAction.patchValue({nameAction: '', timeActionFrom: '', timeActionTo: ''});
+		this.myFormReport.patchValue({nameReport: '', timeReportFrom: '', timeReportTo: '', speaker: ''});
+	}
+
+	changeSelect() {
+		this.isAction = !this.isAction;
+		this.isReport = !this.isReport;
+		this.resetSomevauesForms();
+	}
+
 	saveReport(form) {
+		console.log('Im in saveReport()');
 		let report = new Report(form.nameReport, form.timeReportFrom, form.timeReportTo, form.dataPickerReport, form.speaker);
 		if (this.schedules.length === 1) {
 			this.addElementsToSchedulesByTime(report, this.schedules[0]);
 		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedulesByDate(report);
 		}
-		// this.resetForm();
 	}
 
 	saveAction(form) {
+		console.log('Im in saveAction()');
 		let action = new Action(form.nameAction, form.timeActionFrom, form.timeActionTo, form.dataPickerAction);
 		if (this.schedules.length === 1) {
 			this.addElementsToSchedulesByTime(action, this.schedules[0]);
 		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedulesByDate(action);
 		}
-		// this.resetForm();
 	}
 
 	addElementsToSchedulesByDate(item: any) {
 		for (let i = 0; i < this.schedules.length; i++) {
 			if (this.schedules[i].length == 0) {
 				this.schedules[i].push(item);
+				this.resetSomevauesForms();
 				return;
 			}
 			for (let j = 0; j < this.schedules[i].length; j++) {
 				let schedulDate = this.schedules[i][j]['date'];
 				if (item.date.day == schedulDate['day']) {
 					this.addElementsToSchedulesByTime(item, this.schedules[i]);
-					// this.schedules[i].push(item);
 					return;
 				}
 			}
@@ -106,16 +132,17 @@ export class AddAgendaComponent implements OnInit {
 	addElementsToSchedulesByTime(item: any, schedules: Action[]) {
 		if (schedules.length == 0) {
 			schedules.push(item);
+			this.resetSomevauesForms();
 			return;
 		}
 		if (this.mapObjectTimeToMinutes(item['endTime']) <= this.mapObjectTimeToMinutes(schedules[0]['startTime'])) {
 			schedules.splice(0, 0, item);
-			console.log('map');
+			this.resetSomevauesForms();
 			return;
 		}
 		if (this.mapObjectTimeToMinutes(item['startTime']) >= this.mapObjectTimeToMinutes(schedules[schedules.length - 1]['endTime'])) {
 			schedules.push(item);
-			console.log('mapend');
+			this.resetSomevauesForms();
 			return;
 		}
 		for (let i = 0; i < schedules.length-1; i++) {
@@ -125,7 +152,7 @@ export class AddAgendaComponent implements OnInit {
 			let nextScheduleStartTime = this.mapObjectTimeToMinutes(schedules[i + 1]['startTime']);
 			if (itemStartTime >= scheduleEndTime && itemEndTime <= nextScheduleStartTime) {
 				schedules.splice(i + 1, 0, item);
-				console.log('plus');
+				this.resetSomevauesForms();
 				return;
 			}	
 		}
@@ -136,13 +163,6 @@ export class AddAgendaComponent implements OnInit {
 		return time.hour * 60 + time.minute;
 	}
 
-
-	// resetForm() {
-	// 	this.isValid = true;
-	// 	this.myFormReport.reset();
-	// 	this.myFormAction.reset();
-	// 	this.setDate(this.selectData);
-	// }
 	setDate(selectDate: any) {
 		if (selectDate.length === 1) {
 			let date = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
@@ -151,7 +171,6 @@ export class AddAgendaComponent implements OnInit {
 			this.minDate = date;
 			this.maxDate = date;
 			this.schedules.length = 1;
-
 		}
 		if (selectDate.length > 1) {
 			this.minDate = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
@@ -192,49 +211,13 @@ export class AddAgendaComponent implements OnInit {
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
 		if (timeFrom && timeTo) {
 			return ((timeFrom.hour < timeTo.hour) || ((timeFrom.hour === timeTo.hour) && (timeFrom.minute < timeTo.minute)));
-
 		}
 		return false;
 	}
-
-
-	ngOnInit() {
-		this.myFormAction = this.fb.group({
-			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
-			timeActionFrom: new FormControl(''),
-			timeActionTo: new FormControl(''),
-			dataPickerAction: new FormControl(''),
-		});
-
-		this.myFormReport = this.fb.group({
-			nameReport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
-			timeReportFrom: new FormControl(''),
-			timeReportTo: new FormControl(''),
-			dataPickerReport: new FormControl(''),
-			speaker: new FormControl('', [Validators.required]),
-
-		});
-
-		this.setDate(this.selectData);
-	}
-
-
-
-	changeSelect() {
-		this.isAction = !this.isAction;
-		this.isReport = !this.isReport;
-		this.isValid = true;
-		// this.myFormReport.reset();
-		// this.myFormAction.reset();
-		// this.setDate(this.selectData);
-	}
-
-
 
 	@Output() isHideAgenda = new EventEmitter<boolean>();
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
 	}
-
 
 }

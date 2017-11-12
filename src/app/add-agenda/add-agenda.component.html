@@ -126,7 +126,6 @@
               </div>
               <div class="w-75 mx-auto" *ngIf="schedules[0].length>0">
                 <div *ngFor="let schedule of schedules; let i = index">
-
                   <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table" *ngIf="schedules[i].length>0">
                     <div class="table-bgraund font-weight-bold text-center cell-div py-2">
                       Schedule {{schedule[0].date | pipeDate}}
