@@ -54,10 +54,6 @@ export class ModalLocationComponent implements OnInit {
     this.locationService.saveLocation(this.location);
   }
 
-  getLocations() {
-    this.locationService.getAllLocations().subscribe(locations => console.log('its locations ', locations));
-  }
-
   ngOnInit() {
     this.modalFormLocat = this.formbuild.group({
       country: new FormControl(''),
