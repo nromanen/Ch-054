@@ -129,7 +129,7 @@ export class AddAgendaComponent implements OnInit {
 				return;
 			}	
 		}
-		swal('Oops...', 'The entered time is not correct! Please enter correct time', 'error')
+		swal('The entered time is not correct!', 'Please enter correct time', 'error')
 	}
 
 	mapObjectTimeToMinutes(time) {
