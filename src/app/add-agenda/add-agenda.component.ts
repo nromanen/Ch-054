@@ -5,6 +5,7 @@ import { BrowserModule, DomSanitizer, SafeHtml } from "@angular/platform-browser
 import { NgbModule, NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
+declare var swal: any;
 
 @Component({
 	selector: 'app-add-agenda',
@@ -107,65 +108,34 @@ export class AddAgendaComponent implements OnInit {
 			schedules.push(item);
 			return;
 		}
-		console.log(this.mapObjectTimeToMinutes(item['startTime']));
-		let templArrMore = [];
-		let templArrLess = [];
-		let itemMoreSchedule;
-		let itemLessSchedule;
-		for (let i = 0; i < schedules.length; i++) {
-			itemMoreSchedule = this.isTimeMoreSched(item['startTime'], item['endTime'], schedules[i]['startTime'], schedules[i]['endTime']);
-			itemLessSchedule = this.isTimeLessSched(item['startTime'], item['endTime'], schedules[i]['startTime'], schedules[i]['endTime']);
-			if (this.isInvalidItem(item['startTime'], item['endTime'], schedules[i]['startTime'], schedules[i]['endTime'])){
-				return;
-			}
-			if (itemMoreSchedule) {
-				templArrMore.push(i);
-			} else if (itemLessSchedule) {
-				templArrLess.push(i);
-			}		
-		}
-		if (templArrMore.length < 0 && templArrLess.length < 0) {
+		if (this.mapObjectTimeToMinutes(item['endTime']) <= this.mapObjectTimeToMinutes(schedules[0]['startTime'])) {
+			schedules.splice(0, 0, item);
+			console.log('map');
 			return;
 		}
-		if (templArrMore.length>0){
-			schedules.splice((templArrMore[templArrMore.length - 1]) + 1, 0, item);
-		} else if (templArrLess.length > 0) {
-			schedules.splice(templArrLess[0], 0, item);
+		if (this.mapObjectTimeToMinutes(item['startTime']) >= this.mapObjectTimeToMinutes(schedules[schedules.length - 1]['endTime'])) {
+			schedules.push(item);
+			console.log('mapend');
+			return;
 		}
-	}
-
-
-	mapObjectTimeToMinutes(time){
-		return time.hour*60 + time.minute;
-	}
-
-	isInvalidItem(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if (
-		(itemStartTime.hour > scheduleStartTime.hour && scheduleEndTime.hour == itemEndTime.hour) || 
-		(itemStartTime.hour > scheduleStartTime.hour && scheduleEndTime.hour >= itemStartTime.hour) || 
-		(itemStartTime.hour == scheduleStartTime.hour && itemStartTime.minute == scheduleStartTime.minute && scheduleEndTime.hour == itemEndTime.hour && scheduleEndTime.minute == itemEndTime.minute) ||
-		(itemStartTime.hour < scheduleStartTime.hour && scheduleStartTime.hour < itemEndTime.hour) || 
-		(itemStartTime.hour < scheduleStartTime.hour && (scheduleStartTime.hour == itemEndTime.hour && scheduleStartTime.minute < itemEndTime.minute))
-		) {
-			console.log('bad');
-			return true;	
+		for (let i = 0; i < schedules.length-1; i++) {
+			let itemStartTime = this.mapObjectTimeToMinutes(item['startTime']);
+			let itemEndTime = this.mapObjectTimeToMinutes(item['endTime']);
+			let scheduleEndTime = this.mapObjectTimeToMinutes(schedules[i]['endTime']);
+			let nextScheduleStartTime = this.mapObjectTimeToMinutes(schedules[i + 1]['startTime']);
+			if (itemStartTime >= scheduleEndTime && itemEndTime <= nextScheduleStartTime) {
+				schedules.splice(i + 1, 0, item);
+				console.log('plus');
+				return;
+			}	
 		}
-		return false;
+		swal('Oops...', 'The entered time is not correct! Please enter correct time', 'error')
 	}
 
-	isTimeMoreSched(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if ( scheduleStartTime.hour < itemStartTime.hour || ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute == itemStartTime.minute) && (scheduleEndTime.hour < itemEndTime.hour)) || (scheduleEndTime.hour == itemStartTime.hour && itemStartTime.minute > scheduleEndTime.minute) || (scheduleEndTime.hour == itemStartTime.hour && scheduleEndTime.minute == itemStartTime.minute) || (scheduleEndTime.hour == itemStartTime.hour && scheduleEndTime.minute == itemStartTime.minute) ){
-			return true;
-		}
-		return false;
+	mapObjectTimeToMinutes(time) {
+		return time.hour * 60 + time.minute;
 	}
 
-	isTimeLessSched(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if ( (scheduleStartTime.hour > itemStartTime.hour && itemStartTime.hour < scheduleEndTime.hour) ||  ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute > itemStartTime.minute) && (scheduleStartTime.minute>=scheduleEndTime.minute)) ) {
-			return true;
-		}
-		return false;
-	}
 
 	// resetForm() {
 	// 	this.isValid = true;
@@ -231,8 +201,8 @@ export class AddAgendaComponent implements OnInit {
 	ngOnInit() {
 		this.myFormAction = this.fb.group({
 			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
-			timeActionFrom: new FormControl('', [Validators.required]),
-			timeActionTo: new FormControl('', [Validators.required]),
+			timeActionFrom: new FormControl(''),
+			timeActionTo: new FormControl(''),
 			dataPickerAction: new FormControl(''),
 		});
 
