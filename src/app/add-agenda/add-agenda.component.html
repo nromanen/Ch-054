@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
-                      <div class="input-group input-daterange input-group mr-sm-2 mb-sm-0" id="datepicker">
+                      <div class="input-group input-daterange input-group mr-sm-2 mb-sm-0" id="datepicker" (document:click)="dp.close()" (click)="$event.stopPropagation()">
                         <input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerAction" [(ngModel)]="modelDate"
                           [minDate]="minDate" [maxDate]="maxDate" ngbDatepicker (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2"
                           (change)="change()">
@@ -57,7 +57,7 @@
                   </div>
                   <div class="mt-4 text-center">
                     <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';"
-                      [disabled]="myFormAction.invalid || isValid">
+                      [disabled]="myFormAction.invalid ">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save action</button>
                   </div>
                 </form>
@@ -91,7 +91,7 @@
                   <div class="row mb-3">
                     <div class="col-lg-4 mb-2">
                       <label for="timeReportFrom" class="font-weight-bold">Time Start</label>
-                      <ngb-timepicker formControlName="timeReportFrom" [(ngModel)]="timeReportFrom" (change)="change()"></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeReportFrom" class="timepicker" [(ngModel)]="timeReportFrom" (change)="change()"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4 mb-2">
                       <label for="timeReportTo" class="font-weight-bold">Time End</label>
@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
-                      <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepickerReport">
+                      <div class="input-daterange input-group mr-sm-2 mb-sm-0" id="datepickerReport" (document:click)="d.close()" (click)="$event.stopPropagation()">
                         <input class="form-control input-bg" placeholder="yyyy-mm-dd" [readonly]="true" [minDate]="minDate" [maxDate]="maxDate" formControlName="dataPickerReport"
                           [(ngModel)]="modelDateRepor" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker" id="calendarReport">
                         <button class=" btn-cursor btn-icon" (click)="d.toggle()">
@@ -126,7 +126,6 @@
               </div>
               <div class="w-75 mx-auto" *ngIf="schedules[0].length>0">
                 <div *ngFor="let schedule of schedules; let i = index">
-
                   <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table" *ngIf="schedules[i].length>0">
                     <div class="table-bgraund font-weight-bold text-center cell-div py-2">
                       Schedule {{schedule[0].date | pipeDate}}
@@ -179,3 +178,4 @@
     </div>
   </div>
 </div>
+

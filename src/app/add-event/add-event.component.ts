@@ -34,7 +34,7 @@ export class AddEventComponent implements OnInit {
 	isShowEvent: boolean = true;
 	isValidPhoto: boolean = true;
 	isSowSelectLocat: boolean = false;
-	selectData: Array<any> = new Array();
+	selectDate: Array<any> = new Array();
 	event: Event;
 	myForm: FormGroup;
 
@@ -55,7 +55,7 @@ export class AddEventComponent implements OnInit {
 
 	selectedDateFrom(event) {
 		this.minDateTo = { year: event['year'], month: event['month'], day: event['day'] };
-		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day']+1};
+		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day'] + 1 };
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
@@ -81,9 +81,7 @@ export class AddEventComponent implements OnInit {
 		this.modelDateTo = {};
 	}
 
-
 	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer, private locationService:LocationService) { }
-
 
 	onChanged(imgCrop) {
 		this.photo = imgCrop.image;
@@ -99,10 +97,10 @@ export class AddEventComponent implements OnInit {
 	saveEvent(form) {
 		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
 		if (!form.dataPickerTo && form.dataPickerFrom) {
-			this.selectData.push(form.dataPickerFrom);
+			this.selectDate.push(form.dataPickerFrom);
 		}
 		if (form.dataPickerFrom && form.dataPickerTo) {
-			this.selectData.push(form.dataPickerFrom, form.dataPickerTo);
+			this.selectDate.push(form.dataPickerFrom, form.dataPickerTo);
 		}
 		this.isShowAgenda = true;
 		this.isShowEvent = false;
@@ -123,8 +121,6 @@ export class AddEventComponent implements OnInit {
 		this.isShowAgenda = increased;
 		this.isShowEvent = !increased;
 		if (this.isShowEvent) {
-
-			
 			this.isValidPhoto = true;
 			this.isSowSelectLocat = false;
 		}
@@ -134,4 +130,3 @@ export class AddEventComponent implements OnInit {
 		this.isSowSelectLocat = !this.isSowSelectLocat;
 	}
 }
-
