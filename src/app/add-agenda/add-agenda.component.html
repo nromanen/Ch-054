@@ -57,7 +57,7 @@
                   </div>
                   <div class="mt-4 text-center">
                     <button type="submit" class="btn btn-color size-button mb-2" (click)="saveAction(myFormAction.value); myFormAction.value='';"
-                      [disabled]="myFormAction.invalid || isValid">
+                      [disabled]="myFormAction.invalid ">
                       <i class="fa fa-floppy-o" aria-hidden="true"></i> Save action</button>
                   </div>
                 </form>

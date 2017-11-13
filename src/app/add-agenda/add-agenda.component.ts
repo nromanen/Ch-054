@@ -27,8 +27,8 @@ export class AddAgendaComponent implements OnInit {
 	maxDate: object = {};
 	modelDateRepor: object = {};
 	modelDate: object = {};
-	time = { hour: '09', minute: '00' };
-	timeReport = { hour: '09', minute: '00' };
+	// time = { hour: '09', minute: '00' };
+	// timeReport = { hour: '09', minute: '00' };
 	schedules: Array<Action[]> = [[]];
 	@Input() selectDate: Array<any>;
 	@Output() isHideAgenda = new EventEmitter<boolean>();
@@ -64,9 +64,9 @@ export class AddAgendaComponent implements OnInit {
 	ngOnInit() {
 		this.myFormAction = this.fb.group({
 			nameAction: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(35)]),
-			timeActionFrom: new FormControl(''),
-			timeActionTo: new FormControl(''),
-			dataPickerAction: new FormControl(''),
+			timeActionFrom: new FormControl('', [Validators.required]),
+			timeActionTo: new FormControl('', [Validators.required]),
+			dataPickerAction: new FormControl('')
 		});
 		this.myFormReport = this.fb.group({
 			nameReport: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(25)]),
@@ -78,11 +78,23 @@ export class AddAgendaComponent implements OnInit {
 		});
 		this.setDate(this.selectDate);
 	}
+	//TODO validation times
+	isTimesIntervalCorrect(timeFrom: any, timeTo: any) {
+		return (group: FormGroup) => {
+			let from = group.controls[timeFrom];
+			let to = group.controls[timeTo];
+			if (this.mapObjectTimeToMinutes(from) >= this.mapObjectTimeToMinutes(to)) {
+				return {
+					invalidTime: true
+				};
+			}
+		}
+	}
 
 	resetSomevauesForms() {
 		this.isValid = true;
-		this.myFormAction.patchValue({nameAction: '', timeActionFrom: '', timeActionTo: ''});
-		this.myFormReport.patchValue({nameReport: '', timeReportFrom: '', timeReportTo: '', speaker: ''});
+		this.myFormAction.patchValue({ nameAction: '', timeActionFrom: '', timeActionTo: '' });
+		this.myFormReport.patchValue({ nameReport: '', timeReportFrom: '', timeReportTo: '', speaker: '' });
 	}
 
 	changeSelect() {
@@ -149,7 +161,7 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	isTimeItemMoreTimeSchedule(schedules, item) {
-		for (let i = 0; i < schedules.length-1; i++) {
+		for (let i = 0; i < schedules.length - 1; i++) {
 			let itemStartTime = this.mapObjectTimeToMinutes(item['startTime']);
 			let itemEndTime = this.mapObjectTimeToMinutes(item['endTime']);
 			let scheduleEndTime = this.mapObjectTimeToMinutes(schedules[i]['endTime']);
@@ -158,7 +170,7 @@ export class AddAgendaComponent implements OnInit {
 				schedules.splice(i + 1, 0, item);
 				this.resetSomevauesForms();
 				return true;
-			}	
+			}
 		}
 	}
 
@@ -202,18 +214,18 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	change() {
-		if (this.isAction) {
-			this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
-		} else if (this.isReport) {
-			this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
-		} else {
-			this.isValid = true;
-		}
+		// if (this.isAction) {
+		// 	this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
+		// } else if (this.isReport) {
+		// 	this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
+		// } else {
+		// 	this.isValid = true;
+		// }
 	}
 
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
 		if (timeFrom && timeTo) {
-			return ((timeFrom.hour < timeTo.hour) || ((timeFrom.hour === timeTo.hour) && (timeFrom.minute < timeTo.minute)));
+			return (this.mapObjectTimeToMinutes(timeFrom) < this.mapObjectTimeToMinutes(timeTo));
 		}
 		return false;
 	}
