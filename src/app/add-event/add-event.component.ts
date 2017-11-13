@@ -32,7 +32,7 @@ export class AddEventComponent implements OnInit {
 	isShowEvent: boolean = true;
 	isValidPhoto: boolean = true;
 	isSowSelectLocat: boolean = false;
-	selectData: Array<any> = new Array();
+	selectDate: Array<any> = new Array();
 	event: Event;
 	myForm: FormGroup;
 
@@ -43,7 +43,7 @@ export class AddEventComponent implements OnInit {
 		city: 'NY',
 		address: 'Central Park',
 		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'],
-		 ['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
+		['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
 	}, {
 		country: 'Ukraine',
 		city: 'Lviv',
@@ -61,13 +61,27 @@ export class AddEventComponent implements OnInit {
 		return this._sanitizer.bypassSecurityTrustHtml(html);
 	}
 
+
+	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer) { }
+
+
+	ngOnInit() {
+		this.myForm = this.fb.group({
+			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
+			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+			dataPickerFrom: new FormControl('', [Validators.required]),
+			dataPickerTo: '',
+			location: new FormControl('', [Validators.required])
+		});
+	}
+
 	selectToday() {
 		this.modelFrom = this.minDateFrom;
 	}
 
 	selectedDateFrom(event) {
 		this.minDateTo = { year: event['year'], month: event['month'], day: event['day'] };
-		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day']+1};
+		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day'] + 1 };
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
@@ -93,10 +107,6 @@ export class AddEventComponent implements OnInit {
 		this.modelDateTo = {};
 	}
 
-
-	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer) { }
-
-
 	onChanged(imgCrop) {
 		this.photo = imgCrop.image;
 		this.isValidPhoto = false;
@@ -105,31 +115,20 @@ export class AddEventComponent implements OnInit {
 	saveEvent(form) {
 		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
 		if (!form.dataPickerTo && form.dataPickerFrom) {
-			this.selectData.push(form.dataPickerFrom);
+			this.selectDate.push(form.dataPickerFrom);
 		}
 		if (form.dataPickerFrom && form.dataPickerTo) {
-			this.selectData.push(form.dataPickerFrom, form.dataPickerTo);
+			this.selectDate.push(form.dataPickerFrom, form.dataPickerTo);
 		}
 		this.isShowAgenda = true;
 		this.isShowEvent = false;
 	}
 
-	ngOnInit() {
-		this.myForm = this.fb.group({
-			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
-			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-			dataPickerFrom: new FormControl('', [Validators.required]),
-			dataPickerTo: '',
-			location: new FormControl('', [Validators.required])
-		});
-	}
 
 	isHideAgenda(increased) {
 		this.isShowAgenda = increased;
 		this.isShowEvent = !increased;
 		if (this.isShowEvent) {
-
-			
 			this.isValidPhoto = true;
 			this.isSowSelectLocat = false;
 		}
@@ -139,4 +138,3 @@ export class AddEventComponent implements OnInit {
 		this.isSowSelectLocat = !this.isSowSelectLocat;
 	}
 }
-

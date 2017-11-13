@@ -79,7 +79,7 @@ $colorB: rgb(96, 10, 186);
     min-height: 9rem;
 }
 
-// TODO backgraun for timepicker
+  // TODO backgraun for timepicker
     ngb-timepicker /deep/ input {
         @include bgColor($color-grey,
         $color-wh);
@@ -88,5 +88,3 @@ $colorB: rgb(96, 10, 186);
             $color-wh);
         }
     }
-
-    input.ng-touched.ng-invalid {color: red;}

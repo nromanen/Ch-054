@@ -13,10 +13,11 @@ export class ModalViewSpeakerComponent implements OnInit {
 
   constructor(private modalService: NgbModal) { }
 
+  ngOnInit() {
+  }
+
   open(content) {
     this.modalService.open(content, { size: 'lg'});
-  }
-  ngOnInit() {
   }
 
 }

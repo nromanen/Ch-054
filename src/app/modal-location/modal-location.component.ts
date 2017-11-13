@@ -21,12 +21,19 @@ export class ModalLocationComponent implements OnInit {
   closeResult: string;
   hideModal: boolean = false;
   photos: Array<String[]> = [[], []];
-  isNullPhotos:boolean = true;
+  isNullPhotos: boolean = true;
   location: EventLocation;
 
 
   constructor(private modalService: NgbModal, private formfbuild: FormBuilder) { }
 
+  ngOnInit() {
+    this.modalFormLocat = this.formfbuild.group({
+      country: new FormControl(''),
+      city: new FormControl(''),
+      address: new FormControl('')
+    });
+  }
 
   open(content) {
     this.modalService.open(content, { size: 'lg', windowClass: 'dark-modal' });
@@ -37,7 +44,7 @@ export class ModalLocationComponent implements OnInit {
       if (this.photos[i].length === 0) {
         this.photos[i].push(indexImg);
         this.photos[i].push(imgCrop.image);
-        if(i === 1){
+        if (i === 1) {
           this.isNullPhotos = false;
         }
         return;
@@ -51,14 +58,6 @@ export class ModalLocationComponent implements OnInit {
 
   save(form) {
     this.location = new EventLocation(form.address, form.city, form.country, this.photos);
-  }
-
-  ngOnInit() {
-    this.modalFormLocat = this.formfbuild.group({
-      country: new FormControl(''),
-      city: new FormControl(''),
-      address: new FormControl('')
-    });
   }
 
 } 

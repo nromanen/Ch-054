@@ -12,44 +12,44 @@ import { Speaker } from '../module_ts/speaker';
 })
 export class ModalSpeakerComponent implements OnInit {
   width: number = 430;
-	height: number = 319;
-	cropperSettingsWidth: number = 860;
-	cropperSettingsHeight: number = 638;
+  height: number = 319;
+  cropperSettingsWidth: number = 860;
+  cropperSettingsHeight: number = 638;
   modalForm: FormGroup;
   photo: string = '';
   speaker: Speaker;
   isPhotoSpeaker: boolean = true;
+
+  constructor(private modalService: NgbModal, private formbuild: FormBuilder) { }
+
+  ngOnInit() {
+    this.modalForm = this.formbuild.group({
+      name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(15)]),
+      descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+      placeWork: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]),
+      position: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)])
+    });
+  }
   
-  constructor(private modalService: NgbModal, private formbuild: FormBuilder) {}
-  
-  
-    open(content) {
-      this.modalService.open(content, { size: 'lg',  windowClass: 'dark-modal' });
+  open(content) {
+    this.modalService.open(content, { size: 'lg', windowClass: 'dark-modal' });
+  }
+
+  onChanged(imgCrop) {
+    this.photo = imgCrop.image;
+    if (this.photo !== '') {
+      this.isPhotoSpeaker = false;
     }
-  
-    onChanged(imgCrop) {
-      this.photo = imgCrop.image;
-      if (this.photo !== ''){
-        this.isPhotoSpeaker = false;
-      }
-    }
-  
-    save(form) {
-      this.speaker = new Speaker(form.name, form.descr, form.placeWork, form.position, this.photo);
-      this.isPhotoSpeaker = true;
-    }
-    close() {
-      this.modalForm.reset();
-      this.isPhotoSpeaker = true;
-    }
-  
-    ngOnInit() { 
-      this.modalForm = this.formbuild.group({
-        name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(15)]),
-        descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-        placeWork: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]),
-        position: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)])
-      });
-    }
+  }
+
+  save(form) {
+    this.speaker = new Speaker(form.name, form.descr, form.placeWork, form.position, this.photo);
+    this.isPhotoSpeaker = true;
+  }
+
+  close() {
+    this.modalForm.reset();
+    this.isPhotoSpeaker = true;
+  }
 
 }
