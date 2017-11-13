@@ -2,16 +2,11 @@
 @import '../import_scss/_size';
 @import '../import_scss/_color';
 
-    .modal-main {
-        background-image: url('/assets/images/modal-bg.png');
-        background-size: cover;
-        font-family: 'Times New Roman', Times, serif;
-    }
+
 
 .modal-content {
     @include bgColor(rgb(253, 254, 254),black); 
   }
-
 
   .input-bg {
     @include bgColor(rgba(251, 252, 252, .9),

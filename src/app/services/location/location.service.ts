@@ -12,6 +12,11 @@ export class LocationService {
       .map(res => res.json());
   }
 
+  getLocation(id: number) {
+    return this.http.get('/api/locations/get/' + id)
+      .map(res => res.json());
+  }
+
   saveLocation(location: EventLocation) {
     return this.http.post('/api/locations/post', location)
       .map(res => res.json())

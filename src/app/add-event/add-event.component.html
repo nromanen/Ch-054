@@ -16,26 +16,17 @@
 	</div>
 
 	<form [formGroup]="myForm">
-		<div class="container mb-5">
-			<div class="row">
-
-			</div>
-		</div>
-		<div class="row bg-image py-5">
+		<div class="row bg-image mt-5 py-5">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="row">
 							<div class="col-md-1"></div>
 							<div class="col-md-10 px-5">
-
 								<div class="form-group">
 									<label for="name" class="font-weight-bold">Title of event</label>
-									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+									<div class="mb-2 mr-sm-2 mb-sm-0">
 										<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference">
-										<div class="input-group-addon calendar-width">
-											<i class="fa fa-pencil"></i>
-										</div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -43,35 +34,30 @@
 										Description</label>
 									<textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
 								</div>
-
-
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-6">
-
 											<label for="calendar1" class="font-weight-bold">Date
 												<span *ngIf="isShowCalendarTo"> From</span>
 											</label>
 											<div class="input-group" placeholder="enter text">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="modelFrom" ngbDatepicker
 												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)"
-												 (click)="selectToday()">
+												 (click)="selectToday()" [readonly]="true">
 												<button class="btn-cursor btn-icon" ngbPopover="Add date" triggers="mouseenter:mouseleave" (click)="addCalendar()" *ngIf="isShowButton"
 												 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
 													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
 												</button>
-
-												<div class="input-group-addon calendar-width" *ngIf="isShowIcon">
+												<button class="btn-cursor btn-icon" (click)="d.toggle()" *ngIf="isShowIcon">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
-												</div>
+												</button>
 											</div>
 										</div>
-
 										<div class="col-lg-6" *ngIf="isShowCalendarTo">
 											<label for="calendar2" class="font-weight-bold">Date To</label>
 											<div class="input-group" placeholder="enter text">
-												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDate" ngbDatepicker
-												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" [minDate]="minDateTo">
+												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDateTo" ngbDatepicker
+												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" [minDate]="minDateTo" [readonly]="true">
 												<button class="btn-cursor btn-icon" ngbPopover="Delete date" triggers="mouseenter:mouseleave" (click)="deleteCalendar()">
 													<i class="fa fa-calendar-times-o" aria-hidden="true"></i>
 												</button>
@@ -79,8 +65,6 @@
 										</div>
 									</div>
 								</div>
-
-
 								<div class="row">
 									<div class="col md-12 mb-3">
 										<div class="form-group">
@@ -90,34 +74,44 @@
 												<div class="col-md-9 my-1">
 													<div class="input-group w-100">
 														<div class="w-100">
-															<input ng2-auto-complete [source]="locations" list-formatter="myValueFormatter" formControlName="location" class="form-control input-bg w-100" id="location"
-															 [ngModel]="model1" placeholder="Choose a location">
+															<input ng2-auto-complete [source]="locations" [value-formatter]="myValueFormatter" [list-formatter]="autocompleListFormatter"
+															 formControlName="location" class="form-control input-bg w-100" id="location" placeholder="Choose a location">
 														</div>
 														<app-modal-location></app-modal-location>
-
 													</div>
 												</div>
 												<div class="col-md-3 col-sm-12 text-center">
-													<button class="btn btn-info my-1">
-														<i class="fa fa-eye" aria-hidden="true"></i> Speaker</button>
+													<button class="btn btn-info my-1 btn-cursor" [disabled]="myForm.value.location == ''" (click)="showSelectLocation()">
+														<i class="fa fa-eye" aria-hidden="true"></i> Location</button>
 												</div>
 											</div>
 										</div>
+									</div>
+								</div>
+								<div class="row" *ngIf="isSowSelectLocat">
+									<div class="row mx-auto w-100 center-block">
+										<div class="col-md-12 text-center">
+											<p class="font-weight-bold">LOCATION</p>
+											<img src={{myForm.value.location.photos[0][1]}} alt="photo one">
+
+											<img src={{myForm.value.location.photos[1][1]}} alt="photo two">
+										</div>
+									</div>
+									<div class="col-md-12 text-center">
+										<p class="font-weight-bold">{{myForm.value.location.country}}, {{myForm.value.location.city}}, {{myForm.value.location.address}}</p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-1"></div>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
 		<div class="my-5 text-center">
 			<button type="submit" class="btn btn-color text-white size-button">
 				<i class="fa fa-paper-plane"></i> Template</button>
-			<button type="submit" class="btn btn-color size-button" (click)="saveEvent(myForm.value); myForm.value='';" [disabled]="myForm.invalid">
+			<button type="submit" class="btn btn-color size-button" (click)="saveEvent(myForm.value); myForm.value='';" [disabled]="myForm.invalid || isValidPhoto">
 				<i class="fa fa-plus-circle"></i> Add agenda</button>
 		</div>
 

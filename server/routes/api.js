@@ -12,10 +12,6 @@ router.get('/', (req, res) => {
 router.get('/locations/get', (req, res) => {
     db.many("SELECT * FROM locations")
         .then(function (data) {
-            data.forEach(location=>{
-                
-            });
-
             res.status(200).json(data);
         })
         .catch(function (error) {
@@ -23,9 +19,11 @@ router.get('/locations/get', (req, res) => {
         });
 });
 
-router.get('/locations/get/photos/:locationId', (req, res) => {
+router.get('/locations/get/:locationId', (req, res) => {
     var locationId = req.params.locationId;
-    db.many("SELECT photo FROM location_photos WHERE location_id=$1", [locationId])
+    db.many(`SELECT l.id, l.country, l.city, l.address, l_p.photo 
+    FROM locations AS l JOIN location_photos AS l_p 
+    ON l.id = l_p.location_id AND l_p.location_id=$1`, [locationId])
         .then(function (data) {
             res.status(200).json(data);
         })
@@ -47,6 +45,16 @@ router.post('/locations/post/photo', (req, resp, next) => {
     const dataForInsertion = req.body;
     db.query('INSERT INTO location_photos(photo, location_id) VALUES ($1, $2)',
         [dataForInsertion.locPhoto, dataForInsertion.locId])
+        .then(function (data) {
+            resp.status(200).json(data);
+        });
+});
+
+router.post('/speakers/post', (req, resp, next) => {
+    const dataForInsertion = req.body;
+    db.query('INSERT INTO speakers(full_name, description, placework, position, photo) VALUES ($1, $2, $3, $4, $5)',
+        [dataForInsertion.fullName, dataForInsertion.description, dataForInsertion.placework,
+        dataForInsertion.position, dataForInsertion.photoPath])
         .then(function (data) {
             resp.status(200).json(data);
         });

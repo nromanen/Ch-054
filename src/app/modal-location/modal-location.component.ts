@@ -12,8 +12,8 @@ import { LocationService } from '../services/location/location.service';
   styleUrls: ['./modal-location.component.scss']
 })
 export class ModalLocationComponent implements OnInit {
-  width: number = 246;
-  height: number = 60;
+  width: number = 852;
+  height: number = 480;
   tittlePhotoOne: string = "Location one";
   tittlePhotoTwo: string = "Location two";
   cropperSettingsWidth: number = 852;
@@ -22,10 +22,11 @@ export class ModalLocationComponent implements OnInit {
   closeResult: string;
   hideModal: boolean = false;
   photos: Array<String[]> = [[], []];
+  isNullPhotos: boolean = true;
   location: EventLocation;
 
 
-  constructor(private modalService: NgbModal, private fb: FormBuilder, private locationService: LocationService) { }
+  constructor(private modalService: NgbModal, private formbuild: FormBuilder, private locationService: LocationService) { }
 
   open(content) {
     this.modalService.open(content, { size: 'lg', windowClass: 'dark-modal' });
@@ -36,12 +37,13 @@ export class ModalLocationComponent implements OnInit {
       if (this.photos[i].length === 0) {
         this.photos[i].push(indexImg);
         this.photos[i].push(imgCrop.image);
-        console.log(this.photos);
+        if (i === 1) {
+          this.isNullPhotos = false;
+        }
         return;
       }
       if (indexImg === this.photos[i][0]) {
         this.photos[i][1] = imgCrop.image;
-        console.log(this.photos);
         return;
       }
     }
@@ -52,19 +54,12 @@ export class ModalLocationComponent implements OnInit {
     this.locationService.saveLocation(this.location);
   }
 
-  getLocations() {
-    this.locationService.getAllLocations().subscribe(locations => console.log('its locations ', locations));
-  }
-
   ngOnInit() {
-    this.modalFormLocat = this.fb.group({
+    this.modalFormLocat = this.formbuild.group({
       country: new FormControl(''),
       city: new FormControl(''),
-      address: new FormControl(''),
-      photoEvent: this.fb.group({
-        cropper: new FormControl()
-      })
+      address: new FormControl('')
     });
-    this.locationService.getAllLocations().subscribe(locations=>console.log(locations));
+    this.locationService.getAllLocations().subscribe(locations => console.log(locations));
   }
 } 
