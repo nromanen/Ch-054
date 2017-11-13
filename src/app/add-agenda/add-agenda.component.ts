@@ -15,7 +15,6 @@ declare var swal: any;
 	]
 })
 
-
 export class AddAgendaComponent implements OnInit {
 
 	logoCamera: string = '/assets/images/camera.png';
@@ -26,13 +25,13 @@ export class AddAgendaComponent implements OnInit {
 	isValid: boolean = true;
 	minDate: object = {};
 	maxDate: object = {};
-
+	modelDateRepor: object = {};
+	modelDate: object = {};
 	time = { hour: '09', minute: '00' };
 	timeReport = { hour: '09', minute: '00' };
 	schedules: Array<Action[]> = [[]];
-	@Input() selectData: Array<any>;
-	modelDateRepor: object = {};
-	modelDate: object = {};
+	@Input() selectDate: Array<any>;
+	@Output() isHideAgenda = new EventEmitter<boolean>();
 
 	//autocomplete
 	model1 = "";
@@ -77,7 +76,7 @@ export class AddAgendaComponent implements OnInit {
 			speaker: new FormControl('', [Validators.required]),
 
 		});
-		this.setDate(this.selectData);
+		this.setDate(this.selectDate);
 	}
 
 	resetSomevauesForms() {
@@ -93,7 +92,6 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	saveReport(form) {
-		console.log('Im in saveReport()');
 		let report = new Report(form.nameReport, form.timeReportFrom, form.timeReportTo, form.dataPickerReport, form.speaker);
 		if (this.schedules.length === 1) {
 			this.addElementsToSchedulesByTime(report, this.schedules[0]);
@@ -103,7 +101,6 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	saveAction(form) {
-		console.log('Im in saveAction()');
 		let action = new Action(form.nameAction, form.timeActionFrom, form.timeActionTo, form.dataPickerAction);
 		if (this.schedules.length === 1) {
 			this.addElementsToSchedulesByTime(action, this.schedules[0]);
@@ -145,6 +142,13 @@ export class AddAgendaComponent implements OnInit {
 			this.resetSomevauesForms();
 			return;
 		}
+		if (this.isTimeItemMoreTimeSchedule(schedules, item)) {
+			return;
+		}
+		swal('The entered time is not correct!', 'Please enter correct time', 'error')
+	}
+
+	isTimeItemMoreTimeSchedule(schedules, item) {
 		for (let i = 0; i < schedules.length-1; i++) {
 			let itemStartTime = this.mapObjectTimeToMinutes(item['startTime']);
 			let itemEndTime = this.mapObjectTimeToMinutes(item['endTime']);
@@ -153,10 +157,9 @@ export class AddAgendaComponent implements OnInit {
 			if (itemStartTime >= scheduleEndTime && itemEndTime <= nextScheduleStartTime) {
 				schedules.splice(i + 1, 0, item);
 				this.resetSomevauesForms();
-				return;
+				return true;
 			}	
 		}
-		swal('The entered time is not correct!', 'Please enter correct time', 'error')
 	}
 
 	mapObjectTimeToMinutes(time) {
@@ -215,7 +218,6 @@ export class AddAgendaComponent implements OnInit {
 		return false;
 	}
 
-	@Output() isHideAgenda = new EventEmitter<boolean>();
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
 	}

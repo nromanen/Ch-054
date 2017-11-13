@@ -9,13 +9,13 @@ import { ImageCropperComponent, CropperSettings, Bounds, ImageCropper } from 'ng
   styleUrls: ['./cropper-location.component.scss']
 })
 export class CropperLocationComponent implements OnInit {
-
   @Input() cropperSettingsWidth: number;
   @Input() cropperSettingsHeight: number;
   @Input() width: number;
   @Input() height: number;
   @Input() tittlePhoto: string;
-
+  @Output() onChanged = new EventEmitter<any[]>();
+  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   name: string;
   data1: any;
@@ -28,8 +28,7 @@ export class CropperLocationComponent implements OnInit {
   isShowErrorPhoto = false;
   isValidSize: boolean = true;
   messageErrorPhoto = '';
-
-  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
+  
 
   constructor() {
     this.name = 'Angular2'
@@ -51,21 +50,7 @@ export class CropperLocationComponent implements OnInit {
     this.croppedWidth = bounds.right - bounds.left;
   }
 
-  onloadPhoto(image, width, height){
-    let img = new Image();
-    if (width < this.cropperSettingsWidth || height < this.cropperSettingsHeight) {
-      //TODO change img.onload=null. 
-      image.onload = null;
-      this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
-      this.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + this.cropperSettingsWidth + '*' + this.cropperSettingsHeight;
-      this.cropper.reset();
-      this.isShowErrorPhoto = true;
-      this.isValidSize = false;
-      return false;
-    }
-  }
-  
-  validationPhotoType(file:File){
+  validationPhotoType(file: File) {
     var getExtensionImage = file.type.split('/');
     var checkimg = getExtensionImage[1].toLowerCase();
     var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
@@ -76,67 +61,75 @@ export class CropperLocationComponent implements OnInit {
       return false;
     }
   }
-  
-    fileChangeListener(event) {
-      this.isShowErrorPhoto = false;
-      this.isValidSize = true;
-      var image = new Image();
-      var file: File = event.target.files[0];
-      var myReader: FileReader = new FileReader();
-      var that = this;
+
+  validationPhotoSize(image, width, height) {
+    if (width < this.cropperSettingsWidth || height < this.cropperSettingsHeight) {
+      //TODO change img.onload=null. 
+      image.onload = null;
+      image['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
+      this.cropper.reset();
+      this.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + this.cropperSettingsWidth + '*' + this.cropperSettingsHeight;
+      this.isShowErrorPhoto = true;
+      return false;
+    }
+  }
+
+  fileChangeListener(event) {
+    this.isShowErrorPhoto = false;
+    this.isValidSize = true;
+    var image = new Image();
+    var file: File = event.target.files[0];
+    var myReader: FileReader = new FileReader();
+    var that = this;
+    myReader.onloadend = function (loadEvent: any) {
+      that.validationPhotoType(file);
+      image.src = loadEvent.target.result;
       image.onload = function () {
         let width = image.width;
         let height = image.height;
-        that.onloadPhoto(image, width, height); 
-      };
-      myReader.onloadend = function (loadEvent: any) {
-        that.validationPhotoType(file);
-        image.src = loadEvent.target.result;
+        that.validationPhotoSize(image, width, height);
         that.cropper.setImage(image);
       };
-      that.event = event;
-      if (file) {
-        myReader.readAsDataURL(file);
-      }
-      if (!file && !this.isValidSize) {
-        this.cropper.reset();
-        return false;
-      }
+    };
+    that.event = event;
+    if (file) {
+      myReader.readAsDataURL(file);
     }
-  
-    showCropper() {
-      this.isShowCropper = !this.isShowCropper;
-      this.isHiddeCropper = false;
-      this.fileChangeListener(this.event);
+    if (!file && !this.isValidSize) {
+      this.cropper.reset();
+      return false;
     }
-  
-    hiddeCropper() {
-      this.isHiddeCropper = true;
-      this.isShowCropper = false;
-      this.onChanged.emit(this.data1);
-  
-    }
-  
-    setCropperSettingCanvas() {
-      this.cropperSettings1.canvasWidth = window.innerWidth / 6;
-      this.cropperSettings1.canvasHeight = window.innerHeight / 5;
-      if (this.cropper && this.cropper.cropper) {
-        this.cropper.cropper.resizeCanvas(this.cropperSettings1.canvasWidth, this.cropperSettings1.canvasHeight, true);
-      }
-    }
-  
-    onResize(event) {
-      this.setCropperSettingCanvas();
-    }
-  
-    ngOnInit() {
-      this.cropperSettings1.width = this.cropperSettingsWidth;
-      this.cropperSettings1.height = this.cropperSettingsHeight;
-      this.cropperSettings1.croppedWidth = this.cropperSettingsWidth;
-      this.cropperSettings1.croppedHeight = this.cropperSettingsHeight;
-    }
-  
-  
-    @Output() onChanged = new EventEmitter<any[]>();
-  
   }
+
+  showCropper() {
+    this.isShowCropper = !this.isShowCropper;
+    this.isHiddeCropper = false;
+    this.fileChangeListener(this.event);
+  }
+
+  hiddeCropper() {
+    this.isHiddeCropper = true;
+    this.isShowCropper = false;
+    this.onChanged.emit(this.data1);
+  }
+
+  setCropperSettingCanvas() {
+    this.cropperSettings1.canvasWidth = window.innerWidth / 6;
+    this.cropperSettings1.canvasHeight = window.innerHeight / 5;
+    if (this.cropper && this.cropper.cropper) {
+      this.cropper.cropper.resizeCanvas(this.cropperSettings1.canvasWidth, this.cropperSettings1.canvasHeight, true);
+    }
+  }
+
+  onResize(event) {
+    this.setCropperSettingCanvas();
+  }
+
+  ngOnInit() {
+    this.cropperSettings1.width = this.cropperSettingsWidth;
+    this.cropperSettings1.height = this.cropperSettingsHeight;
+    this.cropperSettings1.croppedWidth = this.cropperSettingsWidth;
+    this.cropperSettings1.croppedHeight = this.cropperSettingsHeight;
+  }
+
+}
