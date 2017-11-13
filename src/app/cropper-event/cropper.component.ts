@@ -49,32 +49,32 @@ export class CropperComponent implements OnInit {
     this.croppedWidth = bounds.right - bounds.left;
   }
 
-onloadPhoto(image, width, height){
-  // console.log(this);
-  // let img = new Image();
-  if (width < this.cropperSettingsWidth || height < this.cropperSettingsHeight) {
-    //TODO change img.onload=null. 
-    image.onload = null;
-    this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-    this.cropper.reset();
-    this.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + this.cropperSettingsWidth + '*' + this.cropperSettingsHeight;
-    this.isShowErrorPhoto = true;
-    this.isValidSize = false;
-    return false;
+  onloadPhoto(image, width, height) {
+    // console.log(this);
+    // let img = new Image();
+    if (width < this.cropperSettingsWidth || height < this.cropperSettingsHeight) {
+      //TODO change img.onload=null. 
+      image.onload = null;
+      this['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+      this.cropper.reset();
+      this.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + this.cropperSettingsWidth + '*' + this.cropperSettingsHeight;
+      this.isShowErrorPhoto = true;
+      this.isValidSize = false;
+      return false;
+    }
   }
-}
 
-validationPhotoType(file:File){
-  var getExtensionImage = file.type.split('/');
-  var checkimg = getExtensionImage[1].toLowerCase();
-  var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
-  if (extensionImage.indexOf(checkimg) == -1) {
-    this.messageErrorPhoto = 'Invalid image type. Valid type is: jpg, png, jpeg';
-    this.isShowErrorPhoto = true;
-    this.cropper.reset();
-    return false;
+  validationPhotoType(file: File) {
+    var getExtensionImage = file.type.split('/');
+    var checkimg = getExtensionImage[1].toLowerCase();
+    var extensionImage = ['jpg', 'png', 'PNG', 'JPG', 'jpeg', 'JPEG'];
+    if (extensionImage.indexOf(checkimg) == -1) {
+      this.messageErrorPhoto = 'Invalid image type. Valid type is: jpg, png, jpeg';
+      this.isShowErrorPhoto = true;
+      this.cropper.reset();
+      return false;
+    }
   }
-}
 
   fileChangeListener(event) {
     this.isShowErrorPhoto = false;
@@ -83,49 +83,28 @@ validationPhotoType(file:File){
     var file: File = event.target.files[0];
     var myReader: FileReader = new FileReader();
     var that = this;
-
-
-    // image.onload = function () {
-    //   let width = image.width;
-    //   let height = image.height;
-    //   if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
-    //     //TODO change img.onload=null. 
-    //     image.onload = null;
-    //     this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
-    //     that.cropper.reset();
-    //     that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
-    //     that.isShowErrorPhoto = true;
-    //     that.isValidSize = false;
-    //     if (!file && that.isValidSize) {
-    //       that.cropper.reset();
-    //       return false;
-    //     }
-    //     return false;
-    //   }
-    // };
     myReader.onloadend = function (loadEvent: any) {
       that.validationPhotoType(file);
       image.src = loadEvent.target.result;
-        image.onload = function () {
-      let width = image.width;
-      let height = image.height;
-      if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
-        //TODO change img.onload=null. 
-        image.onload = null;
-        this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
-        that.cropper.reset();
-        that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
-        that.isShowErrorPhoto = true;
-        that.isValidSize = false;
-        if (!file && that.isValidSize) {
+      image.onload = function () {
+        let width = image.width;
+        let height = image.height;
+        if (width < that.cropperSettingsWidth || height < that.cropperSettingsHeight) {
+          //TODO change img.onload=null. 
+          image.onload = null;
+          this['src'] = 'data:image/gif;base64,R0lGODlhAQABisValidSizeisValidSizeACH5BAEKisValidSizeEALisValidSizeisValidSizeisValidSizeBisValidSizeEisValidSizeAICTAEAOw==';
           that.cropper.reset();
+          that.messageErrorPhoto = 'Invalid image size (' + width + '*' + height + '). Valid size is: ' + that.cropperSettingsWidth + '*' + that.cropperSettingsHeight;
+          that.isShowErrorPhoto = true;
+          that.isValidSize = false;
+          if (!file && that.isValidSize) {
+            that.cropper.reset();
+            return false;
+          }
           return false;
         }
-        return false;
-      }
-      that.cropper.setImage(image);
-    };
-      
+        that.cropper.setImage(image);
+      };
     };
     that.event = event;
     if (file) {
