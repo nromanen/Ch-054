@@ -60,13 +60,6 @@ export class AddAgendaComponent implements OnInit {
 		config.spinners = false;
 	}
 
-<<<<<<< HEAD
-	// changeSelect() {
-	// 	this.isAction = !this.isAction;
-	// 	this.isReport = !this.isReport;
-	// 	this.resetForm();
-	// }
-=======
 
 	ngOnInit() {
 		this.myFormAction = this.fb.group({
@@ -110,7 +103,6 @@ export class AddAgendaComponent implements OnInit {
 		this.resetSomevauesForms();
 	}
 
->>>>>>> annwagner
 	saveReport(form) {
 		let report = new Report(form.nameReport, form.timeReportFrom, form.timeReportTo, form.dataPickerReport, form.speaker);
 		if (this.schedules.length === 1) {
@@ -162,26 +154,6 @@ export class AddAgendaComponent implements OnInit {
 			this.resetSomevauesForms();
 			return;
 		}
-<<<<<<< HEAD
-	}
-
-	isInvalidItem(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if (
-		(itemStartTime.hour > scheduleStartTime.hour && scheduleEndTime.hour >= itemStartTime.hour) || 
-		(itemStartTime.hour == scheduleStartTime.hour && itemStartTime.minute == scheduleStartTime.minute && scheduleEndTime.hour == itemEndTime.hour && scheduleEndTime.minute == itemEndTime.minute) ||
-		(itemStartTime.hour < scheduleStartTime.hour && scheduleStartTime.hour < itemEndTime.hour) || 
-		(itemStartTime.hour < scheduleStartTime.hour && (scheduleStartTime.hour == itemEndTime.hour && scheduleStartTime.minute < itemEndTime.minute))
-		) {
-			console.log('bad');
-			return true;	
-		}
-		return false;
-	}
-
-	isTimeMoreSched(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if ( scheduleStartTime.hour < itemStartTime.hour || ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute == itemStartTime.minute) && (scheduleEndTime.hour < itemEndTime.hour)) || (scheduleEndTime.hour == itemStartTime.hour && itemStartTime.minute > scheduleEndTime.minute) || (scheduleEndTime.hour == itemStartTime.hour && scheduleEndTime.minute == itemStartTime.minute) || (scheduleEndTime.hour == itemStartTime.hour && scheduleEndTime.minute == itemStartTime.minute) ){
-			return true;
-=======
 		if (this.isTimeItemMoreTimeSchedule(schedules, item)) {
 			return;
 		}
@@ -199,7 +171,6 @@ export class AddAgendaComponent implements OnInit {
 				this.resetSomevauesForms();
 				return true;
 			}
->>>>>>> annwagner
 		}
 	}
 
@@ -207,15 +178,6 @@ export class AddAgendaComponent implements OnInit {
 		return time.hour * 60 + time.minute;
 	}
 
-<<<<<<< HEAD
-	// resetForm() {
-	// 	this.isValid = true;
-	// 	this.myFormReport.reset();
-	// 	this.myFormAction.reset();
-	// 	this.setDate(this.selectData);
-	// }
-=======
->>>>>>> annwagner
 	setDate(selectDate: any) {
 		if (selectDate.length === 1) {
 			let date = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
@@ -252,13 +214,13 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	change() {
-		// if (this.isAction) {
-		// 	this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
-		// } else if (this.isReport) {
-		// 	this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
-		// } else {
-		// 	this.isValid = true;
-		// }
+		if (this.isAction) {
+			this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
+		} else if (this.isReport) {
+			this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
+		} else {
+			this.isValid = true;
+		}
 	}
 
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
@@ -268,51 +230,8 @@ export class AddAgendaComponent implements OnInit {
 		return false;
 	}
 
-<<<<<<< HEAD
-
-	ngOnInit() {
-		this.myFormAction = this.fb.group({
-			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
-			timeActionFrom: new FormControl('', [Validators.required]),
-			timeActionTo: new FormControl('', [Validators.required]),
-			dataPickerAction: new FormControl(''),
-		});
-
-		this.myFormReport = this.fb.group({
-			nameReport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
-			timeReportFrom: new FormControl(''),
-			timeReportTo: new FormControl(''),
-			dataPickerReport: new FormControl(''),
-			speaker: new FormControl('', [Validators.required]),
-
-		});
-
-		this.setDate(this.selectData);
-	}
-
-
-
-	changeSelect() {
-		this.isAction = !this.isAction;
-		this.isReport = !this.isReport;
-		this.isValid = true;
-		// this.myFormReport.reset();
-		// this.myFormAction.reset();
-		// this.setDate(this.selectData);
-	}
-
-
-
-	@Output() isHideAgenda = new EventEmitter<boolean>();
-=======
->>>>>>> annwagner
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
 	}
 
-<<<<<<< HEAD
-
 }
-=======
-}
->>>>>>> annwagner
