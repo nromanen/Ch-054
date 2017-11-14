@@ -4,8 +4,6 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { Event } from '../module_ts/event';
-import { EventLocation } from '../module_ts/location';
-import { LocationService } from '../services/location/location.service';
 
 @Component({
 	selector: 'app-add-event',
@@ -38,7 +36,21 @@ export class AddEventComponent implements OnInit {
 	event: Event;
 	myForm: FormGroup;
 
-	locations: Array<Location>;
+	//TODO autocomplete with database
+	locations =
+	[{
+		country: 'USA',
+		city: 'NY',
+		address: 'Central Park',
+		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'],
+		['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
+	}, {
+		country: 'Ukraine',
+		city: 'Lviv',
+		address: 'Golovna, 31',
+		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'], ['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
+	}
+	];
 
 	myValueFormatter(location: any): string {
 		return `${location.country},${location.city},${location.address}`;
@@ -47,6 +59,20 @@ export class AddEventComponent implements OnInit {
 	autocompleListFormatter = (location: any): SafeHtml => {
 		let html = `<span>${location.country},${location.city},${location.address}</span>`;
 		return this._sanitizer.bypassSecurityTrustHtml(html);
+	}
+
+
+	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer) { }
+
+
+	ngOnInit() {
+		this.myForm = this.fb.group({
+			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
+			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+			dataPickerFrom: new FormControl('', [Validators.required]),
+			dataPickerTo: '',
+			location: new FormControl('', [Validators.required])
+		});
 	}
 
 	selectToday() {
@@ -81,22 +107,13 @@ export class AddEventComponent implements OnInit {
 		this.modelDateTo = {};
 	}
 
-	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer, private locationService:LocationService) { }
-
 	onChanged(imgCrop) {
 		this.photo = imgCrop.image;
 		this.isValidPhoto = false;
 	}
 
-	getAllLocations() {
-		this.locationService.getAllLocations().subscribe(locations => {
-			this.locations = locations;
-		})
-	}
-
 	saveEvent(form) {
 		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
-		console.log(form.location);
 		if (!form.dataPickerTo && form.dataPickerFrom) {
 			this.selectDate.push(form.dataPickerFrom);
 		}
@@ -107,16 +124,6 @@ export class AddEventComponent implements OnInit {
 		this.isShowEvent = false;
 	}
 
-	ngOnInit() {
-		this.myForm = this.fb.group({
-			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
-			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-			dataPickerFrom: new FormControl('', [Validators.required]),
-			dataPickerTo: '',
-			location: new FormControl('', [Validators.required])
-		});
-		this.getAllLocations();
-	}
 
 	isHideAgenda(increased) {
 		this.isShowAgenda = increased;
