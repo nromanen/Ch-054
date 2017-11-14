@@ -12,8 +12,13 @@ export class LocationService {
       .map(res => res.json());
   }
 
-  getLocation(id: number) {
-    return this.http.get('/api/locations/get/' + id)
+  getLocation(locationId: number) {
+    return this.http.get('/api/locations/get/' + locationId)
+      .map(res => res.json());
+  }
+
+  getLocationPhotos(locationId: number) {
+    return this.http.get('/api/locations/photos/get/' + locationId)
       .map(res => res.json());
   }
 

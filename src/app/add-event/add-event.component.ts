@@ -4,6 +4,7 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { Event } from '../module_ts/event';
+import { LocationService } from '../services/location/location.service';
 
 @Component({
 	selector: 'app-add-event',
@@ -37,20 +38,7 @@ export class AddEventComponent implements OnInit {
 	myForm: FormGroup;
 
 	//TODO autocomplete with database
-	locations =
-	[{
-		country: 'USA',
-		city: 'NY',
-		address: 'Central Park',
-		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'],
-		['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
-	}, {
-		country: 'Ukraine',
-		city: 'Lviv',
-		address: 'Golovna, 31',
-		photos: [['one', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w'], ['two', 'https://static1.squarespace.com/static/53f64d96e4b0516302f7d140/t/59541796414fb5b3cecca501/1498924986573/Photo+Booth+Rental+In+Baltimore+Maryland?format=300w']]
-	}
-	];
+	locations = [];
 
 	myValueFormatter(location: any): string {
 		return `${location.country},${location.city},${location.address}`;
@@ -62,7 +50,7 @@ export class AddEventComponent implements OnInit {
 	}
 
 
-	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer) { }
+	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer, private locationService: LocationService) { }
 
 
 	ngOnInit() {
@@ -73,6 +61,7 @@ export class AddEventComponent implements OnInit {
 			dataPickerTo: '',
 			location: new FormControl('', [Validators.required])
 		});
+		this.getAllLocations();
 	}
 
 	selectToday() {
@@ -136,5 +125,18 @@ export class AddEventComponent implements OnInit {
 
 	showSelectLocation() {
 		this.isSowSelectLocat = !this.isSowSelectLocat;
+	}
+
+	getAllLocations() {
+		this.locationService.getAllLocations().subscribe(locations => {
+			locations.forEach(location => {
+				this.locationService.getLocationPhotos(location.id).subscribe(photos => {
+					location.photos = [];
+					location.photos.push(['one', photos.shift().photo]);
+					location.photos.push(['two', photos.shift().photo]);
+					this.locations.push(location);
+				});
+			});
+		});
 	}
 }

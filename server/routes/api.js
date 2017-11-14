@@ -50,7 +50,7 @@ router.get('/locations/get/:locationId', (req, res) => {
         });
 });
 
-router.get('/locations/get/photo:locationId', (req, res) => {
+router.get('/locations/photos/get/:locationId', (req, res) => {
     var locationId = req.params.locationId;
     db.many(`SELECT photo from location_photos WHERE location_id=$1`, [locationId])
         .then(function (data) {
