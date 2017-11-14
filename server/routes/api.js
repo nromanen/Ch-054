@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 var pgp = require("pg-promise")(/*options*/);
-var db = pgp("postgres://postgres:postgres@localhost:5432/event-manager");
+var db = pgp("postgres://postgres:postgres@localhost:5433/postgres");
 
 // GET api lesting
 router.get('/', (req, res) => {
