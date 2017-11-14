@@ -16,7 +16,6 @@ import { Report } from '../module_ts/report';
 
 
 export class AddAgendaComponent implements OnInit {
-
 	logoCamera: string = '/assets/images/camera.png';
 	isReport: boolean = true;
 	isAction: boolean = false;
@@ -25,9 +24,8 @@ export class AddAgendaComponent implements OnInit {
 	isValid: boolean = true;
 	minDate: object = {};
 	maxDate: object = {};
-
-	time = { hour: '09', minute: '00' };
-	timeReport = { hour: '09', minute: '00' };
+	// time = { hour: '09', minute: '00' };
+	// timeReport = { hour: '09', minute: '00' };
 	schedules: Array<Action[]> = [[]];
 	@Input() selectData: Array<any>;
 	modelDateRepor: object = {};
@@ -55,8 +53,7 @@ export class AddAgendaComponent implements OnInit {
 		return this._sanitizer.bypassSecurityTrustHtml(html);
 	}
 
-
-	constructor(private fb: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer) {
+	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer) {
 		config.spinners = false;
 	}
 
@@ -222,14 +219,14 @@ export class AddAgendaComponent implements OnInit {
 
 
 	ngOnInit() {
-		this.myFormAction = this.fb.group({
+		this.myFormAction = this.formbuild.group({
 			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
 			timeActionFrom: new FormControl('', [Validators.required]),
 			timeActionTo: new FormControl('', [Validators.required]),
 			dataPickerAction: new FormControl(''),
 		});
 
-		this.myFormReport = this.fb.group({
+		this.myFormReport = this.formbuild.group({
 			nameReport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
 			timeReportFrom: new FormControl(''),
 			timeReportTo: new FormControl(''),

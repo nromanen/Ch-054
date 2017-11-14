@@ -37,7 +37,6 @@ export class AddEventComponent implements OnInit {
 	selectData: Array<any> = new Array();
 	event: Event;
 	myForm: FormGroup;
-
 	locations: Array<Location>;
 
 	myValueFormatter(location: any): string {
@@ -47,6 +46,21 @@ export class AddEventComponent implements OnInit {
 	autocompleListFormatter = (location: any): SafeHtml => {
 		let html = `<span>${location.country},${location.city},${location.address}</span>`;
 		return this._sanitizer.bypassSecurityTrustHtml(html);
+	}
+
+
+	constructor(private formbuild: FormBuilder, private _sanitizer: DomSanitizer, private locationService: LocationService) { }
+	
+
+	ngOnInit() {
+		this.myForm = this.formbuild.group({
+			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
+			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+			dataPickerFrom: new FormControl('', [Validators.required]),
+			dataPickerTo: '',
+			location: new FormControl('', [Validators.required])
+		});
+		this.getAllLocations();
 	}
 
 	selectToday() {
@@ -81,10 +95,6 @@ export class AddEventComponent implements OnInit {
 		this.modelDateTo = {};
 	}
 
-
-	constructor(private fb: FormBuilder, private _sanitizer: DomSanitizer, private locationService:LocationService) { }
-
-
 	onChanged(imgCrop) {
 		this.photo = imgCrop.image;
 		this.isValidPhoto = false;
@@ -108,17 +118,6 @@ export class AddEventComponent implements OnInit {
 		this.isShowEvent = false;
 	}
 
-	ngOnInit() {
-		this.myForm = this.fb.group({
-			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
-			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-			dataPickerFrom: new FormControl('', [Validators.required]),
-			dataPickerTo: '',
-			location: new FormControl('', [Validators.required])
-		});
-		this.getAllLocations();
-	}
-
 	isHideAgenda(increased) {
 		this.isShowAgenda = increased;
 		this.isShowEvent = !increased;
@@ -134,4 +133,3 @@ export class AddEventComponent implements OnInit {
 		this.isSowSelectLocat = !this.isSowSelectLocat;
 	}
 }
-
