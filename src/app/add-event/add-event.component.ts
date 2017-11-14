@@ -96,6 +96,7 @@ export class AddEventComponent implements OnInit {
 
 	saveEvent(form) {
 		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
+		console.log(form.location);
 		if (!form.dataPickerTo && form.dataPickerFrom) {
 			this.selectDate.push(form.dataPickerFrom);
 		}

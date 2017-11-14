@@ -19,11 +19,40 @@ router.get('/locations/get', (req, res) => {
         });
 });
 
+// router.get('/locations/get', (req, res) => {
+//     db.many("SELECT * FROM locations")
+//         .then(function (locations) {
+//             for (var i = 0; i < locations.length; i++) {
+//                 db.many("SELECT photo FROM location_photos WHERE location_id=$1", [locations[i].id])
+//                     .then(function (photos) {
+//                         locations[0].photos=photos
+//                         console.log(locations[0].city);
+//                         res.status(200).json(locations);
+//                     });
+//             }
+//             res.status(200).json(locations);
+//         })
+//         .catch(function (error) {
+//             res.status(500).send(error);
+//         });
+// });
+
 router.get('/locations/get/:locationId', (req, res) => {
     var locationId = req.params.locationId;
     db.many(`SELECT l.id, l.country, l.city, l.address, l_p.photo 
     FROM locations AS l JOIN location_photos AS l_p 
     ON l.id = l_p.location_id AND l_p.location_id=$1`, [locationId])
+        .then(function (data) {
+            res.status(200).json(data);
+        })
+        .catch(function (error) {
+            res.status(500).send(error);
+        });
+});
+
+router.get('/locations/get/photo:locationId', (req, res) => {
+    var locationId = req.params.locationId;
+    db.many(`SELECT photo from location_photos WHERE location_id=$1`, [locationId])
         .then(function (data) {
             res.status(200).json(data);
         })
