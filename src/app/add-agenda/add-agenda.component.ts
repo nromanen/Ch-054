@@ -214,13 +214,13 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	change() {
-		// if (this.isAction) {
-		// 	this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
-		// } else if (this.isReport) {
-		// 	this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
-		// } else {
-		// 	this.isValid = true;
-		// }
+		if (this.isAction) {
+			this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
+		} else if (this.isReport) {
+			this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
+		} else {
+			this.isValid = true;
+		}
 	}
 
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
