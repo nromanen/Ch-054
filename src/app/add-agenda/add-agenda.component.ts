@@ -145,7 +145,7 @@ export class AddAgendaComponent implements OnInit {
 			return;
 		}
 		if (this.mapObjectTimeToMinutes(item['endTime']) <= this.mapObjectTimeToMinutes(schedules[0]['startTime'])) {
-			schedules.splice(0, 0, item);
+			schedules.unshift(item);
 			this.resetSomevauesForms();
 			return;
 		}
@@ -157,7 +157,7 @@ export class AddAgendaComponent implements OnInit {
 		if (this.isTimeItemMoreTimeSchedule(schedules, item)) {
 			return;
 		}
-		swal('The entered time is not correct!', 'Please enter correct time', 'error')
+		swal('The entered time is not correct!', 'Please enter correct time', 'error');
 	}
 
 	isTimeItemMoreTimeSchedule(schedules, item) {
@@ -175,7 +175,7 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	mapObjectTimeToMinutes(time) {
-		return time.hour * 60 + time.minute;
+		return (time.hour * 60 + (time.minute * 1));
 	}
 
 	setDate(selectDate: any) {
