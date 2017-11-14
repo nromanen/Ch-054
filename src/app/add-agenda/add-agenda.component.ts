@@ -27,6 +27,8 @@ export class AddAgendaComponent implements OnInit {
 	maxDate: object = {};
 	modelDateRepor: object = {};
 	modelDate: object = {};
+	// time = { hour: '09', minute: '00' };
+	// timeReport = { hour: '09', minute: '00' };
 	schedules: Array<Action[]> = [[]];
 	@Input() selectDate: Array<any>;
 	@Output() isHideAgenda = new EventEmitter<boolean>();
@@ -143,7 +145,7 @@ export class AddAgendaComponent implements OnInit {
 			return;
 		}
 		if (this.mapObjectTimeToMinutes(item['endTime']) <= this.mapObjectTimeToMinutes(schedules[0]['startTime'])) {
-			schedules.splice(0, 0, item);
+			schedules.unshift(item);
 			this.resetSomevauesForms();
 			return;
 		}
@@ -155,7 +157,7 @@ export class AddAgendaComponent implements OnInit {
 		if (this.isTimeItemMoreTimeSchedule(schedules, item)) {
 			return;
 		}
-		swal('The entered time is not correct!', 'Please enter correct time', 'error')
+		swal('The entered time is not correct!', 'Please enter correct time', 'error');
 	}
 
 	isTimeItemMoreTimeSchedule(schedules, item) {
@@ -173,7 +175,7 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	mapObjectTimeToMinutes(time) {
-		return time.hour * 60 + time.minute;
+		return (time.hour * 60 + (time.minute * 1));
 	}
 
 	setDate(selectDate: any) {
@@ -223,8 +225,7 @@ export class AddAgendaComponent implements OnInit {
 
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
 		if (timeFrom && timeTo) {
-			console.log(this.mapObjectTimeToMinutes(timeFrom) >= this.mapObjectTimeToMinutes(timeTo))
-			return (this.mapObjectTimeToMinutes(timeFrom) >= this.mapObjectTimeToMinutes(timeTo));
+			return (this.mapObjectTimeToMinutes(timeFrom) < this.mapObjectTimeToMinutes(timeTo));
 		}
 		return false;
 	}
