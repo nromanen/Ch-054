@@ -1,6 +1,5 @@
 $colorBg: rgb(54, 57, 62);
 $color-wh: white;
-// $color-grey: rgb(183, 186, 192);
 $color-grey: rgb(83, 87, 93);
 $bt-bg: rgb(42, 62, 91);
 $hover-bg: rgb(28, 54, 93);
@@ -26,3 +25,5 @@ $color) {
         $color-wh);
     }
 }
+
+input.ng-touched.ng-invalid {color: red;}

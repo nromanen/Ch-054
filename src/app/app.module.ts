@@ -32,6 +32,7 @@ import { SpeakerPageComponent } from './speaker-page/speaker-page.component';
 import { CropperLocationComponent } from './cropper-location/cropper-location.component';
 import { LocationService } from './services/location/location.service';
 import { ModalViewSpeakerComponent } from './modal-view-speaker/modal-view-speaker.component';
+import {SpeakerService} from './services/speaker/speaker.service';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -76,7 +77,10 @@ export const firebaseConfig = {
     Ng2AutoCompleteModule,
     NgbModule.forRoot()
   ],
-  providers: [LocationService],
+  providers: [
+    LocationService, 
+    SpeakerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

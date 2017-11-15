@@ -4,7 +4,6 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { Event } from '../module_ts/event';
-import { EventLocation } from '../module_ts/location';
 import { LocationService } from '../services/location/location.service';
 
 @Component({
@@ -34,7 +33,7 @@ export class AddEventComponent implements OnInit {
 	isShowEvent: boolean = true;
 	isValidPhoto: boolean = true;
 	isSowSelectLocat: boolean = false;
-	selectData: Array<any> = new Array();
+	selectDate: Array<any> = new Array();
 	event: Event;
 	myForm: FormGroup;
 	locations: Array<Location>;
@@ -69,7 +68,7 @@ export class AddEventComponent implements OnInit {
 
 	selectedDateFrom(event) {
 		this.minDateTo = { year: event['year'], month: event['month'], day: event['day'] };
-		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day']+1};
+		this.modelDateTo = { year: event['year'], month: event['month'], day: event['day'] + 1 };
 		if (Object.keys(event).length != 0) {
 			this.isSelectedCalendar = false;
 		}
@@ -100,19 +99,13 @@ export class AddEventComponent implements OnInit {
 		this.isValidPhoto = false;
 	}
 
-	getAllLocations() {
-		this.locationService.getAllLocations().subscribe(locations => {
-			this.locations = locations;
-		})
-	}
-
 	saveEvent(form) {
 		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
 		if (!form.dataPickerTo && form.dataPickerFrom) {
-			this.selectData.push(form.dataPickerFrom);
+			this.selectDate.push(form.dataPickerFrom);
 		}
 		if (form.dataPickerFrom && form.dataPickerTo) {
-			this.selectData.push(form.dataPickerFrom, form.dataPickerTo);
+			this.selectDate.push(form.dataPickerFrom, form.dataPickerTo);
 		}
 		this.isShowAgenda = true;
 		this.isShowEvent = false;
@@ -122,8 +115,6 @@ export class AddEventComponent implements OnInit {
 		this.isShowAgenda = increased;
 		this.isShowEvent = !increased;
 		if (this.isShowEvent) {
-
-			
 			this.isValidPhoto = true;
 			this.isSowSelectLocat = false;
 		}
@@ -131,5 +122,18 @@ export class AddEventComponent implements OnInit {
 
 	showSelectLocation() {
 		this.isSowSelectLocat = !this.isSowSelectLocat;
+	}
+
+	getAllLocations() {
+		this.locationService.getAllLocations().subscribe(locations => {
+			locations.forEach(location => {
+				this.locationService.getLocationPhotos(location.id).subscribe(photos => {
+					location.photos = [];
+					location.photos.push(['one', photos.shift().photo]);
+					location.photos.push(['two', photos.shift().photo]);
+					this.locations.push(location);
+				});
+			});
+		});
 	}
 }

@@ -5,6 +5,7 @@ import { BrowserModule, DomSanitizer, SafeHtml } from "@angular/platform-browser
 import { NgbModule, NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
+declare var swal: any;
 
 @Component({
 	selector: 'app-add-agenda',
@@ -13,7 +14,6 @@ import { Report } from '../module_ts/report';
 		'./add-agenda.component.scss',
 	]
 })
-
 
 export class AddAgendaComponent implements OnInit {
 	logoCamera: string = '/assets/images/camera.png';
@@ -24,12 +24,11 @@ export class AddAgendaComponent implements OnInit {
 	isValid: boolean = true;
 	minDate: object = {};
 	maxDate: object = {};
-	// time = { hour: '09', minute: '00' };
-	// timeReport = { hour: '09', minute: '00' };
-	schedules: Array<Action[]> = [[]];
-	@Input() selectData: Array<any>;
 	modelDateRepor: object = {};
 	modelDate: object = {};
+	schedules: Array<Action[]> = [[]];
+	@Input() selectDate: Array<any>;
+	@Output() isHideAgenda = new EventEmitter<boolean>();
 
 	//autocomplete
 	model1 = "";
@@ -57,11 +56,51 @@ export class AddAgendaComponent implements OnInit {
 		config.spinners = false;
 	}
 
-	// changeSelect() {
-	// 	this.isAction = !this.isAction;
-	// 	this.isReport = !this.isReport;
-	// 	this.resetForm();
-	// }
+		ngOnInit() {
+		this.myFormAction = this.formbuild.group({
+			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
+			timeActionFrom: new FormControl('', [Validators.required]),
+			timeActionTo: new FormControl('', [Validators.required]),
+			dataPickerAction: new FormControl(''),
+		});
+
+		this.myFormReport = this.formbuild.group({
+			nameReport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
+			timeReportFrom: new FormControl(''),
+			timeReportTo: new FormControl(''),
+			dataPickerReport: new FormControl(''),
+			speaker: new FormControl('', [Validators.required]),
+
+		});
+
+		this.setDate(this.selectDate);
+	}
+
+	//TODO validation times
+	isTimesIntervalCorrect(timeFrom: any, timeTo: any) {
+		return (group: FormGroup) => {
+			let from = group.controls[timeFrom];
+			let to = group.controls[timeTo];
+			if (this.mapObjectTimeToMinutes(from) >= this.mapObjectTimeToMinutes(to)) {
+				return {
+					invalidTime: true
+				};
+			}
+		}
+	}
+
+	resetSomevauesForms() {
+		this.isValid = true;
+		this.myFormAction.patchValue({ nameAction: '', timeActionFrom: '', timeActionTo: '' });
+		this.myFormReport.patchValue({ nameReport: '', timeReportFrom: '', timeReportTo: '', speaker: '' });
+	}
+
+	changeSelect() {
+		this.isAction = !this.isAction;
+		this.isReport = !this.isReport;
+		this.resetSomevauesForms();
+	}
+
 	saveReport(form) {
 		let report = new Report(form.nameReport, form.timeReportFrom, form.timeReportTo, form.dataPickerReport, form.speaker);
 		if (this.schedules.length === 1) {
@@ -69,7 +108,6 @@ export class AddAgendaComponent implements OnInit {
 		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedulesByDate(report);
 		}
-		// this.resetForm();
 	}
 
 	saveAction(form) {
@@ -79,20 +117,19 @@ export class AddAgendaComponent implements OnInit {
 		} else if (this.schedules.length > 1) {
 			this.addElementsToSchedulesByDate(action);
 		}
-		// this.resetForm();
 	}
 
 	addElementsToSchedulesByDate(item: any) {
 		for (let i = 0; i < this.schedules.length; i++) {
 			if (this.schedules[i].length == 0) {
 				this.schedules[i].push(item);
+				this.resetSomevauesForms();
 				return;
 			}
 			for (let j = 0; j < this.schedules[i].length; j++) {
 				let schedulDate = this.schedules[i][j]['date'];
 				if (item.date.day == schedulDate['day']) {
 					this.addElementsToSchedulesByTime(item, this.schedules[i]);
-					// this.schedules[i].push(item);
 					return;
 				}
 			}
@@ -102,67 +139,43 @@ export class AddAgendaComponent implements OnInit {
 	addElementsToSchedulesByTime(item: any, schedules: Action[]) {
 		if (schedules.length == 0) {
 			schedules.push(item);
+			this.resetSomevauesForms();
 			return;
 		}
-		let templArrMore = [];
-		let templArrLess = [];
-		let itemMoreSchedule;
-		let itemLessSchedule;
-		for (let i = 0; i < schedules.length; i++) {
-			itemMoreSchedule = this.isTimeMoreSched(item['startTime'], item['endTime'], schedules[i]['startTime'], schedules[i]['endTime']);
-			itemLessSchedule = this.isTimeLessSched(item['startTime'], item['endTime'], schedules[i]['startTime'], schedules[i]['endTime']);
-			if (this.isInvalidItem(item['startTime'], item['endTime'], schedules[i]['startTime'], schedules[i]['endTime'])){
-				return;
+		if (this.mapObjectTimeToMinutes(item['endTime']) <= this.mapObjectTimeToMinutes(schedules[0]['startTime'])) {
+			schedules.unshift(item);
+			this.resetSomevauesForms();
+			return;
+		}
+		if (this.mapObjectTimeToMinutes(item['startTime']) >= this.mapObjectTimeToMinutes(schedules[schedules.length - 1]['endTime'])) {
+			schedules.push(item);
+			this.resetSomevauesForms();
+			return;
+		}
+		if (this.isTimeItemMoreTimeSchedule(schedules, item)) {
+			return;
+		}
+		swal('The entered time is not correct!', 'Please enter correct time', 'error');
+	}
+
+	isTimeItemMoreTimeSchedule(schedules, item) {
+		for (let i = 0; i < schedules.length - 1; i++) {
+			let itemStartTime = this.mapObjectTimeToMinutes(item['startTime']);
+			let itemEndTime = this.mapObjectTimeToMinutes(item['endTime']);
+			let scheduleEndTime = this.mapObjectTimeToMinutes(schedules[i]['endTime']);
+			let nextScheduleStartTime = this.mapObjectTimeToMinutes(schedules[i + 1]['startTime']);
+			if (itemStartTime >= scheduleEndTime && itemEndTime <= nextScheduleStartTime) {
+				schedules.splice(i + 1, 0, item);
+				this.resetSomevauesForms();
+				return true;
 			}
-			if (itemMoreSchedule) {
-				templArrMore.push(i);
-			} else if (itemLessSchedule) {
-				templArrLess.push(i);
-			}		
-		}
-		if (templArrMore.length < 0 && templArrLess.length < 0) {
-			return;
-		}
-		if (templArrMore.length>0){
-			schedules.splice((templArrMore[templArrMore.length - 1]) + 1, 0, item);
-		} else if (templArrLess.length > 0) {
-			schedules.splice(templArrLess[0], 0, item);
 		}
 	}
 
-	isInvalidItem(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if (
-		(itemStartTime.hour > scheduleStartTime.hour && scheduleEndTime.hour >= itemStartTime.hour) || 
-		(itemStartTime.hour == scheduleStartTime.hour && itemStartTime.minute == scheduleStartTime.minute && scheduleEndTime.hour == itemEndTime.hour && scheduleEndTime.minute == itemEndTime.minute) ||
-		(itemStartTime.hour < scheduleStartTime.hour && scheduleStartTime.hour < itemEndTime.hour) || 
-		(itemStartTime.hour < scheduleStartTime.hour && (scheduleStartTime.hour == itemEndTime.hour && scheduleStartTime.minute < itemEndTime.minute))
-		) {
-			console.log('bad');
-			return true;	
-		}
-		return false;
+	mapObjectTimeToMinutes(time) {
+		return (time.hour * 60 + (time.minute * 1));
 	}
 
-	isTimeMoreSched(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if ( scheduleStartTime.hour < itemStartTime.hour || ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute == itemStartTime.minute) && (scheduleEndTime.hour < itemEndTime.hour)) || (scheduleEndTime.hour == itemStartTime.hour && itemStartTime.minute > scheduleEndTime.minute) || (scheduleEndTime.hour == itemStartTime.hour && scheduleEndTime.minute == itemStartTime.minute) || (scheduleEndTime.hour == itemStartTime.hour && scheduleEndTime.minute == itemStartTime.minute) ){
-			return true;
-		}
-		return false;
-	}
-
-	isTimeLessSched(itemStartTime, itemEndTime, scheduleStartTime, scheduleEndTime) {
-		if ( (scheduleStartTime.hour > itemStartTime.hour && itemStartTime.hour < scheduleEndTime.hour) ||  ((scheduleStartTime.hour == itemStartTime.hour && scheduleStartTime.minute > itemStartTime.minute) && (scheduleStartTime.minute>=scheduleEndTime.minute)) ) {
-			return true;
-		}
-		return false;
-	}
-
-	// resetForm() {
-	// 	this.isValid = true;
-	// 	this.myFormReport.reset();
-	// 	this.myFormAction.reset();
-	// 	this.setDate(this.selectData);
-	// }
 	setDate(selectDate: any) {
 		if (selectDate.length === 1) {
 			let date = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
@@ -171,7 +184,6 @@ export class AddAgendaComponent implements OnInit {
 			this.minDate = date;
 			this.maxDate = date;
 			this.schedules.length = 1;
-
 		}
 		if (selectDate.length > 1) {
 			this.minDate = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
@@ -211,50 +223,13 @@ export class AddAgendaComponent implements OnInit {
 
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
 		if (timeFrom && timeTo) {
-			return ((timeFrom.hour < timeTo.hour) || ((timeFrom.hour === timeTo.hour) && (timeFrom.minute < timeTo.minute)));
-
+			return (this.mapObjectTimeToMinutes(timeFrom) < this.mapObjectTimeToMinutes(timeTo));
 		}
 		return false;
 	}
 
-
-	ngOnInit() {
-		this.myFormAction = this.formbuild.group({
-			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
-			timeActionFrom: new FormControl('', [Validators.required]),
-			timeActionTo: new FormControl('', [Validators.required]),
-			dataPickerAction: new FormControl(''),
-		});
-
-		this.myFormReport = this.formbuild.group({
-			nameReport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
-			timeReportFrom: new FormControl(''),
-			timeReportTo: new FormControl(''),
-			dataPickerReport: new FormControl(''),
-			speaker: new FormControl('', [Validators.required]),
-
-		});
-
-		this.setDate(this.selectData);
-	}
-
-
-
-	changeSelect() {
-		this.isAction = !this.isAction;
-		this.isReport = !this.isReport;
-		this.isValid = true;
-		// this.myFormReport.reset();
-		// this.myFormAction.reset();
-		// this.setDate(this.selectData);
-	}
-
-
-
-	@Output() isHideAgenda = new EventEmitter<boolean>();
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
 	}
-
 
 }

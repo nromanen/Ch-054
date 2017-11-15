@@ -60,6 +60,6 @@ export class ModalLocationComponent implements OnInit {
       city: new FormControl(''),
       address: new FormControl('')
     });
-    this.locationService.getAllLocations().subscribe(locations => console.log(locations));
   }
+
 } 
