@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { BrowserModule, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { NgbModule, NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { SpeakerService } from '../services/speaker/speaker.service';
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
+import {Speaker} from '../module_ts/speaker'
 declare var swal: any;
 
 @Component({
@@ -27,32 +29,33 @@ export class AddAgendaComponent implements OnInit {
 	modelDateRepor: object = {};
 	modelDate: object = {};
 	schedules: Array<Action[]> = [[]];
+	speakers: Speaker[];
 	@Input() selectDate: Array<any>;
 	@Output() isHideAgenda = new EventEmitter<boolean>();
 
 	//autocomplete
 	model1 = "";
-	speakers =
-	[{
-		fullName: 'Marius Barbulesco',
-		description: 'A professional photographer may be an employee, for example of a newspaper, or may contract to cover a particular planned event such as a wedding or graduation, or to illustrate an advertisement. Others, including paparazzi and fine art photographers, are freelancers, first making a picture and then offering it for sale or display. Some workers, such as crime scene detectives, estate agents, journalists and scientists, make photographs as part of other work. Photographers who produce moving rather than still pictures are often called cinematographers, videographers or camera operators, depending on the commercial context.',
-		placeWork: 'IJ Grup',
-		position: 'Director',
-		photoPath: '/assets/images/new_photo/ph-3.jpg'
-	}, {
-		fullName: 'Stolte Jon',
-		description: 'A professional photographer may be an employee, for example of a newspaper, or may contract to cover a particular planned event such as a wedding or graduation, or to illustrate an advertisement. Others, including paparazzi and fine art photographers, are freelancers, first making a picture and then offering it for sale or display. Some workers, such as crime scene detectives, estate agents, journalists and scientists, make photographs as part of other work. Photographers who produce moving rather than still pictures are often called cinematographers, videographers or camera operators, depending on the commercial context.',
-		placeWork: 'GGG Photogr',
-		position: 'Director',
-		photoPath: '/assets/images/new_photo/ph-8.jpg'
-	}];
+	// speakers =
+	// [{
+	// 	fullName: 'Marius Barbulesco',
+	// 	description: 'A professional photographer may be an employee, for example of a newspaper, or may contract to cover a particular planned event such as a wedding or graduation, or to illustrate an advertisement. Others, including paparazzi and fine art photographers, are freelancers, first making a picture and then offering it for sale or display. Some workers, such as crime scene detectives, estate agents, journalists and scientists, make photographs as part of other work. Photographers who produce moving rather than still pictures are often called cinematographers, videographers or camera operators, depending on the commercial context.',
+	// 	placeWork: 'IJ Grup',
+	// 	position: 'Director',
+	// 	photoPath: '/assets/images/new_photo/ph-3.jpg'
+	// }, {
+	// 	fullName: 'Stolte Jon',
+	// 	description: 'A professional photographer may be an employee, for example of a newspaper, or may contract to cover a particular planned event such as a wedding or graduation, or to illustrate an advertisement. Others, including paparazzi and fine art photographers, are freelancers, first making a picture and then offering it for sale or display. Some workers, such as crime scene detectives, estate agents, journalists and scientists, make photographs as part of other work. Photographers who produce moving rather than still pictures are often called cinematographers, videographers or camera operators, depending on the commercial context.',
+	// 	placeWork: 'GGG Photogr',
+	// 	position: 'Director',
+	// 	photoPath: '/assets/images/new_photo/ph-8.jpg'
+	// }];
 
 	autocompleListFormatter = (speaker: any): SafeHtml => {
 		let html = `<span>${speaker.fullName}</span>`;
 		return this._sanitizer.bypassSecurityTrustHtml(html);
 	}
 
-	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer) {
+	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer, private SpeakerService: SpeakerService) {
 		config.spinners = false;
 	}
 
@@ -74,6 +77,7 @@ export class AddAgendaComponent implements OnInit {
 		});
 
 		this.setDate(this.selectDate);
+		this.getAllSpeakers();	
 	}
 
 	//TODO validation times
@@ -230,6 +234,16 @@ export class AddAgendaComponent implements OnInit {
 
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
+	}
+
+	getAllSpeakers() {
+		// this.SpeakerService.getAllSpeakers().subscribe(speakers =>
+		// 	this.speakers = speakers);
+	}
+
+	addedSpeaker(speaker) {
+		if (!speaker) { return; }
+		this.speakers.push(speaker);
 	}
 
 }

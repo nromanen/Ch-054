@@ -11,4 +11,9 @@ export class SpeakerService {
     return this.http.post('/api/speakers/post', speaker)
       .map(res => res.json()).subscribe();
   }
+
+  getAllSpeakers() {
+    return this.http.get('/api/speakers/get')
+      .map(res => res.json());
+  }
 }

@@ -81,12 +81,13 @@ router.post('/locations/post/photo', (req, resp, next) => {
 
 router.post('/speakers/post', (req, resp, next) => {
     const dataForInsertion = req.body;
-    db.query('INSERT INTO speakers(full_name, description, placework, position, photo) VALUES ($1, $2, $3, $4, $5)',
+    db.query('INSERT INTO speakers(full_name, description, placework, position, photoPath) VALUES ($1, $2, $3, $4, $5)',
         [dataForInsertion.fullName, dataForInsertion.description, dataForInsertion.placework,
         dataForInsertion.position, dataForInsertion.photoPath])
         .then(function (data) {
             resp.status(200).json(data);
         });
 });
+
 
 module.exports = router;

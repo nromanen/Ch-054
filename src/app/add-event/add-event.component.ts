@@ -36,8 +36,8 @@ export class AddEventComponent implements OnInit {
 	selectDate: Array<any> = new Array();
 	event: Event;
 	myForm: FormGroup;
-	locations: Array<Location>;
-
+	locations: Array<Location> = [];
+	location;
 	myValueFormatter(location: any): string {
 		return `${location.country},${location.city},${location.address}`;
 	}
@@ -49,7 +49,7 @@ export class AddEventComponent implements OnInit {
 
 
 	constructor(private formbuild: FormBuilder, private _sanitizer: DomSanitizer, private locationService: LocationService) { }
-	
+
 
 	ngOnInit() {
 		this.myForm = this.formbuild.group({
@@ -135,5 +135,10 @@ export class AddEventComponent implements OnInit {
 				});
 			});
 		});
+	}
+
+	addedLocation(addLocation: any) {
+		if (!addLocation) { return; }
+		this.locations.push(addLocation);
 	}
 }

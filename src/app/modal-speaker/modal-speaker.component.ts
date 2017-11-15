@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CropperComponent } from '../cropper-event/cropper.component';
@@ -20,9 +20,21 @@ export class ModalSpeakerComponent implements OnInit {
   photo: string = '';
   speaker: Speaker;
   isPhotoSpeaker: boolean = true;
+  @Output() addedSpeaker = new EventEmitter<any>();
+
 
   constructor(private modalService: NgbModal, private formbuild: FormBuilder, private speakerService: SpeakerService) { }
 
+  
+  ngOnInit() {
+    this.modalForm = this.formbuild.group({
+      name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(15)]),
+      descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+      placeWork: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]),
+      position: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)])
+    });
+  }
+  
   open(content) {
     this.modalService.open(content, { size: 'lg', windowClass: 'dark-modal' });
   }
@@ -38,6 +50,7 @@ export class ModalSpeakerComponent implements OnInit {
     this.speaker = new Speaker(form.name, form.descr, form.placeWork, form.position, this.photo);
     this.isPhotoSpeaker = true;
     this.speakerService.saveSpeaker(this.speaker);
+    this.addedSpeaker.emit(this.speaker);
   }
 
   close() {
@@ -45,12 +58,4 @@ export class ModalSpeakerComponent implements OnInit {
     this.isPhotoSpeaker = true;
   }
 
-  ngOnInit() {
-    this.modalForm = this.formbuild.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(15)]),
-      descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-      placeWork: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]),
-      position: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)])
-    });
-  }
 }

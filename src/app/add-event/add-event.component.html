@@ -43,7 +43,7 @@
 											<div class="input-group" placeholder="enter text" (document:click)="d.close()" (click)="$event.stopPropagation()">
 												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="modelFrom" ngbDatepicker
 												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)"
-												 (click)="selectToday()" [readonly]="true" >
+												 (click)="selectToday()" [readonly]="true">
 												<button class="btn-cursor btn-icon" ngbPopover="Add date" triggers="mouseenter:mouseleave" (click)="addCalendar()" *ngIf="isShowButton"
 												 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
 													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
@@ -77,7 +77,7 @@
 															<input ng2-auto-complete [source]="locations" [value-formatter]="myValueFormatter" [list-formatter]="autocompleListFormatter"
 															 formControlName="location" class="form-control input-bg w-100" id="location" placeholder="Choose a location">
 														</div>
-														<app-modal-location></app-modal-location>
+														<app-modal-location (addedLocation)="addedLocation(($event))"></app-modal-location>
 													</div>
 												</div>
 												<div class="col-md-3 col-sm-12 text-center">
@@ -92,10 +92,13 @@
 									<div class="row mx-auto w-100 center-block">
 										<div class="col-md-12 text-center">
 											<p class="font-weight-bold">LOCATION</p>
-											<img src={{myForm.value.location.photos[0][1]}} alt="photo one">
-
-											<img src={{myForm.value.location.photos[1][1]}} alt="photo two">
 										</div>
+									</div>
+									<div class="col">
+										<img src={{myForm.value.location.photos[0][1]}} [width]="426" [height]="240" class="img-fluid" alt="photo one">
+									</div>
+									<div class="col">
+										<img src={{myForm.value.location.photos[1][1]}} [width]="426" [height]="240" class="img-fluid" alt="photo two">
 									</div>
 									<div class="col-md-12 text-center">
 										<p class="font-weight-bold">{{myForm.value.location.country}}, {{myForm.value.location.city}}, {{myForm.value.location.address}}</p>

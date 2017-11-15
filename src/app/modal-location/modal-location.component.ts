@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CropperLocationComponent } from '../cropper-location/cropper-location.component';
@@ -24,9 +24,19 @@ export class ModalLocationComponent implements OnInit {
   photos: Array<String[]> = [[], []];
   isNullPhotos: boolean = true;
   location: EventLocation;
+  @Output() addedLocation = new EventEmitter<any>();
 
 
   constructor(private modalService: NgbModal, private formbuild: FormBuilder, private locationService: LocationService) { }
+
+
+  ngOnInit() {
+    this.modalFormLocat = this.formbuild.group({
+      country: new FormControl(''),
+      city: new FormControl(''),
+      address: new FormControl('')
+    });
+  }
 
   open(content) {
     this.modalService.open(content, { size: 'lg', windowClass: 'dark-modal' });
@@ -52,14 +62,7 @@ export class ModalLocationComponent implements OnInit {
   save(form) {
     this.location = new EventLocation(form.address, form.city, form.country, this.photos);
     this.locationService.saveLocation(this.location);
-  }
-
-  ngOnInit() {
-    this.modalFormLocat = this.formbuild.group({
-      country: new FormControl(''),
-      city: new FormControl(''),
-      address: new FormControl('')
-    });
+    this.addedLocation.emit(this.location);
   }
 
 } 
