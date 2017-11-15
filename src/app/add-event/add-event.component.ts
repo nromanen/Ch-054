@@ -37,7 +37,6 @@ export class AddEventComponent implements OnInit {
 	event: Event;
 	myForm: FormGroup;
 	locations: Array<Location> = [];
-	location;
 	myValueFormatter(location: any): string {
 		return `${location.country},${location.city},${location.address}`;
 	}

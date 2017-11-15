@@ -6,7 +6,7 @@ import { NgbModule, NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-
 import { SpeakerService } from '../services/speaker/speaker.service';
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
-import {Speaker} from '../module_ts/speaker'
+import { Speaker } from '../module_ts/speaker'
 declare var swal: any;
 
 @Component({
@@ -29,7 +29,7 @@ export class AddAgendaComponent implements OnInit {
 	modelDateRepor: object = {};
 	modelDate: object = {};
 	schedules: Array<Action[]> = [[]];
-	speakers: Speaker[];
+	speakers: Speaker[] = [];
 	@Input() selectDate: Array<any>;
 	@Output() isHideAgenda = new EventEmitter<boolean>();
 
@@ -59,7 +59,7 @@ export class AddAgendaComponent implements OnInit {
 		config.spinners = false;
 	}
 
-		ngOnInit() {
+	ngOnInit() {
 		this.myFormAction = this.formbuild.group({
 			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
 			timeActionFrom: new FormControl('', [Validators.required]),
@@ -77,7 +77,7 @@ export class AddAgendaComponent implements OnInit {
 		});
 
 		this.setDate(this.selectDate);
-		this.getAllSpeakers();	
+		this.getAllSpeakers();
 	}
 
 	//TODO validation times
@@ -237,8 +237,15 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	getAllSpeakers() {
-		// this.SpeakerService.getAllSpeakers().subscribe(speakers =>
-		// 	this.speakers = speakers);
+		this.SpeakerService.getAllSpeakers().subscribe(speakers => {
+			this.speakers = [];
+			speakers.forEach(speaker => {
+				let currentSpeaker = new Speaker(speaker.full_name, speaker.description,
+					speaker.placework, speaker.position, speaker.photo);
+				currentSpeaker.id = speaker.id;
+				this.speakers.push(currentSpeaker);
+			});
+		});
 	}
 
 	addedSpeaker(speaker) {
