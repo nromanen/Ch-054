@@ -12,12 +12,11 @@ export class AgendaService {
     return this.http.get('/api/agenda/get')
       .map(res => res.json());
   }
-  
+
   saveAgenda(agenda: Array<Action[]>) {
     return this.http.post('/api/agenda/post', agenda)
       .map(res => res.json())
       .subscribe();
   }
-
 
 }

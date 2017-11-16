@@ -102,6 +102,7 @@ export class AddAgendaComponent implements OnInit {
 
 	saveAction(form) {
 		let action = new Action(form.nameAction, form.timeActionFrom, form.timeActionTo, this.convertObjectToDate(form.dataPickerAction));
+		console.log(this.convertObjectToTime(form.timeActionTo));
 		if (this.schedules.length === 1) {
 			this.addElementsToSchedulesByTime(action, this.schedules[0]);
 		} else if (this.schedules.length > 1) {
@@ -164,6 +165,11 @@ export class AddAgendaComponent implements OnInit {
 
 	convertObjectToDate(item) {
 		return new Date(item['year'], item['month']-1, item['day']);
+	}
+	
+	convertObjectToTime(item) {
+		let str = item.hour + ':' + item.minute;
+
 	}
 
 	mapObjectTimeToMinutes(time) {

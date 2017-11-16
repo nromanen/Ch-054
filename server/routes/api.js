@@ -102,7 +102,7 @@ router.post('/speakers/post', (req, resp, next) => {
 
 router.post('/agenda/post', (req, resp, next) => {
     const dataForInsertion = req.body;
-    db.query('INSERT INTO actions(name, start-time, end-time, date, speaker) VALUES ($1, $2, $3, $4, $5)',
+    db.query('INSERT INTO actions(title, start-time, end-time, date, speaker) VALUES ($1, $2, $3, $4, $5)',
         [dataForInsertion.name, dataForInsertion.startTime, dataForInsertion.endTime, dataForInsertion.date, dataForInsertion.speaker])
         .then(function (data) {
             resp.status(200).json(data);
