@@ -169,7 +169,6 @@ export class AddAgendaComponent implements OnInit {
 	
 	convertObjectToTime(item) {
 		let str = item.hour + ':' + item.minute;
-
 	}
 
 	mapObjectTimeToMinutes(time) {
