@@ -128,7 +128,7 @@
                 <div *ngFor="let schedule of schedules; let i = index">
                   <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table" *ngIf="schedules[i].length>0">
                     <div class="table-bgraund font-weight-bold text-center cell-div py-2">
-                      Schedule {{schedule[0].date | pipeDate}}
+                      Schedule {{schedule[0].date | date:"dd.MM.yyyy"}}
                     </div>
                     <div class="theader text-center font-weight-bold text-center">
                       <div class="cell-div d-table-cell">
@@ -167,7 +167,7 @@
       <div class="col-md-2"></div>
       <div class="col-md-10 px-5">
         <div class="my-5 text-center">
-          <button type="submit" class="btn btn btn-color size-button mb-2">
+          <button type="submit" class="btn btn btn-color size-button mb-2" (click)="saveEvent()">
             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add event</button>
           <button type="submit" class="btn btn-color size-button mb-2">
             <i class="fa fa-paper-plane"></i> Template</button>

@@ -30,9 +30,11 @@ import { AddAgendaComponent } from './add-agenda/add-agenda.component';
 import { ModalSpeakerComponent } from './modal-speaker/modal-speaker.component';
 import { SpeakerPageComponent } from './speaker-page/speaker-page.component';
 import { CropperLocationComponent } from './cropper-location/cropper-location.component';
-import { LocationService } from './services/location/location.service';
 import { ModalViewSpeakerComponent } from './modal-view-speaker/modal-view-speaker.component';
-import {SpeakerService} from './services/speaker/speaker.service';
+import { LocationService } from './services/location/location.service';
+import { SpeakerService } from './services/speaker/speaker.service';
+import { AgendaService } from './services/agenda/agenda.service';
+import { EventService } from './services/event/event.service';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAu11pUskqMZVhgif2mKIXKUns3GYp7iyI',
@@ -78,8 +80,10 @@ export const firebaseConfig = {
     NgbModule.forRoot()
   ],
   providers: [
-    LocationService, 
-    SpeakerService
+    LocationService,
+    SpeakerService,
+    AgendaService,
+    EventService
   ],
   bootstrap: [AppComponent]
 })
