@@ -233,7 +233,6 @@ export class AddAgendaComponent implements OnInit {
 
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
-		console.log(this.schedules);
 	}
 
 	getAllSpeakers() {
