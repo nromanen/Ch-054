@@ -75,7 +75,7 @@
 													<div class="input-group w-100">
 														<div class="w-100">
 															<input ng2-auto-complete [source]="locations" [value-formatter]="myValueFormatter" [list-formatter]="autocompleListFormatter"
-															 formControlName="location" class="form-control input-bg w-100" id="location" placeholder="Choose a location">
+															 formControlName="location" class="form-control input-bg w-100" id="location" placeholder="Choose a location" [(ngModel)]="modelLocation">
 														</div>
 														<app-modal-location (addedLocation)="addedLocation(($event))"></app-modal-location>
 													</div>
@@ -121,4 +121,4 @@
 	</form>
 </div>
 
-<app-add-agenda *ngIf="isShowAgenda" (isHideAgenda)="isHideAgenda($event)" [selectDate]="selectDate"></app-add-agenda>
+<app-add-agenda *ngIf="isShowAgenda" (isHideAgenda)="isHideAgenda($event)" [event]="event" [selectDate]="selectDate"></app-add-agenda>

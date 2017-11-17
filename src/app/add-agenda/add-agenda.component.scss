@@ -79,8 +79,19 @@ $colorB: rgb(96, 10, 186);
     min-height: 9rem;
 }
 
-  // TODO backgraun for timepicker
-    ngb-timepicker /deep/ input {
+// TODO backgraun for timepicker
+ngb-timepicker.ng-invalid:not(form)  {
+    border-left: 0; 
+}
+
+ ngb-timepicker /deep/ {
+    &.ng-valid input {
+        border-left: 5px solid rgba(42, 62, 91, .5); 
+    }
+    &.ng-invalid input {
+        border-left: 5px solid rgba(155, 36, 17, .5); 
+    }
+    input {
         @include bgColor($color-grey,
         $color-wh);
         &:focus {
@@ -88,3 +99,5 @@ $colorB: rgb(96, 10, 186);
             $color-wh);
         }
     }
+} 
+        

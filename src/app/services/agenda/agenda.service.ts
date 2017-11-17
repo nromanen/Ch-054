@@ -20,6 +20,11 @@ export class AgendaService {
     });
   }
 
+  deleteAction(actionId: number) {
+    return this.http.get('/api/agenda/action/delete' + actionId)
+      .map(res => res.json());
+  }
+
   saveReport(report: Report) {
     this.postAction(report).subscribe(actionRespArray => {
       report.id = actionRespArray[0].id;

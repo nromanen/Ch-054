@@ -18,6 +18,7 @@ export class AddEventComponent implements OnInit {
 	cropperSettingsHeight: number = 540;
 	logoCamera: string = '/assets/images/camera.png';
 	photo: string = '';
+	modelLocation = '';
 	imgEvent: any;
 	now = new Date();
 	minDateFrom = { year: this.now.getFullYear(), month: this.now.getMonth() + 1, day: this.now.getDate() };
@@ -52,8 +53,8 @@ export class AddEventComponent implements OnInit {
 
 	ngOnInit() {
 		this.myForm = this.formbuild.group({
-			name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)]),
-			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+			name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(55)]),
+			descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(550)]),
 			dataPickerFrom: new FormControl('', [Validators.required]),
 			dataPickerTo: '',
 			location: new FormControl('', [Validators.required])
@@ -99,7 +100,7 @@ export class AddEventComponent implements OnInit {
 	}
 
 	saveEvent(form) {
-		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.location, form.dataPickerTo, this.photo);
+		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.dataPickerTo, this.photo, form.location);
 		if (!form.dataPickerTo && form.dataPickerFrom) {
 			this.selectDate.push(form.dataPickerFrom);
 		}

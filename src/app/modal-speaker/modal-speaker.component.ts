@@ -28,10 +28,10 @@ export class ModalSpeakerComponent implements OnInit {
   
   ngOnInit() {
     this.modalForm = this.formbuild.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(15)]),
-      descr: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-      placeWork: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]),
-      position: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(10)])
+      name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(55)]),
+      descr: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]),
+      placeWork: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(55)]),
+      position: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(55)])
     });
   }
   

@@ -32,9 +32,9 @@ export class ModalLocationComponent implements OnInit {
 
   ngOnInit() {
     this.modalFormLocat = this.formbuild.group({
-      country: new FormControl(''),
-      city: new FormControl(''),
-      address: new FormControl('')
+      country: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(40)]),
+      city: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(40)]),
+      address: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(40)])
     });
   }
 

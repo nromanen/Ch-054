@@ -1,10 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Event } from '../../module_ts/event';
 
 @Injectable()
 export class EventService {
 
   constructor(private http: Http) { }
+
+  getAllEvents() {
+    return this.http.get('/api/events/get')
+      .map(res => res.json());
+  }
+
+  getEvent(eventsId: number) {
+    return this.http.get('/api/events/get/' + eventsId)
+      .map(res => res.json());
+  }
+
+  getEventsSpeakers(eventsId: number) {
+    return this.http.get('/api/events/speakers/get/' + eventsId)
+      .map(res => res.json());
+  }
+
+  saveEvent(event: Event) {
+    return this.http.post('/api/events/post', event)
+    .map(res => res.json()).subscribe();
+  }
 
 }

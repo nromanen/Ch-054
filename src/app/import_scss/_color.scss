@@ -26,4 +26,9 @@ $color) {
     }
 }
 
-input.ng-touched.ng-invalid {color: red;}
+input.ng-valid, textarea.ng-valid  {
+   border-left: 5px solid rgba(42, 62, 91, .5); 
+  }
+  input.ng-invalid:not(form), textarea.ng-invalid:not(form)  {
+    border-left: 5px solid rgba(155, 36, 17, .5); 
+  }

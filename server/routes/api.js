@@ -117,4 +117,21 @@ router.post('/agenda/report/post', (req, resp, next) => {
         });
 });
 
+router.post('/agenda/action/delete', (req, resp, next) => {
+    var actionId = req.params.actionId;
+    db.query('DELETE FROM actions WHERE id=$1', [actionId])
+        .then(function (data) {
+            resp.status(200).json(data);
+        });
+});
+
+router.post('/events/post', (req, resp, next) => {
+    const dataForInsertion = req.body;
+    db.query('INSERT INTO actions(tittle, description, date_from, date_to, photo, location) VALUES ($1, $2, $3, $4, $5, $6)',
+        [dataForInsertion.name, dataForInsertion.description, dataForInsertion.dateFrom, dataForInsertion.dateTo, dataForInsertion.eventPhotos, dataForInsertion.location])
+        .then(function (data) {
+            resp.status(200).json(data);
+        });
+});
+
 module.exports = router;

@@ -5,6 +5,8 @@ import { BrowserModule, DomSanitizer, SafeHtml } from "@angular/platform-browser
 import { NgbModule, NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { SpeakerService } from '../services/speaker/speaker.service';
 import { AgendaService } from '../services/agenda/agenda.service';
+import { EventService } from '../services/event/event.service';
+import { Event } from '../module_ts/event';
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
 import { Speaker } from '../module_ts/speaker'
@@ -32,6 +34,7 @@ export class AddAgendaComponent implements OnInit {
 	schedules: Array<Action[]> = [[]];
 	speakers: Speaker[] = [];
 	@Input() selectDate: Array<any>;
+	@Input() event: Event;
 	@Output() isHideAgenda = new EventEmitter<boolean>();
 	model1 = "";
 
@@ -41,22 +44,22 @@ export class AddAgendaComponent implements OnInit {
 		return this._sanitizer.bypassSecurityTrustHtml(html);
 	}
 
-	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer, private SpeakerService: SpeakerService, private agendaService: AgendaService) {
+	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer, private SpeakerService: SpeakerService, private agendaService: AgendaService, private EventService: EventService) {
 		config.spinners = false;
 	}
 
 	ngOnInit() {
 		this.myFormAction = this.formbuild.group({
-			nameAction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
+			nameAction: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(55)]),
 			timeActionFrom: new FormControl('', [Validators.required]),
 			timeActionTo: new FormControl('', [Validators.required]),
 			dataPickerAction: new FormControl(''),
 		});
 
 		this.myFormReport = this.formbuild.group({
-			nameReport: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
-			timeReportFrom: new FormControl(''),
-			timeReportTo: new FormControl(''),
+			nameReport: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(55)]),
+			timeReportFrom: new FormControl('', [Validators.required]),
+			timeReportTo: new FormControl('', [Validators.required]),
 			dataPickerReport: new FormControl(''),
 			speaker: new FormControl('', [Validators.required]),
 
@@ -92,6 +95,14 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	saveReport(form) {
+		// if (typeof (form.speaker) === 'string') {
+		// 	const check = (obj) => { 
+		// 		return obj.fullName === form.speaker;
+		// 	}
+		// 	const speakerIndex = this.speakers.findIndex(check);
+		// 	form.speaker = this.speakers[speakerIndex];
+		// 	console.log(form.speaker);
+		// }
 		let report = new Report(form.nameReport, this.convertObjectToTime(form.timeReportFrom), this.convertObjectToTime(form.timeReportTo), this.convertObjectToDate(form.dataPickerReport), form.speaker);
 		this.agendaService.saveReport(report);
 		if (this.schedules.length === 1) {
@@ -249,10 +260,12 @@ export class AddAgendaComponent implements OnInit {
 	addedSpeaker(speaker) {
 		if (!speaker) { return; }
 		this.speakers.push(speaker);
+		// this.model1 = speaker.fullName;
 	}
 
 	saveEvent() {
 		this.agendaService.saveAgenda(this.schedules);
+		this.EventService.saveEvent(this.event);
 	}
 
 }

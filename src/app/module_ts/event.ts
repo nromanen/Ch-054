@@ -7,7 +7,7 @@ export class Event{
     location: Location;
     eventPhotos: string;
 
-    constructor(name, description, dateFrom, location, dateTo, eventPhotos) {
+    constructor(name, description, dateFrom,  dateTo, eventPhotos, location) {
         this.name = name;
         this.description = description;
         this.dateFrom = dateFrom;
