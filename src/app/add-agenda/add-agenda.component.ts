@@ -41,7 +41,7 @@ export class AddAgendaComponent implements OnInit {
 		return this._sanitizer.bypassSecurityTrustHtml(html);
 	}
 
-	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer, private SpeakerService: SpeakerService, private AgendaService: AgendaService) {
+	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer, private SpeakerService: SpeakerService, private agendaService: AgendaService) {
 		config.spinners = false;
 	}
 
@@ -67,17 +67,17 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	//TODO validation times
-	isTimesIntervalCorrect(timeFrom: any, timeTo: any) {
-		return (group: FormGroup) => {
-			let from = group.controls[timeFrom];
-			let to = group.controls[timeTo];
-			if (this.mapObjectTimeToMinutes(from) >= this.mapObjectTimeToMinutes(to)) {
-				return {
-					invalidTime: true
-				};
-			}
-		}
-	}
+	// isTimesIntervalCorrect(timeFrom: any, timeTo: any) {
+	// 	return (group: FormGroup) => {
+	// 		let from = group.controls[timeFrom];
+	// 		let to = group.controls[timeTo];
+	// 		if (this.mapObjectTimeToMinutes(from) >= this.mapObjectTimeToMinutes(to)) {
+	// 			return {
+	// 				invalidTime: true
+	// 			};
+	// 		}
+	// 	}
+	// }
 
 	resetSomevauesForms() {
 		this.isValid = true;
@@ -92,7 +92,8 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	saveReport(form) {
-		let report = new Report(form.nameReport, form.timeReportFrom, form.timeReportTo, this.convertObjectToDate(form.dataPickerReport), form.speaker);
+		let report = new Report(form.nameReport, this.convertObjectToTime(form.timeReportFrom), this.convertObjectToTime(form.timeReportTo), this.convertObjectToDate(form.dataPickerReport), form.speaker);
+		this.agendaService.saveReport(report);
 		if (this.schedules.length === 1) {
 			this.addElementsToSchedulesByTime(report, this.schedules[0]);
 		} else if (this.schedules.length > 1) {
@@ -101,8 +102,8 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	saveAction(form) {
-		let action = new Action(form.nameAction, form.timeActionFrom, form.timeActionTo, this.convertObjectToDate(form.dataPickerAction));
-		console.log(this.convertObjectToTime(form.timeActionTo));
+		let action = new Action(form.nameAction, this.convertObjectToTime(form.timeActionFrom), this.convertObjectToTime(form.timeActionTo), this.convertObjectToDate(form.dataPickerAction));
+		this.agendaService.saveAction(action);
 		if (this.schedules.length === 1) {
 			this.addElementsToSchedulesByTime(action, this.schedules[0]);
 		} else if (this.schedules.length > 1) {
@@ -110,7 +111,7 @@ export class AddAgendaComponent implements OnInit {
 		}
 	}
 
-	addElementsToSchedulesByDate(item: any) {
+	addElementsToSchedulesByDate(item: Action) {
 		for (let i = 0; i < this.schedules.length; i++) {
 			if (this.schedules[i].length == 0) {
 				this.schedules[i].push(item);
@@ -127,7 +128,7 @@ export class AddAgendaComponent implements OnInit {
 		}
 	}
 
-	addElementsToSchedulesByTime(item: any, schedules: Action[]) {
+	addElementsToSchedulesByTime(item: Action, schedules: Action[]) {
 		if (schedules.length == 0) {
 			schedules.push(item);
 			this.resetSomevauesForms();
@@ -164,16 +165,18 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	convertObjectToDate(item) {
-		return new Date(item['year'], item['month']-1, item['day']);
+		return new Date(item['year'], item['month'] - 1, item['day']);
 	}
-	
+
 	convertObjectToTime(item) {
-		let str = item.hour + ':' + item.minute;
+		return item.hour + ':' + item.minute;
 
 	}
 
 	mapObjectTimeToMinutes(time) {
-		return (time.hour * 60 + (time.minute * 1));
+		console.log('convertMin' + time);
+		let arrTime = time.split(':')
+		return (Number(arrTime[0]) * 60 + Number(arrTime[1]));
 	}
 
 	setDate(selectDate: any) {
@@ -213,9 +216,9 @@ export class AddAgendaComponent implements OnInit {
 
 	change() {
 		if (this.isAction) {
-			this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.myFormAction.value.timeActionFrom, this.myFormAction.value.timeActionTo)));
+			this.isValid = !(!this.myFormAction.invalid && (this.isTimeIntervalCorrect(this.convertObjectToTime(this.myFormAction.value.timeActionFrom), this.convertObjectToTime(this.myFormAction.value.timeActionTo))));
 		} else if (this.isReport) {
-			this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.myFormReport.value.timeReportFrom, this.myFormReport.value.timeReportTo)));
+			this.isValid = !(!this.myFormReport.invalid && (this.isTimeIntervalCorrect(this.convertObjectToTime(this.myFormReport.value.timeReportFrom), this.convertObjectToTime(this.myFormReport.value.timeReportTo))));
 		} else {
 			this.isValid = true;
 		}
@@ -230,6 +233,7 @@ export class AddAgendaComponent implements OnInit {
 
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
+		console.log(this.schedules);
 	}
 
 	getAllSpeakers() {
@@ -250,8 +254,7 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	saveEvent() {
-	
-		this.AgendaService.saveAgenda(this.schedules);
+		this.agendaService.saveAgenda(this.schedules);
 	}
 
 }
