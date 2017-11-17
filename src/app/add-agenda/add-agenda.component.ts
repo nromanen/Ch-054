@@ -174,8 +174,7 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	mapObjectTimeToMinutes(time) {
-		console.log('convertMin' + time);
-		let arrTime = time.split(':')
+		let arrTime = time.split(':');
 		return (Number(arrTime[0]) * 60 + Number(arrTime[1]));
 	}
 
