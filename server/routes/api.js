@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 var pgp = require("pg-promise")(/*options*/);
-var db = pgp("postgres://postgres:postgres@localhost:5433/postgres");
+var db = pgp("postgres://postgres:postgres@localhost:5432/event-manager");
 
 // GET api lesting
 router.get('/', (req, res) => {
@@ -99,11 +99,19 @@ router.post('/speakers/post', (req, resp, next) => {
         });
 });
 
-
-router.post('/agenda/post', (req, resp, next) => {
+router.post('/agenda/action/post', (req, resp, next) => {
     const dataForInsertion = req.body;
-    db.query('INSERT INTO actions(title, start-time, end-time, date, speaker) VALUES ($1, $2, $3, $4, $5)',
-        [dataForInsertion.name, dataForInsertion.startTime, dataForInsertion.endTime, dataForInsertion.date, dataForInsertion.speaker])
+    db.query('INSERT INTO actions(tittle, start_time, end_time, date) VALUES ($1, $2, $3, $4) RETURNING id',
+        [dataForInsertion.name, dataForInsertion.startTime, dataForInsertion.endTime, dataForInsertion.date])
+        .then(function (data) {
+            resp.status(200).json(data);
+        });
+});
+
+router.post('/agenda/report/post', (req, resp, next) => {
+    const dataForInsertion = req.body;
+    db.query('INSERT INTO reports(id, speaker_id) VALUES ($1, $2)',
+        [dataForInsertion.id, dataForInsertion.speaker.id])
         .then(function (data) {
             resp.status(200).json(data);
         });
