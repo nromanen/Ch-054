@@ -243,6 +243,10 @@ export class AddAgendaComponent implements OnInit {
 
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
+		// delete me please
+		this.agendaService.deleteAction();
+		console.log("Deleting all item is done!");
+		//
 	}
 
 	getAllSpeakers() {

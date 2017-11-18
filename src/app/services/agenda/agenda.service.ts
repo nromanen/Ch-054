@@ -10,7 +10,7 @@ export class AgendaService {
   constructor(private http: Http) { }
 
   postAction(action: Action) {
-    return this.http.post('/api/agenda/action/post', action)
+    return this.http.post('/api/agenda/actions/post', action)
       .map(res => res.json())
   }
 
@@ -20,15 +20,15 @@ export class AgendaService {
     });
   }
 
-  deleteAction(actionId: number) {
-    return this.http.get('/api/agenda/action/delete' + actionId)
-      .map(res => res.json());
+  deleteAction() {
+    return this.http.post('/api/agenda/actions/delete', null)
+      .map(res => res.json()).subscribe();
   }
 
   saveReport(report: Report) {
     this.postAction(report).subscribe(actionRespArray => {
       report.id = actionRespArray[0].id;
-      this.http.post('/api/agenda/report/post', report)
+      this.http.post('/api/agenda/reports/post', report)
         .map(res => res.json()).subscribe();
     });
   }
