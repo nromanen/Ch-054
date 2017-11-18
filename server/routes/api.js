@@ -99,6 +99,17 @@ router.post('/speakers/post', (req, resp, next) => {
         });
 });
 
+router.get('/agenda/get', (req, res) => {
+    db.many(`SELECT a.id,a.start_time,a.end_time,a.tittle,a.date,r.speaker_id 
+    FROM actions AS a LEFT OUTER JOIN reports AS r ON a.id=r.id`)
+        .then(function (data) {
+            res.status(200).json(data);
+        })
+        .catch(function (error) {
+            res.status(500).send(error);
+        });
+});
+
 router.post('/agenda/actions/post', (req, resp, next) => {
     const dataForInsertion = req.body;
     db.query('INSERT INTO actions(tittle, start_time, end_time, date) VALUES ($1, $2, $3, $4) RETURNING id',

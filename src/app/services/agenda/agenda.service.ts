@@ -6,8 +6,13 @@ import { Report } from '../../module_ts/report';
 
 @Injectable()
 export class AgendaService {
-
+  
   constructor(private http: Http) { }
+  
+  getAllAgenda() {
+    return this.http.get('/api/agenda/get')
+      .map(res => res.json());
+  }
 
   postAction(action: Action) {
     return this.http.post('/api/agenda/actions/post', action)
@@ -33,10 +38,6 @@ export class AgendaService {
     });
   }
 
-  getAllAgenda() {
-    return this.http.get('/api/agenda/get')
-      .map(res => res.json());
-  }
 
   saveAgenda(agenda: Array<Action[]>) {
     return this.http.post('/api/agenda/post', agenda)
