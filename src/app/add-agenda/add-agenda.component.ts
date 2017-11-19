@@ -35,6 +35,7 @@ export class AddAgendaComponent implements OnInit {
 	speakers: Speaker[] = [];
 	@Input() selectDate: Array<any>;
 	@Input() currentEvent: Event;
+	@Input() valueEvent: Event;
 	@Output() isHideAgenda = new EventEmitter<boolean>();
 	model1 = "";
 	arrays;
@@ -45,8 +46,8 @@ export class AddAgendaComponent implements OnInit {
 		return this._sanitizer.bypassSecurityTrustHtml(html);
 	}
 
-	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, 
-		private _sanitizer: DomSanitizer, private speakerService: SpeakerService, 
+	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig,
+		private _sanitizer: DomSanitizer, private speakerService: SpeakerService,
 		private agendaService: AgendaService, private eventService: EventService) {
 		config.spinners = false;
 	}
@@ -65,26 +66,13 @@ export class AddAgendaComponent implements OnInit {
 			timeReportTo: new FormControl('', [Validators.required]),
 			dataPickerReport: new FormControl(''),
 			speaker: new FormControl('', [Validators.required]),
-
 		});
 
 		this.setDate(this.selectDate);
 		this.getAllSpeakers();
-		this.eventService.saveEvent(null);
+		console.log(this.valueEvent);
+		// this.eventService.saveEvent(null);
 	}
-
-	//TODO validation times
-	// isTimesIntervalCorrect(timeFrom: any, timeTo: any) {
-	// 	return (group: FormGroup) => {
-	// 		let from = group.controls[timeFrom];
-	// 		let to = group.controls[timeTo];
-	// 		if (this.mapObjectTimeToMinutes(from) >= this.mapObjectTimeToMinutes(to)) {
-	// 			return {
-	// 				invalidTime: true
-	// 			};
-	// 		}
-	// 	}
-	// }
 
 	resetSomevauesForms() {
 		this.isValid = true;
@@ -108,31 +96,34 @@ export class AddAgendaComponent implements OnInit {
 		// 	console.log(form.speaker);
 		// }
 		let report = new Report(form.nameReport, this.convertObjectToTime(form.timeReportFrom), this.convertObjectToTime(form.timeReportTo), this.convertObjectToDate(form.dataPickerReport), form.speaker);
-
 		if (this.schedules.length === 1) {
 			if (this.addElementsToSchedulesByTime(report, this.schedules[0])) {
+				report['eventId'] = Number(this.currentEvent.id);
 				this.agendaService.saveReport(report);
 			}
 		} else if (this.schedules.length > 1) {
 			if (this.addElementsToSchedulesByDate(report)) {
+				report['eventId'] = Number(this.currentEvent.id);
 				this.agendaService.saveReport(report);
 			}
 		}
+		this.getAllAction();
 	}
 
 	saveAction(form) {
 		let action = new Action(form.nameAction, this.convertObjectToTime(form.timeActionFrom), this.convertObjectToTime(form.timeActionTo), this.convertObjectToDate(form.dataPickerAction));
-
 		if (this.schedules.length === 1) {
 			if (this.addElementsToSchedulesByTime(action, this.schedules[0])) {
+				action['eventId'] = Number(this.currentEvent.id);
 				this.agendaService.saveAction(action);
 			}
 		} else if (this.schedules.length > 1) {
 			if (this.addElementsToSchedulesByDate(action)) {
+				action['eventId'] = Number(this.currentEvent.id);
 				this.agendaService.saveAction(action);
 			}
 		}
-
+		this.getAllAction();
 	}
 
 	addElementsToSchedulesByDate(item: Action) {
@@ -190,7 +181,9 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	convertObjectToDate(item) {
-		return new Date(item['year'], item['month'] - 1, item['day']);
+		let date = new Date(item['year'], item['month'] - 1, item['day']);
+		date.setHours(date.getHours() - date.getTimezoneOffset() / 60);
+		return date;
 	}
 
 	convertObjectToTime(item) {
@@ -250,7 +243,7 @@ export class AddAgendaComponent implements OnInit {
 
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
 		if (timeFrom && timeTo) {
-			if(this.mapObjectTimeToMinutes(timeFrom) < this.mapObjectTimeToMinutes(timeTo) === false){
+			if (this.mapObjectTimeToMinutes(timeFrom) < this.mapObjectTimeToMinutes(timeTo) === false) {
 				swal('The interval of time is not correct!', 'Please enter correct time', 'error');
 				return false;
 			}
@@ -262,7 +255,7 @@ export class AddAgendaComponent implements OnInit {
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
 		// delete me please
-		this.agendaService.deleteAction();
+		this.agendaService.deleteAction(Number(this.currentEvent.id));
 		console.log("Deleting all item is done!");
 		//
 	}
@@ -280,17 +273,43 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	getAllAction() {
-		this.agendaService.getAllAgenda().subscribe(agenda => {
-			// this.schedules = this.arrays;
-			agenda.forEach(element => {
-				if (element['speaker_id'] === null) {
-					let currentAction = new Action(element['tittle'], element['start_time'], element['end_time'], element['date'], element['id']);
+		let agenda = this.arrays;
+		this.agendaService.getAgendaByEventId(Number(this.currentEvent.id)).subscribe(agenda => {
+			agenda.forEach(item => {
+				item.date = new Date(item.date);
+				if (item['speaker_id'] === null) {
+					let currentAction = new Action(item['tittle'], item['start_time'], item['end_time'], item['date'], item['id']);
+					agenda = this.addedAction(item, agenda);
 				} else {
-					let currentReport = new Report(element['tittle'], element['start_time'], element['end_time'], element['date'], element['speaker_id'], element['id']);
+					let currentReport = new Report(item['tittle'], item['start_time'], item['end_time'], item['date'], item['speaker_id'], item['id']);
+					agenda = this.addedAction(item, agenda);
 				}
 			});
 		});
-		console.log('ok');
+		console.log(agenda);
+	}
+	addedAction(item, agenda) {
+		if (agenda.length == 1) {
+			agenda[0].push(item);
+			console.log('one');
+			return agenda;
+		} else {
+			for (let i = 0; i < agenda.length; i++) {
+				if (agenda[i].length == 0) {
+					console.log('one, more');
+					agenda[i].push(item);
+					return agenda;
+				}
+				for (let j = 0; j < agenda[i].length; j++) {
+					console.log('more');
+					let schedulDate = agenda[i][j]['date'];
+					if (item.date.getDate() == schedulDate.getDate()) {
+						agenda[i].push(item);
+						return agenda;
+					}
+				}
+			}
+		}
 	}
 
 	addedSpeaker(speaker) {
@@ -300,8 +319,11 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	saveEvent() {
-		this.agendaService.saveAgenda(this.schedules);
-		this.eventService.saveEvent(this.event);
+		this.valueEvent.dateFrom = this.convertObjectToDate(this.valueEvent.dateFrom);
+		this.valueEvent.dateTo = this.convertObjectToDate(this.valueEvent.dateTo);
+		let event = this.valueEvent;
+		event.id = Number(this.currentEvent.id);
+		this.eventService.updateEvent(event);
 	}
 
 }

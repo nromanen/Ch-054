@@ -101,9 +101,11 @@ router.post('/speakers/post', (req, resp, next) => {
 
 router.get('/agenda/get/:eventId', (req, res) => {
     var eventId = req.params.eventId;
-    db.many(`SELECT a.id,a.start_time,a.end_time,a.tittle,a.date,r.speaker_id 
-    FROM actions AS a LEFT OUTER JOIN reports AS r ON a.id=r.id AND a.event_id=$1
-    ORDER BY a.date, a.start_time`, [eventId])
+    db.many(`SELECT acts.id, acts.start_time,acts.end_time,acts.tittle,acts.date,acts.speaker_id FROM
+    (SELECT a.id,a.start_time,a.end_time,a.tittle,a.date,r.speaker_id, a.event_id 
+        FROM public.actions AS a LEFT OUTER JOIN public.reports AS r ON a.id=r.id) AS acts
+        WHERE acts.event_id=$1
+        ORDER BY acts.date,acts.start_time;`, [eventId])
         .then(function (data) {
             res.status(200).json(data);
         })
@@ -144,7 +146,7 @@ router.post('/events/post', (req, resp, next) => {
     db.query(`INSERT INTO events(name, description, date_from, date_to, location_id, photo) 
     VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
         [dataForInsertion.name, dataForInsertion.description, dataForInsertion.dateFrom, dataForInsertion.dateTo,
-        dataForInsertion.location, dataForInsertion.photo])
+        dataForInsertion.location, dataForInsertion.eventPhoto])
         .then(function (data) {
             resp.status(200).json(data);
         });
@@ -152,10 +154,10 @@ router.post('/events/post', (req, resp, next) => {
 
 router.post('/events/update', (req, resp, next) => {
     const dataForInsertion = req.body;
-    db.query(`UPDATE events SET (name, description, date_from, date_to, location_id, photo)
-    WHERE id=$1 VALUES($1, $2, $3, $4, $5, $6) WHERE id=$7`, [dataForInsertion.name,
+    db.query(`UPDATE events SET name=$1, description=$2, date_from=$3, date_to=$4, location_id=$5, photo=$6
+     WHERE id=$7`, [dataForInsertion.name,
         dataForInsertion.description, dataForInsertion.dateFrom, dataForInsertion.dateTo,
-        dataForInsertion.locationId, dataForInsertion.photo, dataForInsertion.id])
+        dataForInsertion.location.id, dataForInsertion.eventPhoto, dataForInsertion.id])
         .then(function (data) {
             resp.status(200).json(data);
         });

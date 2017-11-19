@@ -5,14 +5,14 @@ export class Event{
     dateTo: Date;
     name: string;
     location: Location;
-    eventPhotos: string;
+    eventPhoto: string;
 
-    constructor(name, description, dateFrom,  dateTo, eventPhotos, location) {
+    constructor(name, description, dateFrom,  dateTo, eventPhoto, location) {
         this.name = name;
         this.description = description;
         this.dateFrom = dateFrom;
         this.location = location;
         this.dateTo = dateTo;
-        this.eventPhotos = eventPhotos;
+        this.eventPhoto = eventPhoto;
     }
 }

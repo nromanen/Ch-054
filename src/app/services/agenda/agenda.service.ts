@@ -10,7 +10,7 @@ export class AgendaService {
   constructor(private http: Http) { }
 
   getAgendaByEventId(eventId: number) {
-    return this.http.get('/api/agenda/get' + eventId)
+    return this.http.get('/api/agenda/get/' + eventId)
       .map(res => res.json());
   }
 
@@ -19,9 +19,16 @@ export class AgendaService {
       .map(res => res.json())
   }
 
-  saveAction(action: Action) {
+  saveAction(action: Action, actions: Array<Action[]>, eventId: number) {
     this.postAction(action).subscribe(actionRespArray => {
       action.id = actionRespArray[0].id;
+      this.getAgendaByEventId(eventId).subscribe(currentActions => {
+
+
+
+
+        actions = currentActions;
+      });
     });
   }
 

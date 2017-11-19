@@ -37,6 +37,7 @@ export class AddEventComponent implements OnInit {
 	isSowSelectLocat: boolean = false;
 	selectDate: Array<any> = new Array();
 	currentEvent: Event = new Event(null, null, null, null, null, null);
+	valueEvent: Event;
 	myForm: FormGroup;
 	locations: Array<Location> = [];
 	myValueFormatter(location: any): string {
@@ -103,7 +104,6 @@ export class AddEventComponent implements OnInit {
 	}
 
 	saveEvent(form) {
-		this.currentEvent = new Event(form.name, form.descr, form.dataPickerFrom, form.dataPickerTo, this.photo, form.location);
 		if (!form.dataPickerTo && form.dataPickerFrom) {
 			this.selectDate.push(form.dataPickerFrom);
 		}
@@ -112,6 +112,7 @@ export class AddEventComponent implements OnInit {
 		}
 		this.isShowAgenda = true;
 		this.isShowEvent = false;
+		this.valueEvent = new Event(form.name, form.descr, form.dataPickerFrom, form.dataPickerTo, this.photo, form.location);
 	}
 
 	isHideAgenda(increased) {
