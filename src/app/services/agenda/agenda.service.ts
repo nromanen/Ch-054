@@ -19,18 +19,39 @@ export class AgendaService {
       .map(res => res.json())
   }
 
-  saveAction(action: Action, actions: Array<Action[]>, eventId: number) {
+  saveAction(action: Action, schedules: Array<Action[]>, eventId: number) {
     this.postAction(action).subscribe(actionRespArray => {
       action.id = actionRespArray[0].id;
       this.getAgendaByEventId(eventId).subscribe(currentActions => {
-
-
-
-
-        actions = currentActions;
+        this.prepareAllActions(currentActions, schedules);
+        console.log(schedules);
       });
     });
   }
+
+  prepareAllActions(currentActions: any, schedules: Array<Action[]>) {
+    schedules = [];
+    let currentDate = currentActions[0]['date'];
+    let currentArrayToPush: Array<Action> = [];
+    currentActions.forEach(currentAction => {
+      if (currentAction['date'] === currentDate) {
+        currentArrayToPush.push(new Action(
+          currentAction.tittle, currentAction.start_time,
+          currentAction.end_time, new Date(currentAction.date), currentAction.id
+        ));
+      } else {
+        schedules.push(currentArrayToPush);
+        currentDate = currentAction.date;
+        currentArrayToPush = [];
+        currentArrayToPush.push(new Action(
+          currentAction.tittle, currentAction.start_time,
+          currentAction.end_time, new Date(currentAction.date), currentAction.id
+        ));
+      }
+      schedules.push(currentArrayToPush);
+    });
+  }
+
 
   deleteAction(eventId: number) {
     return this.http.post('/api/agenda/actions/delete/' + eventId, null)

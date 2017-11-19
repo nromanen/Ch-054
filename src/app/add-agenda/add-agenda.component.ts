@@ -38,7 +38,6 @@ export class AddAgendaComponent implements OnInit {
 	@Input() valueEvent: Event;
 	@Output() isHideAgenda = new EventEmitter<boolean>();
 	model1 = "";
-	arrays;
 
 
 	autocompleListFormatter = (speaker: any): SafeHtml => {
@@ -107,7 +106,7 @@ export class AddAgendaComponent implements OnInit {
 				this.agendaService.saveReport(report);
 			}
 		}
-		this.getAllAction();
+		//this.getAllAction();
 	}
 
 	saveAction(form) {
@@ -115,15 +114,15 @@ export class AddAgendaComponent implements OnInit {
 		if (this.schedules.length === 1) {
 			if (this.addElementsToSchedulesByTime(action, this.schedules[0])) {
 				action['eventId'] = Number(this.currentEvent.id);
-				this.agendaService.saveAction(action);
+				this.agendaService.saveAction(action, this.schedules, this.currentEvent.id);
 			}
 		} else if (this.schedules.length > 1) {
 			if (this.addElementsToSchedulesByDate(action)) {
 				action['eventId'] = Number(this.currentEvent.id);
-				this.agendaService.saveAction(action);
+				this.agendaService.saveAction(action, this.schedules, this.currentEvent.id);
 			}
 		}
-		this.getAllAction();
+		//this.getAllAction();
 	}
 
 	addElementsToSchedulesByDate(item: Action) {
@@ -197,13 +196,14 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	setDate(selectDate: any) {
+		let arrays;
 		if (selectDate.length === 1) {
 			let date = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
 			this.modelDateRepor = date;
 			this.modelDate = date;
 			this.minDate = date;
 			this.maxDate = date;
-			this.arrays = this.addArrays(1);
+			arrays = this.addArrays(1);
 		}
 		if (selectDate.length > 1) {
 			this.minDate = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
@@ -211,9 +211,9 @@ export class AddAgendaComponent implements OnInit {
 			this.modelDateRepor = this.minDate;
 			this.maxDate = { year: selectDate[selectDate.length - 1].year, month: selectDate[selectDate.length - 1].month, day: selectDate[selectDate.length - 1].day };
 			let datesConference = this.numberOfDays(selectDate);
-			this.arrays = this.addArrays(datesConference + 1);
+			arrays = this.addArrays(datesConference + 1);
 		}
-		this.schedules = this.arrays;
+		this.schedules = arrays;
 	}
 
 	addArrays(n) {
@@ -273,7 +273,6 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	getAllAction() {
-		let agenda = this.arrays;
 		this.agendaService.getAgendaByEventId(Number(this.currentEvent.id)).subscribe(agenda => {
 			agenda.forEach(item => {
 				item.date = new Date(item.date);
@@ -286,7 +285,6 @@ export class AddAgendaComponent implements OnInit {
 				}
 			});
 		});
-		console.log(agenda);
 	}
 	addedAction(item, agenda) {
 		if (agenda.length == 1) {
