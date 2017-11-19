@@ -14,17 +14,24 @@ export class EventService {
   }
 
   getEvent(eventsId: number) {
-    return this.http.get('/api/events/get/' + eventsId)
+    return this.http.get('/api/events/get' + eventsId)
       .map(res => res.json());
   }
 
   getEventsSpeakers(eventsId: number) {
-    return this.http.get('/api/events/speakers/get/' + eventsId)
+    return this.http.get('/api/events/speakers/get' + eventsId)
       .map(res => res.json());
   }
 
   saveEvent(event: Event) {
     return this.http.post('/api/events/post', event)
+      .map(res => res.json()).subscribe(id => {
+        event.id = id[0].id;
+      });
+  }
+
+  updateEvent(event: Event) {
+    return this.http.post('/api/events/update', event)
     .map(res => res.json()).subscribe();
   }
 

@@ -34,9 +34,10 @@ export class AddAgendaComponent implements OnInit {
 	schedules: Array<Action[]> = [[]];
 	speakers: Speaker[] = [];
 	@Input() selectDate: Array<any>;
-	@Input() event: Event;
+	@Input() currentEvent: Event;
 	@Output() isHideAgenda = new EventEmitter<boolean>();
 	model1 = "";
+	arrays;
 
 
 	autocompleListFormatter = (speaker: any): SafeHtml => {
@@ -44,7 +45,9 @@ export class AddAgendaComponent implements OnInit {
 		return this._sanitizer.bypassSecurityTrustHtml(html);
 	}
 
-	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, private _sanitizer: DomSanitizer, private SpeakerService: SpeakerService, private agendaService: AgendaService, private EventService: EventService) {
+	constructor(private formbuild: FormBuilder, config: NgbTimepickerConfig, 
+		private _sanitizer: DomSanitizer, private speakerService: SpeakerService, 
+		private agendaService: AgendaService, private eventService: EventService) {
 		config.spinners = false;
 	}
 
@@ -67,6 +70,7 @@ export class AddAgendaComponent implements OnInit {
 
 		this.setDate(this.selectDate);
 		this.getAllSpeakers();
+		this.eventService.saveEvent(null);
 	}
 
 	//TODO validation times
@@ -104,22 +108,31 @@ export class AddAgendaComponent implements OnInit {
 		// 	console.log(form.speaker);
 		// }
 		let report = new Report(form.nameReport, this.convertObjectToTime(form.timeReportFrom), this.convertObjectToTime(form.timeReportTo), this.convertObjectToDate(form.dataPickerReport), form.speaker);
-		this.agendaService.saveReport(report);
+
 		if (this.schedules.length === 1) {
-			this.addElementsToSchedulesByTime(report, this.schedules[0]);
+			if (this.addElementsToSchedulesByTime(report, this.schedules[0])) {
+				this.agendaService.saveReport(report);
+			}
 		} else if (this.schedules.length > 1) {
-			this.addElementsToSchedulesByDate(report);
+			if (this.addElementsToSchedulesByDate(report)) {
+				this.agendaService.saveReport(report);
+			}
 		}
 	}
 
 	saveAction(form) {
 		let action = new Action(form.nameAction, this.convertObjectToTime(form.timeActionFrom), this.convertObjectToTime(form.timeActionTo), this.convertObjectToDate(form.dataPickerAction));
-		this.agendaService.saveAction(action);
+
 		if (this.schedules.length === 1) {
-			this.addElementsToSchedulesByTime(action, this.schedules[0]);
+			if (this.addElementsToSchedulesByTime(action, this.schedules[0])) {
+				this.agendaService.saveAction(action);
+			}
 		} else if (this.schedules.length > 1) {
-			this.addElementsToSchedulesByDate(action);
+			if (this.addElementsToSchedulesByDate(action)) {
+				this.agendaService.saveAction(action);
+			}
 		}
+
 	}
 
 	addElementsToSchedulesByDate(item: Action) {
@@ -127,13 +140,12 @@ export class AddAgendaComponent implements OnInit {
 			if (this.schedules[i].length == 0) {
 				this.schedules[i].push(item);
 				this.resetSomevauesForms();
-				return;
+				return true;
 			}
 			for (let j = 0; j < this.schedules[i].length; j++) {
 				let schedulDate = this.schedules[i][j]['date'];
 				if (item.date.getDate() == schedulDate.getDate()) {
-					this.addElementsToSchedulesByTime(item, this.schedules[i]);
-					return;
+					return this.addElementsToSchedulesByTime(item, this.schedules[i]);
 				}
 			}
 		}
@@ -143,22 +155,23 @@ export class AddAgendaComponent implements OnInit {
 		if (schedules.length == 0) {
 			schedules.push(item);
 			this.resetSomevauesForms();
-			return;
+			return true;
 		}
 		if (this.mapObjectTimeToMinutes(item['endTime']) <= this.mapObjectTimeToMinutes(schedules[0]['startTime'])) {
 			schedules.unshift(item);
 			this.resetSomevauesForms();
-			return;
+			return true;
 		}
 		if (this.mapObjectTimeToMinutes(item['startTime']) >= this.mapObjectTimeToMinutes(schedules[schedules.length - 1]['endTime'])) {
 			schedules.push(item);
 			this.resetSomevauesForms();
-			return;
+			return true;
 		}
 		if (this.isTimeItemMoreTimeSchedule(schedules, item)) {
-			return;
+			return true;
 		}
 		swal('The entered time is not correct!', 'Please enter correct time', 'error');
+		return false;
 	}
 
 	isTimeItemMoreTimeSchedule(schedules, item) {
@@ -173,6 +186,7 @@ export class AddAgendaComponent implements OnInit {
 				return true;
 			}
 		}
+		return false;
 	}
 
 	convertObjectToDate(item) {
@@ -196,7 +210,7 @@ export class AddAgendaComponent implements OnInit {
 			this.modelDate = date;
 			this.minDate = date;
 			this.maxDate = date;
-			this.schedules.length = 1;
+			this.arrays = this.addArrays(1);
 		}
 		if (selectDate.length > 1) {
 			this.minDate = { year: selectDate[0].year, month: selectDate[0].month, day: selectDate[0].day };
@@ -204,9 +218,9 @@ export class AddAgendaComponent implements OnInit {
 			this.modelDateRepor = this.minDate;
 			this.maxDate = { year: selectDate[selectDate.length - 1].year, month: selectDate[selectDate.length - 1].month, day: selectDate[selectDate.length - 1].day };
 			let datesConference = this.numberOfDays(selectDate);
-			let arrays = this.addArrays(datesConference + 1);
-			this.schedules = arrays;
+			this.arrays = this.addArrays(datesConference + 1);
 		}
+		this.schedules = this.arrays;
 	}
 
 	addArrays(n) {
@@ -236,7 +250,11 @@ export class AddAgendaComponent implements OnInit {
 
 	isTimeIntervalCorrect(timeFrom: any, timeTo: any): boolean {
 		if (timeFrom && timeTo) {
-			return (this.mapObjectTimeToMinutes(timeFrom) < this.mapObjectTimeToMinutes(timeTo));
+			if(this.mapObjectTimeToMinutes(timeFrom) < this.mapObjectTimeToMinutes(timeTo) === false){
+				swal('The interval of time is not correct!', 'Please enter correct time', 'error');
+				return false;
+			}
+			return true;
 		}
 		return false;
 	}
@@ -250,7 +268,7 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	getAllSpeakers() {
-		this.SpeakerService.getAllSpeakers().subscribe(speakers => {
+		this.speakerService.getAllSpeakers().subscribe(speakers => {
 			this.speakers = [];
 			speakers.forEach(speaker => {
 				let currentSpeaker = new Speaker(speaker.full_name, speaker.description,
@@ -261,6 +279,20 @@ export class AddAgendaComponent implements OnInit {
 		});
 	}
 
+	getAllAction() {
+		this.agendaService.getAllAgenda().subscribe(agenda => {
+			// this.schedules = this.arrays;
+			agenda.forEach(element => {
+				if (element['speaker_id'] === null) {
+					let currentAction = new Action(element['tittle'], element['start_time'], element['end_time'], element['date'], element['id']);
+				} else {
+					let currentReport = new Report(element['tittle'], element['start_time'], element['end_time'], element['date'], element['speaker_id'], element['id']);
+				}
+			});
+		});
+		console.log('ok');
+	}
+
 	addedSpeaker(speaker) {
 		if (!speaker) { return; }
 		this.speakers.push(speaker);
@@ -269,7 +301,7 @@ export class AddAgendaComponent implements OnInit {
 
 	saveEvent() {
 		this.agendaService.saveAgenda(this.schedules);
-		this.EventService.saveEvent(this.event);
+		this.eventService.saveEvent(this.event);
 	}
 
 }

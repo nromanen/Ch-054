@@ -5,7 +5,7 @@ export class Action {
     endTime: Date;
     date: Date;
 
-    constructor(name, startTime, endTime, date) {
+    constructor(name, startTime, endTime, date, id?) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;

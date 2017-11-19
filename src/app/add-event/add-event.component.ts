@@ -5,6 +5,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { Event } from '../module_ts/event';
 import { LocationService } from '../services/location/location.service';
+import { EventService } from '../services/event/event.service';
 
 @Component({
 	selector: 'app-add-event',
@@ -35,7 +36,7 @@ export class AddEventComponent implements OnInit {
 	isValidPhoto: boolean = true;
 	isSowSelectLocat: boolean = false;
 	selectDate: Array<any> = new Array();
-	event: Event;
+	currentEvent: Event = new Event(null, null, null, null, null, null);
 	myForm: FormGroup;
 	locations: Array<Location> = [];
 	myValueFormatter(location: any): string {
@@ -48,7 +49,8 @@ export class AddEventComponent implements OnInit {
 	}
 
 
-	constructor(private formbuild: FormBuilder, private _sanitizer: DomSanitizer, private locationService: LocationService) { }
+	constructor(private formbuild: FormBuilder, private _sanitizer: DomSanitizer,
+		private locationService: LocationService, private eventService: EventService) { }
 
 
 	ngOnInit() {
@@ -60,6 +62,7 @@ export class AddEventComponent implements OnInit {
 			location: new FormControl('', [Validators.required])
 		});
 		this.getAllLocations();
+		this.eventService.saveEvent(this.currentEvent);
 	}
 
 	selectToday() {
@@ -100,7 +103,7 @@ export class AddEventComponent implements OnInit {
 	}
 
 	saveEvent(form) {
-		this.event = new Event(form.name, form.descr, form.dataPickerFrom, form.dataPickerTo, this.photo, form.location);
+		this.currentEvent = new Event(form.name, form.descr, form.dataPickerFrom, form.dataPickerTo, this.photo, form.location);
 		if (!form.dataPickerTo && form.dataPickerFrom) {
 			this.selectDate.push(form.dataPickerFrom);
 		}

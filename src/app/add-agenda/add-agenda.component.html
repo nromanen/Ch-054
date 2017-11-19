@@ -28,11 +28,11 @@
                   <div class="row mb-2">
                     <div class="col-lg-4 mb-3">
                       <label for="timeActionFrom" class="font-weight-bold">Time Start</label>
-                      <ngb-timepicker formControlName="timeActionFrom" (change)="change()" [(ngModel)]="timeActionFrom"></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeActionFrom" (keyup)="change()" [(ngModel)]="timeActionFrom"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4 mb-2">
                       <label for="timeActionTo" class="font-weight-bold">Time End</label>
-                      <ngb-timepicker formControlName="timeActionTo" (change)="change()" [(ngModel)]="timeActionTo"></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeActionTo" (keyup)="change()" [(ngModel)]="timeActionTo"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>
@@ -91,11 +91,11 @@
                   <div class="row mb-3">
                     <div class="col-lg-4 mb-2">
                       <label for="timeReportFrom" class="font-weight-bold">Time Start</label>
-                      <ngb-timepicker formControlName="timeReportFrom" class="timepicker" [(ngModel)]="timeReportFrom" (change)="change()"></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeReportFrom" class="timepicker" [(ngModel)]="timeReportFrom" (keyup)="change()"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4 mb-2">
                       <label for="timeReportTo" class="font-weight-bold">Time End</label>
-                      <ngb-timepicker formControlName="timeReportTo" [(ngModel)]="timeReportTo" (change)="change()"></ngb-timepicker>
+                      <ngb-timepicker formControlName="timeReportTo" [(ngModel)]="timeReportTo" (keyup)="change()"></ngb-timepicker>
                     </div>
                     <div class="col-lg-4">
                       <label for="dataPickerReport" class="font-weight-bold">Date</label>

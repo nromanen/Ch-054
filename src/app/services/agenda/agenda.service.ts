@@ -6,11 +6,11 @@ import { Report } from '../../module_ts/report';
 
 @Injectable()
 export class AgendaService {
-  
+
   constructor(private http: Http) { }
-  
-  getAllAgenda() {
-    return this.http.get('/api/agenda/get')
+
+  getAgendaByEventId(eventId: number) {
+    return this.http.get('/api/agenda/get' + eventId)
       .map(res => res.json());
   }
 
@@ -25,8 +25,8 @@ export class AgendaService {
     });
   }
 
-  deleteAction() {
-    return this.http.post('/api/agenda/actions/delete', null)
+  deleteAction(eventId: number) {
+    return this.http.post('/api/agenda/actions/delete/' + eventId, null)
       .map(res => res.json()).subscribe();
   }
 
@@ -37,7 +37,6 @@ export class AgendaService {
         .map(res => res.json()).subscribe();
     });
   }
-
 
   saveAgenda(agenda: Array<Action[]>) {
     return this.http.post('/api/agenda/post', agenda)

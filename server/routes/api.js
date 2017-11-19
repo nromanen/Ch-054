@@ -99,9 +99,11 @@ router.post('/speakers/post', (req, resp, next) => {
         });
 });
 
-router.get('/agenda/get', (req, res) => {
+router.get('/agenda/get/:eventId', (req, res) => {
+    var eventId = req.params.eventId;
     db.many(`SELECT a.id,a.start_time,a.end_time,a.tittle,a.date,r.speaker_id 
-    FROM actions AS a LEFT OUTER JOIN reports AS r ON a.id=r.id`)
+    FROM actions AS a LEFT OUTER JOIN reports AS r ON a.id=r.id AND a.event_id=$1
+    ORDER BY a.date, a.start_time`, [eventId])
         .then(function (data) {
             res.status(200).json(data);
         })
@@ -112,8 +114,9 @@ router.get('/agenda/get', (req, res) => {
 
 router.post('/agenda/actions/post', (req, resp, next) => {
     const dataForInsertion = req.body;
-    db.query('INSERT INTO actions(tittle, start_time, end_time, date) VALUES ($1, $2, $3, $4) RETURNING id',
-        [dataForInsertion.name, dataForInsertion.startTime, dataForInsertion.endTime, dataForInsertion.date])
+    db.query('INSERT INTO actions(tittle, start_time, end_time, date, event_id) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+        [dataForInsertion.name, dataForInsertion.startTime, dataForInsertion.endTime, dataForInsertion.date,
+        dataForInsertion.eventId])
         .then(function (data) {
             resp.status(200).json(data);
         });
@@ -128,9 +131,9 @@ router.post('/agenda/reports/post', (req, resp, next) => {
         });
 });
 
-router.post('/agenda/actions/delete', (req, resp, next) => {
-    var actionId = req.params.actionId;
-    db.query('DELETE FROM actions')
+router.post('/agenda/actions/delete/:eventId', (req, resp, next) => {
+    var eventId = req.params.eventId;
+    db.query('DELETE FROM actions WHERE event_id=$1', [eventId])
         .then(function (data) {
             resp.status(200).json(data);
         });
@@ -138,8 +141,21 @@ router.post('/agenda/actions/delete', (req, resp, next) => {
 
 router.post('/events/post', (req, resp, next) => {
     const dataForInsertion = req.body;
-    db.query('INSERT INTO actions(tittle, description, date_from, date_to, photo, location) VALUES ($1, $2, $3, $4, $5, $6)',
-        [dataForInsertion.name, dataForInsertion.description, dataForInsertion.dateFrom, dataForInsertion.dateTo, dataForInsertion.eventPhotos, dataForInsertion.location])
+    db.query(`INSERT INTO events(name, description, date_from, date_to, location_id, photo) 
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
+        [dataForInsertion.name, dataForInsertion.description, dataForInsertion.dateFrom, dataForInsertion.dateTo,
+        dataForInsertion.location, dataForInsertion.photo])
+        .then(function (data) {
+            resp.status(200).json(data);
+        });
+});
+
+router.post('/events/update', (req, resp, next) => {
+    const dataForInsertion = req.body;
+    db.query(`UPDATE events SET (name, description, date_from, date_to, location_id, photo)
+    WHERE id=$1 VALUES($1, $2, $3, $4, $5, $6) WHERE id=$7`, [dataForInsertion.name,
+        dataForInsertion.description, dataForInsertion.dateFrom, dataForInsertion.dateTo,
+        dataForInsertion.locationId, dataForInsertion.photo, dataForInsertion.id])
         .then(function (data) {
             resp.status(200).json(data);
         });
