@@ -13,8 +13,8 @@ export class SpeakerService {
       .map(res => res.json());
   }
 
-  saveSpeaker(speaker: Speaker) {
+  saveSpeaker(speaker: Speaker, ) {
     return this.http.post('/api/speakers/post', speaker)
-      .map(res => res.json()).subscribe();
+      .map(res => res.json());
   }
 }

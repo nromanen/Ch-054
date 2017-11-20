@@ -10,7 +10,7 @@ import { AddAgendaComponent } from './add-agenda/add-agenda.component';
 const routes: Routes = [
     {path: '', redirectTo: 'all-event', pathMatch: 'full'},
     {path: 'add-lection-page', component: AddLectionPageComponent},
-    {path: 'event/:key', component: SpecificEventComponent },
+    {path: 'event/:id', component: SpecificEventComponent },
     {path: 'all-event', component: AllEventsComponentComponent},
     { path: 'add-event-page', component: AddEventPageComponent },
     { path: 'add/event', component: AddEventComponent },

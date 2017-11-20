@@ -29,7 +29,7 @@ export class ModalSpeakerComponent implements OnInit {
   ngOnInit() {
     this.modalForm = this.formbuild.group({
       name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(55)]),
-      descr: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]),
+      descr: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(5000)]),
       placeWork: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(55)]),
       position: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(55)])
     });
@@ -49,8 +49,10 @@ export class ModalSpeakerComponent implements OnInit {
   save(form) {
     this.speaker = new Speaker(form.name, form.descr, form.placeWork, form.position, this.photo);
     this.isPhotoSpeaker = true;
-    this.speakerService.saveSpeaker(this.speaker);
-    this.addedSpeaker.emit(this.speaker);
+    this.speakerService.saveSpeaker(this.speaker).subscribe(id => {
+      this.speaker.id = id[0].id;
+      this.addedSpeaker.emit(this.speaker);
+    });
   }
 
   close() {

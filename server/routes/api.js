@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 var pgp = require("pg-promise")(/*options*/);
-var db = pgp("postgres://postgres:postgres@localhost:5432/event-manager");
+var db = pgp("postgres://postgres:postgres@localhost:5433/postgres");
 
 // GET api lesting
 router.get('/', (req, res) => {
@@ -91,7 +91,7 @@ router.get('/speakers/get', (req, res) => {
 
 router.post('/speakers/post', (req, resp, next) => {
     const dataForInsertion = req.body;
-    db.query('INSERT INTO speakers(full_name, description, placework, position, photo) VALUES ($1, $2, $3, $4, $5)',
+    db.query('INSERT INTO speakers(full_name, description, placework, position, photo) VALUES ($1, $2, $3, $4, $5) RETURNING id',
         [dataForInsertion.fullName, dataForInsertion.description, dataForInsertion.placeWork,
         dataForInsertion.position, dataForInsertion.photoPath])
         .then(function (data) {
@@ -141,12 +141,33 @@ router.post('/agenda/actions/delete/:eventId', (req, resp, next) => {
         });
 });
 
+router.get('/events/get', (req, res) => {
+    db.many('SELECT e.id, e.name, e.date_from, l.country,l.city,l.address, e.photo, e.date_to FROM public.events AS e JOIN public.locations AS l ON e.location_id=l.id')
+        .then(function (data) {
+            res.status(200).json(data);
+        })
+        .catch(function (error) {
+            res.status(500).send(error);
+        });
+});
+
+router.get('/events/get/:eventId', (req, res) => {
+    var eventId = req.params.eventId;
+    db.one(`SELECT e.name, e.description, e.date_from, e.photo, e.date_to, l.country, l.city, l.address, l.id FROM public.events AS e JOIN public.locations AS l ON e.location_id=l.id AND e.id=$1`, [eventId])
+        .then(function (data) {
+            res.status(200).json(data);
+        })
+        .catch(function (error) {
+            res.status(500).send(error);
+        });
+});
+
 router.post('/events/post', (req, resp, next) => {
     const dataForInsertion = req.body;
     db.query(`INSERT INTO events(name, description, date_from, date_to, location_id, photo) 
     VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
         [dataForInsertion.name, dataForInsertion.description, dataForInsertion.dateFrom, dataForInsertion.dateTo,
-        dataForInsertion.location, dataForInsertion.eventPhoto])
+        dataForInsertion.locationId, dataForInsertion.eventPhoto])
         .then(function (data) {
             resp.status(200).json(data);
         });

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Event } from '../../module_ts/event';
+import { EventLocation } from '../../module_ts/location';
 
 @Injectable()
 export class EventService {
@@ -14,7 +15,7 @@ export class EventService {
   }
 
   getEvent(eventsId: number) {
-    return this.http.get('/api/events/get' + eventsId)
+    return this.http.get('/api/events/get/' + eventsId)
       .map(res => res.json());
   }
 
@@ -32,7 +33,7 @@ export class EventService {
 
   updateEvent(event: Event) {
     return this.http.post('/api/events/update', event)
-    .map(res => res.json()).subscribe();
+      .map(res => res.json()).subscribe();
   }
 
 }

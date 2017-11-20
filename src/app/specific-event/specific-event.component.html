@@ -1,9 +1,9 @@
 <div>
-	<img class="imgEvent img-fluid" src={{item.confPhoto}} alt="">
-	<h1 class="event-title text-center text-white">{{item.confName}} {{item.confDateTo | date:"dd.MM.yyyy"}}</h1>
+	<img class="imgEvent img-fluid" src={{event?.eventPhoto}} alt="event photo">
+	<h1 class="event-title text-center text-white">{{event?.name}} {{event?.dateFrom | date:"dd.MM.yyyy"}}</h1>
 </div>
 
-<div class="container anchors">
+ <div class="container anchors">
 	<div class="row my-5">
 		<div class="but-anchor col-sm-4 col-md-4 col-lg-5 text-right">
 			<button type="button" class="btn btn-lg btn-outline-secondary btn-anchor" (click)="goTo('speakers')">SREAKERS</button>
@@ -17,7 +17,7 @@
 	</div>
 
 	<div class="event-description my-5 font-weight-bold text-justify">
-		<span class="h1 text-uppercase font-weight-bold text-muted">About conference </span>{{item.confDescr}}</div>
+		<span class="h1 text-uppercase font-weight-bold text-muted">About conference </span>{{event?.description}}</div>
 
 	<div class="row my-4">
 		<div class="col">
@@ -28,7 +28,7 @@
 	</div>
 </div>
 
-<div class="container-fluid schedule-bg py-5">
+<!-- <div class="container-fluid schedule-bg py-5">
 	<div class="container">
 		<div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">
 			<div class="table-bgraund font-weight-bold text-center cell-div">
@@ -63,7 +63,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 <div class="container">
 	<div class="row my-4">
@@ -74,7 +74,7 @@
 		</div>
 	</div>
 
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-md-6 col-lg-4" *ngFor="let conferenceSpeaker of speakers">
 			<a href="#">
 				<div class="info-card mb-4">
@@ -102,7 +102,7 @@
 				</div>
 			</a>
 		</div>
-	</div>
+	</div> -->
 
 
 	<div class="row my-4">
@@ -114,18 +114,18 @@
 	</div>
 </div>
 
-<div class="container-fluid location-bg my-5 py-5">
+ <div class="container-fluid location-bg my-5 py-5">
 	<div class="row d-block mx-auto ">
-		<h2 class="text-center">{{item.confLocationEvent}}</h2>
+		<h2 class="text-center">{{event?.location.country}}, {{event?.location.city}}, {{event?.location.address}}</h2>
 	</div>
 	<div class="row mx-5 my-5">
-		<div class="col-md-12 col-lg-6 px-0" *ngFor="let location of item.confphotoEventLocations">
+		<div class="col-md-12 col-lg-6 px-0" *ngFor="let location of event?.location.photos[0]">
 			<div class="card">
-				<img class="card-image img-fluid" src={{location}} alt="">
+				<img class="card-image img-fluid" src={{location.photo}} alt="photo of location">
 			</div>
 		</div>
 	</div>
-</div>
+</div> 
 
 <div class="container mb-5">
 	<div class="row">

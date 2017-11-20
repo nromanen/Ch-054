@@ -66,11 +66,8 @@ export class AddAgendaComponent implements OnInit {
 			dataPickerReport: new FormControl(''),
 			speaker: new FormControl('', [Validators.required]),
 		});
-
 		this.setDate(this.selectDate);
 		this.getAllSpeakers();
-		console.log(this.valueEvent);
-		// this.eventService.saveEvent(null);
 	}
 
 	resetSomevauesForms() {
@@ -106,7 +103,6 @@ export class AddAgendaComponent implements OnInit {
 				this.agendaService.saveReport(report);
 			}
 		}
-		//this.getAllAction();
 	}
 
 	saveAction(form) {
@@ -122,7 +118,6 @@ export class AddAgendaComponent implements OnInit {
 				this.agendaService.saveAction(action, this.schedules, this.currentEvent.id);
 			}
 		}
-		//this.getAllAction();
 	}
 
 	addElementsToSchedulesByDate(item: Action) {
@@ -254,10 +249,7 @@ export class AddAgendaComponent implements OnInit {
 
 	hideAgenda(increased) {
 		this.isHideAgenda.emit(increased);
-		// delete me please
 		this.agendaService.deleteAction(Number(this.currentEvent.id));
-		console.log("Deleting all item is done!");
-		//
 	}
 
 	getAllSpeakers() {
@@ -272,48 +264,9 @@ export class AddAgendaComponent implements OnInit {
 		});
 	}
 
-	getAllAction() {
-		this.agendaService.getAgendaByEventId(Number(this.currentEvent.id)).subscribe(agenda => {
-			agenda.forEach(item => {
-				item.date = new Date(item.date);
-				if (item['speaker_id'] === null) {
-					let currentAction = new Action(item['tittle'], item['start_time'], item['end_time'], item['date'], item['id']);
-					agenda = this.addedAction(item, agenda);
-				} else {
-					let currentReport = new Report(item['tittle'], item['start_time'], item['end_time'], item['date'], item['speaker_id'], item['id']);
-					agenda = this.addedAction(item, agenda);
-				}
-			});
-		});
-	}
-	addedAction(item, agenda) {
-		if (agenda.length == 1) {
-			agenda[0].push(item);
-			console.log('one');
-			return agenda;
-		} else {
-			for (let i = 0; i < agenda.length; i++) {
-				if (agenda[i].length == 0) {
-					console.log('one, more');
-					agenda[i].push(item);
-					return agenda;
-				}
-				for (let j = 0; j < agenda[i].length; j++) {
-					console.log('more');
-					let schedulDate = agenda[i][j]['date'];
-					if (item.date.getDate() == schedulDate.getDate()) {
-						agenda[i].push(item);
-						return agenda;
-					}
-				}
-			}
-		}
-	}
-
 	addedSpeaker(speaker) {
 		if (!speaker) { return; }
 		this.speakers.push(speaker);
-		// this.model1 = speaker.fullName;
 	}
 
 	saveEvent() {
@@ -322,6 +275,7 @@ export class AddAgendaComponent implements OnInit {
 		let event = this.valueEvent;
 		event.id = Number(this.currentEvent.id);
 		this.eventService.updateEvent(event);
+		this.hideAgenda(false);
 	}
 
 }

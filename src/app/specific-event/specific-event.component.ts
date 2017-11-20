@@ -1,10 +1,10 @@
 import { Component, HostListener, Inject, OnInit } from "@angular/core";
 import { DOCUMENT } from '@angular/platform-browser';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Conf } from '../conf';
-import { Lection } from '../lection';
-import * as firebase from 'firebase';
+import { ActivatedRoute } from '@angular/router';
+import { Event } from '../module_ts/event';
+import { EventService } from '../services/event/event.service';
+import { EventLocation } from '../module_ts/location';
+import { LocationService } from '../services/location/location.service';
 
 @Component({
   selector: 'app-specific-event',
@@ -12,13 +12,24 @@ import * as firebase from 'firebase';
   styleUrls: ['./specific-event.component.scss']
 })
 export class SpecificEventComponent implements OnInit {
-  item = new Conf();
+  event: Event;
   isShow: boolean = false;
-  key: any;
-  speakers: Array<object> = [];
+  id = +this.route.snapshot.paramMap.get('id');
+  constructor( @Inject(DOCUMENT) private document: Document, private eventService: EventService, private route: ActivatedRoute, private locationService: LocationService) { }
+  ngOnInit() {
+    this.getEvent();
+  }
 
-  constructor( @Inject(DOCUMENT) private document: Document, private route: ActivatedRoute, private af: AngularFireDatabase) { }
-
+  getEvent() {
+    this.eventService.getEvent(this.id).subscribe(currentEvent => {
+      let currentLocationPhoto = [];
+      this.locationService.getLocationPhotos(currentEvent.id).subscribe(photos => currentLocationPhoto.push(photos));
+      let currentLocation = new EventLocation(currentEvent.address, currentEvent.city, currentEvent.country, currentLocationPhoto);
+      this.event = new Event(currentEvent.name, currentEvent.description, currentEvent['date_from'], currentEvent['date_to'], currentEvent.photo, currentLocation);
+      console.log('one', this.event);
+    });
+    console.log('2', this.event);
+  }
 
   goTo(location: string): void {
     window.location.hash = '';
@@ -38,51 +49,12 @@ export class SpecificEventComponent implements OnInit {
     return onEdit();
   }
 
-  ngOnInit(): void {
-    this.key = this.route.snapshot.params['key'];
-    this.item.key = this.key;
-    this.af.list(`conference/${this.key}`, { preserveSnapshot: true })
-      .subscribe((snapshots) => {
-        snapshots.forEach(snapshot => {
-          this.item[snapshot.key] = snapshot.val();
-        });
-        //Date
-        this.item['confDateTo'] = new Date(this.item['confDateTo']['year'], this.item['confDateTo']['month'], this.item['confDateTo']['day']);
-        // PhotoLocation
-        let photoLocation: string[] = [];
-        for (let key in this.item.confphotoEventLocations) {
-          photoLocation.push(this.item.confphotoEventLocations[key]);
-        }
-        this.item.confphotoEventLocations = photoLocation;
-        //Photo speaker
-        for (let key in this.item.confLections) {
-          let speaker: Object = { lectionSpeaker: "", speakerPhoto: "" };
-          for (let property in this.item.confLections[key]) {
-            if (property === 'lectionSpeaker') {
-              speaker['lectionSpeaker'] = this.item.confLections[key][property];
-              speaker['speakerPhoto'] = this.item.confLections[key]['speakerPhoto'];
-              this.speakers.push(speaker);
-            }
-          }
-
-        }
-        //Time
-        for (let key in this.item.confLections) {
-          for (let property in this.item.confLections[key]) {
-            if (property === 'lectionTime') { this.item.confLections[key][property] = (this.item.confLections[key][property]['hour'] + ":" + this.item.confLections[key][property]['minute']) }
-          }
-        }
-      }
-    );
-
-  }
-
   @HostListener("window:scroll", [])
   onWindowScroll() {
     let position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if (position > 300) {
       this.isShow = true;
-    } else 
+    } else
       this.isShow = false;
   }
 }
