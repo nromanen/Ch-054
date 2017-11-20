@@ -24,7 +24,6 @@ export class AgendaService {
       action.id = actionRespArray[0].id;
       this.getAgendaByEventId(eventId).subscribe(currentActions => {
         this.prepareAllActions(currentActions, schedules);
-        console.log(schedules);
       });
     });
   }

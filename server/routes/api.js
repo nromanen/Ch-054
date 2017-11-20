@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 var pgp = require("pg-promise")(/*options*/);
-var db = pgp("postgres://postgres:postgres@localhost:5433/postgres");
+var db = pgp("postgres://postgres:postgres@localhost:5432/event-manager");
 
 // GET api lesting
 router.get('/', (req, res) => {
@@ -81,6 +81,19 @@ router.post('/locations/post/photo', (req, resp, next) => {
 
 router.get('/speakers/get', (req, res) => {
     db.many("SELECT * FROM speakers")
+        .then(function (data) {
+            res.status(200).json(data);
+        })
+        .catch(function (error) {
+            res.status(500).send(error);
+        });
+});
+
+router.get('/speakers/get/:eventId', (req, res) => {
+    var eventId = req.params.eventId;
+    db.many(`SELECT DISTINCT s.id,s.full_name,s.description,s.placework,s.position,s.photo FROM actions AS ac
+    JOIN reports AS r ON r.id=ac.id AND ac.event_id=$1
+    JOIN speakers AS s ON s.id=r.speaker_id`, [eventId])
         .then(function (data) {
             res.status(200).json(data);
         })

@@ -3,7 +3,7 @@
 	<h1 class="event-title text-center text-white">{{event?.name}} {{event?.dateFrom | date:"dd.MM.yyyy"}}</h1>
 </div>
 
- <div class="container anchors">
+<div class="container anchors">
 	<div class="row my-5">
 		<div class="but-anchor col-sm-4 col-md-4 col-lg-5 text-right">
 			<button type="button" class="btn btn-lg btn-outline-secondary btn-anchor" (click)="goTo('speakers')">SREAKERS</button>
@@ -28,42 +28,44 @@
 	</div>
 </div>
 
-<!-- <div class="container-fluid schedule-bg py-5">
+
+<div class="container-fluid schedule-bg py-5">
 	<div class="container">
-		<div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table">
+		<div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table" *ngFor="let schedule of schedules; let i = index">
 			<div class="table-bgraund font-weight-bold text-center cell-div">
 				<div class="text-center">
 					<span class="fa-stack fa-2x py-0 mx-auto">
 						<i class="fa fa-calendar-o fa-stack-1x"></i>
-						<strong class="fa-stack-1x calendar-text pt-1 mx-auto">{{item.confDateTo | date:"dd"}}</strong>
+						<strong class="fa-stack-1x calendar-text pt-1 mx-auto">{{schedule[0]?.date | date:"dd"}}</strong>
 					</span>
-					<span class="month align-middle font-weight-bold text-uppercase mx-auto">{{item.confDateTo | date:"MMMM"}}</span>
+					<span class="month align-middle font-weight-bold text-uppercase mx-auto">{{schedule[0]?.date | date:"MMMM"}}</span>
 				</div>
 			</div>
 			<div class="theader text-center font-weight-bold text-center">
-				<div class="cell-div d-table-cell text-center">
-					<p class="text-center align-middle text-size my-2">Time</p>
+				<div class="cell-div d-table-cell">
+					<p class="align-middle text-size my-2">Time</p>
 				</div>
 				<div class="cell-div d-table-cell text-center">
 					<p class="text-center align-middle text-size my-2">Event</p>
 				</div>
 			</div>
-			<div class="row-div" *ngFor="let agenda of item.confLections">
-				<div class="cell-div d-table-cell align-middle">
-					<p class="text-center text-size align-middle my-2">
-						<i class="fa fa-clock-o fa-lg"></i> {{agenda.lectionTime}}</p>
+			<div class="row-div" *ngFor="let action of schedule">
+				<div class="cell-div d-table-cell align-middle size-cell">
+					<p class="text-center text-size align-middle my-2 text-center size-clock">
+						<i class="fa fa-clock-o fa-lg"></i>
+						{{action?.startTime | join}}-{{action?.endTime | join}}
+					</p>
 				</div>
-				<div class="cell-div d-table-cell align-middle">
+				<div class="cell-div d-table-cell align-middle size-cell">
 					<p class="text-center align-middle text-size text-size my-2">
-						<span class="mb-0">{{agenda.lectionName}}</span>
-						<br>
-						<span class="text-center report mt-0">{{agenda.lectionSpeaker}}</span>
+						{{action?.name}}
+						<span class="text-center size-report mt-0">{{action?.speaker}}</span>
 					</p>
 				</div>
 			</div>
 		</div>
 	</div>
-</div> -->
+</div>
 
 <div class="container">
 	<div class="row my-4">
@@ -74,35 +76,35 @@
 		</div>
 	</div>
 
-	<!-- <div class="row">
-		<div class="col-md-6 col-lg-4" *ngFor="let conferenceSpeaker of speakers">
+	<div class="row">
+		<div class="col-md-6 col-lg-4" *ngFor="let speaker of speakers">
 			<a href="#">
 				<div class="info-card mb-4">
 					<div class="front">
-						<img class="card-image" src={{conferenceSpeaker.speakerPhoto}}>
+						<img class="card-image" src={{speaker?.photoPath}}>
 						<div class="img-responsive">
 							<div class="carousel-caption">
-								<h4>{{conferenceSpeaker.lectionSpeaker}}</h4>
+								<h4>{{speaker?.fullName}}</h4>
 							</div>
 						</div>
 					</div>
 					<div class="back">
-						<img class="card-image" src={{conferenceSpeaker.speakerPhoto}}>
+						<img class="card-image" src={{speaker?.photoPath}}>
 
 						<div class="carousel-caption">
-							<h4>{{conferenceSpeaker.lectionSpeaker}}</h4>
+							<h4>{{speaker?.fullName}}</h4>
 							<h6>
-								Leading photografer
+								{{speaker?.position}}
 							</h6>
 							<p>
-								Ltd "Photographer group"
+								{{speaker?.placeWork}}
 							</p>
 						</div>
 					</div>
 				</div>
 			</a>
 		</div>
-	</div> -->
+	</div>
 
 
 	<div class="row my-4">
@@ -114,7 +116,7 @@
 	</div>
 </div>
 
- <div class="container-fluid location-bg my-5 py-5">
+<div class="container-fluid location-bg my-5 py-5">
 	<div class="row d-block mx-auto ">
 		<h2 class="text-center">{{event?.location.country}}, {{event?.location.city}}, {{event?.location.address}}</h2>
 	</div>
@@ -125,7 +127,7 @@
 			</div>
 		</div>
 	</div>
-</div> 
+</div>
 
 <div class="container mb-5">
 	<div class="row">

@@ -275,7 +275,7 @@ export class AddAgendaComponent implements OnInit {
 		let event = this.valueEvent;
 		event.id = Number(this.currentEvent.id);
 		this.eventService.updateEvent(event);
-		this.hideAgenda(false);
+		this.isHideAgenda.emit(false);
 	}
 
 }

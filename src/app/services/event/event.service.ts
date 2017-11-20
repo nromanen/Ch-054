@@ -19,10 +19,6 @@ export class EventService {
       .map(res => res.json());
   }
 
-  getEventsSpeakers(eventsId: number) {
-    return this.http.get('/api/events/speakers/get' + eventsId)
-      .map(res => res.json());
-  }
 
   saveEvent(event: Event) {
     return this.http.post('/api/events/post', event)

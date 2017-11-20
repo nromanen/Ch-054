@@ -5,6 +5,11 @@ import { Event } from '../module_ts/event';
 import { EventService } from '../services/event/event.service';
 import { EventLocation } from '../module_ts/location';
 import { LocationService } from '../services/location/location.service';
+import {AgendaService} from '../services/agenda/agenda.service';
+import {SpeakerService} from '../services/speaker/speaker.service'
+import { Action } from '../module_ts/action';
+import { Report } from '../module_ts/report';
+import { Speaker } from '../module_ts/speaker';
 
 @Component({
   selector: 'app-specific-event',
@@ -14,10 +19,16 @@ import { LocationService } from '../services/location/location.service';
 export class SpecificEventComponent implements OnInit {
   event: Event;
   isShow: boolean = false;
+  schedules: Array<Action[]>
+  speakers: Array<Speaker>;
   id = +this.route.snapshot.paramMap.get('id');
-  constructor( @Inject(DOCUMENT) private document: Document, private eventService: EventService, private route: ActivatedRoute, private locationService: LocationService) { }
+
+
+  constructor( @Inject(DOCUMENT) private document: Document, private eventService: EventService, private route: ActivatedRoute, private locationService: LocationService, private agendaService: AgendaService, public speakerService: SpeakerService) { }
   ngOnInit() {
     this.getEvent();
+    this.getAgenda();
+    this. getSpeakers();
   }
 
   getEvent() {
@@ -26,9 +37,46 @@ export class SpecificEventComponent implements OnInit {
       this.locationService.getLocationPhotos(currentEvent.id).subscribe(photos => currentLocationPhoto.push(photos));
       let currentLocation = new EventLocation(currentEvent.address, currentEvent.city, currentEvent.country, currentLocationPhoto);
       this.event = new Event(currentEvent.name, currentEvent.description, currentEvent['date_from'], currentEvent['date_to'], currentEvent.photo, currentLocation);
-      console.log('one', this.event);
     });
-    console.log('2', this.event);
+  }
+
+  getAgenda() {
+    this.agendaService.getAgendaByEventId(this.id).subscribe(currentActions => {
+      this.prepareAllActions(currentActions);
+    });
+  }
+
+  prepareAllActions(currentActions: any) {
+    this.schedules = [];
+    let currentDate = currentActions[0]['date'];
+    let currentArrayToPush: Array<Action> = [];
+    currentActions.forEach(currentAction => {
+      if (currentAction['date'] === currentDate) {
+        currentArrayToPush.push(new Action(
+          currentAction.tittle, currentAction.start_time,
+          currentAction.end_time, new Date(currentAction.date), currentAction.id
+        ));
+      } else {
+        this.schedules.push(currentArrayToPush);
+        currentDate = currentAction.date;
+        currentArrayToPush = [];
+        currentArrayToPush.push(new Action(
+          currentAction.tittle, currentAction.start_time,
+          currentAction.end_time, new Date(currentAction.date), currentAction.id
+        ));
+      }
+    });
+    this.schedules.push(currentArrayToPush);
+  }
+
+  getSpeakers(){
+    this.speakerService.getSpeakersByEvent(this.id).subscribe(currentSpeakers => {
+      this.speakers = [];
+      currentSpeakers.forEach(speaker => {
+        this.speakers.push(new Speaker(speaker['full_name'],speaker['description'], speaker['placework'], speaker['position'], speaker['photo']));
+      });
+    });
+    console.log(this.speakers);
   }
 
   goTo(location: string): void {

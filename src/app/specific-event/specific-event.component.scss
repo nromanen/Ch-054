@@ -155,7 +155,7 @@ $little-screen: 25.94rem;
 			}
 			+.theader {
 				display: table-row;
-				font-size: 1.7rem;
+				font-size: 0.9rem;
 				background-color: rgba(54, 57, 62, 0.5);
 			}
 		}
@@ -164,10 +164,17 @@ $little-screen: 25.94rem;
 			border-width: thin;
 		}
 		.row-div {
-			display: table-row;
+            display: table-row;
+            .size-clock{
+                font-size: 90%;
+            }
+            .size-cell {
+                width: 50%;
+            }
 		}
-		.report {
-			font-size: 70%;
+		.size-report {
+            font-size: 70%;
+            display: block;
 		}
 	}
 	+.container-fluid {
