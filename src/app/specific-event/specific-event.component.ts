@@ -5,8 +5,8 @@ import { Event } from '../module_ts/event';
 import { EventService } from '../services/event/event.service';
 import { EventLocation } from '../module_ts/location';
 import { LocationService } from '../services/location/location.service';
-import {AgendaService} from '../services/agenda/agenda.service';
-import {SpeakerService} from '../services/speaker/speaker.service'
+import { AgendaService } from '../services/agenda/agenda.service';
+import { SpeakerService } from '../services/speaker/speaker.service'
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
 import { Speaker } from '../module_ts/speaker';
@@ -28,7 +28,7 @@ export class SpecificEventComponent implements OnInit {
   ngOnInit() {
     this.getEvent();
     this.getAgenda();
-    this. getSpeakers();
+    this.getSpeakers();
   }
 
   getEvent() {
@@ -43,6 +43,7 @@ export class SpecificEventComponent implements OnInit {
   getAgenda() {
     this.agendaService.getAgendaByEventId(this.id).subscribe(currentActions => {
       this.prepareAllActions(currentActions);
+      console.log(this.schedules);
     });
   }
 
@@ -52,10 +53,7 @@ export class SpecificEventComponent implements OnInit {
     let currentArrayToPush: Array<Action> = [];
     currentActions.forEach(currentAction => {
       if (currentAction['date'] === currentDate) {
-        currentArrayToPush.push(new Action(
-          currentAction.tittle, currentAction.start_time,
-          currentAction.end_time, new Date(currentAction.date), currentAction.id
-        ));
+        currentArrayToPush.push();
       } else {
         this.schedules.push(currentArrayToPush);
         currentDate = currentAction.date;
@@ -69,11 +67,23 @@ export class SpecificEventComponent implements OnInit {
     this.schedules.push(currentArrayToPush);
   }
 
-  getSpeakers(){
+  saveActionOrReport(currentItem: any) {
+    if (currentItem['speaker_id'] === null) {
+      return new Action(
+        currentItem.tittle, currentItem.start_time,
+        currentItem.end_time, new Date(currentItem.date), currentItem.id
+      )
+    } else {
+      return new Report(currentItem.tittle, currentItem.start_time,
+        currentItem.end_time, new Date(currentItem.date), currentItem.speaker_id)
+    }
+  }
+
+  getSpeakers() {
     this.speakerService.getSpeakersByEvent(this.id).subscribe(currentSpeakers => {
       this.speakers = [];
       currentSpeakers.forEach(speaker => {
-        this.speakers.push(new Speaker(speaker['full_name'],speaker['description'], speaker['placework'], speaker['position'], speaker['photo']));
+        this.speakers.push(new Speaker(speaker['full_name'], speaker['description'], speaker['placework'], speaker['position'], speaker['photo']));
       });
     });
     console.log(this.speakers);
