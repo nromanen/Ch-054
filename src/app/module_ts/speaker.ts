@@ -5,11 +5,12 @@ export class Speaker {
     placeWork: string;
     position: string; 
     photoPath: string;
-    constructor(fullName, description, placeWork, position, photoPath) {
+    constructor(fullName, description, placeWork, position, photoPath, id?) {
         this.fullName = fullName;
         this.description = description;
         this.placeWork = placeWork;
         this.position = position;
         this.photoPath = photoPath;
+        this.id = id;
     }
 }

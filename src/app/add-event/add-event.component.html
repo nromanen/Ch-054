@@ -35,7 +35,60 @@
 									<textarea formControlName="descr" class="form-control input-bg" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
 								</div>
 								<div class="form-group">
-									<div class="row">
+									<div class="row" *ngIf="!isShowIcon">
+										<div class="col-lg-12">
+												<label for="calendar1" class="font-weight-bold">Date
+													</label>
+													<div class="input-group" placeholder="enter text" (document:click)="d.close()" (click)="$event.stopPropagation()">
+														<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="modelFrom" ngbDatepicker
+														 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)"
+														 (click)="selectToday()" [readonly]="true">
+														<button class="btn-cursor btn-icon" ngbPopover="Add date" triggers="mouseenter:mouseleave" (click)="addCalendar()" *ngIf="isShowButton"
+														 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
+															<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+														</button>
+														<button class="btn-cursor btn-icon" (click)="d.toggle()" *ngIf="isShowIcon">
+															<i class="fa fa-calendar" aria-hidden="true"></i>
+														</button>
+													</div>
+										</div>
+									</div>
+
+
+									<div class="row"  *ngIf="isShowCalendarTo">
+											<div class="col-lg-6">
+												<label for="calendar1" class="font-weight-bold">Date
+													<span *ngIf="isShowCalendarTo"> From</span>
+												</label>
+												<div class="input-group" placeholder="enter text" (document:click)="d.close()" (click)="$event.stopPropagation()">
+													<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="modelFrom" ngbDatepicker
+													 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)"
+													 (click)="selectToday()" [readonly]="true">
+													<button class="btn-cursor btn-icon" ngbPopover="Add date" triggers="mouseenter:mouseleave" (click)="addCalendar()" *ngIf="isShowButton"
+													 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
+														<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+													</button>
+													<button class="btn-cursor btn-icon" (click)="d.toggle()" *ngIf="isShowIcon">
+														<i class="fa fa-calendar" aria-hidden="true"></i>
+													</button>
+												</div>
+											</div>
+											<div class="col-lg-6" *ngIf="isShowCalendarTo">
+												<label for="calendar2" class="font-weight-bold">Date To</label>
+												<div class="input-group" placeholder="enter text" (document:click)="dp.close()" (click)="$event.stopPropagation()">
+													<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDateTo" ngbDatepicker
+													 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" [minDate]="minDateTo" [readonly]="true">
+													<button class="btn-cursor btn-icon" ngbPopover="Delete date" triggers="mouseenter:mouseleave" (click)="deleteCalendar()">
+														<i class="fa fa-calendar-times-o" aria-hidden="true"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+
+
+
+
+									<!-- <div class="row">
 										<div class="col-lg-6">
 											<label for="calendar1" class="font-weight-bold">Date
 												<span *ngIf="isShowCalendarTo"> From</span>
@@ -63,15 +116,16 @@
 												</button>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="row">
 									<div class="col md-12 mb-3">
 										<div class="form-group">
 											<label for="location" class="font-weight-bold">
-												Location</label>
+												Location <span><i class="fa fa-chevron-down btn-cursor" (click)="showSelectLocation()" aria-hidden="true" *ngIf="!isSowSelectLocat && myForm.value.location"></i></span>
+												<span *ngIf="isSowSelectLocat"><i class="fa fa-chevron-down fa-flip-vertical btn-cursor my-0" aria-hidden="true" (click)="showSelectLocation()"></i></span></label>
 											<div class="row">
-												<div class="col-md-9 my-1">
+												<div class="col-md-12 my-1">
 													<div class="input-group w-100">
 														<div class="w-100">
 															<input ng2-auto-complete [source]="locations" [value-formatter]="myValueFormatter" [list-formatter]="autocompleListFormatter"
@@ -80,20 +134,16 @@
 														<app-modal-location (addedLocation)="addedLocation(($event))"></app-modal-location>
 													</div>
 												</div>
-												<div class="col-md-3 col-sm-12 text-center">
-													<button class="btn btn-info my-1 btn-cursor" [disabled]="myForm.value.location == ''" (click)="showSelectLocation()">
-														<i class="fa fa-eye" aria-hidden="true"></i> Location</button>
-												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="row" *ngIf="isSowSelectLocat">
-									<div class="row mx-auto w-100 center-block">
+									<!-- <div class="row mx-auto w-100 center-block">
 										<div class="col-md-12 text-center">
 											<p class="font-weight-bold">LOCATION</p>
 										</div>
-									</div>
+									</div> -->
 									<div class="col">
 										<img src={{myForm.value.location.photos[0][1]}} [width]="426" [height]="240" class="img-fluid" alt="photo one">
 									</div>
@@ -121,4 +171,7 @@
 	</form>
 </div>
 
-<app-add-agenda *ngIf="isShowAgenda" (isHideAgenda)="isHideAgenda($event)" [valueEvent]="valueEvent" [currentEvent]="currentEvent" [selectDate]="selectDate"></app-add-agenda>
+<app-add-agenda *ngIf="isShowAgenda" (refreshEvent)="refreshEvent($event)" (isHideAgenda)="isHideAgenda($event)" [valueEvent]="valueEvent" [currentEvent]="currentEvent" [selectDate]="selectDate"></app-add-agenda>
+
+
+<!-- <i class="fa fa-sort-asc" aria-hidden="true"></i> -->

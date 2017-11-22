@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 var pgp = require("pg-promise")(/*options*/);
-var db = pgp("postgres://postgres:postgres@localhost:5432/event-manager");
+var db = pgp("postgres://postgres:postgres@localhost:5433/postgres");
 
 // GET api lesting
 router.get('/', (req, res) => {
@@ -18,24 +18,6 @@ router.get('/locations/get', (req, res) => {
             res.status(500).send(error);
         });
 });
-
-// router.get('/locations/get', (req, res) => {
-//     db.many("SELECT * FROM locations")
-//         .then(function (locations) {
-//             for (var i = 0; i < locations.length; i++) {
-//                 db.many("SELECT photo FROM location_photos WHERE location_id=$1", [locations[i].id])
-//                     .then(function (photos) {
-//                         locations[0].photos=photos
-//                         console.log(locations[0].city);
-//                         res.status(200).json(locations);
-//                     });
-//             }
-//             res.status(200).json(locations);
-//         })
-//         .catch(function (error) {
-//             res.status(500).send(error);
-//         });
-// });
 
 router.get('/locations/get/:locationId', (req, res) => {
     var locationId = req.params.locationId;
@@ -114,11 +96,20 @@ router.post('/speakers/post', (req, resp, next) => {
 
 router.get('/agenda/get/:eventId', (req, res) => {
     var eventId = req.params.eventId;
-    db.many(`SELECT acts.id, acts.start_time,acts.end_time,acts.tittle,acts.date,acts.speaker_id FROM
-    (SELECT a.id,a.start_time,a.end_time,a.tittle,a.date,r.speaker_id, a.event_id 
-        FROM public.actions AS a LEFT OUTER JOIN public.reports AS r ON a.id=r.id) AS acts
-        WHERE acts.event_id=$1
-        ORDER BY acts.date,acts.start_time;`, [eventId])
+    db.many(`SELECT acts.id, acts.start_time,acts.end_time,acts.tittle,acts.date,acts.speaker_id,s.full_name FROM
+    (SELECT a_r.id, a_r.start_time, a_r.end_time, a_r.tittle, a_r.event_id,a_r.date, a_r.speaker_id
+     FROM (
+         SELECT res.id,res.start_time,res.end_time,res.tittle,res.date,res.speaker_id, res.event_id FROM
+         
+           (SELECT a.id,a.start_time,a.end_time,a.tittle,a.date,r.speaker_id, a.event_id 
+            FROM public.actions AS a LEFT OUTER 
+            JOIN public.reports AS r ON a.id=r.id ) AS res
+         
+             WHERE res.event_id=10
+    ) AS a_r
+    ) AS acts 
+    JOIN public.speakers AS s ON acts.speaker_id=s.id
+    ORDER BY acts.date,acts.start_time;`, [eventId])
         .then(function (data) {
             res.status(200).json(data);
         })

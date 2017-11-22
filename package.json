@@ -55,6 +55,7 @@
     "ng2-utils": "^0.6.1",
     "node-sass": "^4.5.3",
     "popper.js": "^1.12.5",
+    "primeng": "^5.0.0",
     "protractor": "~5.1.2",
     "sass-loader": "^6.0.6",
     "sweetalert2": "^6.11.5",

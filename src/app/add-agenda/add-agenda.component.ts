@@ -37,6 +37,7 @@ export class AddAgendaComponent implements OnInit {
 	@Input() currentEvent: Event;
 	@Input() valueEvent: Event;
 	@Output() isHideAgenda = new EventEmitter<boolean>();
+	@Output() refreshEvent = new EventEmitter<boolean>();
 	model1 = "";
 
 
@@ -83,14 +84,6 @@ export class AddAgendaComponent implements OnInit {
 	}
 
 	saveReport(form) {
-		// if (typeof (form.speaker) === 'string') {
-		// 	const check = (obj) => { 
-		// 		return obj.fullName === form.speaker;
-		// 	}
-		// 	const speakerIndex = this.speakers.findIndex(check);
-		// 	form.speaker = this.speakers[speakerIndex];
-		// 	console.log(form.speaker);
-		// }
 		let report = new Report(form.nameReport, this.convertObjectToTime(form.timeReportFrom), this.convertObjectToTime(form.timeReportTo), this.convertObjectToDate(form.dataPickerReport), form.speaker);
 		if (this.schedules.length === 1) {
 			if (this.addElementsToSchedulesByTime(report, this.schedules[0])) {
@@ -275,7 +268,7 @@ export class AddAgendaComponent implements OnInit {
 		let event = this.valueEvent;
 		event.id = Number(this.currentEvent.id);
 		this.eventService.updateEvent(event);
-		this.isHideAgenda.emit(false);
+		this.refreshEvent.emit(false);
 	}
 
 }

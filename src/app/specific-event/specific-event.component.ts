@@ -43,7 +43,6 @@ export class SpecificEventComponent implements OnInit {
   getAgenda() {
     this.agendaService.getAgendaByEventId(this.id).subscribe(currentActions => {
       this.prepareAllActions(currentActions);
-      console.log(this.schedules);
     });
   }
 
@@ -53,21 +52,18 @@ export class SpecificEventComponent implements OnInit {
     let currentArrayToPush: Array<Action> = [];
     currentActions.forEach(currentAction => {
       if (currentAction['date'] === currentDate) {
-        currentArrayToPush.push();
+        currentArrayToPush.push(this.createActionOrReport(currentAction));
       } else {
-        this.schedules.push(currentArrayToPush);
+        this.schedules.push(currentArrayToPush.sort(this.sortStrategy));
         currentDate = currentAction.date;
         currentArrayToPush = [];
-        currentArrayToPush.push(new Action(
-          currentAction.tittle, currentAction.start_time,
-          currentAction.end_time, new Date(currentAction.date), currentAction.id
-        ));
+        currentArrayToPush.push(this.createActionOrReport(currentAction));
       }
     });
-    this.schedules.push(currentArrayToPush);
+    this.schedules.push(currentArrayToPush.sort(this.sortStrategy));
   }
 
-  saveActionOrReport(currentItem: any) {
+  createActionOrReport(currentItem: any) {
     if (currentItem['speaker_id'] === null) {
       return new Action(
         currentItem.tittle, currentItem.start_time,
@@ -75,18 +71,35 @@ export class SpecificEventComponent implements OnInit {
       )
     } else {
       return new Report(currentItem.tittle, currentItem.start_time,
-        currentItem.end_time, new Date(currentItem.date), currentItem.speaker_id)
+        currentItem.end_time, new Date(currentItem.date), currentItem.full_name);
     }
+  }
+
+  sortStrategy(action1: Action, action2: Action) {
+    let hoursOfAction1 = Number(action1.startTime.split(':')[0]);
+    let hoursOfAction2 = Number(action2.startTime.split(':')[0]);
+    let minutesOfAction1 = Number(action1.startTime.split(':')[1]);
+    let minutesOfAction2 = Number(action2.startTime.split(':')[1]);
+    return hoursOfAction1 * 60 + minutesOfAction1 - (hoursOfAction2 * 60 + minutesOfAction2);
+  }
+
+  getSpeaker(speakerId) {
+    this.speakerService.getSpeakersByEvent(this.id).subscribe(currentSpeakers => {
+      currentSpeakers.forEach(speaker => {
+        if (speaker['id'] === speakerId) {
+          return speaker['full_name'];
+        }
+      });
+    });
   }
 
   getSpeakers() {
     this.speakerService.getSpeakersByEvent(this.id).subscribe(currentSpeakers => {
       this.speakers = [];
       currentSpeakers.forEach(speaker => {
-        this.speakers.push(new Speaker(speaker['full_name'], speaker['description'], speaker['placework'], speaker['position'], speaker['photo']));
+        this.speakers.push(new Speaker(speaker['full_name'], speaker['description'], speaker['placework'], speaker['position'], speaker['photo'], speaker['id']));
       });
     });
-    console.log(this.speakers);
   }
 
   goTo(location: string): void {

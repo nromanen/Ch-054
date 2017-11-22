@@ -63,7 +63,6 @@ export class AddEventComponent implements OnInit {
 			location: new FormControl('', [Validators.required])
 		});
 		this.getAllLocations();
-		this.eventService.saveEvent(this.currentEvent);
 	}
 
 	selectToday() {
@@ -110,6 +109,7 @@ export class AddEventComponent implements OnInit {
 		if (form.dataPickerFrom && form.dataPickerTo) {
 			this.selectDate.push(form.dataPickerFrom, form.dataPickerTo);
 		}
+		this.eventService.saveEvent(this.currentEvent);
 		this.isShowAgenda = true;
 		this.isShowEvent = false;
 		this.valueEvent = new Event(form.name, form.descr, form.dataPickerFrom, form.dataPickerTo, this.photo, form.location);
@@ -122,6 +122,17 @@ export class AddEventComponent implements OnInit {
 			this.isValidPhoto = true;
 			this.isSowSelectLocat = false;
 		}
+	}
+
+	refreshEvent(increased) {
+		this.isHideAgenda(increased);
+		this.myForm.patchValue({
+			name: '',
+			descr: '',
+			dataPickerTo: '',
+			dataPickerFrom: '',
+			location: {}
+		  })
 	}
 
 	showSelectLocation() {

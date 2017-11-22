@@ -1,7 +1,7 @@
 export class Action {
     id: number;
     name: string;
-    startTime: Date;
+    startTime: string;
     endTime: Date;
     date: Date;
 
