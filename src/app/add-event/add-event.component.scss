@@ -26,7 +26,20 @@
 
 p-editor /deep/{
     .ql-editor {
+        &.ng-valid input {
+            border-left: 5px solid rgba(42, 62, 91, .5); 
+        }
+        &.ng-invalid input {
+            border-left: 5px solid rgba(155, 36, 17, .5); 
+        }
         background-color: rgb(83, 87, 93);
         height: 20rem;
+    }
+}
+
+.show-location {
+    &:hover {
+        background-color: rgba(83, 87, 93, .4);
+        color: rgb(25, 27, 27);
     }
 }
