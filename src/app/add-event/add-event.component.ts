@@ -5,7 +5,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { CropperComponent } from '../cropper-event/cropper.component';
 import { Event } from '../module_ts/event';
 import { LocationService } from '../services/location/location.service';
-import { EventService } from '../services/event/event.service';
+import { EventService } from '../services/event/event.service'
 
 @Component({
 	selector: 'app-add-event',
@@ -40,6 +40,11 @@ export class AddEventComponent implements OnInit {
 	valueEvent: Event;
 	myForm: FormGroup;
 	locations: Array<Location> = [];
+	public text: string;
+	public source;
+	public onTextChange($event): void {
+	  this.source = $event.source;
+	}
 	myValueFormatter(location: any): string {
 		return `${location.country},${location.city},${location.address}`;
 	}

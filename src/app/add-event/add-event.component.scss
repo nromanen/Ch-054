@@ -23,3 +23,10 @@
         }
     }
 }
+
+p-editor /deep/{
+    .ql-editor {
+        background-color: rgb(83, 87, 93);
+        height: 20rem;
+    }
+}

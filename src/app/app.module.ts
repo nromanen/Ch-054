@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../environments/environment';
+import { ButtonModule } from 'primeng/primeng';
 import { EditorModule } from 'primeng/primeng';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +28,8 @@ import { LocationService } from './services/location/location.service';
 import { SpeakerService } from './services/speaker/speaker.service';
 import { AgendaService } from './services/agenda/agenda.service';
 import { EventService } from './services/event/event.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -47,13 +50,14 @@ import { EventService } from './services/event/event.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     NgbModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
     Ng2AutoCompleteModule,
-    NgbModule.forRoot()
+    ButtonModule, EditorModule
   ],
   providers: [
     LocationService,
