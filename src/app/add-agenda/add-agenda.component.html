@@ -48,10 +48,10 @@
                     </div>
                   </div>
 
-                  <div class="form-group action-marin">
+                  <div class="form-group action-marin w-100">
                     <label for="nameAction" class="font-weight-bold">Action</label>
-                    <div class="mb-2 mr-sm-2 mb-sm-0">
-                      <input type="text" formControlName="nameAction" class="form-control input-bg" id="name" placeholder="Registration & Wellcome"
+                    <div class="mb-2 mr-sm-2 mb-sm-0 w-100">
+                      <input type="text" formControlName="nameAction" class="form-control input-bg w-100" id="name" placeholder="Registration & Wellcome"
                         (keyup)="change()">
                     </div>
                   </div>
@@ -109,10 +109,10 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group w-100">
                     <label for="nameReport" class="font-weight-bold">Report</label>
-                    <div class="mb-2 mr-sm-2 mb-sm-0">
-                      <input type="text" formControlName="nameReport" class="form-control input-bg" id="nameReport" placeholder="How to take a good photo?"
+                    <div class="mb-2 mr-sm-2 mb-sm-0 w-100">
+                      <input type="text" formControlName="nameReport" class="form-control input-bg w-100" id="nameReport" placeholder="How to take a good photo?"
                       (keyup)="change()">
                     </div>
                   </div>
@@ -124,7 +124,7 @@
                   </div>
                 </form>
               </div>
-              <div class="w-75 mx-auto" *ngIf="schedules[0].length>0">
+              <div class="w-100 mx-auto" *ngIf="schedules[0].length>0">
                 <div *ngFor="let schedule of schedules; let i = index">
                   <div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table" *ngIf="schedules[i].length>0">
                     <div class="table-bgraund font-weight-bold text-center cell-div py-2">
