@@ -25,13 +25,14 @@
 }
 
 p-editor /deep/{
+    &.ng-valid div .ql-editor {
+        border-left: 5px solid rgba(42, 62, 91, .5); 
+    }
+    &.ng-invalid div .ql-editor {
+        border-left: 5px solid rgba(155, 36, 17, .5); 
+    }
+
     .ql-editor {
-        &.ng-valid input {
-            border-left: 5px solid rgba(42, 62, 91, .5); 
-        }
-        &.ng-invalid input {
-            border-left: 5px solid rgba(155, 36, 17, .5); 
-        }
         background-color: rgb(83, 87, 93);
         height: 20rem;
     }
