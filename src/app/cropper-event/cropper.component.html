@@ -1,17 +1,17 @@
-<div class="marginTopCrop" *ngIf="isShowCropper" (window:resize)="onResize($event)" class="mb-0">
-	<div>
+<div class="marginTopCrop" *ngIf="isShowCropper" (window:resize)="onResize($event)" class="mt-0 pt-0">
+	<div class="mb-2">
 		<div class="file-upload">
-			<button class="btn mx-auto my-1 btn-color size-button">
+			<button class="btn mr-2 my-1 btn-color size-button">
 				<i class="fa fa-picture-o" aria-hidden="true"></i> Select</button>
 			<input id="custom-input" type="file" (change)="fileChangeListener($event)">
 		</div>
 		<button class="btn my-1 mr-1 hiddeCropper btn-color size-button" *ngIf="data1.image" (click)="hiddeCropper()" [disabled]='isShowErrorPhoto'>
 			<i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
 	</div>
-	<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+	<img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)" class="mt-0 pt-0"></img-cropper>
 </div>
-<div class="errorType m-0 p-0">
-	<span *ngIf="isShowErrorPhoto" class="m-0 py-0 text-danger">{{messageErrorPhoto}}</span>
+<div class="errorType m-0 p-0" *ngIf="isShowErrorPhoto">
+	<span  class="m-0 py-0 text-danger">{{messageErrorPhoto}}</span>
 </div>
 
 <div *ngIf="isHiddeCropper" class="mt-0 pt-0">

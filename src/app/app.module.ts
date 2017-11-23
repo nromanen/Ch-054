@@ -29,6 +29,7 @@ import { SpeakerService } from './services/speaker/speaker.service';
 import { AgendaService } from './services/agenda/agenda.service';
 import { EventService } from './services/event/event.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ModalViewLocationComponent } from './modal-view-location/modal-view-location.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ModalSpeakerComponent,
     CropperLocationComponent,
     JoinPipe,
-    ModalViewSpeakerComponent
+    ModalViewSpeakerComponent,
+    ModalViewLocationComponent
   ],
   imports: [
     BrowserModule,

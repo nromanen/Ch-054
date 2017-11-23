@@ -1,0 +1,31 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-main">
+    <div class="modal-header row my-1 pb-0">
+      <div class="col-md-12 text-center mb-0 pb-0">
+        <h4 class="text-center">LOCATION</h4>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="row mt-3">
+        <div class="col-md-6 mr-0">
+          <img src={{locations.photos[0][1]}} [width]="326" [height]="140" class="img-fluid mx-auto d-block" alt="photo one">
+        </div>
+        <div class="col-md-6 ml-0">
+          <img src={{locations.photos[1][1]}} [width]="326" [height]="140" class="img-fluid mx-auto d-block" alt="photo two">
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-12 text-center">
+          <p class="font-weight-bold">{{locations.country}}, {{locations.city}}, {{locations.address}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn my-1 btn-color sizeButton" (click)="c('Close click')">
+        <i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
+    </div>
+  </div>
+</ng-template>
+
+<button (click)="open(content)" class="btn btn-color size-button" [disabled]="!locations">
+  <i class="fa fa-eye" aria-hidden="true"></i> Location</button>

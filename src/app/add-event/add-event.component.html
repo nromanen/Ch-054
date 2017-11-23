@@ -7,7 +7,7 @@
 		</div>
 	</div>
 
-	<div class="mt-5 text-center">
+	<div class="my-5 text-center">
 		<label for="cropper" class="font-weight-bold">Photo of event</label>
 		<div>
 			<app-cropper (onChanged)="onChanged($event)" [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth"
@@ -15,8 +15,8 @@
 		</div>
 	</div>
 
-	<form [formGroup]="myForm">
-		<div class="row bg-image mt-5 py-5">
+	<form [formGroup]="myForm" class="my-5">
+		<div class="row bg-image py-5">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -25,7 +25,7 @@
 							<div class="col-md-10 px-5">
 								<div class="form-group">
 									<label for="name" class="font-weight-bold">Title of event</label>
-									<div class="mb-2 mr-sm-2 mb-sm-0">
+									<div class=" mr-sm-2 mb-sm-0">
 										<input type="text" formControlName="name" class="form-control input-bg" id="name" placeholder="Wedding conference">
 									</div>
 								</div>
@@ -84,58 +84,15 @@
 											</div>
 										</div>
 									</div>
-
-
-
-
-									<!-- <div class="row">
-										<div class="col-lg-6">
-											<label for="calendar1" class="font-weight-bold">Date
-												<span *ngIf="isShowCalendarTo"> From</span>
-											</label>
-											<div class="input-group" placeholder="enter text" (document:click)="d.close()" (click)="$event.stopPropagation()">
-												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerFrom" [(ngModel)]="modelFrom" ngbDatepicker
-												 (click)="d.toggle()" #d="ngbDatepicker" id="calendar1" [minDate]="minDateFrom" (ngModelChange)="selectedDateFrom($event)"
-												 (click)="selectToday()" [readonly]="true">
-												<button class="btn-cursor btn-icon" ngbPopover="Add date" triggers="mouseenter:mouseleave" (click)="addCalendar()" *ngIf="isShowButton"
-												 [class.hiddeButton]="isShowCalendarTo" [disabled]="isSelectedCalendar">
-													<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-												</button>
-												<button class="btn-cursor btn-icon" (click)="d.toggle()" *ngIf="isShowIcon">
-													<i class="fa fa-calendar" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-										<div class="col-lg-6" *ngIf="isShowCalendarTo">
-											<label for="calendar2" class="font-weight-bold">Date To</label>
-											<div class="input-group" placeholder="enter text" (document:click)="dp.close()" (click)="$event.stopPropagation()">
-												<input class="form-control input-bg" placeholder="yyyy-mm-dd" formControlName="dataPickerTo" [(ngModel)]="modelDateTo" ngbDatepicker
-												 (click)="dp.toggle()" #dp="ngbDatepicker" id="calendar2" [minDate]="minDateTo" [readonly]="true">
-												<button class="btn-cursor btn-icon" ngbPopover="Delete date" triggers="mouseenter:mouseleave" (click)="deleteCalendar()">
-													<i class="fa fa-calendar-times-o" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-									</div> -->
 								</div>
 								<div class="row">
-									<div class="col md-12 mb-3">
+									<div class="col md-12">
 										<div class="form-group">
-											<label for="location" class="font-weight-bold" *ngIf="!myForm.value.location">
+											<label for="location" class="font-weight-bold">
 												Location
-											</label>
-
-											<label for="location" class="font-weight-bold btn-cursor show-location px-1" *ngIf="myForm.value.location" (click)="showSelectLocation()">
-												Location
-												<span>
-													<i class="fa fa-caret-right" aria-hidden="true" *ngIf="!isSowSelectLocat && myForm.value.location"></i>
-												</span>
-												<span *ngIf="isSowSelectLocat">
-													<i class="fa fa-caret-up" aria-hidden="true"></i>
-												</span>
 											</label>
 											<div class="row">
-												<div class="col-md-12 my-1">
+												<div class="col-md-12">
 													<div class="input-group w-100">
 														<div class="w-100">
 															<input ng2-auto-complete [source]="locations" [value-formatter]="myValueFormatter" [list-formatter]="autocompleListFormatter"
@@ -147,22 +104,7 @@
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-								<div class="row" *ngIf="isSowSelectLocat && myForm.value.location">
-									<!-- <div class="row mx-auto w-100 center-block">
-										<div class="col-md-12 text-center">
-											<p class="font-weight-bold">LOCATION</p>
-										</div>
-									</div> -->
-									<div class="col">
-										<img src={{myForm.value.location.photos[0][1]}} [width]="426" [height]="240" class="img-fluid" alt="photo one">
-									</div>
-									<div class="col">
-										<img src={{myForm.value.location.photos[1][1]}} [width]="426" [height]="240" class="img-fluid" alt="photo two">
-									</div>
-									<div class="col-md-12 text-center">
-										<p class="font-weight-bold">{{myForm.value.location.country}}, {{myForm.value.location.city}}, {{myForm.value.location.address}}</p>
+										<app-modal-view-location [locations] = "myForm.value.location"></app-modal-view-location>
 									</div>
 								</div>
 							</div>
@@ -172,8 +114,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="my-5 text-center">
-			<button type="submit" class="btn btn-color text-white size-button">
+		<div class="mt-5 text-center">
+			<button type="submit" class="btn btn-color text-white size-button mr-2">
 				<i class="fa fa-paper-plane"></i> Template</button>
 			<button type="submit" class="btn btn-color size-button" (click)="saveEvent(myForm.value); myForm.value='';" [disabled]="myForm.invalid || isValidPhoto">
 				<i class="fa fa-plus-circle"></i> Add agenda</button>
@@ -184,6 +126,3 @@
 
 <app-add-agenda *ngIf="isShowAgenda" (refreshEvent)="refreshEvent($event)" (isHideAgenda)="isHideAgenda($event)" [valueEvent]="valueEvent"
  [currentEvent]="currentEvent" [selectDate]="selectDate"></app-add-agenda>
-
-
-<!-- <i class="fa fa-sort-asc" aria-hidden="true"></i> -->
