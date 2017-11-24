@@ -31,9 +31,10 @@ export class CropperLocationComponent implements OnInit {
   
 
   constructor() {
-    this.name = 'Angular2'
+    this.name = 'Angular2';
     this.cropperSettings1.minWidth = this.cropperSettings1.width;
     this.cropperSettings1.minHeight = this.cropperSettings1.height;
+    
 
     this.cropperSettings1.rounded = false;
     this.cropperSettings1.noFileInput = true;

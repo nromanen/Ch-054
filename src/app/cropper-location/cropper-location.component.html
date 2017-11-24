@@ -11,8 +11,8 @@
   </div>
   <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
 </div>
-<div class="errorType m-0 p-0">
-  <span *ngIf="isShowErrorPhoto" class="m-0 py-0 text-danger">{{messageErrorPhoto}}</span>
+<div class="errorType m-0 p-0" *ngIf="isShowErrorPhoto">
+  <span class="m-0 py-0 text-danger">{{messageErrorPhoto}}</span>
 </div>
 
 <div *ngIf="isHiddeCropper" class="mt-4 pt-0">
