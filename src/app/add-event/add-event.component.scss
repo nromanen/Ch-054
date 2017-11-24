@@ -44,3 +44,10 @@ p-editor /deep/{
         color: rgb(25, 27, 27);
     }
 }
+
+@media screen and (max-width: 575px){
+    .add-location{
+        padding-top: 15px;
+    }
+    
+}

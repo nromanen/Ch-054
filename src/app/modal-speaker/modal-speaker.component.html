@@ -51,18 +51,17 @@
         </div>
       </form>
     </div>
-        <div class="modal-footer text-center">
-            <button type="submit" class="btn my-1 btn-color sizeButton" (click)="save(modalForm.value); modalForm.value=''; modalForm.reset();"
-             [disabled]="modalForm.invalid || isPhotoSpeaker" (click)="c('Close click')">
-              <i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-            <button type="button" class="btn my-1 btn-color sizeButton" (click)="close()" (click)="c('Close click')">
-              <i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
-          </div>
+    <div class="modal-footer text-center">
+      <button type="submit" class="btn my-1 btn-color sizeButton" (click)="save(modalForm.value); modalForm.value=''; modalForm.reset();"
+        [disabled]="modalForm.invalid || isPhotoSpeaker" (click)="c('Close click')">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+      <button type="button" class="btn my-1 btn-color sizeButton" (click)="close()" (click)="c('Close click')">
+        <i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
     </div>
+  </div>
 
 </ng-template>
 
-<button (click)="open(content)" style="width: 2.6rem; height: 38px; border-radius: 0 5px 5px 0 ;" ngbPopover="Add speaker"
-  triggers="mouseenter:mouseleave">
-  <i class="fa fa-user-plus" aria-hidden="true"></i>
+<button (click)="open(content)" class="btn btn-color pull-right my-0" ngbPopover="Add speaker" triggers="mouseenter:mouseleave">
+  <i class="fa fa-user-plus" aria-hidden="true"></i>Add
 </button>

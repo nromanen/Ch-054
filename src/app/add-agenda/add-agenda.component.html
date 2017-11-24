@@ -70,18 +70,21 @@
                       <div class="form-group">
                         <label for="speaker" class="font-weight-bold">Choose a speaker</label>
                         <div class="row">
-                          <div class="col-md-9 my-1">
+                          <div class="col-sm-10">
                             <div class="input-group w-100 speaker-autocomplete">
                               <div class="w-100">
                                 <input ng2-auto-complete [source]="speakers" display-property-name="fullName" [list-formatter]="autocompleListFormatter"
                                   formControlName="speaker" class="form-control input-bg w-100" id="speaker" [ngModel]="model1"
                                   placeholder="Choose a speaker" (change)="change()">
                               </div>
-                              <app-modal-speaker (addedSpeaker)="addedSpeaker(($event))"></app-modal-speaker>
+                              <button class="btn-icon" *ngIf="!myFormReport.value.speaker" [disabled]="true">
+                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                              </button>
+                              <app-modal-view-speaker *ngIf="myFormReport.value.speaker" [speakers]="myFormReport.value.speaker"></app-modal-view-speaker>
                             </div>
                           </div>
-                          <div class="col-md-3 col-sm-12 text-center">
-                            <app-modal-view-speaker [speakers]="myFormReport.value.speaker"></app-modal-view-speaker>
+                          <div class="col-sm-2 add-location">
+                            <app-modal-speaker (addedSpeaker)="addedSpeaker(($event))"></app-modal-speaker>
                           </div>
                         </div>
                       </div>
@@ -113,7 +116,7 @@
                     <label for="nameReport" class="font-weight-bold">Report</label>
                     <div class="mb-2 mr-sm-2 mb-sm-0 w-100">
                       <input type="text" formControlName="nameReport" class="form-control input-bg w-100" id="nameReport" placeholder="How to take a good photo?"
-                      (keyup)="change()">
+                        (keyup)="change()">
                     </div>
                   </div>
 

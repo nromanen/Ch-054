@@ -86,25 +86,30 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col md-12">
-										<div class="form-group">
+									<div class="col md-12 my-0 py-0">
+										<div class="form-group my-0 py-0">
 											<label for="location" class="font-weight-bold">
 												Location
 											</label>
 											<div class="row">
-												<div class="col-md-12">
+												<div class="col-sm-10">
 													<div class="input-group w-100">
 														<div class="w-100">
 															<input ng2-auto-complete [source]="locations" [value-formatter]="myValueFormatter" [list-formatter]="autocompleListFormatter"
 															 formControlName="location" class="form-control input-bg w-100" id="location" placeholder="Choose a location"
 															 [(ngModel)]="modelLocation">
 														</div>
-														<app-modal-location (addedLocation)="addedLocation(($event))"></app-modal-location>
+														<button class="btn-icon" *ngIf="!myForm.value.location" [disabled]="true">
+															<i class="fa fa-eye-slash" aria-hidden="true"></i>
+														</button>
+														<app-modal-view-location *ngIf="myForm.value.location" [locations] = "myForm.value.location"></app-modal-view-location>
 													</div>
+												</div>
+												<div class="col-sm-2 add-location">
+													<app-modal-location (addedLocation)="addedLocation(($event))"></app-modal-location>
 												</div>
 											</div>
 										</div>
-										<app-modal-view-location [locations] = "myForm.value.location"></app-modal-view-location>
 									</div>
 								</div>
 							</div>
