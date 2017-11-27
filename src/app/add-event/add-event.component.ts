@@ -131,13 +131,13 @@ export class AddEventComponent implements OnInit {
 
 	refreshEvent(increased) {
 		this.isHideAgenda(increased);
-		this.myForm.patchValue({
-			name: '',
-			descr: '',
-			dataPickerTo: '',
-			dataPickerFrom: '',
-			location: {}
-		  })
+		this.text = '';
+		this.modelLocation = '';
+		this.modelFrom = {};
+		if (this.modelDateTo !== {}) {
+			this.deleteCalendar();
+		}
+		this.myForm.reset();
 	}
 
 	showSelectLocation() {

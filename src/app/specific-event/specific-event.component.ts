@@ -10,7 +10,6 @@ import { SpeakerService } from '../services/speaker/speaker.service'
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
 import { Speaker } from '../module_ts/speaker';
-import {Quill} from 'quill'
 
 @Component({
   selector: 'app-specific-event',
@@ -37,7 +36,7 @@ export class SpecificEventComponent implements OnInit {
       let currentLocationPhoto = [];
       this.locationService.getLocationPhotos(currentEvent.id).subscribe(photos => currentLocationPhoto.push(photos));
       let currentLocation = new EventLocation(currentEvent.address, currentEvent.city, currentEvent.country, currentLocationPhoto);
-      let description = this.quillGetHTML(currentEvent.description);
+      document.getElementById('description').innerHTML = currentEvent.description;
       this.event = new Event(currentEvent.name, currentEvent.description, currentEvent['date_from'], currentEvent['date_to'], currentEvent.photo, currentLocation);
     });
   }
@@ -84,13 +83,6 @@ export class SpecificEventComponent implements OnInit {
     let minutesOfAction2 = Number(action2.startTime.split(':')[1]);
     return hoursOfAction1 * 60 + minutesOfAction1 - (hoursOfAction2 * 60 + minutesOfAction2);
   }
-
-  quillGetHTML(inputDelta) {
-    var tempCont = document.createElement("div");
-    (new Quill(tempCont)).setContents(inputDelta);
-    console.log(tempCont.getElementsByClassName("ql-editor")[0].innerHTML);
-    return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
-}
 
   getSpeaker(speakerId) {
     this.speakerService.getSpeakersByEvent(this.id).subscribe(currentSpeakers => {
