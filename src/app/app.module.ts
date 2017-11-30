@@ -30,6 +30,7 @@ import { AgendaService } from './services/agenda/agenda.service';
 import { EventService } from './services/event/event.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ModalViewLocationComponent } from './modal-view-location/modal-view-location.component';
+import { SpeakerComponent } from './speaker/speaker.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ModalViewLocationComponent } from './modal-view-location/modal-view-loc
     CropperLocationComponent,
     JoinPipe,
     ModalViewSpeakerComponent,
-    ModalViewLocationComponent
+    ModalViewLocationComponent,
+    SpeakerComponent
   ],
   imports: [
     BrowserModule,

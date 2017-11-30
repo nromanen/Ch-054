@@ -18,6 +18,11 @@ export class SpeakerService {
       .map(res => res.json());
   }
 
+  getSpeakerById(speakerId: number) {
+    return this.http.get('/api/speaker/get/' + speakerId)
+      .map(res => res.json());
+  }
+
   saveSpeaker(speaker: Speaker, ) {
     return this.http.post('/api/speakers/post', speaker)
       .map(res => res.json());

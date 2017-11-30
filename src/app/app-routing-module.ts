@@ -4,18 +4,20 @@ import { AllEventsComponentComponent } from './all-events-component/all-events-c
 import { SpecificEventComponent } from './specific-event/specific-event.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { AddAgendaComponent } from './add-agenda/add-agenda.component';
+import { SpeakerComponent } from './speaker/speaker.component';
 
 const routes: Routes = [
-    {path: '', redirectTo: 'all-event', pathMatch: 'full'},
-    {path: 'event/:id', component: SpecificEventComponent },
-    {path: 'all-event', component: AllEventsComponentComponent},
+    { path: '', redirectTo: 'all-event', pathMatch: 'full' },
+    { path: 'event/:id', component: SpecificEventComponent },
+    { path: 'speaker/:id', component: SpeakerComponent },
+    { path: 'all-event', component: AllEventsComponentComponent },
     { path: 'add/event', component: AddEventComponent },
-    {path: 'add/agenda', component: AddAgendaComponent}
+    { path: 'add/agenda', component: AddAgendaComponent }
 ];
 
-  @NgModule({
-      imports: [RouterModule.forRoot(routes)],
-      exports: [RouterModule]
-    })
-    export class AppRoutingModule {
-    }
+@NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+})
+export class AppRoutingModule {
+}

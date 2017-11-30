@@ -1,0 +1,76 @@
+@import '../import_scss/_size';
+@import '../import_scss/_color';
+@import '../specific-event/specific-event.component.scss';
+
+
+.imgEvent {
+	@include size(25rem, auto);
+	@include position(relative, 2.5rem, 1, -11.88rem);
+	box-shadow: 0 0 0.4375rem 0.25rem rgba(0, 0, 0, 0.5);
+	@media #{$media} and (max-width: $larg-screen) {
+		@include size(20rem, auto);
+		@include position(relative, 2.5rem, 1, -6.88rem);
+	}
+	@media #{$media} and (max-width: $small-screen) {
+		@include size(18rem, auto);
+		@include position(relative, 2.3rem, 1, -6.48rem);
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	@media #{$media} and (max-width: 31.25rem) {
+		@include size(15rem, auto);
+		left: auto;
+		right: auto;
+		text-align: center;
+	}
+	@media #{$media} and (max-width: 31.19rem) {
+		left: 15%;
+	}
+	@media #{$media} and (max-width: 30.75rem) {
+		left: auto;
+		right: auto;
+	}
+	@media #{$media} and (max-width: $little-screen) {
+		@include size(10rem, auto);
+        @include position(relative, auto, 1, -6.2rem);
+	}
+	+.event-title {
+        font-size: 7.2vmin;
+		top: 7rem;
+		margin-left: 50%;
+        @media #{$media} and (max-width: 68.38rem) {
+			margin-left: auto;
+			text-align: center;
+			top: -12rem;
+		}
+		@media #{$media} and (max-width: 61.44rem) {
+            top: -11rem;
+        }
+		@media #{$media} and (max-width: 54.19rem) {
+            top: -10rem;
+        }
+		@media #{$media} and (max-width:  46.19rem) {
+            top: -9.89rem;
+        }
+        @media #{$media} and (max-width: 40.19rem) {
+            top: 0.55rem;
+		}
+		@media #{$media} and (max-width: 37.38rem) {
+            top: 1.2rem;
+		}
+		@media #{$media} and (max-width: 31.19rem) {
+			top: 6.5rem;
+		}
+		@media #{$media} and (max-width: 25.94rem) {
+            top: 12rem;
+		}
+		@media #{$media} and (max-width: 23.44rem) {
+            top: 12.5rem;
+        }
+	}
+}
+
+.container-margin {
+	margin-top: 18rem;
+}

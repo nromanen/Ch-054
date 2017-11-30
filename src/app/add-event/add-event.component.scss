@@ -34,12 +34,11 @@ p-editor /deep/{
     .ql-editor {
         background-color: rgb(83, 87, 93);
         height: 20rem;
-        [data-placeholder] { color: #ffd595 !important; }
-        ::placeholder { color: #ffd595!important; } 
+        font: 400 .96rem Arial;
+
     }
 }
 
-*[data-placeholder] { color: #ffd595; }
 
 @media screen and (max-width: 575px){
     .add-location{

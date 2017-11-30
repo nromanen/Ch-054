@@ -83,6 +83,16 @@ router.get('/speakers/get/:eventId', (req, res) => {
             res.status(500).send(error);
         });
 });
+router.get('/speaker/get/:speakerId', (req, res) => {
+    var speakerId = req.params.speakerId;
+    db.one(`SELECT full_name, description, placework, position, photo  FROM speakers WHERE id=$1`, [speakerId])
+        .then(function (data) {
+            res.status(200).json(data);
+        })
+        .catch(function (error) {
+            res.status(500).send(error);
+        });
+});
 
 router.post('/speakers/post', (req, resp, next) => {
     const dataForInsertion = req.body;

@@ -6,7 +6,7 @@ import { EventService } from '../services/event/event.service';
 import { EventLocation } from '../module_ts/location';
 import { LocationService } from '../services/location/location.service';
 import { AgendaService } from '../services/agenda/agenda.service';
-import { SpeakerService } from '../services/speaker/speaker.service'
+import { SpeakerService } from '../services/speaker/speaker.service';
 import { Action } from '../module_ts/action';
 import { Report } from '../module_ts/report';
 import { Speaker } from '../module_ts/speaker';
