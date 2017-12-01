@@ -2,6 +2,8 @@
 @import '../import_scss/_color';
 @import '../specific-event/specific-event.component.scss';
 
+$text-shadow: 0 -0.0025rem 0 #fff, 0 0.0025rem 0 #2c2c2c, 0 0.065rem 0 #2a2a2a, 0 0.1275rem 0 #282828, 0 0.19rem 0 #242424, 0 0.2525rem 0 #222, 0 0.315rem 0 #202020, 0 0.3775rem 0 #1e1e1e, 0 0.565rem 0.8775rem rgba(0, 0, 0, 0.9);
+
 
 .imgEvent {
 	@include size(25rem, auto);
@@ -37,18 +39,28 @@
 	}
 	+.event-title {
         font-size: 7.2vmin;
-		top: 7rem;
-		margin-left: 50%;
-        @media #{$media} and (max-width: 68.38rem) {
+		top: 7.5rem;
+		margin-left: 38%;
+		color: rgba(77, 83, 83, 0.6);
+		text-shadow: 0 -0.0025rem 0 rgb(61, 61, 61), 0 0.0025rem 0 #616060, 0 0.065rem 0 #919191, 0 0.1275rem 0 #afafaf, 0 0.19rem 0 #c4c1c1, 0 0.2525rem 0 #222, 0 0.315rem 0 #dddcdc, 0 0.3775rem 0 #e2e1e1, 0 0.565rem 0.8775rem rgba(216, 215, 215, 0.9);
+		@media #{$media} and (max-width: 103.1rem) {
+            margin-left: 46%;
+        }
+        @media #{$media} and (max-width: 86.19rem) {
 			margin-left: auto;
 			text-align: center;
 			top: -12rem;
+			color: rgba(222, 228, 228, 0.9);
+			text-shadow: 0 -0.0625rem 0 #fff, 0 0.0625rem 0 #2c2c2c, 0 0.125rem 0 #2a2a2a, 0 0.1875rem 0 #282828, 0 0.25rem 0 #242424, 0 0.3125rem 0 #222, 0 0.375rem 0 #202020, 0 0.4375rem 0 #1e1e1e, 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.9);
 		}
 		@media #{$media} and (max-width: 61.44rem) {
             top: -11rem;
         }
 		@media #{$media} and (max-width: 54.19rem) {
             top: -10rem;
+		}
+		@media #{$media} and (max-width: 50rem) {
+            top: -11rem;
         }
 		@media #{$media} and (max-width:  46.19rem) {
             top: -9.89rem;
@@ -61,6 +73,7 @@
 		}
 		@media #{$media} and (max-width: 31.19rem) {
 			top: 6.5rem;
+			text-shadow: $text-shadow;
 		}
 		@media #{$media} and (max-width: 25.94rem) {
             top: 12rem;
@@ -72,5 +85,9 @@
 }
 
 .container-margin {
-	margin-top: 18rem;
+	margin-top: 15rem;
+	margin-bottom: 15rem;
+	.speaker-deskr {
+		color: rgb(56, 59, 55);
+	}
 }
