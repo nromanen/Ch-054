@@ -3,8 +3,25 @@
   <h1 class="event-title mb-0 pb-0">{{speaker?.fullName}}</h1>
 </div>
 <div class="container container-margin">
-  <p class="font-weight-bold h1 text-center">Work of place: <span class="text-shadow">{{speaker?.placeWork}},</span> Position: <span class="text-shadow">{{speaker?.position}}</span></p>
-  <p class="mt-5 h1 text-justify speaker-deskr">
+  <p class="font-weight-bold text-center size-tittle">Work of place:
+    <span class="text-uppercase">{{speaker?.placeWork}}</span>, Position:
+    <span class="text-uppercase">{{speaker?.position}}</span>
+  </p>
+  <div class="row my-4">
+    <div class="col">
+      <div class="mx-auto w-50 p-3 text-center">
+        <h1 id="speakers" class="bloc-bord d-block mx-auto w-50 py-3 size-tittle">ABOUT</h1>
+      </div>
+    </div>
+  </div>
+  <p class="h3 my-0 text-justify speaker-deskr">
     {{speaker?.description}}
   </p>
+  <div class="row my-4">
+      <div class="col">
+        <div class="mx-auto w-50 p-3 text-center">
+          <h1 id="speakers" class="bloc-bord d-block mx-auto w-50 py-3 size-tittle">CONFERENCE</h1>
+        </div>
+      </div>
+    </div>
 </div>
