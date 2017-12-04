@@ -35,10 +35,10 @@ $text-shadow: 0 -0.0025rem 0 #fff, 0 0.0025rem 0 #2c2c2c, 0 0.065rem 0 #2a2a2a, 
 	}
 	@media #{$media} and (max-width: $little-screen) {
 		@include size(10rem, auto);
-        @include position(relative, auto, 1, -6.2rem);
+		@include position(relative, auto, 1, -6.2rem);
 	}
 	+.event-title {
-        font-size: 7.2vmin;
+		font-size: 7.2vmin;
 		top: 7.5rem;
 		margin-left: 38%;
 		color: rgba(77, 83, 83, 0.6);
@@ -88,9 +88,14 @@ $text-shadow: 0 -0.0025rem 0 #fff, 0 0.0025rem 0 #2c2c2c, 0 0.065rem 0 #2a2a2a, 
 	margin-top: 15rem;
 .size-tittle{
 	font-size: 4vmin;
+	.spekerinform-color{
+		color: rgb(79, 85, 85);
+		text-shadow: 2px 2px 4px rgba(49, 49, 49, .4);;
+	}
 }
 	margin-bottom: 15rem;
 	.speaker-deskr {
 		color: rgb(56, 59, 55);
+		font-size: 1.8rem;
 	}
 }

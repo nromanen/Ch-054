@@ -39,21 +39,45 @@ $little-screen: 25.94rem;
 	}
 	@media #{$media} and (max-width: $small-screen) {
 		@include size(11.25rem, auto);
-		@include position(relative, 2.6rem, 1, -6.48rem);
+		display: block;
+		margin: auto;
+		left: auto;
+		right: auto;
+		text-align: center;	
 	}
 	@media #{$media} and (max-width: $little-screen) {
-		@include size(100px, auto);
-		@include position(relative, 2.6rem, 1, -6.2rem);
+		@include size(9.25rem, auto);
 	}
 	+.event-title {
-		margin-top: -31.25rem;
+		margin-top: -27rem;
+		margin-left: 24rem;
 		position: relative;
-		font-size: 4.49rem;
+		font-size: 7.2vmin;
 		letter-spacing: .1rem;
 		z-index: 40;
 		text-shadow: 0 -0.0625rem 0 #fff, 0 0.0625rem 0 #2c2c2c, 0 0.125rem 0 #2a2a2a, 0 0.1875rem 0 #282828, 0 0.25rem 0 #242424, 0 0.3125rem 0 #222, 0 0.375rem 0 #202020, 0 0.4375rem 0 #1e1e1e, 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.9);
-		@media #{$media} and (max-width: $small-screen) {
-			font-size: 1.6rem;
+		@media #{$media} and (max-width: 106.5rem) {
+			font-size: 6.2vmin;
+			margin-left: 26rem;
+		}
+		@media #{$media} and (max-width: 92.75rem) {
+			margin-left: 28rem;
+		}
+		@media #{$media} and (max-width: 91rem) {
+			font-size: 6.2vmin;
+			margin-left: auto;
+			text-align: center;
+			margin-top: -37rem;
+		}
+		@media #{$media} and (max-width: 40.19rem) {
+			margin-top: -25rem;
+		}
+
+		@media #{$media} and (max-width: 30.63rem) {
+			margin-top: -22rem;
+		}
+		@media #{$media} and (max-width: 25.94rem) {
+			margin-top: -19rem;
 		}
 	}
 }
@@ -68,7 +92,6 @@ $little-screen: 25.94rem;
 .container {
 	.event-description {
 		font-size: 1.8rem;
-		font-family: "Times New Roman", Georgia, Serif;
 		@media #{$media} and (max-width: 26rem) {
 			font-size: 1.1rem;
 		}
@@ -213,7 +236,10 @@ $little-screen: 25.94rem;
 	+ .show {
 		display: block;
 	}
-	+ .schedule-bg {background-image: url("/assets/images/1.png");}
+	+ .schedule-bg {
+		background-image: url("/assets/images/1.png");
+		background-color: rgba(0, 0, 0, 0.6)
+	}
 	+ .location-bg {background-image: url("/assets/images/bg-location.png");}
 }
 

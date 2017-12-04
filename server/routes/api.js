@@ -115,7 +115,7 @@ router.get('/agenda/get/:eventId', (req, res) => {
             FROM public.actions AS a LEFT OUTER 
             JOIN public.reports AS r ON a.id=r.id ) AS res
          
-             WHERE res.event_id=10
+             WHERE res.event_id=$1
     ) AS a_r
     ) AS acts 
     JOIN public.speakers AS s ON acts.speaker_id=s.id
@@ -176,6 +176,17 @@ router.get('/events/get/:eventId', (req, res) => {
         });
 });
 
+router.get('speaker/events/get/:speakerId', (req, res) => {
+    var speakerId = req.params.speakerId;
+    db.one(`SELECT events.id, events.name, events.photo FROM events JOIN actions ON actions.event_id=events.id JOIN reports ON reports.id=actions.id WHERE reports.speaker_id=$1`, [speakerId])
+        .then(function (data) {
+            res.status(200).json(data);
+        })
+        .catch(function (error) {
+            res.status(500).send(error);
+        });
+});
+
 router.post('/events/post', (req, resp, next) => {
     const dataForInsertion = req.body;
     db.query(`INSERT INTO events(name, description, date_from, date_to, location_id, photo) 
@@ -199,3 +210,6 @@ router.post('/events/update', (req, resp, next) => {
 });
 
 module.exports = router;
+
+
+// SELECT events.id, events.name, events.photo FROM events JOIN actions ON actions.event_id=events.id JOIN reports ON reports.id=actions.id WHERE reports.speaker_id=4
