@@ -10,6 +10,10 @@ $color) {
     background: $bg;
 }
 
+@mixin backgroundColor($backgroundColor) {
+    background-color: $backgroundColor
+}
+
 .btn-color{
     @include bgColor($bt-bg,$color-wh);    
     &:hover{

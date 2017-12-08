@@ -1,8 +1,5 @@
 @import '../import_scss/_size';
 @import '../import_scss/_color';
-@mixin backgroundColor($backgroundColor) {
-    background-color: $backgroundColor
-}
 
 .main-container {
     min-height: 50vh;

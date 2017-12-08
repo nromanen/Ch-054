@@ -20,7 +20,7 @@ export class EventService {
   }
 
   getEventsByIdSpeaker(speakerId: number) {
-    return this.http.get('/api/speaker/events/get/' + speakerId)
+    return this.http.get('/api/conference/get/' + speakerId)
       .map(res => res.json());
   }
 

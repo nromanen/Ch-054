@@ -30,7 +30,6 @@
 	</div>
 </div>
 
-
 <div class="container-fluid schedule-bg py-5">
 	<div class="container">
 		<div class="w-100 font-table text-white my-5 embed-responsive text-center mx-auto d-table" *ngFor="let schedule of schedules; let i = index">
@@ -45,10 +44,10 @@
 			</div>
 			<div class="theader text-center font-weight-bold text-center">
 				<div class="cell-div d-table-cell">
-					<p class="align-middle text-size my-2">Time</p>
+					<p class="align-middle text-size my-2 font-weight-bold">Time</p>
 				</div>
 				<div class="cell-div d-table-cell text-center">
-					<p class="text-center align-middle text-size my-2">Event</p>
+					<p class="text-center align-middle font-weight-bold text-size my-2">Event</p>
 				</div>
 			</div>
 			<div class="row-div" *ngFor="let action of schedule">
@@ -59,7 +58,7 @@
 					</p>
 				</div>
 				<div class="cell-div d-table-cell align-middle size-cell">
-					<p class="text-center align-middle text-size text-size my-2">
+					<p class="text-center align-middle text-size my-2">
 						{{action?.name}}
 						<span class="text-center size-report mt-0">{{action?.speaker}}</span>
 					</p>

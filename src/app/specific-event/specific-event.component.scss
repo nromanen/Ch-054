@@ -185,7 +185,6 @@ $little-screen: 25.94rem;
 			}
 			+.theader {
 				display: table-row;
-				font-size: 0.9rem;
 				background-color: rgba(54, 57, 62, 0.5);
 			}
 		}
@@ -238,7 +237,6 @@ $little-screen: 25.94rem;
 	}
 	+ .schedule-bg {
 		background-image: url("/assets/images/1.png");
-		background-color: rgba(0, 0, 0, 0.6)
 	}
 	+ .location-bg {background-image: url("/assets/images/bg-location.png");}
 }
