@@ -17,6 +17,7 @@ import { SpecificEventComponent } from './specific-event/specific-event.componen
 import { FooterComponent } from './footer/footer.component';
 import { AllEventsComponentComponent } from './all-events-component/all-events-component.component';
 import { AppRoutingModule } from './app-routing-module';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { AddEventComponent } from './add-event/add-event.component';
 import { ModalLocationComponent } from './modal-location/modal-location.component';
 import { CropperComponent } from './cropper-event/cropper.component';
@@ -61,7 +62,9 @@ import { SpeakerComponent } from './speaker/speaker.component';
     FormsModule,
     HttpModule,
     Ng2AutoCompleteModule,
-    ButtonModule, EditorModule
+    ButtonModule, 
+    EditorModule,
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [
     LocationService,
