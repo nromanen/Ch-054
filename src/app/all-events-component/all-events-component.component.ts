@@ -12,25 +12,18 @@ import { EventService } from '../services/event/event.service';
 export class AllEventsComponentComponent implements OnInit, AfterViewInit {
   events: Event;
 
-
   constructor(private eventService: EventService, private spinnerService: Ng4LoadingSpinnerService) { }
 
   ngOnInit() {
-    this.spinnerService.show();
+    this.showSnipper();
     this.getAllEvents();
-    console.log(this.events);
   }
   ngAfterViewInit() {
-    setTimeout(function () { this.spinnerService.hide() }.bind(this), 1000);
+    setTimeout(function () { this.spinnerService.hide() }.bind(this), 500);
   }
 
-  showSpinner() {
+  showSnipper(){
     this.spinnerService.show();
-    if (this.events) {
-      console.log(this.events);
-      this.spinnerService.hide();
-    }
-    // setTimeout(function() { this.spinnerService.hide() }.bind(this), 1000);
   }
 
   getAllEvents() {

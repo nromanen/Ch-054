@@ -1,6 +1,7 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Event } from '../module_ts/event';
 import { EventService } from '../services/event/event.service';
 import { EventLocation } from '../module_ts/location';
@@ -16,7 +17,7 @@ import { Speaker } from '../module_ts/speaker';
   templateUrl: './specific-event.component.html',
   styleUrls: ['./specific-event.component.scss']
 })
-export class SpecificEventComponent implements OnInit {
+export class SpecificEventComponent implements OnInit,  AfterViewInit {
   event: Event;
   isShow: boolean = false;
   schedules: Array<Action[]>
@@ -24,12 +25,23 @@ export class SpecificEventComponent implements OnInit {
   id = +this.route.snapshot.paramMap.get('id');
 
 
-  constructor( @Inject(DOCUMENT) private document: Document, private eventService: EventService, private route: ActivatedRoute, private locationService: LocationService, private agendaService: AgendaService, public speakerService: SpeakerService) { }
+  constructor(private spinnerService: Ng4LoadingSpinnerService, @Inject(DOCUMENT) private document: Document, private eventService: EventService, private route: ActivatedRoute, private locationService: LocationService, private agendaService: AgendaService, public speakerService: SpeakerService) { }
   ngOnInit() {
+    this.showSnipper()
     this.getEvent();
     this.getAgenda();
     this.getSpeakers();
   }
+
+
+  ngAfterViewInit() {
+    setTimeout(function () { this.spinnerService.hide() }.bind(this), 500);
+  }
+
+  showSnipper(){
+    this.spinnerService.show();
+  }
+  
 
   getEvent() {
     this.eventService.getEvent(this.id).subscribe(currentEvent => {

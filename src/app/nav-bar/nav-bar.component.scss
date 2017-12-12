@@ -14,13 +14,7 @@ $url-img: url('/assets/images/imgNav.jpg');
         height: $height-logotip;
         width: $width-logotip;
     }
-    .nav-link {
-        color: $color-wh;
-        &:hover {
-            color: $color-wh;
-            text-shadow: 0.0625rem 0.0625rem 0.125rem $color-wh;
-        }
-    }
+
     .input {
         @include bgColor($color-grey,
         $color-wh);
@@ -47,3 +41,18 @@ $url-img: url('/assets/images/imgNav.jpg');
         margin-top: 3rem;
     }
 }
+
+a {
+    color: $color-wh;
+    font-weight: 500;
+    &:hover {
+        color: rgb(250, 215, 160);
+        text-decoration: none;
+    }
+}
+.active {
+    color:red;
+    font-weight: 500; 
+}
+
+

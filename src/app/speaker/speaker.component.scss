@@ -6,7 +6,7 @@ $text-shadow: 0 -0.0025rem 0 #fff, 0 0.0025rem 0 #2c2c2c, 0 0.065rem 0 #2a2a2a, 
 
 
 .imgEvent {
-	@include size(25rem, auto);
+	@include size(20rem, auto);
 	@include position(relative, 2.5rem, 1, -11.88rem);
 	box-shadow: 0 0 0.4375rem 0.25rem rgba(0, 0, 0, 0.5);
 	@media #{$media} and (max-width: $larg-screen) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RouterLinkActive, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',

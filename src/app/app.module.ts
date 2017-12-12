@@ -32,6 +32,7 @@ import { EventService } from './services/event/event.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ModalViewLocationComponent } from './modal-view-location/modal-view-location.component';
 import { SpeakerComponent } from './speaker/speaker.component';
+import { OpenEventsComponent } from './open-events/open-events.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { SpeakerComponent } from './speaker/speaker.component';
     JoinPipe,
     ModalViewSpeakerComponent,
     ModalViewLocationComponent,
-    SpeakerComponent
+    SpeakerComponent,
+    OpenEventsComponent
   ],
   imports: [
     BrowserModule,
