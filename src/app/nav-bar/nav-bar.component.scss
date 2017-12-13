@@ -46,13 +46,19 @@ a {
     color: $color-wh;
     font-weight: 500;
     &:hover {
-        color: rgb(250, 215, 160);
+        color: rgb(208, 211, 212);
+        text-shadow: 0.0150rem 0.0150rem 0.0625rem $color-wh;
         text-decoration: none;
     }
 }
 .active {
-    color:red;
-    font-weight: 500; 
+    color: rgb(250, 51, 51);
+    font-weight: 500;
+    &:hover {
+        color:rgb(198, 43, 43);
+        text-shadow: 0.0150rem 0.0150rem 0.0625rem rgb(250, 51, 51);
+        text-decoration: none;
+    } 
 }
 
 
