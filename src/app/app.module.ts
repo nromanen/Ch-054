@@ -33,7 +33,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ModalViewLocationComponent } from './modal-view-location/modal-view-location.component';
 import { SpeakerComponent } from './speaker/speaker.component';
 import { OpenEventsComponent } from './open-events/open-events.component';
-import {CarouselModule} from 'primeng/primeng';
 
 
 @NgModule({
@@ -67,8 +66,7 @@ import {CarouselModule} from 'primeng/primeng';
     Ng2AutoCompleteModule,
     ButtonModule, 
     EditorModule,
-    Ng4LoadingSpinnerModule.forRoot(),
-    CarouselModule
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [
     LocationService,

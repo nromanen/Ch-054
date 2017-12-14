@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Event } from '../module_ts/event';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { EventService } from '../services/event/event.service';
-import {CarouselModule} from 'primeng/primeng';
 @Component({
   selector: 'app-open-events',
   templateUrl: './open-events.component.html',
