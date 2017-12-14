@@ -3,6 +3,13 @@ $width-logotip: 3.4rem;
 $full-width:100%;
 $auto-size: auto;
 
+
+.first-letter{
+    &:first-letter{
+        text-transform: uppercase;
+    }
+}
+
 .modal-main {
 	background-image: url('/assets/images/modal-bg.png');
 	background-size: cover;

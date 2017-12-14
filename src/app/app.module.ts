@@ -11,6 +11,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpModule } from '@angular/http';
 import { ImageCropperComponent } from 'ng2-img-cropper';
 import { JoinPipe } from './pipes/join.pipe';
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SpecificEventComponent } from './specific-event/specific-event.component';
@@ -66,7 +68,8 @@ import { OpenEventsComponent } from './open-events/open-events.component';
     Ng2AutoCompleteModule,
     ButtonModule, 
     EditorModule,
-    Ng4LoadingSpinnerModule.forRoot()
+    Ng4LoadingSpinnerModule.forRoot(),
+    NgxCarouselModule
   ],
   providers: [
     LocationService,
