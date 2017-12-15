@@ -1,7 +1,7 @@
-<div class="main-container">
-    <div class="container margin-top">
-        <div class="row align-items-center event-row">
-            <ngx-carousel [inputs]="carouselTile">
+<div class="main-container mt-4">
+    <div class="container">
+        <div class="row event-row">
+            <ngx-carousel [inputs]="carouselTile" class="margin-top">
                 <ngx-item class="album text-muted" *ngFor="let item of events" NgxCarouselItem>
                     <div class="event">
                         <a [routerLink]="['/event', item.id]">
@@ -24,6 +24,5 @@
                 <button NgxCarouselNext class='rightRs' (click)="nextEvent(events)" [disabled]="eventEnd">&gt;</button>
             </ngx-carousel>
         </div>
-
     </div>
 </div>

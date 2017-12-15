@@ -4,7 +4,6 @@ import { Event } from '../module_ts/event';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { NgxCarousel } from 'ngx-carousel';
 import { EventService } from '../services/event/event.service';
-import { Carousel3d, Slide } from 'vue-carousel-3d';
 @Component({
   selector: 'app-open-events',
   templateUrl: './open-events.component.html',
@@ -17,11 +16,6 @@ export class OpenEventsComponent implements OnInit {
   eventEnd: boolean = false;
   clickEvents: number = 0;
   carouselTile: NgxCarousel;
-
-  components: {
-    Carousel3d,
-    Slide
-  }
   
     constructor(private eventService: EventService, private spinnerService: Ng4LoadingSpinnerService) { }
   
@@ -74,7 +68,6 @@ export class OpenEventsComponent implements OnInit {
             this.events.push(event);
           }
         });
-        
       });
     }
 
