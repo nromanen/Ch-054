@@ -7,25 +7,26 @@
             <div class="row event-row px-5 mx-5">
                 <ngx-carousel [inputs]="carouselTile">
                     <ngx-item class="album text-muted" *ngFor="let item of events" NgxCarouselItem>
-                        <div class="event">
+                        <div class="event" [class.closeEvent]="item?.style">
                             <a [routerLink]="['/event', item.id]">
                                 <div class="front">
-                                    <img class="card-image event-image" src={{item.photo}} [class.closeFont]="item.style">
+                                    <img class="card-image event-image" src={{item.photo}}>
                                     <div class="card-img-overlay text-white">
                                         <h3 class="card-title align-top first-letter">{{item.name}}</h3>
                                         <div class="align-bottom pt-5">
                                             <p>{{item.date_from | date:"dd.MM.yyyy"}}
                                                 <span *ngIf="item.date_to"> - {{item.date_to | date:"dd.MM.yyyy"}}</span>
                                             </p>
-                                            <p>{{item.country}}, {{item.city}}, {{item.address}}</p>
+                                            <p>{{item.country}}, {{item.city}}, {{item.address}} {{item.style}}</p>
                                         </div>
                                     </div>
                                 </div>
                             </a>
+                            <div class="tittle-close p-2 text-center" *ngIf="item?.style">CLOSE</div>
                         </div>
                     </ngx-item>
-                    <button NgxCarouselPrev class='leftRs' (click)="previousEvent(events)" [disabled]="eventStart">&lt;</button>
-                    <button NgxCarouselNext class='rightRs' (click)="nextEvent(events)" [disabled]="eventEnd">&gt;</button>
+                    <button NgxCarouselPrev class='leftRs' (click)="previousEvent(events)" [class.hideButton]="eventStart" [disabled]="eventStart">&lt;</button>
+                    <button NgxCarouselNext class='rightRs' (click)="nextEvent(events)" [class.hideButton]="eventEnd" [disabled]="eventEnd">&gt;</button>
                 </ngx-carousel>
             </div>
         </div>

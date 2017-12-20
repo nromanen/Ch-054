@@ -23,7 +23,7 @@ export class AllEventsComponentComponent implements OnInit, AfterViewInit {
     this.showSnipper();
     this.getAllEvents();
     this.carouselTile = {
-      grid: {xs: 1, sm: 1, md: 3, lg: 3, all: 0},
+      grid: { xs: 1, sm: 2, md: 3, lg: 3, all: 0 },
       slide: 1,
       speed: 300,
       animation: 'lazy',
@@ -36,37 +36,45 @@ export class AllEventsComponentComponent implements OnInit, AfterViewInit {
     }
     this.showSnipper();
     this.getAllEvents();
+
+    const one = ['a', 'b', 'c']
+    const two = ['d', 'e', 'f']
+    const three = ['g', 'h', 'i'];
+    
   }
   ngAfterViewInit() {
     setTimeout(function () { this.spinnerService.hide() }.bind(this), 500);
   }
 
-  previousEvent(events){
+  previousEvent(events) {
     --this.clickEvents;
-    console.log(events.length-1);
-    if(this.clickEvents >= 0) this.eventEnd = false;
-    if(this.clickEvents == 0) this.eventStart = true;
+    if (this.clickEvents >= 0) this.eventEnd = false;
+    if (this.clickEvents == 0) this.eventStart = true;
   }
 
-  nextEvent(events){
+  nextEvent(events) {
     this.eventStart = false;
     ++this.clickEvents;
-    if(this.clickEvents == events.length-2) this.eventEnd = true;
+    if (this.clickEvents == events.length - 3) this.eventEnd = true;
   }
 
-  showSnipper(){
+  showSnipper() {
     this.spinnerService.show();
   }
 
   getAllEvents() {
-    let today = new Date();      
+    let today = new Date();
     this.eventService.getAllEvents().subscribe(events => {
       events.forEach(event => {
-        let currentDateFrom = new Date(event.date_from);
-        let currentDateTo = new Date(event.date_to);
-        if(currentDateFrom<today || currentDateTo<today){
-          events.style='true';
+        let eventDateFrom = new Date(event.date_from);
+        let eventDateTo = (event.date_to) ? new Date(event.date_to) : false;
+        event.date_from = eventDateFrom;
+        if (eventDateTo) {
+          event.style = (eventDateTo < today) ? true : false;
+        } else {
+          event.style = (eventDateFrom < today) ? true : false;
         }
+
       });
       this.events = events;
     });

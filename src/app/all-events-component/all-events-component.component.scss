@@ -74,4 +74,26 @@ button:focus {
     margin-top: 6.75rem;
 }
 
+.closeEvent{
+    .event-image {
+        opacity: 0.4;
+        filter: grayscale(100%);
+    }
+}
 
+.hideButton{
+    opacity: 0;
+    cursor: default;
+}
+
+.tittle-close{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
+    background-color: red;
+    color: white;
+    width:  6.25rem;
+    height: auto;
+}
