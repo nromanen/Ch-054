@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="title-section">
+        <h1 class="text-center">All events</h1>
+    </div>
+</div>
+
+<div>
+    <div class="col-lg-1 col-md-1 season text-muted">
+        2017
+    </div>
+    <div class="container">
+        <div class="row event-row">
+            <div class="album text-muted col-sm-12 col-md-12 col-lg-6 mt-6" *ngFor="let item of items">
+                <div class="event">
+                    <a [routerLink]="['/event', item.key]">
+                        <div class="front">
+                            <img class="card-image event-image" src={{item.confPhoto}}>
+
+                            <div class="card-img-overlay event-descr">
+                                <h3 class="card-title">{{item.confName}}</h3>
+                                <div class="align-bottom mt-5 pt-5">
+                                    <p>{{item.confDateTo | date:"dd.MM.yyyy"}}</p>
+                                    <p>{{item.confLocationEvent}}</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

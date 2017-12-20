@@ -1,0 +1,15 @@
+
+@import '../import_scss/_size';
+@import '../import_scss/_color';
+
+.modal-content {
+    @include bgColor(rgb(253, 254, 254),black); 
+}
+.input-bg {
+    @include bgColor(rgba(251, 252, 252, .9),
+    black);
+    &:focus{
+        @include bgColor(rgb(251, 252, 252),
+        black);
+    }  
+}

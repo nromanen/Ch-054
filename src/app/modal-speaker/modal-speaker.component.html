@@ -1,0 +1,68 @@
+<ng-template #content let-c="close" let-d="dismiss">
+
+  <div class="modal-main">
+    <div class="modal-header text-center">
+      <h4 class="modal-title mx-auto text-center font-weight-bold">Speaker</h4>
+    </div>
+    <div class="modal-body">
+      <div class="mt-2 text-center">
+        <label for="cropper" class="font-weight-bold">Photo of event</label>
+        <div>
+          <app-cropper [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth" [width]="width"
+            [height]="height" (onChanged)="onChanged($event)"></app-cropper>
+        </div>
+      </div>
+
+      <form [formGroup]="modalForm">
+        <div class="row">
+          <div class="col-md">
+            <div class="form-group">
+              <div class="mb-2 mr-sm-2 mb-sm-0">
+                <input type="text" formControlName="name" class="form-control input-bg font-weight-bold" id="name" placeholder="Full name">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md">
+            <div class="form-group">
+              <div class="mb-2 mr-sm-2 mb-sm-0">
+                <input type="text" formControlName="placeWork" class="form-control input-bg font-weight-bold" id="placeWork" placeholder="Place of work">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md">
+            <div class="form-group">
+              <div class="mb-2 mr-sm-2 mb-sm-0">
+                <input type="text" formControlName="position" class="form-control input-bg font-weight-bold" id="position" placeholder="Position">
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-lg-12">
+            <label for="descr" class="font-weight-bold">
+              About speaker</label>
+            <textarea formControlName="descr" class="form-control input-bg font-weight-bold" id="decr" cols="25" rows="11" placeholder="Description"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+        <div class="modal-footer text-center">
+            <button type="submit" class="btn my-1 btn-color sizeButton" (click)="save(modalForm.value); modalForm.value=''; modalForm.reset();"
+             [disabled]="modalForm.invalid || isPhotoSpeaker" (click)="c('Close click')">
+              <i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+            <button type="button" class="btn my-1 btn-color sizeButton" (click)="close()" (click)="c('Close click')">
+              <i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
+          </div>
+    </div>
+
+</ng-template>
+
+<button (click)="open(content)" style="width: 2.6rem; height: 38px; border-radius: 0 5px 5px 0 ;" ngbPopover="Add speaker"
+  triggers="mouseenter:mouseleave">
+  <i class="fa fa-user-plus" aria-hidden="true"></i>
+</button>

@@ -1,0 +1,67 @@
+@mixin size($height, $width) {
+    height: $height;
+    width: $width;
+}
+
+@mixin marginsTitle() {
+    margin: 1em 1em;
+}
+
+@mixin color($color) {
+    color: $color;
+}
+
+@mixin backgroundColor($backgroundColor) {
+    background-color: $backgroundColor
+}
+
+@mixin transition() {
+    transition: opacity 1s;
+}
+
+.title-section {
+    @include marginsTitle();
+}
+
+.event-row {
+    margin-bottom: 2em;
+    .event {
+        float: left;
+        margin: 10px;
+        perspective: 37.5rem;
+        color: white;
+        @include backgroundColor(#36393e);
+        .event-image {
+            opacity: 0.5;
+            @include transition();
+            @include size(100%, 100%);
+        }
+        .event-descr {
+            color: white;
+        }
+        &:hover {
+            .event-image {
+                opacity: 0.2;
+            }
+        }
+    }
+}
+
+.season {
+    transform: rotate(90deg);
+    font-size: 4rem;
+    position: absolute;
+    top: 100vh;
+}
+
+@media screen and (max-width: 1599px) {
+    .season {
+        top: 140vh;
+    }
+}
+
+@media screen and (max-width: 809px) {
+    .season {
+        display: none;
+    }
+}

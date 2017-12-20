@@ -1,0 +1,68 @@
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-main" [hidden]="hideModal">
+		<div class="modal-header text-center">
+			<h4 class="modal-title mx-auto text-center font-weight-bold">Location</h4>
+		</div>
+
+		<div class="modal-body">
+			<div class="row justify-content-center align-items-center">
+				<div class="form-group text-center">
+					<label for="cropper" class="font-weight-bold mt-2">Photos of location</label>
+					<div class="form-group mx-auto">
+						<div class="row">
+							<div class="col-md-6">
+								<app-cropper-location [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth" [width]="width"
+								 [height]="height" [tittlePhoto]="tittlePhotoOne" (onChanged)="onChanged($event, 'one')"></app-cropper-location>
+							</div>
+							<div class="col-md-6">
+								<app-cropper-location [cropperSettingsHeight]="cropperSettingsHeight" [cropperSettingsWidth]="cropperSettingsWidth" [width]="width"
+								 [height]="height" [tittlePhoto]="tittlePhotoTwo" (onChanged)="onChanged($event, 'two')"></app-cropper-location>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<form [formGroup]="modalFormLocat">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<div class="mb-2 mr-sm-2 mb-sm-0">
+								<input type="text" formControlName="country" class="form-control input-bg" id="country" placeholder="Country" required>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-md-4">
+						<div class="form-group">
+							<div class="mb-2 mr-sm-2 mb-sm-0">
+								<input type="text" formControlName="city" class="form-control input-bg" id="city" placeholder="City" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="form-group">
+							<div class="mb-2 mr-sm-2 mb-sm-0">
+								<input type="text" formControlName="address" class="form-control input-bg" id="address" placeholder="Address" required>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer text-center">
+			<button type="submit" class="btn my-1 btn-color sizeButton" (click)="save(modalFormLocat.value); modalFormLocat.value=''; modalFormLocat.reset();"
+			 [disabled]="modalFormLocat.invalid || isNullPhotos" (click)="c('Close click')">
+				<i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+			<button type="button" class="btn my-1 btn-color sizeButton" (click)="c('Close click')">
+				<i class="fa fa-window-close-o" aria-hidden="true"></i> Close</button>
+		</div>
+
+	</div>
+</ng-template>
+
+<button (click)="open(content)" class="btn-cursor btn-icon" ngbPopover="Add location" triggers="mouseenter:mouseleave">
+	<i class="fa fa-plus-circle"></i>
+</button>

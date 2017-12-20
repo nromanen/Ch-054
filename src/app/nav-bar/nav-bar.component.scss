@@ -1,0 +1,49 @@
+@import '../import_scss/_size';
+@import '../import_scss/_color';
+
+$block-line: inline-block;
+$color-grey-icon: rgba(134, 136, 138, .5);
+$url-img: url('/assets/images/imgNav.jpg');
+
+.container-fluid {
+    width: $full-width;
+    .navbar {
+        background-color: $colorBg;
+    }
+    .img-brand {
+        height: $height-logotip;
+        width: $width-logotip;
+    }
+    .nav-link {
+        color: $color-wh;
+        &:hover {
+            color: $color-wh;
+            text-shadow: 0.0625rem 0.0625rem 0.125rem $color-wh;
+        }
+    }
+    .input {
+        @include bgColor($color-grey,
+        $color-wh);
+        +.button-search {
+            @include bgColor($color-grey-icon,
+            $color-wh);
+        }
+    }
+    .input[type="text"]:focus .uneditable-input:focus {
+        border-color: rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0.0625rem rgba(204, 208, 216, 0.4) inset, 0 0 0 rgba(0, 0, 0, 0);
+        outline: 0 none;
+    }
+    .button-search:focus .uneditable-button:focus {
+        border-color: rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0.0625rem rgba(204, 208, 216, 0.4) inset, 0 0 0 rgba(0, 0, 0, 0);
+        outline: 0 none;
+    }
+    +.backg-nav {
+        @include size(37.5rem,
+        $full-width);
+        background-size: cover;
+        background-image: $url-img;
+        margin-top: 3rem;
+    }
+}

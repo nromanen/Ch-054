@@ -1,0 +1,36 @@
+$height-logotip: 3.4rem;
+$width-logotip: 3.4rem;
+$full-width:100%;
+$auto-size: auto;
+
+.modal-main {
+	background-image: url('/assets/images/modal-bg.png');
+	background-size: cover;
+	font-family: 'Times New Roman', Times, serif;
+}
+
+@mixin size($height, $width) {
+	height: $height;
+	width: $width;
+	}
+	
+.size-button {
+	height: 3rem;
+	width: 8.063rem;
+	cursor: pointer;
+}
+
+.btn-icon {
+	width: 2.6rem; 
+	height: 38px; 
+	border-radius: 0 5px 5px 0;
+}
+
+.btn-cursor{
+	cursor: pointer;
+}
+
+.calendar-width {
+    width: 2.6rem
+}
+

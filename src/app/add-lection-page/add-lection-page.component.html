@@ -1,0 +1,70 @@
+<div class="container justify-content-center all-events-body">
+
+
+    <div class="row">
+        <div class="stepwizard col-md-offset-3 my-4 w-100">
+            <div class="stepwizard-row setup-panel">
+                <div class="stepwizard-step">
+                    <a type="button" (click)="goBack()" class="btn btn-default btn-circle text-center w-100" disabled="disabled">Step 1</a>
+                    <!-- <button (click)="goBack()" class="btn btn-default btn-circle text-center" disabled="disabled">1</button> -->
+                </div>
+                <div class="stepwizard-step">
+                    <a type="button" class="btn btn-primary btn-circle text-center w-100">Step 2</a>
+                    <!-- <button type="button" class="btn btn-primary btn-circle text-center">2</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-lg-2 col-md-1 col-sm-1"></div>
+        <form [formGroup]="addLectionForm" class="form-class lection-add-form col-sm-9 col-md-11 col-lg-8">
+            <h2 class="main-title">Fill the shedule of event</h2>
+            <div class="form-group name-input-group">
+                <label for="lection-name">Lection name</label>
+                <input type="text" formControlName="name" class="form-control" id="event-name" aria-describedby="lectionHelp" placeholder="Enter name the lection">
+            </div>
+            <div class="lection-speaker">
+                <label for="lection-speaker-dropdown">Select speaker for this lection</label>
+                <select formControlName="speaker" id="lection-speaker-dropdown" class="selectpicker">
+                <option>Bob Dylan</option>
+                <option>Salvador Dali</option>
+                <option>Jimmi Hendrix</option>
+              </select>
+            </div>
+            <div class="lection-time">
+                <label for="lection-time-input">Set time of lection</label>
+                <ngb-timepicker formControlName="time" id="lection-time-input"></ngb-timepicker>
+                <hr>
+            </div>
+            <div class="lection-descr">
+                <label for="descriptionTextarea">Description of lection</label>
+                <textarea formControlName="descr" class="form-control" id="descriptionTextarea" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+
+                <label class="custom-file" id="customCss">
+                            <input type="file" (change)="change($event)" name="photo" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                            <span class="custom-file-control form-control-file"></span>
+                    </label>
+            </div>
+
+
+            <div class="col-2 button-overlay">
+                <button type="submit" class="btn btn-secondary submit-btn btn-block" (click)="save(addLectionForm); addLectionForm.reset();">Save</button>
+            </div>
+        </form>
+    </div>
+    <div *ngFor="let lection of lections">
+        <div>{{lection.lectionName}}</div>
+        <div>{{lection.lectionDescr}}</div>
+        <div>{{lection.lectionTime}}</div>
+        <div>{{lection.lectionSpeaker}}</div>
+        <div>{{lection.speakerPhoto}}</div>
+    </div>
+    <button class="btn btn-success submit-btn" (click)="submit(this.lections)">Add</button>
+    <button class="btn btn-danger submit-btn" (click)="goBack()">Back</button>
+</div>

@@ -1,0 +1,19 @@
+@import '../import_scss/_size';
+@import '../import_scss/_color';
+
+$url-img: url('/assets/images/imgFooter.jpeg');
+
+.img-footer {
+    background-image: $url-img;
+    @include size(31.25rem, 100%);
+    background-size: cover;
+
+    .bg-footer {
+        background-color: $colorBg;
+
+        .img-brand{
+            @include size($height-logotip, $width-logotip);
+            margin-left: 3.125rem;
+        }
+    }
+}

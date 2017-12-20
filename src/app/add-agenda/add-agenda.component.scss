@@ -1,0 +1,90 @@
+@import '../import_scss/_color';
+@import '../add-event/add-event.component.scss';
+
+$box-shadow: 0 0 0.625rem rgba(0,0,0,0.5);
+$input-width: 2.6rem;
+$padding-x: 2.813rem;
+$padding-x-min: 0.3125rem;
+$colorB: rgb(96, 10, 186);
+
+@mixin colorAlph ($color, $opacity){
+    background: rgba($color, $opacity);
+}
+
+.bg-image{
+    min-height: 42.25rem;
+    .action-marin{
+        margin-bottom: 8.4rem;
+    }
+    .speaker-autocomplete {
+        z-index:20;
+        color: black;
+    }
+    .selectsSchedule { 
+        color: white; 
+        background: linear-gradient(to top, rgb(185, 193, 203) 0%, rgb(141, 145, 148) 36%, rgb(83, 87, 93) 100%); 
+        box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+        padding: 5px 20px; 
+        color: #fff; 
+        border: 1px solid #333; 
+        &:hover {
+            background: linear-gradient(to top, rgb(173, 181, 191) 0%,rgb(129, 133, 136) 36%, rgb(71, 75, 81) 100%); 
+        } 
+        .optionSelect {
+            color: black;
+            background-color: rgb(173, 181, 191);
+        }
+    }
+    .input-group-addon {
+        width: $input-width;
+    }
+    .font-table {
+		font-size: 1rem;
+		background-color: rgba(54, 57, 62, .61);
+		box-shadow: 0 0 0.9375rem rgba(0, 0, 0, 0.6);
+		.table-bgraund {
+			display: table-caption;
+			background-color: rgba(54, 57, 62, 0.9);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			.calendar-text {
+				font-size: 0.9rem;
+			}
+			+.theader {
+				display: table-row;
+				font-size: 0.9rem;
+				background-color: rgba(54, 57, 62, 0.5);
+			}
+		}
+		.cell-div {
+			border-bottom: solid;
+			border-width: thin;
+		}
+		.row-div {
+            display: table-row;
+            .size-clock{
+                font-size: 90%;
+            }
+            .size-cell {
+                width: 50%;
+            }
+		}
+		.size-report {
+            font-size: 70%;
+            display: block;
+		}
+    } 
+}
+
+.empty-space {
+    min-height: 9rem;
+}
+
+  // TODO backgraun for timepicker
+    ngb-timepicker /deep/ input {
+        @include bgColor($color-grey,
+        $color-wh);
+        &:focus {
+            @include bgColor(rgb(117, 115, 115),
+            $color-wh);
+        }
+    }
