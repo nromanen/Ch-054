@@ -17,6 +17,14 @@
                 transition: opacity 1s;
                 @include size(100%, 100%);
             }
+            .front{
+                .event-tittle{
+                    font-size: 2.224vmin;
+                }
+                .event-date{
+                    font-size: 1.942vmin;
+                }
+            }
             &:hover {
                 .event-image {
                     opacity: 0.2;
@@ -38,11 +46,8 @@
 }
 
 .period {
-    transform: rotate(90deg);
-    font-size: 5.39vmin;
-    position: relative;
-    left: -5rem;
-
+background-color: #000;
+min-width: 100%;
 }
 
 .leftRs {
@@ -58,6 +63,10 @@
     cursor: pointer;
     &:focus {
         outline: none;
+    }
+    @media screen and (max-width: 661px) {
+        width: 1.875rem;
+        height: 1.875rem;
     }
 }
 
@@ -113,6 +122,13 @@
     width:  6.25rem;
     height: auto;
     z-index: 11100;
+    @media screen and (max-width: 762px) {
+        width: 5.20rem;
+    }
+    @media screen and (max-width: 616px) {
+        width: 3.60rem;
+        top: -16px;
+    }
 }
 
 .size{
