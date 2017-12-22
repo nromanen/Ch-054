@@ -1,6 +1,6 @@
 import { Component, NgModule, ViewChild, Input, OnChanges, NgZone, EventEmitter, Output, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule } from '@angular/platform-browser';
 import { ImageCropperComponent, CropperSettings, Bounds, ImageCropper } from 'ng2-img-cropper';
 
 @Component({
