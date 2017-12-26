@@ -5,6 +5,51 @@
     min-height: 50vh;
     font-size: 2vmin;
     .event-row {
+        .leftRs {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            width: 3.125rem;
+            height: 3.125rem;
+            box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
+            border-radius: 999px;
+            left: -3.125rem;
+            cursor: pointer;
+            &:focus {
+                outline: none;
+            }
+            @media screen and (max-width: 661px) {
+                width: 1.875rem;
+                height: 1.875rem;
+            }
+        
+            +.rightRs {
+                position: absolute;
+                margin: auto;
+                top: 0;
+                bottom: 0;
+                width: 3.125rem;
+                height: 3.125rem;
+                box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
+                border-radius: 999px;
+                right: -3.125rem;
+                cursor: pointer;
+                &:focus {
+                    outline: none;
+                }
+                @media screen and (max-width: 661px) {
+                    width: 1.875rem;
+                    height: 1.875rem;
+                }
+            }
+        }
+        .margin-carousel{
+            @media screen and (max-width: 28.69rem) {
+                margin: 0.375rem 0;
+                
+            }
+        }
         .event {
             float: left;
             margin: 0.625rem;
@@ -20,9 +65,53 @@
             .front{
                 .event-tittle{
                     font-size: 2.224vmin;
+                    @media screen and (max-width:  47.94rem) {
+                        font-size: 3.224vmin;
+                    }
                 }
                 .event-date{
                     font-size: 1.942vmin;
+                    @media screen and (max-width:  89.81rem) {
+                        padding-top: 2.8rem!important;
+                    }
+                    @media screen and (max-width: 84.94rem) {
+                        padding-top: 2rem!important;
+                    }
+                    @media screen and (max-width: 76.56rem) {
+                        padding-top: 1.8rem!important;
+                    }
+                    @media screen and (max-width:  74.94rem) {
+                        padding-top: 4.5rem!important;
+                    }
+                    @media screen and (max-width:  65.63rem) {
+                        padding-top: 3rem!important;
+                    }
+                    @media screen and (max-width:  57.5rem) {
+                        padding-top: 2rem!important;
+                    }
+                    @media screen and (max-width:  52.5rem) {
+                        padding-top: 1rem!important;
+                    }
+                    @media screen and (max-width:  47.94rem) {
+                        font-size: 2.942vmin;
+                        padding-top: 5rem!important;
+                    }
+                    @media screen and (max-width:  41.44rem) {
+                        padding-top: 2rem!important;
+                        font-size: 2.2vmin;
+                        .padding-info{
+                            padding-top: 4px;
+                            padding-bottom: 4px;
+                            margin-top: 0px;
+                            margin-bottom: 0px;
+                        }
+                    }
+                    @media screen and (max-width:  27.94rem) {
+                        padding-top: 0.9rem!important;
+                    }
+                    @media screen and (max-width:  20.94rem) {
+                        padding-top: 0.2rem!important;
+                    }
                 }
             }
             &:hover {
@@ -50,49 +139,7 @@ background-color: #000;
 min-width: 100%;
 }
 
-.leftRs {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    width: 3.125rem;
-    height: 3.125rem;
-    box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
-    border-radius: 999px;
-    left: -3.125rem;
-    cursor: pointer;
-    &:focus {
-        outline: none;
-    }
-    @media screen and (max-width: 661px) {
-        width: 1.875rem;
-        height: 1.875rem;
-    }
-}
 
-.rightRs {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    width: 3.125rem;
-    height: 3.125rem;
-    box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
-    border-radius: 999px;
-    right: -3.125rem;
-    cursor: pointer;
-    &:focus {
-        outline: none;
-    }
-    @media screen and (max-width: 661px) {
-        width: 1.875rem;
-        height: 1.875rem;
-    }
-}
-
-.margin-top{
-    margin-top: 6.75rem;
-}
 
 .closeEvent{
     .event-image {

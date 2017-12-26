@@ -1,11 +1,11 @@
 <div class="main-container">
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
 
-        <div class="row event-row m-5" (window:resize)="onResize($event)" *ngFor="let event of events">
+        <div class="row event-row mx-5" (window:resize)="onResize($event)" *ngFor="let event of events">
             <div class="text-white py-3 text-center period">{{event[0].year}}</div>
-            <ngx-carousel [inputs]="carouselTile" [class.size]="event.length==1" class="d-block">
-                <ngx-item class="album text-muted mt-2" *ngFor="let item of event" NgxCarouselItem>
-                    <div class="event mt-5" [class.sizeEvent]="event.length==1" [class.closeEvent]="item?.style">
+            <ngx-carousel [inputs]="carouselTile" [class.size]="event.length==1" class="d-block my-2 margin-carousel">
+                <ngx-item class="album text-muted" *ngFor="let item of event" NgxCarouselItem>
+                    <div class="event " [class.closeEvent]="item?.style">
                         <div class="tittle-close p-2 text-center" *ngIf="item?.style">CLOSE</div>
                         <a [routerLink]="['/event', item.id]">
                             <div class="front">
@@ -13,10 +13,10 @@
                                 <div class="card-img-overlay text-white">
                                     <h3 class="event-tittle align-top font-weight-bold first-letter">{{item.name}}</h3>
                                     <div class="align-bottom event-date pt-5">
-                                        <p>{{item.date_from | date:"dd.MM.yyyy"}}
+                                        <p class="padding-info">{{item.date_from | date:"dd.MM.yyyy"}}
                                             <span *ngIf="item.date_to"> - {{item.date_to | date:"dd.MM.yyyy"}}</span>
                                         </p>
-                                        <p>{{item.country}}, {{item.city}}, {{item.address}}</p>
+                                        <p class="padding-info">{{item.country}}, {{item.city}}, {{item.address}}</p>
                                     </div>
                                 </div>
                             </div>
